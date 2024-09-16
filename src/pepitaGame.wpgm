@@ -13,7 +13,11 @@ program pepitaGame {
 	game.addVisual(silvestre)
 	game.addVisual(nido)
 	game.addVisual(pepita)
+	game.addVisual(listaDeObjetos)
 	//game.showAttributes(pepita) //Debug  //no sé bien para qué sirve, pero salía en el ejemplo de .wpgm
+	
+
+	//MOVIMIENTO
 
 	//keyboard.w().whilePressRepeat({pepita.mover(arriba)},200) aparentemente
 	//no funciona. Asumo que no lo migraron desde la vieja versión de wollok.
@@ -59,6 +63,10 @@ program pepitaGame {
 			pepita.isMoving(false) 
 		} 
 	})
+
+	//ACCIONES
+
+	keyboard.k().onPressDo({pepita.atacar()}) //pepita ataca con su primer arma de la bolsa, que vendría a ser la actual
 	
 	game.start()
 }

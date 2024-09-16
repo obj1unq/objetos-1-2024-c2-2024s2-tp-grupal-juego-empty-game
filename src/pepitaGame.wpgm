@@ -1,0 +1,64 @@
+import wollok.game.*
+import pepita.*
+import posiciones.*
+import extras.*
+
+program pepitaGame {
+	game.title("Pepita Strikes Back") 	//Valor por defecto "Wollok Game"
+	game.height(10) 		//valor por defecto 5
+	game.width(10) 			//valor por defecto 5
+	game.cellSize(50) 		//valor por defecto 50 (pero es preferible 64)
+	//search assets in assets folder, for example, for the background
+	game.boardGround("fondo2.jpg")
+	game.addVisual(silvestre)
+	game.addVisual(nido)
+	game.addVisual(pepita)
+	//game.showAttributes(pepita) //Debug  //no sé bien para qué sirve, pero salía en el ejemplo de .wpgm
+
+	//keyboard.w().whilePressRepeat({pepita.mover(arriba)},200) aparentemente
+	//no funciona. Asumo que no lo migraron desde la vieja versión de wollok.
+	//keyboard.w().whenKeyPressedDo({pepita.mover(arriba)}) esto es un
+	//renombre de onPressDo()
+	//keyboard.w().onPressDo({pepita.mover(arriba)})
+	//keyboard.d().onPressDo({pepita.mover(derecha)})
+	//keyboard.s().onPressDo({pepita.mover(abajo)})
+	//keyboard.a().onPressDo({pepita.mover(izquierda)})
+	keyboard.w().onPressDo({
+		if(!pepita.isMoving()) { //si pepita está quieta
+			game.onTick(500, "pepitaMoving", {pepita.mover(arriba)})
+			pepita.isMoving(true)
+		} else { //si pepita se está moviendo
+			game.removeTickEvent("pepitaMoving")
+			pepita.isMoving(false)
+		} 
+	})
+	keyboard.d().onPressDo({
+		if(!pepita.isMoving()) { //si pepita está quieta
+			game.onTick(500, "pepitaMoving", {pepita.mover(derecha)})
+			pepita.isMoving(true)
+		} else { //si pepita se está moviendo
+			game.removeTickEvent("pepitaMoving")
+			pepita.isMoving(false)
+		} 
+	})
+	keyboard.s().onPressDo({
+		if(!pepita.isMoving()) { //si pepita está quieta
+			game.onTick(500, "pepitaMoving", {pepita.mover(abajo)})
+			pepita.isMoving(true)
+		} else { //si pepita se está moviendo
+			game.removeTickEvent("pepitaMoving")
+			pepita.isMoving(false) 
+		} 
+	})
+	keyboard.a().onPressDo({
+		if(!pepita.isMoving()) { //si pepita está quieta
+			game.onTick(500, "pepitaMoving", {pepita.mover(izquierda)})
+			pepita.isMoving(true)
+		} else { //si pepita se está moviendo
+			game.removeTickEvent("pepitaMoving")
+			pepita.isMoving(false) 
+		} 
+	})
+	
+	game.start()
+}

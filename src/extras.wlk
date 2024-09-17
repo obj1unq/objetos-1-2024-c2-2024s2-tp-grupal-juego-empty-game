@@ -45,12 +45,13 @@ class Arma {
 
     method atacar() {
         if (tipo==espada) {
-            //ataque espada
+            //todo aquello que involucre al ataque con espada que NO pueda hacerse polimórficamente (cosas visuales, x ej)
         } else if (tipo==arcoYFlecha) {
             //ataque arco
         } else { //caso cetro mágico
             //ataque cetro mágico
         }
+        //se puede usar tipo.danho() para calcular el daño de forma polimórfica
         durabilidad = durabilidad - 20
     }
 }

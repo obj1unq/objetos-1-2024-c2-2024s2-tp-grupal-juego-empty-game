@@ -9,7 +9,8 @@ program pepitaGame {
 	game.width(10) 			//valor por defecto 5
 	game.cellSize(50) 		//valor por defecto 50 (pero es preferible 64)
 	//search assets in assets folder, for example, for the background
-	game.boardGround("fondo2.jpg")
+	game.boardGround("fondo2.jpg") //en vez de usar ground, que determina una imagen para TODAS las celdas, usamos boardGround, 
+								   //que determina una imagen para todo el tablero
 	game.addVisual(silvestre)
 	game.addVisual(nido)
 	game.addVisual(pepita)
@@ -21,12 +22,16 @@ program pepitaGame {
 
 	//keyboard.w().whilePressRepeat({pepita.mover(arriba)},200) aparentemente
 	//no funciona. Asumo que no lo migraron desde la vieja versión de wollok.
+
 	//keyboard.w().whenKeyPressedDo({pepita.mover(arriba)}) esto es un
 	//renombre de onPressDo()
+
+	//antiguo movimiento
 	//keyboard.w().onPressDo({pepita.mover(arriba)})
 	//keyboard.d().onPressDo({pepita.mover(derecha)})
 	//keyboard.s().onPressDo({pepita.mover(abajo)})
 	//keyboard.a().onPressDo({pepita.mover(izquierda)})
+
 	keyboard.w().onPressDo({
 		if(!pepita.isMoving()) { //si pepita está quieta
 			game.onTick(500, "pepitaMoving", {pepita.mover(arriba)})

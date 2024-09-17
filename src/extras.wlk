@@ -35,7 +35,7 @@ object nido {
 //cositas nuevas
 
 class Arma {
-    const tipo = ""
+    const property tipo = espada
     var durabilidad = 1
     //¿no importa que no tenga el método position? porque parece que el objeto es aceptado por wollok aún sin tenerlo
 
@@ -44,9 +44,9 @@ class Arma {
     }
 
     method atacar() {
-        if (tipo=="espada") {
+        if (tipo==espada) {
             //ataque espada
-        } else if (tipo=="arco") {
+        } else if (tipo==arcoYFlecha) {
             //ataque arco
         } else { //caso cetro mágico
             //ataque cetro mágico
@@ -54,6 +54,29 @@ class Arma {
         durabilidad = durabilidad - 20
     }
 }
+
+//tipos de arma
+
+object arcoYFlecha {
+    const property danho = 20
+}
+
+object espada {
+    const property danho = 35
+}
+
+object cetroMagico {
+    const property danho = 50
+}
+
+/*propuesta de idea: El personaje se encuentra con armas de forma random por la pantalla (habría que ver como randomizar que aparezcan
+en el tablero). Las armas que se encuentra son objetos de tipo Arma, los cuales tienen los atributos tipo y durabilidad que también son 
+randoms. Una cosa es que la durabilidad sería un int pero los tipos son objetos (espada, arcoYFlecha y cetroMagico). Estos objetos, por 
+ahora, tienen el atributo danho (daño) que indica cuanto daño causa un ataque con esa arma.
+Para mí, la durabilidad de las armas, si bien sería random, podría ser cualquier valor en un determinado rango en base al tipo del arma.
+Las armas del tipo que más daño causa (cetro mágico) podría tener un rango de durabilidad de 40 a 100, las espadas, que hacen un poco menos
+de daño, de 80 a 140, y el arco y flecha, que es el que menos daño hace, de 120 a 180 (por poner algún valor)
+*/
 
 //Esto es para la visual en el tablero. Muestra los objetos que tiene actualmente el personaje (en realidad, por ahora solo muestra la cant)
 object listaDeObjetos {

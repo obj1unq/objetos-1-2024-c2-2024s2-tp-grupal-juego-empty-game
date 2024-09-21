@@ -1,20 +1,20 @@
 import wollok.game.*
 import posiciones.*
 import extras.*
+import paleta.*
 
 object pepita {
 
-	const property bolsa = [new Arma(tipo = espada, durabilidad = 100), new Arma(tipo = arcoYFlecha, durabilidad = 120), 
-						   new Arma(tipo = cetroMagico, durabilidad = 60)]
+	const property bolsa = []
 	//de momento, la idea es que las armas sean NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
-	//su máximo, por ahora, es de 3
+	//propongo un máximo de 3. Podría agrandarse si pasa x cosa (o sino lo dejamos fijo en 3)
 	var property isMoving = true //flag
-	var energia = 100
-	var position = game.at(5,5); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando
+	var position = game.at(5,5); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
-	const cazador = silvestre
+	var property armaActual = null
+    var property tieneArmaEquipada = false
 	
 	method position() {
 		return position
@@ -25,37 +25,27 @@ object pepita {
 	}
 
 	method estado() {
-		return if (self.estaEnNido()) {
-			return "-grande"
-		} else if (self.estaAtrapada()) {
-			return "-gris"
-		} else {
-			return ""
-		}
+		return ""
 	}
 
-	method estaEnNido() {
-		return position==game.at(7,8)
-	}
+	/// ARMA    
+    method equiparArma(armaNueva){
+        if(armaNueva.esArma()) {
+            armaNueva.serEquipada()
+            self.armaActual(armaNueva)
+            self.tieneArmaEquipada(true)
+			bolsa.add(armaNueva)
+        }
+    }
+    
+    method armaActual(arma){
+        armaActual = arma
+    }
 
-	method estaAtrapada() {
-		return position==cazador.position()
-	}
+	//acciones con teclas
 
 	method mover(direccion) {
 		position = direccion.siguiente(position)
-	}
-
-	method comer(comida) {
-		energia = energia + comida.energiaQueOtorga()
-	}
-
-	method volar(kms) {
-		energia = energia - 10 - kms 
-	}
-	
-	method energia() {
-		return energia
 	}
 
 	//se ataca con la primer arma que se tiene en la bolsa, que viene a ser el arma actual. El ataque, de momento, no causa ningún efecto

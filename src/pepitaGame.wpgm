@@ -2,6 +2,8 @@ import wollok.game.*
 import pepita.*
 import posiciones.*
 import extras.*
+import randomizer.*
+import paleta.*
 
 program pepitaGame {
 	game.title("Pepita Strikes Back") 	//Valor por defecto "Wollok Game"
@@ -9,14 +11,18 @@ program pepitaGame {
 	game.width(10) 			//valor por defecto 5
 	game.cellSize(50) 		//valor por defecto 50 (pero es preferible 64)
 	//search assets in assets folder, for example, for the background
-	game.boardGround("fondo2.jpg") //en vez de usar ground, que determina una imagen para TODAS las celdas, usamos boardGround, 
+	game.boardGround("fondoPlaya1small.jpeg") //en vez de usar ground, que determina una imagen para TODAS las celdas, usamos boardGround, 
 								   //que determina una imagen para todo el tablero
-	game.addVisual(silvestre)
-	game.addVisual(nido)
 	game.addVisual(pepita)
 	game.addVisual(listaDeObjetos)
-	//game.showAttributes(pepita) //Debug  //no sé bien para qué sirve, pero salía en el ejemplo de .wpgm
-	
+	var arma1= new Arma() //crea 1 arma con atributos random en posicion random ni bien empiece el juego
+	game.addVisual(arma1) //se importa el image() de su clase, o sea, Arma
+						  //con game.removeVisual(arma1) lo sacamos. Cuando no tiene el visual, es como si no estuviera. el pj no puede
+						  //interactuar con el objeto que no tiene visual.
+
+	//debug
+	game.showAttributes(pepita)
+	game.showAttributes(arma1)
 
 	//MOVIMIENTO
 
@@ -69,9 +75,17 @@ program pepitaGame {
 		} 
 	})
 
-	//ACCIONES
+	//ACCIONES APARTE DEL MOVIMIENTO
 
 	keyboard.k().onPressDo({pepita.atacar()}) //pepita ataca con su primer arma de la bolsa, que vendría a ser la actual
+
+	//COLISIÓN
+
+	//el parámetro del bloque (en este caso, arma), es el objeto con el que colisiona pepita. si hay más de uno, supongo que se ejecutaría
+	//este mismo código tantas veces como objetos haya ahí
+    game.onCollideDo(pepita, { arma => pepita.equiparArma(arma) game.say(pepita, "Agarre un arma, Oh Yeah!")} ) //mismo q whenCollideDo, no?
+
+	//EVENTOS
 	
 	game.start()
 }

@@ -1,6 +1,16 @@
+import extras.*
 import wollok.game.*
 
 object randomizer {
+
+	method randomDe1Hasta(numero) {
+		return 1.randomUpTo(numero).round()
+	}
+
+	method armaRandom() {
+		const rnd = 0.randomUpTo(2).round()
+		return if (rnd==2) espada else if(rnd==1) arcoYFlecha else martilloDeGuerra
+	}
 		
 	method position() {
 		return 	game.at( 

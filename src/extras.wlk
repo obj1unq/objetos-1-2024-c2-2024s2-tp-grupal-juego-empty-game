@@ -1,46 +1,34 @@
 import wollok.game.*
 import pepita.*
-
-object silvestre {
-
-    //para silvestre, pepita no es pepita, sino que es simplemente una
-    //presa. Es const porque la referencia es constante (no se la va
-    //a cambiar por una referencia a otra cosa)
-    const presa = pepita
-    //como no hace falta inicializarlo en una cierta celda, sino que solo
-    //imita la posición del otro, no hace falta que sea un atributo
-    //postcálculo antes que precálculo (se puede deducir/calcular)
-    method position() {
-        return game.at(presa.position().x().max(3), 0)
-    }
-
-    method image() {
-        return "silvestre.png"
-    }
-
-}
-
-object nido {
-
-    method position() {
-        return game.at(7,8)
-    }
-
-    method image() {
-        return "nido.png"
-    }
-
-}
-
-//cositas nuevas
+import randomizer.*
 
 class Arma {
-    const property tipo = espada
-    var durabilidad = 1
-    //¿no importa que no tenga el método position? porque parece que el objeto es aceptado por wollok aún sin tenerlo
+    const property tipo = randomizer.armaRandom()
+    var property durabilidad = randomizer.randomDe1Hasta(120)
+    const property esArma = true
+    var property estaEquipada = false
+    var property position = game.at(7,3)
+
+    method image() {
+        return tipo.image()
+    }
 
     method durabilidad() {
         return durabilidad
+    }
+
+    // Interaccon con jugador ( agarrar/equipar )
+    method serEquipada(){
+        self.estaEquipada(true)
+        self.position(game.at(pepita.position().x() + 1, pepita.position().y()))
+    }
+
+    method position(){
+        if(self.estaEquipada())
+            return (game.at(pepita.position().x() + 1, pepita.position().y()))
+        else {
+            return position
+        }
     }
 
     method atacar() {
@@ -60,14 +48,26 @@ class Arma {
 
 object arcoYFlecha {
     const property danho = 20
+
+    method image() {
+        return "arcoYFlecha1small.png"
+    }
 }
 
 object espada {
     const property danho = 35
+
+    method image() {
+        return "espada2small.png"
+    }
 }
 
-object cetroMagico {
+object martilloDeGuerra {
     const property danho = 50
+
+    method image() {
+        return "martilloDeGuerra1small.png"
+    }
 }
 
 /*propuesta de idea: El personaje se encuentra con armas de forma random por la pantalla (habría que ver como randomizar que aparezcan
@@ -81,6 +81,7 @@ de daño, de 80 a 140, y el arco y flecha, que es el que menos daño hace, de 12
 
 //Esto es para la visual en el tablero. Muestra los objetos que tiene actualmente el personaje (en realidad, por ahora solo muestra la cant)
 object listaDeObjetos {
+    const property esArma = false
 
     method position() {
 		return game.at(9,9)

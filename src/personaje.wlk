@@ -3,7 +3,7 @@ import posiciones.*
 import extras.*
 import paleta.*
 
-object pepita {
+object personaje {
 
 	const property bolsa = []
 	//de momento, la idea es que las armas sean NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
@@ -21,7 +21,7 @@ object pepita {
 	}
 
 	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "pepita" + self.estado() + ".png"
+		return "personaje" + self.estado() + ".png"
 	}
 
 	method estado() {

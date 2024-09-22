@@ -1,6 +1,8 @@
 import wollok.game.*
-import pepita.*
+import personaje.*
 import randomizer.*
+
+//ARMA
 
 class Arma {
     const property tipo = randomizer.armaRandom()
@@ -20,12 +22,12 @@ class Arma {
     // Interaccon con jugador ( agarrar/equipar )
     method serEquipada(){
         self.estaEquipada(true)
-        self.position(game.at(pepita.position().x() + 1, pepita.position().y()))
+        self.position(game.at(personaje.position().x() + 1, personaje.position().y()))
     }
 
     method position(){
         if(self.estaEquipada())
-            return (game.at(pepita.position().x() + 1, pepita.position().y()))
+            return game.at(personaje.position().x() + 1, personaje.position().y())
         else {
             return position
         }
@@ -79,6 +81,8 @@ Las armas del tipo que más daño causa (cetro mágico) podría tener un rango d
 de daño, de 80 a 140, y el arco y flecha, que es el que menos daño hace, de 120 a 180 (por poner algún valor)
 */
 
+//visuales del tablero
+
 //Esto es para la visual en el tablero. Muestra los objetos que tiene actualmente el personaje (en realidad, por ahora solo muestra la cant)
 object listaDeObjetos {
     const property esArma = false
@@ -92,11 +96,11 @@ object listaDeObjetos {
 	}
 
     method estado() {
-        if(pepita.bolsa().size()==3) {
+        if(personaje.bolsa().size()==3) {
             return "3"
-        } else if (pepita.bolsa().size()==2) {
+        } else if (personaje.bolsa().size()==2) {
             return "2"
-        } else if (pepita.bolsa().size()==1) {
+        } else if (personaje.bolsa().size()==1) {
             return "1"
         } else {
             return "0"

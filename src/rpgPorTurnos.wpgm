@@ -1,0 +1,92 @@
+import wollok.game.*
+import personaje.*
+import extras.*
+import enemigos.*
+import randomizer.*
+import posiciones.*
+import paleta.*
+
+program rpgPorTurnos {
+	game.title("RPG por turnos de nombre a confirmar")
+	game.height(10) 		//valor por defecto 5
+	game.width(10) 			//valor por defecto 5
+	game.cellSize(50) 		//valor por defecto 50 (pero es preferible 64)
+	//search assets in assets folder, for example, for the background
+	game.boardGround("fondoPlaya1small.jpeg") //en vez de usar ground, que determina una imagen para TODAS las celdas, usamos boardGround, 
+								   //que determina una imagen para todo el tablero
+	game.addVisual(enemigo1)
+	game.addVisual(listaDeObjetos)
+	game.addVisual(personaje)
+	var arma1= new Arma() //crea 1 arma con atributos random en posicion random ni bien empiece el juego
+	game.addVisual(arma1) //se importa el image() de su clase, o sea, Arma
+						  //con game.removeVisual(arma1) lo sacamos. Cuando no tiene el visual, es como si no estuviera. el pj no puede
+						  //interactuar con el objeto que no tiene visual.
+	var arma2= null
+	var arma3= null
+
+	//MOVIMIENTO
+
+	//keyboard.w().whilePressRepeat({personaje.mover(arriba)},200) aparentemente
+	//no funciona. Asumo que no lo migraron desde la vieja versión de wollok.
+
+	//keyboard.w().whenKeyPressedDo({personaje.mover(arriba)}) esto es un
+	//renombre de onPressDo()
+
+	//antiguo movimiento
+	//keyboard.w().onPressDo({personaje.mover(arriba)})
+	//keyboard.d().onPressDo({personaje.mover(derecha)})
+	//keyboard.s().onPressDo({personaje.mover(abajo)})
+	//keyboard.a().onPressDo({personaje.mover(izquierda)})
+
+	keyboard.w().onPressDo({
+		if(!personaje.isMoving()) { //si personaje está quieta
+			game.onTick(500, "personajeMoving", {personaje.mover(arriba)})
+			personaje.isMoving(true)
+		} else { //si personaje se está moviendo
+			game.removeTickEvent("personajeMoving")
+			personaje.isMoving(false)
+		} 
+	})
+	keyboard.d().onPressDo({
+		if(!personaje.isMoving()) { //si personaje está quieta
+			game.onTick(500, "personajeMoving", {personaje.mover(derecha)})
+			personaje.isMoving(true)
+		} else { //si personaje se está moviendo
+			game.removeTickEvent("personajeMoving")
+			personaje.isMoving(false)
+		} 
+	})
+	keyboard.s().onPressDo({
+		if(!personaje.isMoving()) { //si personaje está quieta
+			game.onTick(500, "personajeMoving", {personaje.mover(abajo)})
+			personaje.isMoving(true)
+		} else { //si personaje se está moviendo
+			game.removeTickEvent("personajeMoving")
+			personaje.isMoving(false) 
+		} 
+	})
+	keyboard.a().onPressDo({
+		if(!personaje.isMoving()) { //si personaje está quieta
+			game.onTick(500, "personajeMoving", {personaje.mover(izquierda)})
+			personaje.isMoving(true)
+		} else { //si personaje se está moviendo
+			game.removeTickEvent("personajeMoving")
+			personaje.isMoving(false) 
+		} 
+	})
+
+	//ACCIONES APARTE DEL MOVIMIENTO
+
+	//tecla para interactuar con algún objeto, además de colisionar contra ellos?
+	//tecla para elegir una opción en el menú de la pelea
+
+	//COLISIÓN
+
+	//el parámetro del bloque (en este caso, arma), es el objeto con el que colisiona personaje. si hay más de uno, supongo que se ejecutaría
+	//este mismo código tantas veces como objetos haya ahí //es lo mismo que whenCollideDo, no?
+    game.onCollideDo(personaje, { arma => personaje.equiparArma(arma) if(arma.esArma()) {game.say(personaje, "Agarré un arma, Oh Yeah!")} })
+
+	//EVENTOS
+	
+	game.start()
+}

@@ -26,7 +26,11 @@ object personaje {
 	}
 
 	method estado() {
-		return ""
+		if(armaActual==null) {
+			return ""
+		} else {
+			return armaActual.imagenParaPersonaje()
+		}
 	}
 
 	/// ARMA    

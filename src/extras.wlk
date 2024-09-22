@@ -15,6 +15,10 @@ class Arma {
         return tipo.image()
     }
 
+    method imagenParaPersonaje() {
+        return tipo.imagenParaPersonaje()
+    }
+
     method durabilidad() {
         return durabilidad
     }
@@ -22,15 +26,10 @@ class Arma {
     // Interaccon con jugador ( agarrar/equipar )
     method serEquipada(){
         self.estaEquipada(true)
-        self.position(game.at(personaje.position().x() + 1, personaje.position().y()))
     }
 
     method position(){
-        if(self.estaEquipada())
-            return game.at(personaje.position().x() + 1, personaje.position().y())
-        else {
-            return position
-        }
+        return position
     }
 
     method atacar() {
@@ -54,6 +53,10 @@ object arcoYFlecha {
     method image() {
         return "arcoYFlecha1small.png"
     }
+
+    method imagenParaPersonaje() {
+        return "ConArcoYFlecha"
+    }
 }
 
 object espada {
@@ -62,6 +65,10 @@ object espada {
     method image() {
         return "espada2small.png"
     }
+
+    method imagenParaPersonaje() {
+        return "ConEspada"
+    }
 }
 
 object martilloDeGuerra {
@@ -69,6 +76,10 @@ object martilloDeGuerra {
 
     method image() {
         return "martilloDeGuerra1small.png"
+    }
+
+    method imagenParaPersonaje() {
+        return "ConMartilloDeGuerra"
     }
 }
 

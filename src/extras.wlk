@@ -125,3 +125,6 @@ object contadorDeMana {
     var numeroDePuntos = 3;
 }
 */
+
+
+// Ataque de prueba para combate y barra de estado

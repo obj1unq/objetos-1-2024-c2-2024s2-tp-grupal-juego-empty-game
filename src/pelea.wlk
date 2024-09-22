@@ -14,22 +14,34 @@ object barraEstadoPeleas {
     method text() = "Barra De Peleas"
 
 
-
+    // aparece todo lo que tiene que mostrar la barra de estado
     method aparecer() {
             game.addVisual(self)
             game.addVisual(vidaPersonaje)
             game.addVisual(vidaEnemigo)
             game.addVisual(ataque)
+
+            // el personaje ataca
+            jugador.estaEnCombate(true)
+            keyboard.q().onPressDo( { jugador.atacar(enemigo)})
+
+            //se evalua si la tenea termino o no
             game.onTick(500, "evaluarPelea", { self.desaparecer() } )
+
     }
 
+    // desaparece la barra y todo lo que muestra, evaluando si alguno de los dos, personaje o enemigo, murio
     method desaparecer() {
-        if(jugador.vida() == 0 || enemigo.vida() == 0){
+        if(jugador.vida() <= 0 || enemigo.vida() <= 0){
+
+            jugador.estaEnCombate(false)
+
             game.removeTickEvent("evaluarPelea")
             game.removeVisual(self)
             game.removeVisual(vidaPersonaje)
             game.removeVisual(vidaEnemigo)
             game.removeVisual(ataque)
+            enemigo.morir()
         }
     }
 
@@ -55,5 +67,8 @@ object vidaEnemigo {
 }
 
 object ataque{
+
+    method position() = vidaPersonaje.position().down(1)
+    method text() = personaje.bolsa().head()
 
 }

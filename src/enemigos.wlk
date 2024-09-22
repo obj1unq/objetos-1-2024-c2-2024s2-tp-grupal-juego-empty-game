@@ -7,7 +7,7 @@ object enemigo1 {
     var  position = game.at(0,0); 
 	const property esArma = false
     const objetivoADestruir = personaje
-    var property vida = 20
+    var property vida = 100
 	
 	method position() {
 		return position
@@ -58,13 +58,25 @@ object enemigo1 {
 
 
     // combate /pelea
-    
+    /*  - La posicion del enemigo es una celda a la derecha del personaje cuando empeiza en combate.
+        - se le manda el enemigo a la barra de estado para saber con que enemigo esta pelean.
+        - aparece la barra de estado.
+    */
     method combate(){
         position = position.right(1)
         game.say(self, "Ah! Pelea!")
         barraEstadoPeleas.enemigo(self)
         barraEstadoPeleas.aparecer()
         
+    }
+
+    method recibirDanho(cantidad){
+        vida = vida - cantidad
+    }
+
+    method morir() {
+        position = game.at(7,4)
+        vida = 100
     }
 
 }

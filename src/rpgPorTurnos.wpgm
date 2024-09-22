@@ -37,6 +37,8 @@ program rpgPorTurnos {
 	keyboard.s().onPressDo({personaje.mover(abajo)})
 	keyboard.a().onPressDo({personaje.mover(izquierda)})
 
+
+
     /*
 	keyboard.w().onPressDo({
 		if(!personaje.isMoving()) { //si personaje está quieta
@@ -92,7 +94,7 @@ program rpgPorTurnos {
 								})
 
     // collision entre personaje y enemigo para empezar pelea
-    game.onCollideDo(personaje, {enemigo => enemigo.combate() } )
+    game.whenCollideDo(personaje, {enemigo => enemigo.combate() } )
 
 
 	//EVENTOS

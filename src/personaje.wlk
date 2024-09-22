@@ -7,7 +7,7 @@ import enemigos.*
 object personaje {
 
     var property vida = 100
-	const property bolsa = []
+	const property bolsa = [espada]
 	//de momento, la idea es que las armas sean NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
@@ -15,8 +15,9 @@ object personaje {
 	var property isMoving = true //flag
 	var  position = game.at(5,5); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
-	var property armaActual = null
+	var property armaActual = bolsa.head()
     var property tieneArmaEquipada = false
+
 	
 	method position() {
 		return position
@@ -57,6 +58,8 @@ object personaje {
 
 	//se ataca con la primer arma que se tiene en la bolsa, que viene a ser el arma actual. El ataque, de momento, no causa ningún efecto
 	//además de bajar la durabilidad del arma.
+
+    /* Lo comento para probar otro método con el mismo nombre, no deberia ir comentado
 	method atacar() { 
 		if (!bolsa.isEmpty()) { //para que no se ejecute bolsa.head() si está vacía la lista, lo cual daría error (queremos que simplemente no pase nada)
 			bolsa.head().atacar()
@@ -66,6 +69,22 @@ object personaje {
 			}
 		}
 	}
+    */
+    var estaEnCombate = false
+
+    method estaEnCombate(condicion){
+        estaEnCombate = condicion
+    }
+
+    // por ahora ataca con espada porque es una prueba
+    //cuando se toca la Q ataca (implementado en pelea - barraDeEspado.aparecer())
+    method atacar(enemigo){
+        if(estaEnCombate){
+            enemigo.recibirDanho(armaActual.danho())
+        }
+
+
+    }
 
 }
 

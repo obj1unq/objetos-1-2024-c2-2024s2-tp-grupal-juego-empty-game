@@ -32,11 +32,12 @@ program rpgPorTurnos {
 	//renombre de onPressDo()
 
 	//antiguo movimiento
-	//keyboard.w().onPressDo({personaje.mover(arriba)})
-	//keyboard.d().onPressDo({personaje.mover(derecha)})
-	//keyboard.s().onPressDo({personaje.mover(abajo)})
-	//keyboard.a().onPressDo({personaje.mover(izquierda)})
+	keyboard.w().onPressDo({personaje.mover(arriba)})
+	keyboard.d().onPressDo({personaje.mover(derecha)})
+	keyboard.s().onPressDo({personaje.mover(abajo)})
+	keyboard.a().onPressDo({personaje.mover(izquierda)})
 
+    /*
 	keyboard.w().onPressDo({
 		if(!personaje.isMoving()) { //si personaje está quieta
 			game.onTick(500, "personajeMoving", {personaje.mover(arriba)})
@@ -73,7 +74,7 @@ program rpgPorTurnos {
 			personaje.isMoving(false) 
 		} 
 	})
-
+    */
 	//ACCIONES APARTE DEL MOVIMIENTO
 
 	//tecla para interactuar con algún objeto, además de colisionar contra ellos?
@@ -89,6 +90,10 @@ program rpgPorTurnos {
 									game.removeVisual(arma)
 								  }
 								})
+
+    // collision entre personaje y enemigo para empezar pelea
+    game.onCollideDo(personaje, {enemigo => enemigo.combate() } )
+
 
 	//EVENTOS
 	

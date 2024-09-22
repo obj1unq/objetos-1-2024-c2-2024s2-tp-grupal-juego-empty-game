@@ -1,15 +1,19 @@
 import wollok.game.*
 import personaje.*
 import posiciones.*
+import pelea.*
 
 object enemigo1 {
-    var position = game.at(0,0); 
+    var  position = game.at(0,0); 
 	const property esArma = false
     const objetivoADestruir = personaje
+    var property vida = 20
 	
 	method position() {
 		return position
 	}
+
+
 
     method distanciaEnEjeX() {
         return (objetivoADestruir.position().x() - position.x())
@@ -51,4 +55,16 @@ object enemigo1 {
 	method estado() {
 		return ""
 	}
+
+
+    // combate /pelea
+    
+    method combate(){
+        position = position.right(1)
+        game.say(self, "Ah! Pelea!")
+        barraEstadoPeleas.enemigo(self)
+        barraEstadoPeleas.aparecer()
+        
+    }
+
 }

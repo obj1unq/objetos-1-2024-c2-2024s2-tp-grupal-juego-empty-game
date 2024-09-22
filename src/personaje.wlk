@@ -6,13 +6,14 @@ import enemigos.*
 
 object personaje {
 
+    var property vida = 100
 	const property bolsa = []
 	//de momento, la idea es que las armas sean NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
 	//propongo un máximo de 3. Podría agrandarse si pasa x cosa (o sino lo dejamos fijo en 3)
 	var property isMoving = true //flag
-	var position = game.at(5,5); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
+	var  position = game.at(5,5); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
 	var property armaActual = null
     var property tieneArmaEquipada = false

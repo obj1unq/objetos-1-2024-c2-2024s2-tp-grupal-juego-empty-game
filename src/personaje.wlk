@@ -2,6 +2,7 @@ import wollok.game.*
 import posiciones.*
 import extras.*
 import paleta.*
+import enemigos.*
 
 object personaje {
 
@@ -46,6 +47,7 @@ object personaje {
 
 	method mover(direccion) {
 		position = direccion.siguiente(position)
+		enemigo1.mover()
 	}
 
 	//se ataca con la primer arma que se tiene en la bolsa, que viene a ser el arma actual. El ataque, de momento, no causa ningún efecto

@@ -83,7 +83,7 @@ program rpgPorTurnos {
 
 	//el parámetro del bloque (en este caso, arma), es el objeto con el que colisiona personaje. si hay más de uno, supongo que se ejecutaría
 	//este mismo código tantas veces como objetos haya ahí //es lo mismo que whenCollideDo, no?
-    game.onCollideDo(personaje, { arma => personaje.equiparArma(arma) 
+    game.onCollideDo(personaje, { arma => personaje.equiparArma(arma) //esto capaz tmb podría ir en el if. habría que modificar equiparArma
 								  if(arma.esArma()) {
 								  	{game.say(personaje, "Agarré un arma, Oh Yeah!")}
 									game.removeVisual(arma)

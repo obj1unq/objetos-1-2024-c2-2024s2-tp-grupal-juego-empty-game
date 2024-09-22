@@ -9,7 +9,7 @@ class Arma {
     var property durabilidad = randomizer.randomDe1Hasta(120)
     const property esArma = true
     var property estaEquipada = false
-    var property position = game.at(7,3)
+    var property position = randomizer.position()
 
     method image() {
         return tipo.image()
@@ -23,8 +23,8 @@ class Arma {
         return durabilidad
     }
 
-    // Interaccon con jugador ( agarrar/equipar )
-    method serEquipada(){
+    // Interaccion con jugador ( agarrar/equipar )
+    method serEquipada() {
         self.estaEquipada(true)
     }
 
@@ -99,7 +99,7 @@ object listaDeObjetos {
     const property esArma = false
 
     method position() {
-		return game.at(9,9)
+		return game.at(14,14)
 	}
 
 	method image() { 

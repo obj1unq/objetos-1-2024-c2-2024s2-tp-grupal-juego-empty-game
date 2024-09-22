@@ -8,7 +8,7 @@ object personaje {
 
     var property vida = 100
 	const property bolsa = [espada]
-	//de momento, la idea es que las armas sean NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
+	//de momento, la idea es que las armas NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
 	//propongo un máximo de 3. Podría agrandarse si pasa x cosa (o sino lo dejamos fijo en 3)

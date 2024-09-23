@@ -25,14 +25,15 @@ object barraEstadoPeleas {
             jugador.estaEnCombate(true)
             keyboard.q().onPressDo( { jugador.atacar(enemigo)})
 
-            //se evalua si la tenea termino o no
+            //se evalua si la pelea termino o no
             game.onTick(500, "evaluarPelea", { self.desaparecer() } )
 
     }
 
     // desaparece la barra y todo lo que muestra, evaluando si alguno de los dos, personaje o enemigo, murio
     method desaparecer() {
-        if(jugador.vida() <= 0 || enemigo.vida() <= 0){
+
+       if(jugador.vida() <= 0 || enemigo.vida() <= 0){
 
             jugador.estaEnCombate(false)
 
@@ -44,6 +45,7 @@ object barraEstadoPeleas {
             enemigo.morir()
         }
     }
+
 
     method position() = game.at(5,2)
 

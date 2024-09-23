@@ -13,7 +13,7 @@ object personaje {
 	//para esta idea de armas no únicas usamos la clase Arma
 	//propongo un máximo de 3. Podría agrandarse si pasa x cosa (o sino lo dejamos fijo en 3)
 	var property isMoving = true //flag
-	var  position = game.at(5,5); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
+	var  position = game.at(7,2); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
 	var property armaActual = bolsa.head()
     var property tieneArmaEquipada = false
@@ -77,13 +77,12 @@ object personaje {
     }
 
     // por ahora ataca con espada porque es una prueba
-    //cuando se toca la Q ataca (implementado en pelea - barraDeEspado.aparecer())
+    //cuando se toca la Q ataca (implementado en pelea - barraDeEstado.aparecer())
     method atacar(enemigo){
         if(estaEnCombate){
-            enemigo.recibirDanho(armaActual.danho())
+            enemigo.recibirDanho(armaActual.danio())
+			armaActual.durabilidad()
         }
-
-
     }
 
 }

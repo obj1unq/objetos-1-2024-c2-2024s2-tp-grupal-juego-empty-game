@@ -13,8 +13,6 @@ object enemigo1 {
 		return position
 	}
 
-
-
     method distanciaEnEjeX() {
         return (objetivoADestruir.position().x() - position.x())
     }

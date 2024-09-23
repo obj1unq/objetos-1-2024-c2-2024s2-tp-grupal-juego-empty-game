@@ -6,7 +6,7 @@ import randomizer.*
 
 class Arma {
     const property tipo = randomizer.armaRandom()
-    var property durabilidad = randomizer.randomDe1Hasta(120)
+    //var property durabilidad = randomizer.randomDe1Hasta(120)
     const property esArma = true
     var property estaEquipada = false
     var property position = randomizer.position()
@@ -19,9 +19,9 @@ class Arma {
         return tipo.imagenParaPersonaje()
     }
 
-    method durabilidad() {
-        return durabilidad
-    }
+//    method durabilidad() {
+//        return durabilidad
+//    }
 
     // Interaccion con jugador ( agarrar/equipar )
     method serEquipada() {
@@ -33,15 +33,15 @@ class Arma {
     }
 
     method atacar() {
-        if (tipo==espada) {
+ //       if (tipo==espada) {
             //todo aquello que involucre al ataque con espada que NO pueda hacerse polimórficamente (cosas visuales, x ej)
-        } else if (tipo==arcoYFlecha) {
+ //       } else if (tipo==arcoYFlecha) {
             //ataque arco
-        } else { //caso cetro mágico
+ //       } else { //caso cetro mágico
             //ataque cetro mágico
-        }
+ //       }
         //se puede usar tipo.danho() para calcular el daño de forma polimórfica
-        durabilidad = durabilidad - 20
+//        durabilidad = durabilidad - 20
     }
 }
 
@@ -49,6 +49,12 @@ class Arma {
 
 object arcoYFlecha {
     const property danho = 20
+    var durabilidad = 130.randomUpTo(180).round() //devuelve un numero entre 130 y 180
+    const nivel = 1.randomUpTo(3).round()
+
+    method danio() {
+        danho + nivel * 10 // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+    }    
 
     method image() {
         return "arcoYFlecha1small.png"
@@ -57,10 +63,26 @@ object arcoYFlecha {
     method imagenParaPersonaje() {
         return "ConArcoYFlecha"
     }
+
+    method durabilidad() {
+        if (durabilidad == 0) {
+            personaje.armaActual(null)
+            personaje.bolsa().remove(personaje.bolsa().head())
+        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad
+        
+    }
+
+
 }
 
 object espada {
-    const property danho = 35
+    var danho = 35
+    var durabilidad = 100.randomUpTo(130).round()
+    const nivel = 1.randomUpTo(3).round()
+
+    method danio() {
+        danho + nivel * 10 // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+    }
 
     method image() {
         return "espada2small.png"
@@ -69,10 +91,22 @@ object espada {
     method imagenParaPersonaje() {
         return "ConEspada"
     }
+
+    method durabilidad() {
+        durabilidad = durabilidad - 5 //cada vez que ataca el personaje, baja 5 la durabilidad
+    }
+
+
 }
 
 object martilloDeGuerra {
     const property danho = 50
+    var durabilidad = 80.randomUpTo(100).round()
+    const nivel = 1.randomUpTo(3).round()
+    
+    method danio() {
+        danho + nivel * 10 // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+    }    
 
     method image() {
         return "martilloDeGuerra1small.png"
@@ -80,6 +114,10 @@ object martilloDeGuerra {
 
     method imagenParaPersonaje() {
         return "ConMartilloDeGuerra"
+    }
+
+    method durabilidad() {
+        durabilidad = durabilidad - 5 //cada vez que ataca el personaje, baja 5 la durabilidad
     }
 }
 

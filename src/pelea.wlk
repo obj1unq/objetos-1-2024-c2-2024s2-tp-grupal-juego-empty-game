@@ -43,6 +43,8 @@ object barraEstadoPeleas {
             game.removeVisual(vidaEnemigo)
             game.removeVisual(ataque)
             enemigo.morir()
+            game.stop()
+            
         }
     }
 

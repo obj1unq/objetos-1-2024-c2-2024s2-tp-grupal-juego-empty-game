@@ -6,6 +6,7 @@ import randomizer.*
 import posiciones.*
 import paleta.*
 
+
 program rpgPorTurnos {
 	game.title("RPG por turnos de nombre a confirmar")
 	game.height(16) 		//valor por defecto 5

@@ -6,6 +6,7 @@ import enemigos.*
 import personaje.*
 
 
+
 object barraEstadoPeleas {
 
     var property enemigo = null
@@ -43,7 +44,7 @@ object barraEstadoPeleas {
             game.removeVisual(vidaEnemigo)
             game.removeVisual(ataque)
             enemigo.morir()
-            game.stop()
+           // game.stop()
             
         }
     }

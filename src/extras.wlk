@@ -4,12 +4,13 @@ import randomizer.*
 
 //ARMA
 
+
 class Arma {
     const property tipo = randomizer.armaRandom()
-    //var property durabilidad = randomizer.randomDe1Hasta(120)
+    //var durabilidad = randomizer.randomDe1Hasta(120)
     const property esArma = true
     var property estaEquipada = false
-    var property position = randomizer.position()
+    var property position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )//randomizer.position()
 
     method image() {
         return tipo.image()
@@ -18,10 +19,6 @@ class Arma {
     method imagenParaPersonaje() {
         return tipo.imagenParaPersonaje()
     }
-
-//    method durabilidad() {
-//        return durabilidad
-//    }
 
     // Interaccion con jugador ( agarrar/equipar )
     method serEquipada() {
@@ -32,7 +29,7 @@ class Arma {
         return position
     }
 
-    method atacar() {
+ //  method atacar() {
  //       if (tipo==espada) {
             //todo aquello que involucre al ataque con espada que NO pueda hacerse polimórficamente (cosas visuales, x ej)
  //       } else if (tipo==arcoYFlecha) {
@@ -42,14 +39,19 @@ class Arma {
  //       }
         //se puede usar tipo.danho() para calcular el daño de forma polimórfica
 //        durabilidad = durabilidad - 20
-    }
+//    }
 
-    method durabilidad() {
-       return tipo.durabilidad()
-    }
+   method durabilidad() {
+       return tipo.durabilidad() - 5 
 
-    method danio() {
-       return tipo.danio()
+        /*if (tipo.durabilidad() == 0) {
+            personaje.armaActual(null)
+            personaje.bolsa().remove(personaje.bolsa().head())
+        } else {durabilidad = durabilidad - 5} */ 
+   }
+
+   method danio() {
+       return tipo.danio() 
     }
 }
 
@@ -57,7 +59,7 @@ class Arma {
 
 object arcoYFlecha {
     const property danho = 20
-    var durabilidad = 130.randomUpTo(180).round() //devuelve un numero entre 130 y 180
+    const durabilidad = 130.randomUpTo(180).round() //devuelve un numero entre 130 y 180
     const nivel = 1.randomUpTo(3).round()
 
     method danio() {
@@ -73,10 +75,7 @@ object arcoYFlecha {
     }
 
     method durabilidad() {
-        if (durabilidad == 0) {
-            personaje.armaActual(null)
-            personaje.bolsa().remove(personaje.bolsa().head())
-        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad      
+        return durabilidad     
     }
 
 
@@ -84,7 +83,7 @@ object arcoYFlecha {
 
 object espada {
     const danho = 35
-    var durabilidad = 100.randomUpTo(130).round()
+    const durabilidad = 100.randomUpTo(130).round()
     const nivel = 1.randomUpTo(3).round()
 
     method danio() {
@@ -100,21 +99,14 @@ object espada {
     }
 
     method durabilidad() {
-        if (durabilidad == 0) {
-            personaje.armaActual(null)
-            personaje.bolsa().remove(personaje.bolsa().head())
-        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad    
-          
+        return durabilidad      
     }
-
-    method text(){ self.durabilidad()}
-
 
 }
 
 object martilloDeGuerra {
     const property danho = 50
-    var durabilidad = 80.randomUpTo(100).round()
+    const durabilidad = 80.randomUpTo(100).round()
     const nivel = 1.randomUpTo(3).round()
     
     method danio() {
@@ -130,12 +122,10 @@ object martilloDeGuerra {
     }
 
     method durabilidad() {
-        if (durabilidad == 0) {
-            personaje.armaActual(null)
-            personaje.bolsa().remove(personaje.bolsa().head())
-        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad      
+        return durabilidad     
     }
 }
+
 
 /*propuesta de idea: El personaje se encuentra con armas de forma random por la pantalla (habría que ver como randomizar que aparezcan
 en el tablero). Las armas que se encuentra son objetos de tipo Arma, los cuales tienen los atributos tipo y durabilidad que también son 

@@ -4,6 +4,7 @@ import extras.*
 import paleta.*
 import enemigos.*
 
+
 object personaje {
 
     var property vida = 100
@@ -37,12 +38,12 @@ object personaje {
 
 	/// ARMA    
     method equiparArma(armaNueva){
-        if(armaNueva.esArma()) {
+    //    if(armaNueva.esArma()) {
             armaNueva.serEquipada()
             self.armaActual(armaNueva)
             self.tieneArmaEquipada(true)
 			bolsa.add(armaNueva)
-        }
+     //   }
     }
     
     method armaActual(arma){

@@ -43,6 +43,14 @@ class Arma {
         //se puede usar tipo.danho() para calcular el daño de forma polimórfica
 //        durabilidad = durabilidad - 20
     }
+
+    method durabilidad() {
+       return tipo.durabilidad()
+    }
+
+    method danio() {
+       return tipo.danio()
+    }
 }
 
 //tipos de arma
@@ -53,7 +61,7 @@ object arcoYFlecha {
     const nivel = 1.randomUpTo(3).round()
 
     method danio() {
-        danho + nivel * 10 // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+       return danho + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
     }    
 
     method image() {
@@ -68,20 +76,19 @@ object arcoYFlecha {
         if (durabilidad == 0) {
             personaje.armaActual(null)
             personaje.bolsa().remove(personaje.bolsa().head())
-        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad
-        
+        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad      
     }
 
 
 }
 
 object espada {
-    var danho = 35
+    const danho = 35
     var durabilidad = 100.randomUpTo(130).round()
     const nivel = 1.randomUpTo(3).round()
 
     method danio() {
-        danho + nivel * 10 // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+      return  danho + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
     }
 
     method image() {
@@ -93,8 +100,14 @@ object espada {
     }
 
     method durabilidad() {
-        durabilidad = durabilidad - 5 //cada vez que ataca el personaje, baja 5 la durabilidad
+        if (durabilidad == 0) {
+            personaje.armaActual(null)
+            personaje.bolsa().remove(personaje.bolsa().head())
+        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad    
+          
     }
+
+    method text(){ self.durabilidad()}
 
 
 }
@@ -105,7 +118,7 @@ object martilloDeGuerra {
     const nivel = 1.randomUpTo(3).round()
     
     method danio() {
-        danho + nivel * 10 // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+       return danho + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
     }    
 
     method image() {
@@ -117,7 +130,10 @@ object martilloDeGuerra {
     }
 
     method durabilidad() {
-        durabilidad = durabilidad - 5 //cada vez que ataca el personaje, baja 5 la durabilidad
+        if (durabilidad == 0) {
+            personaje.armaActual(null)
+            personaje.bolsa().remove(personaje.bolsa().head())
+        } else {durabilidad = durabilidad - 5} //cada vez que ataca el personaje, baja 5 la durabilidad      
     }
 }
 

@@ -1,7 +1,7 @@
 import randomizer.*
 
 
-class Armas {
+class Arma {
     var property estaEquipada = false
     const position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )
     method nivel() {

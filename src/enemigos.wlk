@@ -5,8 +5,8 @@ import pelea.*
 
 
 object enemigo1 {
-    var  position = game.at(14,14)
-	//const property esArma = false
+    var  position = game.at(14,12)
+	const property esArma = false
     const objetivoADestruir = personaje
     var property vida = 100
 	
@@ -48,7 +48,7 @@ object enemigo1 {
     }
 
 	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "enemigo1" + self.estado() + ".png"
+		return "enemigo1" + self.estado() + "-32Bits.png"
 	}
 
 	method estado() {

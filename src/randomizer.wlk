@@ -10,7 +10,7 @@ object randomizer {
 	}
 
 	method armaRandom() {
-		return [espada, arcoYFlecha, martilloDeGuerra].anyOne()
+		return #{espada, martilloDeGuerra, arcoYFlecha}.anyOne()
 	}
 		
 	method position() {

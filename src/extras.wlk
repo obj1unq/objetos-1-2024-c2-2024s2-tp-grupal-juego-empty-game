@@ -86,14 +86,12 @@ object arcoYFlecha {
     }    
 
     method image() {
-        return "arcoYFlecha1small.png"
+        return "arcoYFlecha-32Bits.png"
     }
 
     method imagenParaPersonaje() {
         return "ConArcoYFlecha"
     }
-
-
 }
 
 object espada {
@@ -106,7 +104,7 @@ object espada {
     }
 
     method image() {
-        return "espada2small.png"
+        return "espadaGris-32Bits.png"
     }
 
     method imagenParaPersonaje() {
@@ -125,7 +123,7 @@ object martilloDeGuerra {
     }    
 
     method image() {
-        return "martilloDeGuerra1small.png"
+        return "martilloDeGuerra-32Bits.png"
     }
 
     method imagenParaPersonaje() {
@@ -150,11 +148,11 @@ object listaDeObjetos {
     const property esArma = false
 
     method position() {
-		return game.at(14,14)
+		return game.at(15,15)
 	}
 
 	method image() { 
-		return "listaDeObj" + self.estado() + ".png"
+		return "listaDeObj" + self.estado() + "-32Bits.png"
 	}
 
     method estado() {

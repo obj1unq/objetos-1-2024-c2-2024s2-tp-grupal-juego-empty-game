@@ -29,7 +29,7 @@ class Arma {
     method imagenParaPersonaje()
 }
 
-object espada inherits Armas() {
+object espada2 inherits Armas() {
 
     override method durabilidad() {
         return 100.randomUpTo(130).round()
@@ -48,7 +48,7 @@ object espada inherits Armas() {
     }
 }
 
-object arcoYFlecha inherits Armas() {
+object arcoYFlecha2 inherits Armas() {
 
     override method durabilidad() {
         return 130.randomUpTo(150).round()

@@ -17,7 +17,7 @@ object personaje {
 	var  position = game.at(7,2); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
 	var property armaActual = bolsa.head()
-    var property tieneArmaEquipada = false
+    var property tieneArmaEquipada = true
 
 	
 	method position() {
@@ -25,7 +25,7 @@ object personaje {
 	}
 
 	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "personaje" + self.estado() + ".png"
+		return "personaje" + self.estado() + "-32Bits.png"
 	}
 
 	method estado() {
@@ -38,12 +38,12 @@ object personaje {
 
 	/// ARMA    
     method equiparArma(armaNueva){
-    //    if(armaNueva.esArma()) {
-            armaNueva.serEquipada()
-            self.armaActual(armaNueva)
-            self.tieneArmaEquipada(true)
+    	if(armaNueva.esArma()) {
+			armaNueva.serEquipada()
+			self.armaActual(armaNueva)
+			//self.tieneArmaEquipada(true)
 			bolsa.add(armaNueva)
-     //   }
+        }
     }
     
     method armaActual(arma){

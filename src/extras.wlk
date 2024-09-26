@@ -5,7 +5,7 @@ import paleta.*
 
 //ARMA
 
-
+/* Alguien más borrelo a mi me ansidad :)
 class Arma {
     var property position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )//randomizer.position()
     const property tipo = randomizer.armaRandom()
@@ -97,6 +97,11 @@ object arcoYFlecha {
     // Para Test
     method text(){ return durabilidad.toString() + "\n Nivel: " + nivel.toString()}
     method textColor() = paleta.rojo()
+
+    // cuendo el pj colisiona con este arma se la equipa
+    method colsiono(pj){
+        pj.equiparArma(self)
+    }
 }
 
 object espada {
@@ -120,6 +125,11 @@ object espada {
     method text(){ return durabilidad.toString() + "\n Nivel: " + nivel.toString()}
     method textColor() = paleta.rojo()
 
+    // cuendo el pj colisiona con este arma se la equipa
+    method colsiono(pj){
+        pj.equiparArma(self)
+    }
+
 }
 
 object martilloDeGuerra {
@@ -142,6 +152,11 @@ object martilloDeGuerra {
     // Para test
     method text(){ return durabilidad.toString() + "\n Nivel: " + nivel.toString()}
     method textColor() = paleta.rojo()
+
+    // cuendo el pj colisiona con este arma se la equipa
+    method colsiono(pj){
+        pj.equiparArma(self)
+    }
 }
 
 
@@ -180,13 +195,15 @@ object listaDeObjetos {
         }
     }
 
+    method text() {return personaje.armaActual()}
+    method textColor() = paleta.rojo()
+
 }
 
-/*
-object contadorDeMana {
-    var numeroDePuntos = 3;
+object spawn {
+
+    method spawnArma() {
+        return arma1= randomizer.armaRandom() 
+    }
+
 }
-*/
-
-
-// Ataque de prueba para combate y barra de estado

@@ -3,12 +3,13 @@ import posiciones.*
 import extras.*
 import paleta.*
 import enemigos.*
+import armas.*
 
 
 object personaje {
 
     var property vida = 100
-	const property bolsa = [new Arma()]
+	const property bolsa = []//new Arma()]
 	//de momento, la idea es que las armas NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
@@ -16,7 +17,7 @@ object personaje {
 	var property isMoving = true //flag
 	var  position = game.at(7,2); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
-	var property armaActual = bolsa.head()
+	var property armaActual = null
     var property tieneArmaEquipada = true
 
 	
@@ -38,12 +39,10 @@ object personaje {
 
 	/// ARMA    
     method equiparArma(armaNueva){
-    	if(armaNueva.esArma()) {
-			armaNueva.serEquipada()
-			self.armaActual(armaNueva)
-			//self.tieneArmaEquipada(true)
-			bolsa.add(armaNueva)
-        }
+    	bolsa.add(armaNueva) // mete el arma en la bolsa
+        self.armaActual(bolsa.head()) // Su arma actual es la primera de la bolsa
+
+
     }
     
     method armaActual(arma){

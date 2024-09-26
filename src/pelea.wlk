@@ -13,6 +13,7 @@ object barraEstadoPeleas {
     var property jugador = personaje
 
     method text() = "Barra De Peleas"
+    method textColor() = paleta.rojo()
 
 
     // aparece todo lo que tiene que mostrar la barra de estado
@@ -57,7 +58,8 @@ object barraEstadoPeleas {
 
 object vidaPersonaje{
 
-    method text() = "Vida: " + personaje.vida()
+    method text() = "Vida: " + personaje.vida().toString()
+        method textColor() = paleta.rojo()
 
     method position() = barraEstadoPeleas.position().down(1).left(2)
 
@@ -65,7 +67,8 @@ object vidaPersonaje{
 
 object vidaEnemigo {
 
-    method text() = "Enemigo Vida: " + barraEstadoPeleas.enemigo().vida()
+    method text() = "Enemigo Vida: " + barraEstadoPeleas.enemigo().vida().toString()
+    method textColor() = paleta.rojo()
 
     method position() = vidaPersonaje.position().right(3)
 
@@ -75,5 +78,6 @@ object ataque{
 
     method position() = vidaPersonaje.position().down(1)
     method text() = personaje.bolsa().head()
+    method textColor() = paleta.rojo()
 
 }

@@ -199,4 +199,3 @@ object listaDeObjetos {
     method textColor() = paleta.rojo()
 
 }
-

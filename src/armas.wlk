@@ -2,6 +2,7 @@ import randomizer.*
 import paleta.*
 import personaje.*
 
+
 class Arma {
     var property estaEquipada = false
     const position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )
@@ -112,3 +113,52 @@ object martillo inherits Arma() {
     method textColor() = paleta.rojo()
 
 }
+
+
+ // Prueba de clase de arma 2 ESTO ES UNA PRUEBA NO TOMAR EN SERIO
+ class Arma3 {
+    var property estaEquipada = false
+    const position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )
+    method nivel() {
+        return 1.randomUpTo(3).round()
+    }
+    var durabilidadDe
+    var durabilidadHasta
+    var danho
+    var image 
+    var imagePj
+
+
+    method serEquipada() {
+      self.estaEquipada(true) 
+    }
+
+    method danho()  {
+        return danho + self.nivel() * 10
+    }
+    method durabilidad() {
+        return durabilidadDe.randomUpTo(durabilidadHasta).round()
+    }
+
+
+    method position() {
+        return position
+    }
+
+    // El pj colsiona con el arma y la mete en la bolsa()
+    method colisiono(pj){
+        pj.equiparArma(self)
+    }
+
+
+
+    method image() {
+        return image + ".png"
+    }
+
+   method imagenParaPersonaje() {
+        return imagePj + ".png"
+    }
+
+
+ }

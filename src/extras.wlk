@@ -1,6 +1,7 @@
 import wollok.game.*
 import personaje.*
 import randomizer.*
+import paleta.*
 
 //ARMA
 
@@ -92,6 +93,10 @@ object arcoYFlecha {
     method imagenParaPersonaje() {
         return "ConArcoYFlecha"
     }
+
+    // Para Test
+    method text(){ return durabilidad.toString() + "\n Nivel: " + nivel.toString()}
+    method textColor() = paleta.rojo()
 }
 
 object espada {
@@ -111,6 +116,10 @@ object espada {
         return "ConEspada"
     }
 
+    // Para test
+    method text(){ return durabilidad.toString() + "\n Nivel: " + nivel.toString()}
+    method textColor() = paleta.rojo()
+
 }
 
 object martilloDeGuerra {
@@ -129,6 +138,10 @@ object martilloDeGuerra {
     method imagenParaPersonaje() {
         return "ConMartilloDeGuerra"
     }
+
+    // Para test
+    method text(){ return durabilidad.toString() + "\n Nivel: " + nivel.toString()}
+    method textColor() = paleta.rojo()
 }
 
 

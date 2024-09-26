@@ -200,10 +200,3 @@ object listaDeObjetos {
 
 }
 
-object spawn {
-
-    method spawnArma() {
-        return arma1= randomizer.armaRandom() 
-    }
-
-}

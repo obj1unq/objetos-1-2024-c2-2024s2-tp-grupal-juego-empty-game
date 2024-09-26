@@ -19,7 +19,7 @@ program rpgPorTurnos {
 	game.addVisual(enemigo1)
 	game.addVisual(personaje)
 
-	var arma1 =  spawn.spawnArma()// genera un arma al azar de la lista
+	var arma1 =  randomizer.armaRandom()// genera un arma al azar de la lista
 
 
 	game.addVisual(arma1) //se importa el image() de su clase, o sea, Arma

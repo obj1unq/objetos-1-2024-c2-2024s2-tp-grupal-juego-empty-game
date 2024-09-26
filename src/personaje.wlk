@@ -8,7 +8,7 @@ import enemigos.*
 object personaje {
 
     var property vida = 100
-	const property bolsa = [espada]
+	const property bolsa = [new Arma()]
 	//de momento, la idea es que las armas NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
@@ -81,7 +81,7 @@ object personaje {
     //cuando se toca la Q ataca (implementado en pelea - barraDeEstado.aparecer())
     method atacar(enemigo){
         if(estaEnCombate){
-            enemigo.recibirDanho(armaActual.danio())
+            enemigo.recibirDanho(armaActual.danho())
 			armaActual.durabilidad()
         }
     }

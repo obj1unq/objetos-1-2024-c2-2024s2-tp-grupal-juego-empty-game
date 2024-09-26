@@ -95,7 +95,7 @@ program rpgPorTurnos {
 								})
 
     // collision entre personaje y enemigo para empezar pelea
-    game.whenCollideDo(personaje, {enemigo => enemigo.combate() } )
+    game.onCollideDo(personaje, {enemigo => enemigo.combate() } )
 
 
 	//EVENTOS

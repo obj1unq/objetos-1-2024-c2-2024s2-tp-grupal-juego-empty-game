@@ -1,3 +1,4 @@
+import armas.*
 import extras.*
 import wollok.game.*
 
@@ -9,8 +10,7 @@ object randomizer {
 	}
 
 	method armaRandom() {
-		const rnd = 0.randomUpTo(2).round()
-		return if (rnd==2) espada else if(rnd==1) arcoYFlecha else martilloDeGuerra
+		return [espada, arcoYFlecha, martilloDeGuerra].anyOne()
 	}
 		
 	method position() {

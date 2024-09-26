@@ -6,11 +6,10 @@ import randomizer.*
 
 
 class Arma {
+    var property position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )//randomizer.position()
     const property tipo = randomizer.armaRandom()
-    //var durabilidad = randomizer.randomDe1Hasta(120)
     const property esArma = true
     var property estaEquipada = false
-    var property position = game.at(randomizer.posicionesRandomArmas().head(),randomizer.posicionesRandomArmas().last() )//randomizer.position()
 
     method image() {
         return tipo.image()
@@ -19,6 +18,28 @@ class Arma {
     method imagenParaPersonaje() {
         return tipo.imagenParaPersonaje()
     }
+
+    method durabilidad() {
+        return tipo.durabilidad()
+    }
+
+    method durabilidadRestada(cantidadRestada) {
+        tipo.durabilidadRestada(cantidadRestada)
+    }
+
+    method danho() {
+       return tipo.danho() 
+    }
+
+    method chequearDurabilidad() {
+        if (self.durabilidad() == 0) {
+            personaje.armaActual(null)
+            personaje.bolsa().remove(personaje.bolsa().head())
+        } else {
+            self.durabilidadRestada(5)
+        }
+    }
+
 
     // Interaccion con jugador ( agarrar/equipar )
     method serEquipada() {
@@ -41,29 +62,27 @@ class Arma {
 //        durabilidad = durabilidad - 20
 //    }
 
-   method durabilidad() {
-       return tipo.durabilidad() - 5 
-
-        /*if (tipo.durabilidad() == 0) {
-            personaje.armaActual(null)
-            personaje.bolsa().remove(personaje.bolsa().head())
-        } else {durabilidad = durabilidad - 5} */ 
-   }
-
-   method danio() {
-       return tipo.danio() 
-    }
+    
+   
 }
 
 //tipos de arma
 
 object arcoYFlecha {
-    const property danho = 20
-    const durabilidad = 130.randomUpTo(180).round() //devuelve un numero entre 130 y 180
-    const nivel = 1.randomUpTo(3).round()
+    var durabilidad = 130.randomUpTo(180).round() //devuelve un numero entre 130 y 180
+    const danhoBase = 20
+    const nivel = randomizer.randomDe1Hasta(3)
 
-    method danio() {
-       return danho + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+    method durabilidad() {
+        return durabilidad
+    }
+
+    method durabilidadRestada(cantidadRestada) {
+        durabilidad -= cantidadRestada
+    }
+
+    method danho() {
+       return danhoBase + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
     }    
 
     method image() {
@@ -74,20 +93,16 @@ object arcoYFlecha {
         return "ConArcoYFlecha"
     }
 
-    method durabilidad() {
-        return durabilidad     
-    }
-
 
 }
 
 object espada {
-    const danho = 35
-    const durabilidad = 100.randomUpTo(130).round()
-    const nivel = 1.randomUpTo(3).round()
+    var property durabilidad = 100.randomUpTo(130).round()
+    const danhoBase = 35
+    const nivel = randomizer.randomDe1Hasta(3)
 
-    method danio() {
-      return  danho + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+    method danho() {
+      return  danhoBase + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
     }
 
     method image() {
@@ -98,19 +113,15 @@ object espada {
         return "ConEspada"
     }
 
-    method durabilidad() {
-        return durabilidad      
-    }
-
 }
 
 object martilloDeGuerra {
-    const property danho = 50
-    const durabilidad = 80.randomUpTo(100).round()
-    const nivel = 1.randomUpTo(3).round()
+    var property durabilidad = 80.randomUpTo(100).round()
+    const danhoBase = 50
+    const nivel = randomizer.randomDe1Hasta(3)
     
-    method danio() {
-       return danho + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
+    method danho() {
+       return danhoBase + (nivel * 10) // depende el nivel que tenga el arma al ser encontrada se multiplica por 10 el nivel de esta para sumarselo al dañó base
     }    
 
     method image() {
@@ -119,10 +130,6 @@ object martilloDeGuerra {
 
     method imagenParaPersonaje() {
         return "ConMartilloDeGuerra"
-    }
-
-    method durabilidad() {
-        return durabilidad     
     }
 }
 

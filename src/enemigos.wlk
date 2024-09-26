@@ -5,7 +5,7 @@ import pelea.*
 
 
 object enemigo1 {
-    var  position = game.at(3,9); 
+    var  position = game.at(14,14)
 	//const property esArma = false
     const objetivoADestruir = personaje
     var property vida = 100

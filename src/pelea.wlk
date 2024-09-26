@@ -50,7 +50,7 @@ object barraEstadoPeleas {
     }
 
 
-    method position() = game.at(5,2)
+    method position() = game.at(7, personaje.position().y() - 3)
 
 
 }

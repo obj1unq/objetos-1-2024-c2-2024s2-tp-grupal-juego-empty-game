@@ -36,8 +36,8 @@ program rpgPorTurnos {
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
 
 	//PAREDES
-	borde.cargar()
-	borde.mostrar()
+	//borde.cargar()
+	//borde.mostrar()
 
 	game.start()
 }

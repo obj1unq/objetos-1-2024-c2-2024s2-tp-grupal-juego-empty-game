@@ -39,6 +39,6 @@ object dungeon {
     }
 
     method estaDentro(posicion) {
-        return posicion.x().between(0, game.width() - 2) && posicion.y().between(0, game.height() - 2) 
+        return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
     }
 }

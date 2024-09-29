@@ -1,3 +1,4 @@
+import armas.*
 import extras.*
 import wollok.game.*
 
@@ -9,9 +10,17 @@ object randomizer {
 	}
 
 	method armaRandom() {
-		const rnd = 0.randomUpTo(2).round()
-		return if (rnd==2) espada else if(rnd==1) arcoYFlecha else martilloDeGuerra
+		return #{espada2, martillo, arcoYFlecha2}.anyOne()
 	}
+
+    // Esto es una prueba no tomar encerio pero estoy desesperado.
+    method armaRamdon2() {
+        const espada3 = new Arma3(durabilidadDe = 100, durabilidadHasta = 130, danho = 35, image = "espada2small", imagePj = "personajeConEspada-32Bits")
+        const arcoYFlecha3 = new Arma3(durabilidadDe = 130, durabilidadHasta = 150, danho = 20, image = "arcoYFlecha1small",imagePj = "personajeConEspada-32Bits")
+        const martillo3 = new Arma3(durabilidadDe = 50, durabilidadHasta = 90, danho = 80, image = "martilloDeGuerra1small", imagePj = "personajeConEspada-32Bits")
+
+        return #{espada3, arcoYFlecha3, martillo3}.anyOne()
+    }
 		
 	method position() {
 		return 	game.at( 

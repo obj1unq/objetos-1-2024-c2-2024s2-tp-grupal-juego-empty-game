@@ -3,12 +3,13 @@ import posiciones.*
 import extras.*
 import paleta.*
 import enemigos.*
+import armas.*
 
 
 object personaje {
 
     var property vida = 100
-	const property bolsa = [espada]
+	const property bolsa = []//new Arma()]
 	//de momento, la idea es que las armas NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
@@ -16,8 +17,8 @@ object personaje {
 	var property isMoving = true //flag
 	var  position = game.at(7,2); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
-	var property armaActual = bolsa.head()
-    var property tieneArmaEquipada = false
+	var property armaActual = null
+    var property tieneArmaEquipada = true
 
 	
 	method position() {
@@ -25,7 +26,7 @@ object personaje {
 	}
 
 	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "personaje" + self.estado() + ".png"
+		return "personaje" + self.estado() + "-32Bits.png"
 	}
 
 	method estado() {
@@ -38,12 +39,10 @@ object personaje {
 
 	/// ARMA    
     method equiparArma(armaNueva){
-    //    if(armaNueva.esArma()) {
-            armaNueva.serEquipada()
-            self.armaActual(armaNueva)
-            self.tieneArmaEquipada(true)
-			bolsa.add(armaNueva)
-     //   }
+    	bolsa.add(armaNueva) // mete el arma en la bolsa
+        self.armaActual(bolsa.head()) // Su arma actual es la primera de la bolsa
+
+
     }
     
     method armaActual(arma){
@@ -81,7 +80,7 @@ object personaje {
     //cuando se toca la Q ataca (implementado en pelea - barraDeEstado.aparecer())
     method atacar(enemigo){
         if(estaEnCombate){
-            enemigo.recibirDanho(armaActual.danio())
+            enemigo.recibirDanho(armaActual.danho())
 			armaActual.durabilidad()
         }
     }

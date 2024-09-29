@@ -5,6 +5,7 @@ import enemigos.*
 import randomizer.*
 import posiciones.*
 import paleta.*
+import armas.*
 
 
 program rpgPorTurnos {
@@ -17,7 +18,8 @@ program rpgPorTurnos {
 	game.addVisual(listaDeObjetos)
 	game.addVisual(enemigo1)
 	game.addVisual(personaje)
-	var arma1= new Arma() //crea 1 arma con atributos random en posicion random ni bien empiece el juego
+
+    var arma1 = new Arma3(durabilidadDe = 100, durabilidadHasta = 130, danho = 35, image = "espadaNegra-32Bits", imagePj = "personajeConEspada-32Bits")//randomizer.armaRamdon2()
 	game.addVisual(arma1) //se importa el image() de su clase, o sea, Arma
 						  //con game.removeVisual(arma1) lo sacamos. Cuando no tiene el visual, es como si no estuviera. el pj no puede
 						  //interactuar con el objeto que no tiene visual.
@@ -85,20 +87,9 @@ program rpgPorTurnos {
 
 	//COLISIÓN
 
-	//el parámetro del bloque (en este caso, arma), es el objeto con el que colisiona personaje. si hay más de uno, supongo que se ejecutaría
-	//este mismo código tantas veces como objetos haya ahí //es lo mismo que whenCollideDo, no?
-    game.onCollideDo(personaje, { arma => personaje.equiparArma(arma) //esto capaz tmb podría ir en el if. habría que modificar equiparArma
-								  if(arma.esArma()) {
-								  	{game.say(personaje, "Agarré un arma, Oh Yeah!")}
-									game.removeVisual(arma)
-								  }
-								})
 
-    // collision entre personaje y enemigo para empezar pelea
-    game.whenCollideDo(personaje, {enemigo => enemigo.combate() } )
+    // Siempre que el pj colsiona con algo, ese algo tiene un método(polimorfismo) que hace lo que tiene que hacer cuando lo toca el personake
+    game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
 
-
-	//EVENTOS
-	
 	game.start()
 }

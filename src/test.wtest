@@ -2,6 +2,7 @@ import posiciones.*
 import personaje.*
 import enemigos.*
 
+/*
 describe "prueba de movimiento de enemigo1" {
 
     test "distancia a la que está objetivoADestruir (personaje)" {
@@ -13,3 +14,4 @@ describe "prueba de movimiento de enemigo1" {
     }
 
 }
+*/

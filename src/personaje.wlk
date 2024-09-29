@@ -11,14 +11,14 @@ object personaje {
 
     var property vida = 100
 	var estaEnCombate = false
-	const property bolsa = [randomizer.armaRandom()]
+	const property bolsa = []
 	//de momento, la idea es que las armas NO sean ÚNICAS, por lo que el pj puede tener 2 de la misma. por tanto, usamos una lista
 	//en vez de un conjunto.
 	//para esta idea de armas no únicas usamos la clase Arma
 	//propongo un máximo de 3. Podría agrandarse si pasa x cosa (o sino lo dejamos fijo en 3)
 	var  position = game.at(7,2); //lo ponemos como atributo porque tenemos que inicializarlo en una cierta celda pero tmb va cambiando.
 								 //si fuera estático podríamos tener simplemente un metodo posición que devuelva esa pos estática
-	var property armaActual = bolsa.head()
+	var property armaActual = mano //bolsa.head()
     var property tieneArmaEquipada = true
 
 	method position() {
@@ -38,7 +38,7 @@ object personaje {
 	}
 
 	method estaSinArma() {
-		return armaActual == null
+		return armaActual == mano
 	}
 
 	/// ARMA    

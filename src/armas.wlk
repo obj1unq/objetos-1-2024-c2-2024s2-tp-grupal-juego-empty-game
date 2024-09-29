@@ -37,7 +37,7 @@ class Espada inherits Arma {
 
     override method chequearDurabilidad() {
         if (self.durabilidad() <= 5) {
-            personaje.armaActual(null) //en realidad hay que fijarse si tiene otra y pasar esa al primero, y si hay tercera pasarla a 2do
+            personaje.armaActual(mano) //en realidad hay que fijarse si tiene otra y pasar esa al primero, y si hay tercera pasarla a 2do
             personaje.bolsa().remove(personaje.bolsa().head())
         } else {
             self.restarDurabilidad(5)
@@ -74,7 +74,7 @@ class ArcoYFlecha inherits Arma {
 
     override method chequearDurabilidad() {
         if (self.durabilidad() <= 5) {
-            personaje.armaActual(null) 
+            personaje.armaActual(mano) 
             personaje.bolsa().remove(personaje.bolsa().head())
         } else {
             self.restarDurabilidad(5)
@@ -109,7 +109,7 @@ class MartilloDeGuerra inherits Arma {
 
     override method chequearDurabilidad() {
         if (self.durabilidad() <= 5) {
-            personaje.armaActual(null) //en realidad hay que fijarse si tiene otra y pasar esa al primero, y si hay tercera pasarla a 2do
+            personaje.armaActual(mano) //en realidad hay que fijarse si tiene otra y pasar esa al primero, y si hay tercera pasarla a 2do
             personaje.bolsa().remove(personaje.bolsa().head())
         } else {
             self.restarDurabilidad(5)
@@ -132,6 +132,24 @@ class MartilloDeGuerra inherits Arma {
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
     method textColor() = paleta.azul()
 
+}
+
+object mano {
+    method danho() {
+        return 5
+    }
+
+    method durabilidad() {
+        return 
+    }
+
+    method chequearDurabilidad() {
+         
+    }
+
+    method imagenParaPersonaje() {
+
+    }
 }
 
 //FÁBRICAS (su única función es devolverme en nuevo objeto de la subclase de Arma a la que están ligadas. nos permiten crear armas random)

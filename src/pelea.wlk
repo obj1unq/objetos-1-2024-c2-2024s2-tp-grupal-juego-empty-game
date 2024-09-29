@@ -77,7 +77,7 @@ object vidaEnemigo {
 object ataque{
 
     method position() = vidaPersonaje.position().down(1)
-    method text() = personaje.bolsa().head()
+    method text() = personaje.armaActual()
     method textColor() = paleta.rojo()
 
 }

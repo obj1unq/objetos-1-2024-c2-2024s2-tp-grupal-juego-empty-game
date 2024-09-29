@@ -133,3 +133,29 @@ class MartilloDeGuerra inherits Arma {
     method textColor() = paleta.azul()
 
 }
+
+//FÁBRICAS (su única función es devolverme en nuevo objeto de la subclase de Arma a la que están ligadas. nos permiten crear armas random)
+
+object fabricaEspada {
+
+    method nuevaArma() {
+        return new Espada()
+    }
+
+}
+
+object fabricaArcoYFlecha {
+
+    method nuevaArma() {
+        return new ArcoYFlecha()
+    }
+
+}
+
+object fabricaMartilloDeGuerra {
+
+    method nuevaArma() {
+        return new MartilloDeGuerra()
+    }
+
+}

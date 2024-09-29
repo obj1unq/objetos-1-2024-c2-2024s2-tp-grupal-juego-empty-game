@@ -7,7 +7,6 @@ import pelea.*
 /*Tenemos que hacerlo clase pero yo no entendí :)*/
 object enemigo1 {
     var  position = game.at(14,12)
-	const property esArma = false
     const objetivoADestruir = personaje
     var property vida = 100
 	
@@ -62,7 +61,7 @@ object enemigo1 {
         - se le manda el enemigo a la barra de estado para saber con que enemigo esta pelean.
         - aparece la barra de estado.
     */
-    method combate(){
+    method combate() {
         position = position.right(1)
         game.say(self, "Ah! Pelea!")
         barraEstadoPeleas.enemigo(self)

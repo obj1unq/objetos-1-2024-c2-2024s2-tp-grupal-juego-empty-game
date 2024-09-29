@@ -55,10 +55,16 @@ object personaje {
 	//acciones con teclas
 
 	method mover(direccion) {
-		self.validarMoverPelea()
+		self.validarMover(direccion)
 		position = direccion.siguiente(position)
-		enemigo1.mover()
+		//enemigo1.mover()
 	}   
+
+	method validarMover(posicion) {
+		const siguiente = posicion.siguiente(self.position())
+		dungeon.validarDentro(siguiente)
+		self.validarMoverPelea()
+	}
 
 	method validarMoverPelea() {
 		if (estaEnCombate) {

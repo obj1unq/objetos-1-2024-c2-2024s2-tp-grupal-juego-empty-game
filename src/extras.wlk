@@ -29,3 +29,16 @@ object listaDeObjetos {
     method textColor() = paleta.rojo()
 
 }
+
+object dungeon {
+
+    method validarDentro(posicion) {
+        if (!self.estaDentro(posicion)) {
+            self.error("Soy una pared asshole")
+        }
+    }
+
+    method estaDentro(posicion) {
+        return posicion.x().between(0, game.width() - 2) && posicion.y().between(0, game.height() - 2) 
+    }
+}

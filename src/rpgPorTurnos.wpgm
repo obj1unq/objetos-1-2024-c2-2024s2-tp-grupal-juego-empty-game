@@ -6,6 +6,7 @@ import randomizer.*
 import posiciones.*
 import paleta.*
 import armas.*
+import paredes.*
 
 
 program rpgPorTurnos {
@@ -33,6 +34,10 @@ program rpgPorTurnos {
 	//COLISIÓN
     // Siempre que el pj colsiona con algo, ese algo tiene un método(polimorfismo) que hace lo que tiene que hacer cuando lo toca el personake
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
+
+	//PAREDES
+	borde.cargar()
+	borde.mostrar()
 
 	game.start()
 }

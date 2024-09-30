@@ -8,6 +8,7 @@ import personaje.*
 object combate {
     var turno = 0
     var property enemigo = null
+    const heroe = personaje
  //   var personajeLuchando = enemigo
 
     method cambiarTurno() {
@@ -16,11 +17,9 @@ object combate {
 
     method luchar() {
         if(turno == 1) {
-        //    personajeLuchando = enemigo
             enemigo.atacar()
-    } else {
-        //    personajeLuchando = personaje
-            personaje.pelear(enemigo)
+        } else {
+            personaje.llevarACaboAtaque(enemigo)
         }
     //self.validarMuerte()
     }

@@ -14,16 +14,13 @@ program rpgPorTurnos {
 	game.height(25) 		//valor por defecto 5
 	game.width(30) 			//valor por defecto 5
 	game.cellSize(32) 		//valor por defecto 50 
-	game.boardGround("fondoNivel1.png") //en vez de usar ground, que determina una imagen para TODAS las celdas, usamos boardGround, 
-								   //que determina una imagen para todo el tablero
+	game.boardGround("fondoNivel1.png") //posibilidad: usar objeto fondo para manejar el fondo (¿aún así lo inicializamos con esto, no?)
 	game.addVisual(listaDeObjetos)
 	game.addVisual(enemigo1)
 	game.addVisual(personaje)
 
     const arma1 = randomizer.armaRandom()
-	game.addVisual(arma1) //se importa el image() de su clase, o sea, Arma
-						  //con game.removeVisual(arma1) lo sacamos. Cuando no tiene el visual, es como si no estuviera. el pj no puede
-						  //interactuar con el objeto que no tiene visual.
+	game.addVisual(arma1)
 	
 	//MOVIMIENTO
 	keyboard.w().onPressDo({personaje.mover(arriba)})
@@ -32,7 +29,6 @@ program rpgPorTurnos {
 	keyboard.a().onPressDo({personaje.mover(izquierda)})
 
 	//COLISIÓN
-    // Siempre que el pj colsiona con algo, ese algo tiene un método(polimorfismo) que hace lo que tiene que hacer cuando lo toca el personake
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
 
 	//PAREDES

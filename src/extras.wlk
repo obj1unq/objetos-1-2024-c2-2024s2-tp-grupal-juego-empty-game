@@ -6,7 +6,7 @@ import paleta.*
 object listaDeObjetos {
 
     method position() {
-		return game.at(15,15)
+		return game.at(29,24)
 	}
 
 	method image() { 
@@ -34,7 +34,7 @@ object dungeon {
 
     method validarDentro(posicion) {
         if (!self.estaDentro(posicion)) {
-            self.error("Soy una pared asshole")
+            self.error("Soy una pared. No podés pasarme.")
         }
     }
 

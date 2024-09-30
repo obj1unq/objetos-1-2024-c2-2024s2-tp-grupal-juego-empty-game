@@ -151,11 +151,7 @@ object mano { //objeto especial (hay que trabajar con los efectos que causa porq
         return 5
     }
 
-    method durabilidad() { }
-
-    method chequearDurabilidad() { }
-
-    method imagenParaPersonaje() { }
+    method chequearDurabilidad() { } //necesario para que funcione el polimorfismo
 }
 
 //FÁBRICAS (su única función es devolverme en nuevo objeto de la subclase de Arma a la que están ligadas. nos permiten crear armas random)

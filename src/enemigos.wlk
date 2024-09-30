@@ -7,7 +7,7 @@ import pelea.*
 object enemigo1 {
     var  position = game.at(14,12)
     const objetivoADestruir = personaje
-    var property vida = 100
+    var property vida = 150
 	
 	method position() {
 		return position
@@ -81,7 +81,7 @@ object enemigo1 {
     method morir() {
         /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
         position = game.at(7,4)
-        vida = 100
+        vida = 150
     }
 
     // cuando el pj colsiona con el enemigo, este incia el combate

@@ -11,7 +11,7 @@ import pelea.*
 object personaje {
 
 	var  position = game.at(7,2);
-    var property vida = 250
+    var property vida = 450
 	const property bolsa = []
 	var estaEnCombate = false
 	var property armaActual = mano //en vez de bolsa.head() porque ahora empieza con bolsa vacía
@@ -96,7 +96,7 @@ object personaje {
 
 	method morir() {
 		position = game.at(2,2)
-        vida = 250
+        vida = 450
 	}
 
 }

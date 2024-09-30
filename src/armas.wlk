@@ -146,22 +146,16 @@ class MartilloDeGuerra inherits Arma {
 
 }
 
-object mano {
+object mano { //objeto especial (hay que trabajar con los efectos que causa porque noto efectos raros en la pelea al usar la mano)
     method danho() {
         return 5
     }
 
-    method durabilidad() {
-        return 
-    }
+    method durabilidad() { }
 
-    method chequearDurabilidad() {
-         
-    }
+    method chequearDurabilidad() { }
 
-    method imagenParaPersonaje() {
-
-    }
+    method imagenParaPersonaje() { }
 }
 
 //FÁBRICAS (su única función es devolverme en nuevo objeto de la subclase de Arma a la que están ligadas. nos permiten crear armas random)

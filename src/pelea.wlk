@@ -5,7 +5,31 @@ import paleta.*
 import enemigos.*
 import personaje.*
 
+object combate {
+    var turno = 0
+    var property enemigo = null
+ //   var personajeLuchando = enemigo
 
+    method cambiarTurno() {
+        turno = (turno + 1) % 2
+    }
+
+    method luchar() {
+        if(turno == 1) {
+        //    personajeLuchando = enemigo
+            enemigo.atacar()
+    } else {
+        //    personajeLuchando = personaje
+            personaje.pelear(enemigo)
+        }
+    //self.validarMuerte()
+    }
+
+ /*   method validarMuerte() {
+        personajeLuchando.morir()
+    }
+  */
+}
 
 object barraEstadoPeleas {
 
@@ -25,10 +49,9 @@ object barraEstadoPeleas {
 
             // el personaje ataca
             jugador.estaEnCombate(true)
-            keyboard.q().onPressDo( { jugador.atacar(enemigo)})
 
             //se evalua si la pelea termino o no
-            game.onTick(500, "evaluarPelea", { self.desaparecer() } )
+        //    game.onTick(500, "evaluarPelea", { self.desaparecer() } )
 
     }
 

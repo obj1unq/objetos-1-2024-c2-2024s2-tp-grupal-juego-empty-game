@@ -66,7 +66,14 @@ object enemigo1 {
         game.say(self, "Ah! Pelea!")
         barraEstadoPeleas.enemigo(self)
         barraEstadoPeleas.aparecer()
-        
+        combate.enemigo(self)
+        combate.luchar()
+    }
+
+    method atacar() {
+        personaje.recibirDanho(13) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
+        combate.cambiarTurno()
+        combate.luchar()
     }
 
     method recibirDanho(cantidad){
@@ -75,13 +82,17 @@ object enemigo1 {
 
     method morir() {
         /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
-        position = game.at(7,4)
-        vida = 100
+      position = game.at(7,4)
+      vida = 100
     }
+
+   // method validarMuerte() {
+//		
+//	}
 
 
     // cuando el pj colsiona con el enemigo, este incia el combate
-    method colisiono(pj){
+    method colisiono(personaje){
         self.combate()
     }
 

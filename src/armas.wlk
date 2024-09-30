@@ -23,6 +23,7 @@ class Arma {
     method imagenParaPersonaje()
     method restarDurabilidad(cantidadRestada)
     method chequearDurabilidad()
+    method habilidadEspecial()
 
 }
 
@@ -45,7 +46,7 @@ class Espada inherits Arma {
     }
 
     override method danho() {
-        return 35 + nivel * 10
+        return 35 + nivel * 3
     }
 
     override method image() {
@@ -54,6 +55,10 @@ class Espada inherits Arma {
 
     override method imagenParaPersonaje() {
         return "ConEspada"
+    }
+
+    override method habilidadEspecial() {
+        return self.danho() * 2 //golpe critico RASGUÑO MORTALLLLL
     }
 
     // Para test
@@ -82,7 +87,7 @@ class ArcoYFlecha inherits Arma {
     }
 
     override method danho() {
-        return 20 + nivel * 10
+        return 20 + nivel * 3
     }
         override method image() {
         return "arcoYFlecha-32Bits.png"
@@ -96,6 +101,9 @@ class ArcoYFlecha inherits Arma {
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
     method textColor() = paleta.azul()
 
+    override method habilidadEspecial() {
+        return //veneno
+    }
 }
 
 class MartilloDeGuerra inherits Arma {
@@ -117,7 +125,7 @@ class MartilloDeGuerra inherits Arma {
     }
 
     override method danho() {
-        return 80 + nivel * 10
+        return 80 + nivel * 3
     }
 
     override method image() {
@@ -131,6 +139,10 @@ class MartilloDeGuerra inherits Arma {
     // Para test
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
     method textColor() = paleta.azul()
+
+    override method habilidadEspecial() {
+        return //pierde turno enemigo
+    }
 
 }
 

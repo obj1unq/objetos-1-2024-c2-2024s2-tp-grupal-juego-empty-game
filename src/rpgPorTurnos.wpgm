@@ -8,7 +8,6 @@ import paleta.*
 import armas.*
 import paredes.*
 
-
 program rpgPorTurnos {
 	game.title("RPG por turnos de nombre a confirmar")
 	game.height(25) 		//valor por defecto 5

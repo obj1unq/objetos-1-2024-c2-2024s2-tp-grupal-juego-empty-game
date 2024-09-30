@@ -20,17 +20,15 @@ object combate {
         } else {
             personaje.llevarACaboAtaque(enemigo)
         }
-        self.validarMuerte()
+        self.validarFinDeCombate()
     }
 
-    method validarMuerte() {
+    method validarFinDeCombate() {
         if(heroe.vida() <= 0 || enemigo.vida() <= 0) {
-            game.removeVisual(barraEstadoPeleas)
-            game.removeVisual(vidaPersonaje)
-            game.removeVisual(vidaEnemigo)
-            game.removeVisual(ataque)
+            barraEstadoPeleas.desaparecerJuntoADemasBarras()
             heroe.estaEnCombate(false)
-            enemigo.morir()
+            enemigo.validarMuerte()
+            heroe.validarMuerte()
         }
     }
 
@@ -44,6 +42,7 @@ object barraEstadoPeleas {
     method text() = "Barra De Peleas"
     method textColor() = paleta.rojo()
 
+    method position() = game.at(7, personaje.position().y() - 3)
 
     // aparece todo lo que tiene que mostrar la barra de estado
     method aparecer() {
@@ -51,36 +50,16 @@ object barraEstadoPeleas {
             game.addVisual(vidaPersonaje)
             game.addVisual(vidaEnemigo)
             game.addVisual(ataque)
-
-            // el personaje ataca
             jugador.estaEnCombate(true)
-
-            //se evalua si la pelea termino o no
-        //    game.onTick(500, "evaluarPelea", { self.desaparecer() } )
-
     }
 
     // desaparece la barra y todo lo que muestra, evaluando si alguno de los dos, personaje o enemigo, murio
-    method desaparecer() {
-
-       if(jugador.vida() <= 0 || enemigo.vida() <= 0){
-
-            jugador.estaEnCombate(false)
-
-            game.removeTickEvent("evaluarPelea")
-            game.removeVisual(self)
-            game.removeVisual(vidaPersonaje)
-            game.removeVisual(vidaEnemigo)
-            game.removeVisual(ataque)
-            enemigo.morir()
-           // game.stop()
-            
-        }
+    method desaparecerJuntoADemasBarras() {
+        game.removeVisual(self)
+        game.removeVisual(vidaPersonaje)
+        game.removeVisual(vidaEnemigo)
+        game.removeVisual(ataque)
     }
-
-
-    method position() = game.at(7, personaje.position().y() - 3)
-
 
 }
 

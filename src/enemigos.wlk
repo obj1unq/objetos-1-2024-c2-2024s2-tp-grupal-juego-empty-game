@@ -3,7 +3,6 @@ import personaje.*
 import posiciones.*
 import pelea.*
 
-
 /*Tenemos que hacerlo clase pero yo no entendí :)*/
 object enemigo1 {
     var  position = game.at(14,12)
@@ -13,6 +12,16 @@ object enemigo1 {
 	method position() {
 		return position
 	}
+
+    method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
+		return "enemigo1" + self.estado() + "-32Bits.png"
+	}
+
+	method estado() {
+		return ""
+	}
+
+    //MOVIMIENTO
 
     method distanciaEnEjeX() {
         return (objetivoADestruir.position().x() - position.x())
@@ -37,14 +46,6 @@ object enemigo1 {
             }
         }
     }
-
-	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "enemigo1" + self.estado() + "-32Bits.png"
-	}
-
-	method estado() {
-		return ""
-	}
 
     // COMBATE/PELEA
 
@@ -71,16 +72,17 @@ object enemigo1 {
         vida = vida - cantidad
     }
 
-    method morir() {
-        /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
-      position = game.at(7,4)
-      vida = 100
+    method validarMuerte() {
+        if(self.vida()<=0) {
+            self.morir()
+        }
     }
 
-   // method validarMuerte() {
-//		
-//	}
-
+    method morir() {
+        /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
+        position = game.at(7,4)
+        vida = 100
+    }
 
     // cuando el pj colsiona con el enemigo, este incia el combate
     method colisiono(personaje){

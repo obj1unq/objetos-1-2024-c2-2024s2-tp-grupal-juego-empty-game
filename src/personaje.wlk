@@ -10,11 +10,11 @@ import pelea.*
 
 object personaje {
 
-    var property vida = 100
-	var estaEnCombate = false
-	const property bolsa = []
 	var  position = game.at(7,2);
-	var property armaActual = mano //bolsa.head()
+    var property vida = 250
+	const property bolsa = []
+	var estaEnCombate = false
+	var property armaActual = mano //en vez de bolsa.head() porque ahora empieza con bolsa vacía
 
 	method position() {
 		return position
@@ -47,7 +47,7 @@ object personaje {
         armaActual = arma
     }
 
-	//acciones con teclas
+	//MOVIMIENTO
 
 	method mover(direccion) {
 		self.validarMover(direccion)
@@ -66,6 +66,8 @@ object personaje {
 			self.error(null)
 		}
 	}
+
+	//COMBATE/PELEA
 
     method estaEnCombate(condicion){
         estaEnCombate = condicion
@@ -86,14 +88,17 @@ object personaje {
 		vida -= cantidad
 	}
 
-/*	method morir() {
-		
-	}
-
 	method validarMuerte() {
-
+		if(self.vida()<=0) {
+			self.morir()
+		}
 	}
-*/
+
+	method morir() {
+		position = game.at(2,2)
+        vida = 250
+	}
+
 }
 
 

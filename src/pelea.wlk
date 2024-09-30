@@ -9,7 +9,6 @@ object combate {
     var turno = 0
     var property enemigo = null
     const heroe = personaje
- //   var personajeLuchando = enemigo
 
     method cambiarTurno() {
         turno = (turno + 1) % 2
@@ -21,13 +20,20 @@ object combate {
         } else {
             personaje.llevarACaboAtaque(enemigo)
         }
-    //self.validarMuerte()
+        self.validarMuerte()
     }
 
- /*   method validarMuerte() {
-        personajeLuchando.morir()
+    method validarMuerte() {
+        if(heroe.vida() <= 0 || enemigo.vida() <= 0) {
+            game.removeVisual(barraEstadoPeleas)
+            game.removeVisual(vidaPersonaje)
+            game.removeVisual(vidaEnemigo)
+            game.removeVisual(ataque)
+            heroe.estaEnCombate(false)
+            enemigo.morir()
+        }
     }
-  */
+
 }
 
 object barraEstadoPeleas {

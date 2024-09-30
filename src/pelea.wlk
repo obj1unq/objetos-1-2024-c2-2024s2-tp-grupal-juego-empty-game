@@ -15,7 +15,7 @@ object combate {
         turno = (turno + 1) % 2
     }
 
-    method luchar() {
+    method darseTurnoDelCombate() {
         if(turno == 1) {
             enemigo.atacar()
         } else {

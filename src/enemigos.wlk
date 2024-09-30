@@ -22,15 +22,6 @@ object enemigo1 {
         return (objetivoADestruir.position().y() - position.y())
     }
 
-    //con esta implementación, se ejecuta solamente JUSTO después de que se mueva personaje
-    //análisis del caso de este tablero puntual:
-    //como empiezan pj en (5,5) y enem en (0,0), cuando pj va arriba o derecha (no se "auto-recorta" distancia), enem le sigue, va en esa
-    //misma dirección y quedan igual
-    //cuando pj va izquierda o abajo (se "auto-recorta" distancia), enem le recorta por el eje por donde no regaló distancia
-    //ej: si se va a la izquierda y regala una posición de eje x, enem va hacia arriba y le recorta posición de eje y.
-    //notese que, nuevamente, la distancia en ambos ejes es equivalente
-    //es por esto que nunca, luego de un movimiento de pj, que es cuando se ejecuta este método, se dará que 
-    //la distancia eje X == la distancia eje Y, por lo que no se tiene en cuenta ese imposible caso
     method mover() { 
         if (self.distanciaEnEjeX().abs() > self.distanciaEnEjeY().abs()) {
             if(self.distanciaEnEjeX() > 0) {
@@ -55,11 +46,11 @@ object enemigo1 {
 		return ""
 	}
 
+    // COMBATE/PELEA
 
-    // combate /pelea
-    /*  - La posicion del enemigo es una celda a la derecha del personaje cuando empeiza en combate.
-        - se le manda el enemigo a la barra de estado para saber con que enemigo esta pelean.
-        - aparece la barra de estado.
+    /*  - La posicion del enemigo es una celda a la derecha del personaje cuando empieza el combate.
+        - Se le manda el enemigo a la barra de estado para saber con que enemigo esta peleando.
+        - Aparece la barra de estado.
     */
     method combate() {
         position = position.right(1)
@@ -67,13 +58,13 @@ object enemigo1 {
         barraEstadoPeleas.enemigo(self)
         barraEstadoPeleas.aparecer()
         combate.enemigo(self)
-        combate.luchar()
+        combate.darseTurnoDelCombate()
     }
 
     method atacar() {
-        personaje.recibirDanho(13) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
+        objetivoADestruir.recibirDanho(13) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
         combate.cambiarTurno()
-        combate.luchar()
+        combate.darseTurnoDelCombate()
     }
 
     method recibirDanho(cantidad){

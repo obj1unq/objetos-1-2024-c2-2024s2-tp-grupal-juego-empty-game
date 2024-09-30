@@ -31,7 +31,7 @@ program rpgPorTurnos {
 	//COLISIÓN
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
 
-	//PAREDES
+	//PAREDES entiendo que de momento no estamos usando esto, ¿no? Lo usaríamos si hay elementos imposibles de traspasar como una mesa
 	//borde.cargar()
 	//borde.mostrar()
 

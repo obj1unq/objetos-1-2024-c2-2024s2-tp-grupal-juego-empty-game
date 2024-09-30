@@ -79,7 +79,7 @@ object personaje {
 		enemigo.recibirDanho(armaActual.danho()) //ya no hace falta preguntar si está en combate, porq atacar solo se ejecuta cuando hay uno
 		armaActual.chequearDurabilidad()	
 		combate.cambiarTurno()
-		combate.luchar()
+		combate.darseTurnoDelCombate()
 	}
 
 	method recibirDanho(cantidad) {

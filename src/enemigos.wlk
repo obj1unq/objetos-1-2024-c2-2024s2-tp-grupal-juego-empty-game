@@ -54,28 +54,29 @@ object enemigo1 {
         - Aparece la barra de estado.
     */
     method combate() {
-        position = position.right(1)
-        game.say(self, "Ah! Pelea!")
-        barraEstadoPeleas.enemigo(self)
-        barraEstadoPeleas.aparecer()
-        combate.enemigo(self)
-        combate.darseTurnoDelCombate()
+        
+        combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) empieza
+        combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
+
+        position = position.right(1)    //se posiciona una celda a la derecha del personaje
+        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va aquitar
+
+        combate.cambiarTurnoA(self) //Empiza en combate
     }
 
-    method atacar() {
-        objetivoADestruir.recibirDanho(13) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
-        combate.cambiarTurno()
-        combate.darseTurnoDelCombate()
+    method atacarPre() {
+        //game.schedule(300, { self.atacar(self)})      // para que quede más lindo a lo visual, que tarde un toque en atacar, que no sea instantaneo   
+        self.atacar(self)
     }
+
+    method atacar(_) { // el atributo  esta solo para el polimorfismo
+        objetivoADestruir.recibirDanho(20) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
+        combate.cambiarTurnoA(personaje)
+    }
+
 
     method recibirDanho(cantidad){
         vida = vida - cantidad
-    }
-
-    method validarMuerte() {
-        if(self.vida()<=0) {
-            self.morir()
-        }
     }
 
     method morir() {

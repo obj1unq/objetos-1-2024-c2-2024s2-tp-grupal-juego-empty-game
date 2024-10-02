@@ -151,6 +151,8 @@ object mano { //objeto especial (hay que trabajar con los efectos que causa porq
         return 5
     }
 
+    var property durabilidad = 9999 
+    
     method chequearDurabilidad() { } //necesario para que funcione el polimorfismo
 }
 

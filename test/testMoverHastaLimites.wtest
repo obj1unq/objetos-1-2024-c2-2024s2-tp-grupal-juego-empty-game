@@ -1,0 +1,34 @@
+import src.usuario.*
+import src.posiciones.*
+
+describe "Mover hasta límites" {
+
+    method inizialize() {
+        game.clear()
+        game.width(3)
+        game.height(3)
+        usuario.position(game.at(1,1))
+    }
+
+    test "Mueve hasta el límite superior" {
+        usuario.mover(arriba)
+        assert.throwsException({usuario.mover(arriba)})
+    }
+
+    test "Mueve hasta el límite inferior" {
+        usuario.position(game.at(1,1))
+        usuario.mover(abajo)
+        assert.throwsException({usuario.mover(abajo)})
+    }
+
+    test "Mueve hasta el límite derecho" {
+        usuario.mover(derecha)
+        assert.throwsException({usuario.mover(derecha)})
+    }
+
+    test "Mueve hasta el límite izquierdo" {
+        usuario.position(game.at(1,1))
+        usuario.mover(izquierda)
+        assert.throwsException({usuario.mover(izquierda)})
+    }
+}

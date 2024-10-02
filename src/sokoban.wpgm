@@ -1,0 +1,17 @@
+import wollok.game.*
+import usuario.*
+import posiciones.*
+
+program sokoban {
+    game.height(10) 
+	game.width(10)
+	game.cellSize(50)
+    game.addVisual(usuario)
+    
+    keyboard.up().onPressDo({usuario.mover(arriba)})
+    keyboard.down().onPressDo({usuario.mover(abajo)})
+    keyboard.right().onPressDo({usuario.mover(derecha)})
+    keyboard.left().onPressDo({usuario.mover(izquierda)})
+
+    game.start()
+}

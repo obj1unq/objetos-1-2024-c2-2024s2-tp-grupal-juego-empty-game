@@ -2,9 +2,10 @@
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+- Leonardo Di Franco
+- Franco Villamayor
+- Carla Burgos
+- Emanuel Menager
 
 ## Capturas
 

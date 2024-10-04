@@ -30,6 +30,7 @@ class Misil {
         // Verifica si el misil llegó al borde izquierdo
         if (self.position().x() <= -1){ 
             game.removeVisual(self) // Elimina el misil actual
+            game.removeTickEvent(self) // Elimina el onTick
             self.reaparecer() // Llama al método para reaparecer
         }
     }
@@ -83,7 +84,8 @@ class Token {
 
         // Verifica si el misil llegó al borde izquierdo
         if (self.position().x() <= -1){ 
-            game.removeVisual(self) // Elimina el misil actual
+            game.removeVisual(self) // Elimina el token actual
+            game.removeTickEvent(self) // Elimina el onTick
             game.schedule(30000, {self.reaparecer()})
             // Llama al método para reaparecer
         }
@@ -135,7 +137,8 @@ class Coin {
 
         // Verifica si el misil llegó al borde izquierdo
         if (self.position().x() <= -1){ 
-            game.removeVisual(self) // Elimina el misil actual
+            game.removeVisual(self) // Elimina el coin actual
+            game.removeTickEvent(self) // Elimina el onTick
             self.reaparecer()
             // Llama al método para reaparecer
         }

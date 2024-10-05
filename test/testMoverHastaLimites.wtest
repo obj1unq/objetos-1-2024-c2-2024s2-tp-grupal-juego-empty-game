@@ -16,7 +16,6 @@ describe "Mover hasta límites" {
     }
 
     test "Mueve hasta el límite inferior" {
-        personaje.position(game.at(1,1))
         personaje.mover(abajo)
         assert.throwsException({personaje.mover(abajo)})
     }
@@ -27,7 +26,6 @@ describe "Mover hasta límites" {
     }
 
     test "Mueve hasta el límite izquierdo" {
-        personaje.position(game.at(1,1))
         personaje.mover(izquierda)
         assert.throwsException({personaje.mover(izquierda)})
     }

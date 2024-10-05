@@ -1,5 +1,6 @@
 import wollok.game.*
 import personaje.*
+import posiciones.*
 
 //BOTON
 class Boton {
@@ -9,6 +10,10 @@ class Boton {
     method image() {
         return "boton_" + color.toString() + ".png"
     }
+
+    method esAtravesable() { return true }
+
+    method esDesplazable() { return false }
 }
 
 object rojo {}
@@ -23,6 +28,22 @@ class Caja {
     method image() {
         return "caja_" + estado.toString() + ".png"
     }
+
+    method esAtravesable() { return false }
+
+    method esDesplazable() { return true }
+
+    method desplazar(direccion) {
+        const siguiente = direccion.siguiente(position)
+        self.validarDesplazamiento(siguiente)
+        position = siguiente
+    }
+
+    method validarDesplazamiento(posicion) {
+        limite.validarLimites(posicion)
+        limite.validarAtravesables(posicion)
+    }
+
 }
 
 object normal {}
@@ -33,4 +54,9 @@ object bloqueada {}
 class Muro {
     var property position
     const property image = "muro.png"
+
+    
+    method esAtravesable() { return false }
+
+    method esDesplazable() { return false }
 }

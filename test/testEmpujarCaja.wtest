@@ -1,0 +1,37 @@
+import src.personaje.*
+import src.objetos.*
+import src.posiciones.*
+
+describe "Empujar una caja" {
+    
+    method initialize() {
+        game.clear()
+        game.width(3)
+        game.height(3)
+        game.addVisual(personaje)
+    }
+
+    test "Personaje empuja caja y se mueve" {
+        personaje.position(game.at(0,0))
+        const caja = new Caja(position=game.at(1,0))
+        game.addVisual(caja)
+        personaje.mover(derecha)
+        assert.equals([caja], game.getObjectsIn(game.at(2,0)))
+        assert.equals([personaje], game.getObjectsIn(game.at(1,0)))
+    }
+
+    test "Personaje no puede empujar caja porque se iría fuera del límite" {
+        personaje.position(game.at(1,0))
+        game.addVisual(new Caja(position=game.at(0,0)))
+        assert.throwsException({personaje.mover(izquierda)})
+        assert.equals([personaje], game.getObjectsIn(game.at(1,0)))
+    }
+
+    test "Personaje no puede empujar caja porque otra caja impide el desplazamiento" {
+        personaje.position(game.at(0,0))
+        game.addVisual(new Caja(position=game.at(1,0)))
+        game.addVisual(new Caja(position=game.at(2,0)))
+        assert.throwsException({personaje.mover(derecha)})
+        assert.equals([personaje], game.getObjectsIn(game.at(0,0)))
+    }
+}

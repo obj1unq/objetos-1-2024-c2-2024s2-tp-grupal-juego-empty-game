@@ -2,10 +2,10 @@
 
 ## Equipo de desarrollo
 
-- Elías Reynoso
-- Camila Cutillo
-- Lautaro Vildoza
-- Franco Oreskovic
+- Cutillo Camila
+- Oreskovic Franco
+- Reynoso Elías
+- Vildoza Lautaro
 
 ## Capturas
 
@@ -18,6 +18,6 @@
 
 ## Otros
 
-- Curso/Facultad
-- Versión de wollok
+- Programacion Con Objetos 1 (Comision 2) / UNQ (Universidad Nacional de Quilmes)
+- Versión de wollok 0.2.7
 - Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado

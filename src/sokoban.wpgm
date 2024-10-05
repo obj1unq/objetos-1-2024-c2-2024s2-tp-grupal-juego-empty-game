@@ -1,17 +1,21 @@
 import wollok.game.*
-import usuario.*
+import personaje.*
 import posiciones.*
+import objetos.*
+import nivel.*
 
 program sokoban {
-    game.height(10) 
-	game.width(10)
-	game.cellSize(50)
-    game.addVisual(usuario)
+    game.height(10)
+    game.width(10)
+    game.cellSize(50)
+
+    nivel.addVisual()
+    game.addVisual(personaje)
     
-    keyboard.up().onPressDo({usuario.mover(arriba)})
-    keyboard.down().onPressDo({usuario.mover(abajo)})
-    keyboard.right().onPressDo({usuario.mover(derecha)})
-    keyboard.left().onPressDo({usuario.mover(izquierda)})
+    keyboard.up().onPressDo({personaje.mover(arriba)})
+    keyboard.down().onPressDo({personaje.mover(abajo)})
+    keyboard.right().onPressDo({personaje.mover(derecha)})
+    keyboard.left().onPressDo({personaje.mover(izquierda)})
 
     game.start()
 }

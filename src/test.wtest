@@ -1,0 +1,17 @@
+import posiciones.*
+import personaje.*
+import enemigos.*
+
+/*
+describe "prueba de movimiento de enemigo1" {
+
+    test "distancia a la que está objetivoADestruir (personaje)" {
+        assert.equals(5, enemigo1.distanciaEnEjeX())
+        assert.equals(5, enemigo1.distanciaEnEjeY())
+        personaje.mover(izquierda) //acá el enemigo se movería hacia arriba, porque le queda más lejos el eje y de nuestro personaje
+        assert.equals(4, enemigo1.distanciaEnEjeX())
+        assert.equals(4, enemigo1.distanciaEnEjeY())
+    }
+
+}
+*/

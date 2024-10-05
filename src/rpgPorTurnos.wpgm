@@ -1,0 +1,45 @@
+import wollok.game.*
+import personaje.*
+import extras.*
+import enemigos.*
+import randomizer.*
+import posiciones.*
+import paleta.*
+import armas.*
+import paredes.*
+import pelea.*
+
+program rpgPorTurnos {
+	game.title("RPG por turnos de nombre a confirmar")
+	game.height(25) 		//valor por defecto 5
+	game.width(30) 			//valor por defecto 5
+	game.cellSize(32) 		//valor por defecto 50 
+	game.boardGround("fondoNivel1.png") //posibilidad: usar objeto fondo para manejar el fondo (¿aún así lo inicializamos con esto, no?)
+	game.addVisual(listaDeObjetos)
+	game.addVisual(enemigo1)
+	game.addVisual(personaje)
+
+    const arma1 = randomizer.armaRandom()
+	game.addVisual(arma1)
+	
+	//MOVIMIENTO
+	keyboard.w().onPressDo({personaje.mover(arriba)})
+	keyboard.d().onPressDo({personaje.mover(derecha)})
+	keyboard.s().onPressDo({personaje.mover(abajo)})
+	keyboard.a().onPressDo({personaje.mover(izquierda)})
+    
+    //TECLAS COMBATE
+    keyboard.up().onPressDo({ personaje.atacar()})
+
+	//COLISIÓN
+    game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
+
+	//PAREDES entiendo que de momento no estamos usando esto, ¿no? Lo usaríamos si hay elementos imposibles de traspasar como una mesa
+	//borde.cargar()
+	//borde.mostrar()
+
+    //test turnos
+    game.addVisual(turnoTest)
+    //cambio para intentar pasar branch
+	game.start()
+}

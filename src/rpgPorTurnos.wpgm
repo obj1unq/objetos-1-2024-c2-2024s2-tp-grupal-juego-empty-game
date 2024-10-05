@@ -7,6 +7,7 @@ import posiciones.*
 import paleta.*
 import armas.*
 import paredes.*
+import pelea.*
 
 program rpgPorTurnos {
 	game.title("RPG por turnos de nombre a confirmar")
@@ -26,6 +27,9 @@ program rpgPorTurnos {
 	keyboard.d().onPressDo({personaje.mover(derecha)})
 	keyboard.s().onPressDo({personaje.mover(abajo)})
 	keyboard.a().onPressDo({personaje.mover(izquierda)})
+    
+    //TECLAS COMBATE
+    keyboard.up().onPressDo({ personaje.atacar()})
 
 	//COLISIÓN
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
@@ -34,5 +38,8 @@ program rpgPorTurnos {
 	//borde.cargar()
 	//borde.mostrar()
 
+    //test turnos
+    game.addVisual(turnoTest)
+    //cambio para intentar pasar branch
 	game.start()
 }

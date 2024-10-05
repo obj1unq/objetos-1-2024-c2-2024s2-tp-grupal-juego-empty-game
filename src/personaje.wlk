@@ -68,36 +68,48 @@ object personaje {
 	}
 
 	//COMBATE/PELEA
+    var property enemigoCombatiendo = null
 
     method estaEnCombate(condicion){
         estaEnCombate = condicion
     }
 
-	method llevarACaboAtaque(enemigo) { //de este modo, solo se puede ejecutar atacar estando dentro de una pelea
-		keyboard.up().onPressDo({self.atacar(enemigo)})
+    var esTurno = false
+
+    method atacarPre() {
+        esTurno = true
+    }
+	
+
+	method atacar() {
+        self.validarCombate() // para que no le pegue a x enemigo cuando no esta peleando
+
+		enemigoCombatiendo.recibirDanho(armaActual.danho()) //ya no hace falta preguntar si está en combate, porq atacar solo se ejecuta el cambio de turno
+		armaActual.chequearDurabilidad()	
+
+        esTurno = false //para que no pueda atacar al enemigo cuando no es su turno
+
+		combate.cambiarTurnoA(enemigoCombatiendo)   //el pj termina de atacar y cambia el turno al enemigo
 	}
 
-	method atacar(enemigo) {
-		enemigo.recibirDanho(armaActual.danho()) //ya no hace falta preguntar si está en combate, porq atacar solo se ejecuta cuando hay uno
-		armaActual.chequearDurabilidad()	
-		combate.cambiarTurno()
-		combate.darseTurnoDelCombate()
-	}
+    method validarCombate() {
+        if(!estaEnCombate && !esTurno){
+            self.error("No puedo atacar ahora")
+        }
+    }
 
 	method recibirDanho(cantidad) {
 		vida -= cantidad
 	}
 
-	method validarMuerte() {
-		if(self.vida()<=0) {
-			self.morir()
-		}
-	}
-
+	
 	method morir() {
 		position = game.at(2,2)
         vida = 450
 	}
+
+
+
 
 }
 

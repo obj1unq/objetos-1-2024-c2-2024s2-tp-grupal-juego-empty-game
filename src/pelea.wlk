@@ -6,30 +6,71 @@ import enemigos.*
 import personaje.*
 
 object combate {
-    var turno = 0
-    var property enemigo = null
+
+    var property entidadAtacando = null
+    //var property enemigoEnCombate = null
     const heroe = personaje
 
-    method cambiarTurno() {
-        turno = (turno + 1) % 2
+    var hayCombate = false
+
+    method cambiarTurnoA(entidad){
+        //self.validarCombate()
+        entidadAtacando = entidad
+        //game.schedule(500, {self.entidadAtaca()} ) //quedaba lindo pero acumula daño
+        self.entidadAtaca()
+    }
+    method validarCombate() {
+        if(!hayCombate){
+            self.error("No hay nadie peleando")
+        }
+    }
+    method hayCombate(cond){
+        hayCombate = cond
     }
 
-    method darseTurnoDelCombate() {
-        if(turno == 1) {
-            enemigo.atacar()
-        } else {
-            personaje.llevarACaboAtaque(enemigo)
-        }
+    method entidadAtaca() {
         self.validarFinDeCombate()
+        self.validarCombate()
+        entidadAtacando.atacarPre()
     }
 
     method validarFinDeCombate() {
-        if(heroe.vida() <= 0 || enemigo.vida() <= 0) {
-            barraEstadoPeleas.desaparecerJuntoADemasBarras()
+        if(entidadAtacando.vida() <= 0) {
+            hayCombate = false
             heroe.estaEnCombate(false)
-            enemigo.validarMuerte()
-            heroe.validarMuerte()
+            barraEstadoPeleas.desaparecerJuntoADemasBarras()
+            entidadAtacando.morir()
+
         }
+    }
+
+    method iniciarCombate(){
+        personaje.enemigoCombatiendo(entidadAtacando)
+        hayCombate = true
+        personaje.estaEnCombate(true)   //en personaje se puede poner combate.hayCombate() en vez de mandarle esto al personaje
+        barraEstadoPeleas.enemigo(entidadAtacando)
+        barraEstadoPeleas.aparecer()
+    }
+
+}
+
+object atacaEnemigo {
+    method entidad() {
+        return personaje.enemigoCombatiendo()
+    }
+
+    method cambioTurno() {
+        return atacaJugador.entidad()
+    }
+}
+
+object atacaJugador {
+    method entidad() {
+        return personaje
+    }
+
+    method cambioTurno() {
+        return atacaEnemigo.entidad()
     }
 
 }
@@ -50,7 +91,8 @@ object barraEstadoPeleas {
             game.addVisual(vidaPersonaje)
             game.addVisual(vidaEnemigo)
             game.addVisual(ataque)
-            jugador.estaEnCombate(true)
+
+            //game.addVisual(turnoTest)
     }
 
     // desaparece la barra y todo lo que muestra, evaluando si alguno de los dos, personaje o enemigo, murio
@@ -59,6 +101,8 @@ object barraEstadoPeleas {
         game.removeVisual(vidaPersonaje)
         game.removeVisual(vidaEnemigo)
         game.removeVisual(ataque)
+        
+        //game.removeVisual(turnoTest)
     }
 
 }
@@ -84,7 +128,15 @@ object vidaEnemigo {
 object ataque{
 
     method position() = vidaPersonaje.position().down(1)
-    method text() = personaje.armaActual()
+    method text() = "Durabilidad" + personaje.armaActual().durabilidad().toString() //+ "\n Nivel: " + personaje.armaActual().nivel().toString()
     method textColor() = paleta.rojo()
+
+}
+
+object turnoTest {
+    method position() = game.at(1,16)//ataque.position().right(5)
+    method text() = "Turno De: " + combate.entidadAtacando()
+    method textColor() = paleta.rojo()
+
 
 }

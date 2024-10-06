@@ -5,7 +5,7 @@ import cosas.*
 import posiciones.*
 import reloj.*
 import fondo.*
-
+import barraSuperior.*
 
 
 program aventuraDeRena{
@@ -18,14 +18,28 @@ program aventuraDeRena{
 
     game.addVisual(auto)
 
+	//barra superior
+	game.addVisual(frameTermo)
+	game.addVisual(frameYerba)
+	game.addVisual(frameAgua)
+	game.addVisual(frameMate)
+	game.addVisual(new FramePregunta(position = game.at(5,9 )))
+	game.addVisual(new FramePregunta(position = game.at(4,9 )))
 
 	//agregar elementos al mapa
 	game.addVisual(yerba)
 	game.addVisual(termo)
 	game.addVisual(bizcochitos)
 	game.addVisual(dispenser)
+	game.addVisual(manzanita)
+	game.addVisual(mate)
+
+	//visual auto
+	game.addVisual(auto)
+
+	//fondo
 	game.addVisual(fondo)
-	
+
 	//agarrar
 	keyboard.a().onPressDo({auto.agarrarObjeto()})
 	

@@ -27,7 +27,7 @@ object bizcochitos {
   var property position = randomizador.randomPosition()
 
   method objetoALaBarra() {
-    position = game.at(7,9)
+    position = game.at(5,9)
   }
 }
 
@@ -38,8 +38,6 @@ object dispenser {
   method objetoALaBarra() {
     agua.position(game.at(6,9))
     game.addVisual(agua)
-    
-    
   }
   
 }
@@ -49,3 +47,20 @@ object agua {
   var property position = null
 }
 
+object manzanita {
+  var property image = "manzana_.png"
+  var property position = randomizador.randomPosition()
+
+    method objetoALaBarra() {
+    position = game.at(4,9)
+  }
+}
+
+object mate {
+  var property image = "mate.png"
+  var property position = randomizador.randomPosition()
+
+  method objetoALaBarra() {
+    position = game.at(7,9)
+  }
+}

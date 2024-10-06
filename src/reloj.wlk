@@ -4,7 +4,7 @@ import cosas.*
 
 object reloj {
 
-    var property segundos = 30
+    var property segundos = 1000
 
     var property  position = game.at(0, 9 )
     

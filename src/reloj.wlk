@@ -27,7 +27,7 @@ object reloj {
 
     method tick() {
 		self.validarContinuarJuego()
-        
+
         if (not inicio.estado().seguirMostrando()){
 
             segundos = (segundos - 1) % 1000
@@ -39,9 +39,9 @@ object reloj {
         if (not self.sigueEnTiempo()){
             game.addVisual(finDeJuego)
 
-            game.stop() //NO MUESTRA EL CARTEL DE "FIN DE JUEGO"
+            //game.stop() //NO MUESTRA EL CARTEL DE "FIN DE JUEGO"
 
-	        //game.onTick(1000, "fin de juego", {game.stop()})
+	        game.onTick(1000, "fin de juego", {game.stop()})
 
         }
     }

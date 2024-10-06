@@ -14,8 +14,6 @@ program aventuraDeRena{
 	game.ground("ground.png")
 
 
-
-    //game.addVisualCharacter(auto)
     game.addVisual(auto)
 	
     keyboard.up().onPressDo	  ({auto.mover(arriba)})
@@ -26,9 +24,6 @@ program aventuraDeRena{
 	//Agrego el reloj
 	game.addVisual(reloj)
 	game.onTick(1000, "reloj", {reloj.tick()})
-	
-    game.addVisualCharacter(auto)
-	
 
 	
 

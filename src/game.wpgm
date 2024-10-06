@@ -8,7 +8,7 @@ program aventuraDeRena{
 	game.height(10) 		
 	game.width(10) 			
 	game.cellSize(50) 		
-	game.addVisual("ground.png")
+	game.ground("ground.png")
 
     game.addVisualCharacter(auto)
 	

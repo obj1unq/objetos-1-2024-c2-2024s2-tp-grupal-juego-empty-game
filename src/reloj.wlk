@@ -1,6 +1,7 @@
 import wollok.game.*
 import auto.*
 import cosas.*
+import inicio.*
 
 object reloj {
 
@@ -13,10 +14,8 @@ object reloj {
         return if(self.sigueEnTiempo()){
                     segundos.toString()
                 }else{
-                    position = game.at(1,9)
-                    "FIN DE JUEGO"
-                    //HACER QUE DEJE DE PODER MOVERSE EL AUTO
-                }
+                    ""
+                    }
     }
 
     method textColor() {
@@ -27,18 +26,22 @@ object reloj {
     }
 
     method tick() {
-        self.validarContinuarJuego()
-        segundos = (segundos - 1) % 1000
+		self.validarContinuarJuego()
 
+        if (not inicio.estado().seguirMostrando()){
+
+            segundos = (segundos - 1) % 1000
+        }
+    
     }
 
     method validarContinuarJuego(){
         if (not self.sigueEnTiempo()){
             game.addVisual(finDeJuego)
-            
-            game.stop()
 
-	        //game.onTick(1000, "fin de juego", {game.stop()})
+            //game.stop() //NO MUESTRA EL CARTEL DE "FIN DE JUEGO"
+
+	        game.onTick(1000, "fin de juego", {game.stop()})
 
         }
     }

@@ -34,6 +34,7 @@ program aventuraDeRena{
 
 	//visual auto
 	game.addVisual(auto)
+	game.addVisual(reloj)
 
 	//fondo
 	game.addVisual(inicio)
@@ -50,11 +51,8 @@ program aventuraDeRena{
 	keyboard.s().onPressDo({inicio.cambiar()})
 
 	//Agrego el reloj
-	game.addVisual(reloj)
-	game.onTick(1000, "reloj", {reloj.tick()})
-	//game.onTick(1000, "fin de juego", {reloj.validarContinuarJuego()})
+	game.onTick(1000, "reloj", { reloj.tick() })
 	
-
 
 
 	

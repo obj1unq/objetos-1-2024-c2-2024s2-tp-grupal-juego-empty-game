@@ -4,7 +4,7 @@ import tablero.*
 import cosas.*
 import posiciones.*
 import reloj.*
-import fondo.*
+import inicio.*
 
 
 
@@ -15,6 +15,7 @@ program aventuraDeRena{
 	game.cellSize(50) 		
 	game.ground("ground.png")
 
+	
 
     game.addVisual(auto)
 
@@ -24,7 +25,8 @@ program aventuraDeRena{
 	game.addVisual(termo)
 	game.addVisual(bizcochitos)
 	game.addVisual(dispenser)
-	game.addVisual(fondo)
+	game.addVisual(inicio)
+	
 	
 	//agarrar
 	keyboard.a().onPressDo({auto.agarrarObjeto()})
@@ -34,12 +36,13 @@ program aventuraDeRena{
 	keyboard.down().onPressDo ({auto.mover(abajo)})
 	keyboard.right().onPressDo({auto.mover(derecha)})
 
-	keyboard.s().onPressDo({fondo.cambiar()})
+	keyboard.s().onPressDo({inicio.cambiar()})
 
 	//Agrego el reloj
 	game.addVisual(reloj)
 	game.onTick(1000, "reloj", {reloj.tick()})
 	//game.onTick(1000, "fin de juego", {reloj.validarContinuarJuego()})
+	
 
 
 

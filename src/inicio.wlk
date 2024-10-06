@@ -1,7 +1,7 @@
 import wollok.game.*
 
 object inicio {
-  var property estado = intro1
+  var property estado = intro0
   
   method position() = game.at(0, 0)
   
@@ -15,6 +15,15 @@ object inicio {
     
     }
 }
+
+
+object intro0 {
+    const property image = "intro0.png"
+    method siguiente() = intro1
+    method seguirMostrando() = true
+
+}
+
 
 object intro1 {
     const property image = "intro1.png"

@@ -32,7 +32,9 @@ object cabezal {
 
     method moverPj() {
       seleccionActual.mover(self.position())
+      
       seleccionActual.definirEnemigosAlAlcance(self.position())
+
       seleccionActual = null
 
     }

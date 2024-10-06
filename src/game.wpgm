@@ -11,6 +11,14 @@ program aventuraDeRena{
 	game.ground("ground.png")
 
     game.addVisualCharacter(auto)
+
+	//agregar elementos al mapa
+	game.addVisual(yerba)
+	game.addVisual(termo)
+	game.addVisual(bizcochitos)
+	game.addVisual(dispenser)
+	//agarrar
+	keyboard.a().onPressDo({auto.agarrarObjeto()})
 	
     /*
 	//game.addVisualCharacter(pepita)

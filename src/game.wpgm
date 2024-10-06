@@ -25,6 +25,8 @@ program aventuraDeRena{
 	game.addVisual(termo)
 	game.addVisual(bizcochitos)
 	game.addVisual(dispenser)
+	game.addVisual(reloj)
+
 	game.addVisual(inicio)
 	
 	
@@ -39,11 +41,8 @@ program aventuraDeRena{
 	keyboard.s().onPressDo({inicio.cambiar()})
 
 	//Agrego el reloj
-	game.addVisual(reloj)
-	game.onTick(1000, "reloj", {reloj.tick()})
-	//game.onTick(1000, "fin de juego", {reloj.validarContinuarJuego()})
+	game.onTick(1000, "reloj", { reloj.tick() })
 	
-
 
 
 	

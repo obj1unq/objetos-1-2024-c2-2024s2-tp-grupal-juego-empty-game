@@ -2,6 +2,7 @@ import wollok.game.*
 import auto.*
 import tablero.*
 import cosas.*
+import reloj.*
 
 program aventuraDeRena{
     game.title("Aventura de Rena") 	
@@ -10,8 +11,14 @@ program aventuraDeRena{
 	game.cellSize(50) 		
 	game.ground("ground.png")
 
+	//Agrego el reloj
+	game.addVisual(reloj)
+	game.onTick(1000, "reloj", {reloj.tick()})
+	
     game.addVisualCharacter(auto)
 	
+
+
     /*
 	//game.addVisualCharacter(pepita)
 	keyboard.up().onPressDo()

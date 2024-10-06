@@ -2,6 +2,7 @@ import wollok.game.*
 import auto.*
 import tablero.*
 import cosas.*
+import posiciones.*
 
 program aventuraDeRena{
     game.title("Aventura de Rena") 	
@@ -10,16 +11,16 @@ program aventuraDeRena{
 	game.cellSize(50) 		
 	game.ground("ground.png")
 
-    game.addVisualCharacter(auto)
+
+    //game.addVisualCharacter(auto)
+    game.addVisual(auto)
 	
-    /*
-	//game.addVisualCharacter(pepita)
-	keyboard.up().onPressDo()
-	keyboard.left().onPressDo()
-	keyboard.down().onPressDo()
-	keyboard.right().onPressDo()
+    keyboard.up().onPressDo	  ({auto.mover(arriba)})
+	keyboard.left().onPressDo ({auto.mover(izquierda)})
+	keyboard.down().onPressDo ({auto.mover(abajo)})
+	keyboard.right().onPressDo({auto.mover(derecha)})
 	
-*/
+
 
 	game.start()	
 }

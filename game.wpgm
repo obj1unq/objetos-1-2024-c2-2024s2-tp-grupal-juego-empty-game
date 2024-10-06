@@ -1,0 +1,36 @@
+import wollok.game.*
+import map.*
+import characters.*
+import cabezal.*
+import direcciones.*
+
+
+
+program juego {
+	//  CONFIG	
+	game.title("Prueba")
+	game.height(10)
+	game.width(10)
+    game.cellSize(50)
+	game.ground("ground.png")
+
+	//  VISUALES
+ 	game.addVisual(mago)
+    mapa.agregarAliado(mago)
+    
+    game.addVisual(cabezal)
+ 	
+    // CABEZAL
+    keyboard.left().onPressDo({cabezal.mover(izquierda)})
+    keyboard.right().onPressDo({cabezal.mover(derecha)})
+    keyboard.up().onPressDo({cabezal.mover(arriba)})
+    keyboard.down().onPressDo({cabezal.mover(abajo)})
+	keyboard.a().onPressDo({cabezal.seleccionar()})
+	keyboard.q().onPressDo({cabezal.moverPj()})
+
+
+	
+
+ 	//  COMIENZA
+	game.start()
+}

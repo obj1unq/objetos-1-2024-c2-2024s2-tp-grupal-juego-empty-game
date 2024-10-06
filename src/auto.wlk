@@ -17,6 +17,9 @@ object auto{
 
     }
 
-    
+    method agarrarObjeto() {
+      const objeto = game.uniqueCollider(self)
+      objeto.objetoALaBarra()
+    }
 
 }

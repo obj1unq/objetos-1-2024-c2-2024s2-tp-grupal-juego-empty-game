@@ -13,8 +13,16 @@ program aventuraDeRena{
 	game.cellSize(50) 		
 	game.ground("ground.png")
 
-
     game.addVisual(auto)
+
+	//agregar elementos al mapa
+	game.addVisual(yerba)
+	game.addVisual(termo)
+	game.addVisual(bizcochitos)
+	game.addVisual(dispenser)
+	
+	//agarrar
+	keyboard.a().onPressDo({auto.agarrarObjeto()})
 	
     keyboard.up().onPressDo	  ({auto.mover(arriba)})
 	keyboard.left().onPressDo ({auto.mover(izquierda)})

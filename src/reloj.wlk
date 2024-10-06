@@ -4,13 +4,13 @@ import cosas.*
 
 object reloj {
 
-    var property segundos = 10
+    var property segundos = 5
 
     var property  position = game.at(0, 9 )
     
 
     method text() {
-        return if(segundos>0){
+        return if(self.sigueEnTiempo()){
                     segundos.toString()
                 }else{
                     position = game.at(1,9)
@@ -22,10 +22,25 @@ object reloj {
     method textColor() {
         return "FFFF00FF"
     }
+    method sigueEnTiempo(){
+        return segundos>0
+    }
 
     method tick() {
+        self.validarContinuarJuego()
         segundos = (segundos - 1) % 1000
 
+    }
+
+    method validarContinuarJuego(){
+        if (not self.sigueEnTiempo()){
+            game.addVisual(finDeJuego)
+            
+            game.stop()
+
+	        //game.onTick(1000, "fin de juego", {game.stop()})
+
+        }
     }
 
 
@@ -34,4 +49,9 @@ object reloj {
 	}
 
 
+}
+
+object finDeJuego{
+  var property position = game.at(0,0)
+  var property image = "finDelJuego.png"
 }

@@ -15,6 +15,7 @@ program aventuraDeRena{
 	game.cellSize(50) 		
 	game.ground("ground.png")
 
+
     game.addVisual(auto)
 
 
@@ -38,6 +39,8 @@ program aventuraDeRena{
 	//Agrego el reloj
 	game.addVisual(reloj)
 	game.onTick(1000, "reloj", {reloj.tick()})
+	//game.onTick(1000, "fin de juego", {reloj.validarContinuarJuego()})
+
 
 
 	

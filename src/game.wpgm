@@ -15,10 +15,6 @@ program aventuraDeRena{
 	game.cellSize(50) 		
 	game.ground("ground.png")
 
-	
-
-    game.addVisual(auto)
-
 	//barra superior
 	game.addVisual(frameTermo)
 	game.addVisual(frameYerba)
@@ -45,7 +41,7 @@ program aventuraDeRena{
 	
 	//agarrar
 	keyboard.a().onPressDo({auto.agarrarObjeto()})
-	
+
     keyboard.up().onPressDo	  ({auto.mover(arriba)})
 	keyboard.left().onPressDo ({auto.mover(izquierda)})
 	keyboard.down().onPressDo ({auto.mover(abajo)})

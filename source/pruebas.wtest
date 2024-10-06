@@ -1,0 +1,35 @@
+import wollok.game.*
+import personajes.personaje.*
+import enemigos.*
+import extras.*
+import posiciones.*
+import sonidos.*
+import juego.*
+
+describe "testeo de estados" {
+  /*
+  test "muerte" {
+
+    zombie.colisiono(personaje)
+    zombie.colisiono(personaje)
+    zombie.colisiono(personaje)   // no funciona pq no testea a traves del tiempo 
+    zombie.colisiono(personaje)
+    zombie.colisiono(personaje)
+    assert.equals(0, personaje.vida())
+  }
+  */
+  /*
+  test "curación" {
+    cura1.colisiono(personaje)
+    assert.equals(120, personaje.vida())
+  }
+  */
+/*
+  test "obtención de oro" {
+    oro1.colisiono(personaje)
+    oro2.colisiono(personaje)
+    oro3.colisiono(personaje)
+    assert.equals(90, personaje.oro())
+  }
+*/
+}

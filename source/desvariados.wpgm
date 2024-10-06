@@ -1,0 +1,27 @@
+import wollok.game.*
+import personajes.personaje.*
+import enemigos.*
+import extras.*
+import posiciones.*
+import sonidos.*
+import juego.*
+
+
+program desvariados {
+
+    juego.tablero()
+
+    juego.colisiones()
+
+    juego.visuals()
+
+    juego.movimiento()
+
+    juego.ataque()
+
+    //juego.sonido()
+
+    //juego.pausa() arreglar =/
+
+    game.start()
+}

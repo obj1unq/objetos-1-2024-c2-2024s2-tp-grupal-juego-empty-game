@@ -33,7 +33,10 @@ program aventuraDeRena{
 	game.addVisual(reloj)
 	game.onTick(1000, "reloj", {reloj.tick()})
 
+
 	
+
+
 
 
 	game.start()	

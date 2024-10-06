@@ -4,14 +4,19 @@ import cosas.*
 
 object reloj {
 
-    var property segundos = 120
+    var property segundos = 10
 
-    method position() {
-        return game.at(0, game.height() - 1 )
-    }
+    var property  position = game.at(0, 9 )
+    
 
     method text() {
-        return segundos.toString()
+        return if(segundos>0){
+                    segundos.toString()
+                }else{
+                    position = game.at(1,9)
+                    "FIN DE JUEGO"
+                    //HACER QUE DEJE DE PODER MOVERSE EL AUTO
+                }
     }
 
     method textColor() {
@@ -20,9 +25,13 @@ object reloj {
 
     method tick() {
         segundos = (segundos - 1) % 1000
+
     }
+
+
     method solida() {
 		return false
 	}
+
 
 }

@@ -3,6 +3,8 @@ import auto.*
 import tablero.*
 import cosas.*
 import posiciones.*
+import reloj.*
+
 
 program aventuraDeRena{
     game.title("Aventura de Rena") 	
@@ -12,6 +14,7 @@ program aventuraDeRena{
 	game.ground("ground.png")
 
 
+
     //game.addVisualCharacter(auto)
     game.addVisual(auto)
 	
@@ -19,6 +22,14 @@ program aventuraDeRena{
 	keyboard.left().onPressDo ({auto.mover(izquierda)})
 	keyboard.down().onPressDo ({auto.mover(abajo)})
 	keyboard.right().onPressDo({auto.mover(derecha)})
+
+	//Agrego el reloj
+	game.addVisual(reloj)
+	game.onTick(1000, "reloj", {reloj.tick()})
+	
+    game.addVisualCharacter(auto)
+	
+
 	
 
 

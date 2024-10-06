@@ -8,7 +8,7 @@ import direcciones.*
 
 program juego {
 	//  CONFIG	
-	game.title("Prueba")
+	game.title("FantasyWorld")
 	game.height(10)
 	game.width(10)
     game.cellSize(50)
@@ -18,7 +18,15 @@ program juego {
  	game.addVisual(mago)
     mapa.agregarAliado(mago)
     
+    const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(0,0))
+	mapa.agregarAliado(comandante)
+	const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(0,1))
+	mapa.agregarEnemigo(comandante2)
+
+	game.addVisual(comandante2)
+	game.addVisual(comandante)
     game.addVisual(cabezal)
+	
  	
     // CABEZAL
     keyboard.left().onPressDo({cabezal.mover(izquierda)})

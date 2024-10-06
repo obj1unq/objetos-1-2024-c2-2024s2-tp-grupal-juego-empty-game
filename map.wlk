@@ -13,9 +13,14 @@ object fondo {
 
 object mapa {
     const property aliados = #{}
+    const property enemigos = #{}
 
     method agregarAliado(aliado){
      aliados.add(aliado)
+    }
+
+    method agregarEnemigo(enemigo){
+        enemigos.add(enemigo)
     }
 
     method aliadosEn(position) {

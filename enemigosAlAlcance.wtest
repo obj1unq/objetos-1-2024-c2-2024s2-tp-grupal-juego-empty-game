@@ -1,0 +1,18 @@
+import wollok.game.*
+import map.*
+import characters.*
+import cabezal.*
+import direcciones.*
+
+describe "testear set de enemigos contiguos"{
+
+    test "comandante enemigo hacia arriba"{
+        const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(0,0))
+	    mapa.agregarAliado(comandante)
+	    const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(0,1))
+	    mapa.agregarEnemigo(comandante2)
+        comandante.definirEnemigosAlAlcance(game.origin())
+        
+        assert.equals(#{comandante2}, comandante.enemigosAlAlcance())
+    }
+}

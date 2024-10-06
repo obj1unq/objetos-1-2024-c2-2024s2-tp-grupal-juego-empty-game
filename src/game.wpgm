@@ -1,0 +1,27 @@
+import wollok.game.*
+import auto.*
+import tablero.*
+import cosas.*
+
+program aventuraDeRena{
+    game.title("Aventura de Rena") 	
+	game.height(10) 		
+	game.width(10) 			
+	game.cellSize(50) 		
+	game.addVisual("ground.png")
+
+    game.addVisualCharacter(auto)
+	
+    /*
+	//game.addVisualCharacter(pepita)
+	keyboard.up().onPressDo()
+	keyboard.left().onPressDo()
+	keyboard.down().onPressDo()
+	keyboard.right().onPressDo()
+	
+*/
+
+	game.start()	
+}
+
+

@@ -8,7 +8,7 @@ object tablero {
   method validarMovimiento(position) {
     
     if (not self.estaDentroDeLosLimites(position)){
-        auto.error("No podes pasar te vas fuera de los limites!!")
+        self.error("No puede salir el limite del tablero") //para que no aparezca la burbuja en la visual
     }
   }
 

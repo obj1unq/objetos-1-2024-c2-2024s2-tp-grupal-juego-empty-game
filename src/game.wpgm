@@ -23,6 +23,8 @@ program aventuraDeRena{
 	game.addVisual(new FramePregunta(position = game.at(5,9 )))
 	game.addVisual(new FramePregunta(position = game.at(4,9 )))
 
+
+
 	//agregar elementos al mapa
 	game.addVisual(yerba)
 	game.addVisual(termo)
@@ -52,11 +54,10 @@ program aventuraDeRena{
 
 	//Agrego el reloj
 	game.onTick(1000, "reloj", { reloj.tick() })
-	
 
-
-	
-
+	const musica = game.sound("musicaJuego.mp3")
+	musica.shouldLoop(true) //para q se repita en caso de terminar el audio
+	musica.play()
 
 
 

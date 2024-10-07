@@ -43,7 +43,7 @@ class Comandante {
 
 
     method recibirDano() {
-        cabezal.seleccionActualEnemiga().vidaActual() = (cabezal.seleccionActualAliada().ataqueBase() - cabezal.seleccionActualEnemiga().defensaBase())
+        vidaActual -= (cabezal.seleccionActualAliada().ataqueBase() - cabezal.seleccionActualEnemiga().defensaBase())
     }
 
     method morirSiCorresponde() {

@@ -47,7 +47,7 @@ program juego {
 	keyboard.b().onPressDo({cabezal.seleccionActualAliada().batallar()})
 	keyboard.s().onPressDo({cabezal.cancelar()})
 	keyboard.e().onPressDo({cabezal.seleccionarEnemigo()})
-	keyboard.k().onPressDo({cabezal.seleccionActualAliada().atacar(enemigo)})
+	keyboard.k().onPressDo({cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())})
 		
 
 

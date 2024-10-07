@@ -1,3 +1,4 @@
+import characters.*
 //import characters.*
 import wollok.game.*
 import direcciones.*
@@ -57,11 +58,20 @@ object cabezal {
 
 
     method cancelar() {
-      modoCabezal = cabezalNormal 
+      modoCabezal = cabezalNormal
+      seleccionActualAliada = null
+      seleccionActualEnemiga = null 
     }
 
     method modoBatalla() {
+      self.verificarEnemigos()
       modoCabezal = cabezalBatalla
+    }
+
+    method verificarEnemigos() {
+      if (seleccionActualAliada.enemigosAlAlcance().size() < 1) {
+        self.error("No hay nadie para atacar!")
+      }      
     }
   
 }

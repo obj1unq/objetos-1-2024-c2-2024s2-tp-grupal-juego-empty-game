@@ -4,8 +4,8 @@ import tablero.*
 import cosas.*
 import posiciones.*
 import reloj.*
-import fondo.*
-
+import barraSuperior.*
+import inicio.*
 
 
 program aventuraDeRena{
@@ -14,8 +14,17 @@ program aventuraDeRena{
 	game.width(10) 			
 	game.cellSize(50) 		
 	game.ground("ground.png")
+	// game.sound("musicJuego.mp3").play() //NO ME DEJA SUBIR EL ARCHIVO DE MUSICA A GITHUB, PERO LOGRÉ QUE SE REPRODUZCA
 
-    game.addVisual(auto)
+
+	//barra superior
+	game.addVisual(frameTermo)
+	game.addVisual(frameYerba)
+	game.addVisual(frameAgua)
+	game.addVisual(frameMate)
+	game.addVisual(new FramePregunta(position = game.at(5,9 )))
+	game.addVisual(new FramePregunta(position = game.at(4,9 )))
+
 
 
 	//agregar elementos al mapa
@@ -23,25 +32,34 @@ program aventuraDeRena{
 	game.addVisual(termo)
 	game.addVisual(bizcochitos)
 	game.addVisual(dispenser)
-	game.addVisual(fondo)
+
+	game.addVisual(manzanita)
+	game.addVisual(mate)
+
+	//visual auto
+	game.addVisual(auto)
+	game.addVisual(reloj)
+
+	//fondo
+	game.addVisual(inicio)
+	
 	
 	//agarrar
 	keyboard.a().onPressDo({auto.agarrarObjeto()})
-	
+
     keyboard.up().onPressDo	  ({auto.mover(arriba)})
 	keyboard.left().onPressDo ({auto.mover(izquierda)})
 	keyboard.down().onPressDo ({auto.mover(abajo)})
 	keyboard.right().onPressDo({auto.mover(derecha)})
 
-	keyboard.s().onPressDo({fondo.cambiar()})
+	keyboard.s().onPressDo({inicio.cambiar()})
 
 	//Agrego el reloj
-	game.addVisual(reloj)
-	game.onTick(1000, "reloj", {reloj.tick()})
+	game.onTick(1000, "reloj", { reloj.tick() })
 
-
-	
-
+	const musica = game.sound("musicaJuego.mp3")
+	musica.shouldLoop(true) //para q se repita en caso de terminar el audio
+	musica.play()
 
 
 

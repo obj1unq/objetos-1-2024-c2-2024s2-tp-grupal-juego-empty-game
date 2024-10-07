@@ -30,4 +30,15 @@ object dangalf {
     method sonidoMuerte(){
         game.sound("wizard-death.mp3").play()
     }
+
+    method municionImagen(){
+        return "potion.png"
+    }
+    method sinMunicion(){
+        game.sound("sin-balas.mp3").play()
+    }
+
+    method sonidoRecarga(){
+        game.sound("mana.mp3").play()
+    }
 }

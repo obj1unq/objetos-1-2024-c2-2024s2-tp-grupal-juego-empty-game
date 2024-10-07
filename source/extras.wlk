@@ -41,12 +41,16 @@ class Cura1 inherits Drop(image="vida.png"){
 }
 //---------------------------------Municion---------------------------------------
 //volverlo clase y que haga algo
+
 object balas {
 
     var property position = game.at(8,1)
-    var property image = "balas.png"
+    var property image = personaje.visualAmmo()
 
-    method colisionPj() {}
+    method colisionPj() {
+        personaje.recargar(6)
+        game.removeVisual(self)
+    }
 }
 
 //---------------------------------Monedas---------------------------------------
@@ -123,11 +127,11 @@ object timer {
     method colisionPj() {}
 
 }
-
+//----------------------------------------------HUD-----------------------------
 object puntosDeVida {
 
     var property image =  "barravida-100.png"
-    var property position = game.at(1, 16)
+    var property position = game.at(0, 16)
 
     method actualizar(){
         self.image("barravida-"+personaje.vida()+".png")
@@ -136,10 +140,23 @@ object puntosDeVida {
     method colisionPj() {}
 }
 
+object cargador {
+    var property position = game.at(6, 16)
+
+    method text() {
+        return personaje.municion().toString()
+    }
+
+    method colisionPj() {}
+
+    method textColor() {
+        return "90EE90"
+    }
+}
 object oroObtenido {
 
     method position() {
-        return game.at(4, game.height() - 1 )
+        return game.at(12, game.height() - 1 )
     }
 
     method text() {
@@ -149,6 +166,6 @@ object oroObtenido {
     method colisionPj() {}
 
     method textColor() {
-        return "FFFFFF"
+        return "D4AF37"
     }
 }

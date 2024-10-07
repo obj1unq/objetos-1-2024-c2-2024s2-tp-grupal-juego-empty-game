@@ -1,5 +1,7 @@
 import wollok.game.*
 import posiciones.*
+import extras.*
+
 
 object noel {
 
@@ -29,5 +31,16 @@ object noel {
 
     method sonidoMuerte(){
         game.sound("noel-muerte-sonido.mp3").play()
+    }
+
+    method municionImagen(){
+        return "balas.png"
+    }
+    method sinMunicion(){
+        game.sound("sin-balas.mp3").play()
+    }
+
+    method sonidoRecarga(){
+        game.sound("pistola-recarga.mp3").play()
     }
 }

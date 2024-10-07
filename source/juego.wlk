@@ -11,6 +11,7 @@ object juego {
         game.addVisual(timer)
         game.addVisual(personaje)
         game.addVisual(puntosDeVida)
+        game.addVisual(cargador)
         //game.addVisual(cura1)
         game.addVisual(balas)
         //game.addVisual(oro1)

@@ -18,15 +18,15 @@ program juego {
  	game.addVisual(mago)
     mapa.agregarAliado(mago)
     
-    const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3))
+    const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3), ataqueBase = 10)
     mapa.agregarAliado(comandante)
-	const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,4))
+	const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,4),ataqueBase = 1)
 	mapa.agregarEnemigo(comandante2)
-     const comandante3 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2))
+     const comandante3 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2), ataqueBase = 1)
 	mapa.agregarEnemigo(comandante3)
-    const comandante4 = new Comandante (team=enemigo, inventario =#{}, position = game.at(4,3))
+    const comandante4 = new Comandante (team=enemigo, inventario =#{}, position = game.at(4,3), ataqueBase = 1)
 	mapa.agregarEnemigo(comandante4)
-    const comandante5 = new Comandante (team=enemigo, inventario =#{}, position = game.at(2,3))
+    const comandante5 = new Comandante (team=enemigo, inventario =#{}, position = game.at(2,3),ataqueBase = 1)
 	mapa.agregarEnemigo(comandante5)
 
 	game.addVisual(comandante5)
@@ -47,6 +47,8 @@ program juego {
 	keyboard.b().onPressDo({cabezal.seleccionActualAliada().batallar()})
 	keyboard.s().onPressDo({cabezal.cancelar()})
 	keyboard.e().onPressDo({cabezal.seleccionarEnemigo()})
+	keyboard.k().onPressDo({cabezal.seleccionActualAliada().atacar(enemigo)})
+		
 
 
 	

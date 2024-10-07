@@ -5,13 +5,18 @@ import direcciones.*
 
 class Comandante {
     //stats provisionales
-    const ataqueBase = 10 
-    const defensaBase = 3
-    const vidaBase = 15
+    const property ataqueBase = null 
+    const property defensaBase = 3
+    const property vidaBase = 15
+    var property vidaActual = vidaBase
     const property team = null
     const property inventario = null
     var property position = null
     const property enemigosAlAlcance =#{}
+
+    method quitarEnemigoAlAlcance(enemigo) {
+        enemigosAlAlcance.remove(enemigo)
+    }
 
     method definirEnemigosAlAlcance(posicion){
         enemigosAlAlcance.addAll(self.definirEnemigoHacia(arriba.siguiente(posicion))) 
@@ -31,10 +36,27 @@ class Comandante {
         cabezal.modoBatalla()
     }
 
-    method atacar() {
-        
+    method atacar(enemigo) {
+        enemigo.recibirDano()
+        enemigo.morirSiCorresponde()
     }
 
+
+    method recibirDano() {
+        cabezal.seleccionActualEnemiga().vidaActual() = (cabezal.seleccionActualAliada().ataqueBase() - cabezal.seleccionActualEnemiga().defensaBase())
+    }
+
+    method morirSiCorresponde() {
+        if (vidaActual < 1){
+            self.morir()
+        }
+    }
+
+    method morir() {
+        mapa.quitarEnemigo(self)
+        self.quitarEnemigoAlAlcance(self)
+        game.removeVisual(self)
+    }
     
 
     method image(){

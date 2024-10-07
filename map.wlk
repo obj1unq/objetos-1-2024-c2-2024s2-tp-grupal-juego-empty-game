@@ -15,6 +15,10 @@ object mapa {
     const property aliados = #{}
     const property enemigos = #{}
 
+    method quitarEnemigo(enemigo) {
+        enemigos.remove(enemigo)
+    }
+
     method agregarAliado(aliado){
      aliados.add(aliado)
     }

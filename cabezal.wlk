@@ -8,7 +8,7 @@ import map.*
 object cabezal {
     var property seleccionActualAliada = null
     var property position = game.origin()
-    var property modoCabezal = cabezalSeleccion
+    var property modoCabezal = cabezalNormal
     var property seleccionActualEnemiga = null
 
     method image(){
@@ -40,6 +40,7 @@ object cabezal {
     method seleccionarAliado() {
         mapa.validarSeleccionAliada(self.position())
         seleccionActualAliada = self.obtenerPjAliado(self.position())
+        modoCabezal = cabezalSeleccion
     }
 
     method obtenerPjAliado(_position) {
@@ -50,12 +51,13 @@ object cabezal {
       seleccionActualAliada.mover(self.position())
       seleccionActualAliada.definirEnemigosAlAlcance(self.position())
       seleccionActualAliada = null
+      modoCabezal = cabezalNormal
 
     }
 
 
     method cancelar() {
-      modoCabezal = cabezalSeleccion 
+      modoCabezal = cabezalNormal 
     }
 
     method modoBatalla() {
@@ -66,13 +68,19 @@ object cabezal {
 
 object cabezalSeleccion {
   method image() {
-        return "cabezal.png"
+        return "cabezal_seleccion.png"
     }  
 }
 
 object cabezalBatalla {
   method image() {
         return "cabezal_batalla.png"
+    } 
+}
+
+object cabezalNormal {
+  method image() {
+        return "cabezal.png"
     } 
 }
 

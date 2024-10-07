@@ -1,5 +1,32 @@
+import wollok.game.*
 import objetosCocina.*
 import comestibles.*
 
 
 
+
+program wollocook{
+
+    // CONFIGURACION pantalla
+
+    game.title("WolloCook Pizzeria")
+    game.height(10)
+    game.width(10)
+    game.ground("fondoPizzeria.jpg")
+
+
+    // Visual de prueba 
+
+    //game.addVisualCharacter(chef)
+
+
+    //Botones
+
+
+
+
+    // COMIENZO DE JUEGO
+
+    game.start()
+
+}

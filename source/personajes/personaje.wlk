@@ -33,15 +33,16 @@ object personaje {
     // -------------ataque-------------------------------
     
     method ataque(direccion) {                                                       
-        self.validarAtaque()                                                             
+        self.validarAtaque(direccion)                                                             
         self.image(pj.imagenAtaque(direccion))
         game.schedule(200,{self.image(pj.imagenNormal(direccion))})
         municion -= 1
         pj.sonidoAtaque()
     }
 
-    method validarAtaque() {
+    method validarAtaque(direccion) {
         if (municion == 0){
+            self.image(pj.imagenNormal(direccion))
             pj.sinMunicion()
             self.error("")
         }

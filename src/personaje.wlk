@@ -129,21 +129,6 @@ object sinArma {
 }
 
 object conArma {
-
-=======
-}
-
-//ESTADOS
-
-object sinArma {
-
-	method imagenParaPersonaje() {
-		return ""
-	}
-
-}
-
-object conArma {
 	method imagenParaPersonaje() {
 		return personaje.armaActual().imagenParaPersonaje()
 	}

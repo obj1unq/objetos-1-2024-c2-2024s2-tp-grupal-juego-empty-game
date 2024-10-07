@@ -1,32 +1,23 @@
 import wollok.game.*
 import objetosCocina.*
-import comestibles.*
+import remy.*
+import posiciones.*
 
-
-
-
-program wollocook{
-
-    // CONFIGURACION pantalla
-
-    game.title("WolloCook Pizzeria")
+program wollocok {
+    
+    // config
     game.height(10)
-    game.width(10)
-    game.ground("fondoPizzeria.jpg")
+	game.width(10)
 
+    //teclas
+    keyboard.w().onPressDo({remy.mover(arriba)})
+    keyboard.s().onPressDo({remy.mover(abajo)})
+    keyboard.d().onPressDo({remy.mover(derecha)})
+    keyboard.a().onPressDo({remy.mover(izquierda)})
+    keyboard.e().onPressDo({remy.recogerIngrediente()})
 
-    // Visual de prueba 
-
-    //game.addVisualCharacter(chef)
-
-
-    //Botones
-
-
-
-
-    // COMIENZO DE JUEGO
+    game.addVisual(remy)
 
     game.start()
-
 }
+

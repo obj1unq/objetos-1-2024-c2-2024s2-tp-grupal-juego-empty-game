@@ -21,8 +21,20 @@ object auto{
 
 
     method agarrarObjeto() {
+      self.validarAgarrar()
       const objeto = game.uniqueCollider(self)
       objeto.objetoALaBarra()
     }
+    method validarAgarrar(){
+      if(not self.hayObjeto()){
+        self.error("") 
+      }  
+    }
 
+    method hayObjeto(){
+      return game.colliders(self).size() > 0
+    }
+
+
+    
 }

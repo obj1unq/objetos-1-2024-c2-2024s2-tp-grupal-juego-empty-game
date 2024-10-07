@@ -12,21 +12,20 @@ object juego {
         game.addVisual(personaje)
         game.addVisual(puntosDeVida)
         //game.addVisual(cura1)
-        game.addVisual(balas)
+        game.addVisual(CajaDeBalas)
         //game.addVisual(oro1)
         //game.addVisual(oro2)
         //game.addVisual(oro3)
         //game.addVisual(muro)
         game.addVisual(oroObtenido)
+        game.addVisual(municionActual)
     }
 
     method ataque() {
-
         keyboard.left().onPressDo({personaje.ataque(izquierda)})
         keyboard.right().onPressDo({personaje.ataque(derecha)})
         keyboard.up().onPressDo({personaje.ataque(arriba)})
         keyboard.down().onPressDo({personaje.ataque(abajo)})
-
     }
 
     method movimiento() {
@@ -34,7 +33,6 @@ object juego {
 	    keyboard.a().onPressDo({personaje.mover(izquierda)})
 	    keyboard.s().onPressDo({personaje.mover(abajo)})
 	    keyboard.d().onPressDo({personaje.mover(derecha)})
-
     }
 
     method tablero() {
@@ -68,7 +66,6 @@ object juego {
     method colisiones() {
         game.onCollideDo(personaje, {item => item.colisionPj()})
     }
-
 
 /*
     method pausa() {

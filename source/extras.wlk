@@ -41,7 +41,7 @@ class Cura1 inherits Drop(image="vida.png"){
 }
 //---------------------------------Municion---------------------------------------
 //volverlo clase y que haga algo
-object balas {
+object CajaDeBalas {
 
     var property position = game.at(8,1)
     var property image = "balas.png"
@@ -97,17 +97,11 @@ object timer {
     var segundos = 0
     var minutos  = 0
 
-    method position() {
-        return game.at(8, game.height() - 1 )
-    }
+    method position() {return game.at(8, game.height() - 1 )}
 
-    method text() {
-        return minutos.toString() +":"+ segundos.toString()
-    }
+    method text() {return minutos.toString() +":"+ segundos.toString()}
 
-    method textColor() {
-        return "FFFFFF"
-    }
+    method textColor() {return "FFFFFF"}
 
     method tick() {
         if(segundos < 60){
@@ -138,17 +132,23 @@ object puntosDeVida {
 
 object oroObtenido {
 
-    method position() {
-        return game.at(4, game.height() - 1 )
-    }
+    method position() {return game.at(4, game.height() - 1 )}
 
-    method text() {
-        return personaje.oro().toString()
-    }
+    method text() {return personaje.oro().toString()}
 
     method colisionPj() {}
 
-    method textColor() {
-        return "FFFFFF"
-    }
+    method textColor() {return "FFFFFF"}
+}
+
+object municionActual {
+
+    method position() {return game.at(6, game.height() - 1 )}
+
+    method text() {return personaje.municion().toString()}
+
+    method colisionPj() {}
+
+    method textColor() {return "FFFFFF"}
+
 }

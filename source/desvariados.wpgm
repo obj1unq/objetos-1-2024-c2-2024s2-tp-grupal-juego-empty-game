@@ -5,6 +5,7 @@ import extras.*
 import posiciones.*
 import sonidos.*
 import juego.*
+import proyectiles.*
 
 
 program desvariados {

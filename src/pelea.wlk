@@ -7,25 +7,22 @@ import personaje.*
 
 object combate {
 
-    var property entidadAtacando = null
-    //var property enemigoEnCombate = null
+    var property entidadAtacando = null //aquel que tiene el turno para atacar
     const heroe = personaje
-
     var hayCombate = false
 
+    method iniciarCombate(){
+        heroe.enemigoCombatiendo(entidadAtacando)
+        hayCombate = true
+        heroe.estaEnCombate(true)   //en personaje se puede poner combate.hayCombate() en vez de mandarle esto al personaje
+        barraEstadoPeleas.enemigo(entidadAtacando)
+        barraEstadoPeleas.aparecerJuntoADemasBarras()
+    }
+
     method cambiarTurnoA(entidad){
-        //self.validarCombate()
         entidadAtacando = entidad
         //game.schedule(500, {self.entidadAtaca()} ) //quedaba lindo pero acumula daño
-        self.entidadAtaca()
-    }
-    method validarCombate() {
-        if(!hayCombate){
-            self.error("No hay nadie peleando")
-        }
-    }
-    method hayCombate(cond){
-        hayCombate = cond
+        self.entidadAtaca() //acá se valida si el que ahora tiene el turno sigue con vida y, si es así, este realiza su ataque
     }
 
     method entidadAtaca() {
@@ -40,37 +37,16 @@ object combate {
             heroe.estaEnCombate(false)
             barraEstadoPeleas.desaparecerJuntoADemasBarras()
             entidadAtacando.morir()
-
         }
     }
 
-    method iniciarCombate(){
-        personaje.enemigoCombatiendo(entidadAtacando)
-        hayCombate = true
-        personaje.estaEnCombate(true)   //en personaje se puede poner combate.hayCombate() en vez de mandarle esto al personaje
-        barraEstadoPeleas.enemigo(entidadAtacando)
-        barraEstadoPeleas.aparecer()
+    method validarCombate() {
+        if(!hayCombate){
+            self.error("No hay nadie peleando")
+        }
     }
-
-}
-
-object atacaEnemigo {
-    method entidad() {
-        return personaje.enemigoCombatiendo()
-    }
-
-    method cambioTurno() {
-        return atacaJugador.entidad()
-    }
-}
-
-object atacaJugador {
-    method entidad() {
-        return personaje
-    }
-
-    method cambioTurno() {
-        return atacaEnemigo.entidad()
+    method hayCombate(cond){
+        hayCombate = cond
     }
 
 }
@@ -78,30 +54,28 @@ object atacaJugador {
 object barraEstadoPeleas {
 
     var property enemigo = null
-    var property jugador = personaje
+    var property heroe = personaje
 
     method text() = "Barra De Peleas"
     method textColor() = paleta.rojo()
 
-    method position() = game.at(7, personaje.position().y() - 3)
+    method position() = game.at(7, heroe.position().y() - 3)
 
     // aparece todo lo que tiene que mostrar la barra de estado
-    method aparecer() {
+    method aparecerJuntoADemasBarras() {
             game.addVisual(self)
             game.addVisual(vidaPersonaje)
             game.addVisual(vidaEnemigo)
             game.addVisual(ataque)
-
             //game.addVisual(turnoTest)
     }
 
-    // desaparece la barra y todo lo que muestra, evaluando si alguno de los dos, personaje o enemigo, murio
+    // desaparece la barra y todo lo que muestra tras darse la muerte del personaje o el enemigo
     method desaparecerJuntoADemasBarras() {
         game.removeVisual(self)
         game.removeVisual(vidaPersonaje)
         game.removeVisual(vidaEnemigo)
         game.removeVisual(ataque)
-        
         //game.removeVisual(turnoTest)
     }
 
@@ -118,7 +92,7 @@ object vidaPersonaje{
 
 object vidaEnemigo {
 
-    method text() = "Enemigo Vida: " + barraEstadoPeleas.enemigo().vida().toString()
+    method text() = " Vida enemigo: " + barraEstadoPeleas.enemigo().vida().toString()
     method textColor() = paleta.rojo()
 
     method position() = vidaPersonaje.position().right(3)
@@ -127,8 +101,8 @@ object vidaEnemigo {
 
 object ataque{
 
-    method position() = vidaPersonaje.position().down(1)
-    method text() = "Durabilidad" + personaje.armaActual().durabilidad().toString() //+ "\n Nivel: " + personaje.armaActual().nivel().toString()
+    method position() = vidaPersonaje.position().down(1).right(2)
+    method text() = "Durabilidad (" +personaje.armaActual().toString() + "): " + personaje.armaActual().durabilidad().toString() //+ "\n Nivel: " + personaje.armaActual().nivel().toString()
     method textColor() = paleta.rojo()
 
 }

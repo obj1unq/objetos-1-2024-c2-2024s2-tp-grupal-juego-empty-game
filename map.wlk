@@ -27,7 +27,11 @@ object mapa {
         return aliados.find({pj => pj.position() == cabezal.position()})
     }
 
-    method validarSeleccion(coordenadas) {
+    method enemigosEn(position) {
+        return enemigos.find({pj => pj.position() == cabezal.position()})
+    }
+
+    method validarSeleccionAliada(coordenadas) {
         if (not self.hayAliadosEn(coordenadas)){
             cabezal.error("No hay nada para seleccionar!")
         }
@@ -35,5 +39,15 @@ object mapa {
 
     method hayAliadosEn(coordenadas) {
         return aliados.any({aliado => aliado.position() == coordenadas})
+    }
+
+    method validarSeleccionEnemiga(coordenadas) {
+        if (not self.hayEnemigosEn(coordenadas)){
+            cabezal.error("No hay nada para seleccionar!")
+        }
+    }
+
+    method hayEnemigosEn(coordenadas) {
+        return enemigos.any({enemigo => enemigo.position() == coordenadas})
     }
 }

@@ -1,3 +1,4 @@
+import cabezal.*
 import wollok.game.*
 import map.*
 import direcciones.*
@@ -27,7 +28,14 @@ class Comandante {
         // mi ataque - defensa enemiga -> daño al enemigo
         // el ataque enemigo - mi defensa -> daño hacia mi
         // rango vs melee no hay trade
+        cabezal.modoBatalla()
     }
+
+    method atacar() {
+        
+    }
+
+    
 
     method image(){
         return "comandante-" + team.estado() + ".png"

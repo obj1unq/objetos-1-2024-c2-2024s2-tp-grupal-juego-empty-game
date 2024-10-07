@@ -2,9 +2,10 @@
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+- Acuña, Alan
+- Bogarín, Leandro
+- Fuentes, Joaquín
+- Mártire, Santiago
 
 ## Capturas
 

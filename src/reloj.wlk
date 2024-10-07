@@ -39,9 +39,9 @@ object reloj {
         if (not self.sigueEnTiempo()){
             game.addVisual(finDeJuego)
 
-            //game.stop() //NO MUESTRA EL CARTEL DE "FIN DE JUEGO"
+            game.stop() //NO MUESTRA EL CARTEL DE "FIN DE JUEGO"
 
-	        game.onTick(1000, "fin de juego", {game.stop()})
+	        //game.onTick(1000, "fin de juego", {game.stop()})
 
         }
     }

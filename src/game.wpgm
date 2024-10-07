@@ -8,8 +8,8 @@ import barraSuperior.*
 import inicio.*
 
 
-program aventuraDeRena{
-    game.title("Aventura de Rena") 	
+program aventuraDelMate{
+    game.title("Aventura del Mate") 	
 	game.height(10) 		
 	game.width(10) 			
 	game.cellSize(50) 		

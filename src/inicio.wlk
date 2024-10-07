@@ -41,7 +41,7 @@ object intro2 {
 }
 
 object intro3 {
-    const property image = "intro_3.png"
+    const property image = "intro_-3.png"
     method siguiente() = intro4
     method seguirMostrando() = true
 

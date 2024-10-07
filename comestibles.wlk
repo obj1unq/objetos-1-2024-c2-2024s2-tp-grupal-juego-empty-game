@@ -1,3 +1,5 @@
+import wollok.game.*
+import objetosCocina.*
 
 class Pizza {
 

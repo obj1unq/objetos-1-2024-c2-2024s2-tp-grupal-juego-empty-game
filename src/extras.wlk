@@ -28,21 +28,19 @@ class Misil {
         self.position(nuevaPosicion) // Actualizar la posición
 
         // Verifica si el misil llegó al borde izquierdo
-        if (self.position().x() <= -1){ 
+        if (self.saliDelTablero()){ 
             game.removeVisual(self) // Elimina el misil actual
-            game.removeTickEvent(self) // Elimina el onTick
+            game.removeTickEvent("misil") // Elimina el onTick
             self.reaparecer() // Llama al método para reaparecer
         }
     }
+    method saliDelTablero() {
+        return self.position().x() == -1
+    }
 
     method reaparecer() {
-        // Genera una nueva posición aleatoria en el eje Y
-        var nuevaPosicionY = randomizer.anyY()
-        // Crea un nuevo misil en la posición a la derecha
-        const nuevoMisil = new Misil(position = game.at(12, nuevaPosicionY))
-        game.addVisual(nuevoMisil) // Agrega el nuevo misil al juego
-        game.onTick(400, "nuevoMisil", {nuevoMisil.mover(izquierda)})
-        game.onTick(1, "nuevoMisil", {nuevoMisil.cambiarImagen()}); // Agrega movimiento al nuevo misil
+        generadorDeObjetos.construirMisil()
+        generadorDeObjetos.construirMisil()
     }
 
     method colisiono(personaje) {
@@ -56,6 +54,42 @@ class Misil {
 		game.addVisual(gameOver)
 		game.schedule(400,{game.stop()})
 	}
+}
+
+object generadorDeObjetos {
+    method construirMisil() {
+        var misil = new Misil(position = game.at(12, randomizer.anyY()))
+        game.addVisual(misil)
+        game.onTick(400, "misil", {misil.mover(izquierda)})
+        game.onTick(1, "misil", {misil.cambiarImagen()})
+      
+    }
+
+    method constuirMoneda() {
+        var coin = new Coin(position = game.at(12, randomizer.anyY()))
+        game.addVisual(coin)
+        game.onTick(1, "coin", {coin.cambiarImagen()})
+        game.onTick(600, "coin", {coin.mover(izquierda)})
+      
+    }
+
+    method construirToken() {
+        var token = new Token(position = game.at(12, randomizer.anyY()))
+        game.addVisual(token)
+        game.onTick(100, "token", {token.cambiarImagen()})
+	    game.onTick(600, "token", {token.mover(izquierda)})
+      
+    }
+
+    method construirReloj() {
+        game.onTick(1000, "reloj", {reloj.tick()})
+      
+    }
+
+    method gravedad() {
+        game.onTick(50, "gravedad", {barry.caer()}) 
+    }
+  
 }
 
 class Token {
@@ -83,22 +117,19 @@ class Token {
         self.position(nuevaPosicion) // Actualizar la posición
 
         // Verifica si el misil llegó al borde izquierdo
-        if (self.position().x() <= -1){ 
+        if (self.saliDelTablero()){ 
             game.removeVisual(self) // Elimina el token actual
-            game.removeTickEvent(self) // Elimina el onTick
+            game.removeTickEvent("token") // Elimina el onTick
             game.schedule(30000, {self.reaparecer()})
             // Llama al método para reaparecer
         }
     }
+    method saliDelTablero() {
+        return self.position().x() == -1
+    }
 
     method reaparecer() {
-        // Genera una nueva posición aleatoria en el eje Y
-        var nuevaPosicionY = randomizer.anyY()
-        // Crea un nuevo misil en la posición a la derecha
-        const nuevoToken = new Token(position = game.at(12, nuevaPosicionY))
-        game.addVisual(nuevoToken) // Agrega el nuevo misil al juego
-        game.onTick(400, "nuevoToken", {nuevoToken.mover(izquierda)})
-        game.onTick(1, "nuevoToken", {nuevoToken.cambiarImagen()}); // Agrega movimiento al nuevo misil
+        generadorDeObjetos.construirToken()
     }
 
     method colisiono(personaje) {
@@ -136,22 +167,21 @@ class Coin {
         self.position(nuevaPosicion) // Actualizar la posición
 
         // Verifica si el misil llegó al borde izquierdo
-        if (self.position().x() <= -1){ 
+        if (self.saliDelTablero()){ 
             game.removeVisual(self) // Elimina el coin actual
-            game.removeTickEvent(self) // Elimina el onTick
+            game.removeTickEvent("coin") // Elimina el onTick
             self.reaparecer()
             // Llama al método para reaparecer
         }
+    }
+    method saliDelTablero() {
+        return self.position().x() == -1
     }   
 
     method reaparecer() {
         // Genera una nueva posición aleatoria en el eje Y
-        var nuevaPosicionY = randomizer.anyY()
-        // Crea un nuevo misil en la posición a la derecha
-        const nuevoCoin = new Coin(position = game.at(12, nuevaPosicionY))
-        game.addVisual(nuevoCoin) // Agrega el nuevo misil al juego
-        game.onTick(400, "nuevoCoin", {nuevoCoin.mover(izquierda)})
-        game.onTick(1, "nuevoCoin", {nuevoCoin.cambiarImagen()}); // Agrega movimiento al nuevo misil
+        generadorDeObjetos.constuirMoneda()
+        generadorDeObjetos.constuirMoneda()
     }
 
     method colisiono(personaje) {

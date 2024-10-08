@@ -38,6 +38,7 @@ object gameOver {
 class Menu {
   var property juegoIniciado = false
   
+  
   method init() {
     game.title("jetpackjoyride")
 	  game.height(10)
@@ -60,42 +61,28 @@ class Menu {
     self.iniciarJuego()
   }
 
+
   method iniciarJuego() {
 	  game.addVisual(fondoJuego)
 	  game.addVisual(reloj)
 	  game.addVisual(barry)
 
-	  // Crear instancias de clases
-	  const misil1 = new Misil(position = game.at(12, randomizer.anyY()))
-	  const misil2 = new Misil(position = game.at(11, randomizer.anyY()))
-	  const coin1 = new Coin(position = game.at(12, randomizer.anyY()))
-	  const coin2 = new Coin(position = game.at(11, randomizer.anyY()))
-	  const token1 = new Token(position = game.at(12, randomizer.anyY()))
+    
 
-	  // Añadir visuales
-	  game.addVisual(misil1)
-	  game.addVisual(misil2)
-	  game.addVisual(coin1)
-	  game.addVisual(coin2)
-	  game.addVisual(token1)
+	  // Crear instancias de clases
+    generadorDeObjetos.construirMisil()
+    generadorDeObjetos.construirMisil()
+	  generadorDeObjetos.constuirMoneda()
+    generadorDeObjetos.constuirMoneda()
+    generadorDeObjetos.construirToken()
+    generadorDeObjetos.construirReloj()
+    generadorDeObjetos.gravedad()
+
 
 	  keyboard.up().onPressDo({barry.volar()})
 	  keyboard.w().onPressDo({barry.volar()})
 	
     // Colisiones
-    game.onCollideDo(barry, {cosa => cosa.colisiono(barry)})
-
-	  game.onTick(1000, "reloj", {reloj.tick()})
-	  game.onTick(400, "misil1", {misil1.mover(izquierda)})
-	  game.onTick(400, "misil2", {misil2.mover(izquierda)})
-	  game.onTick(1, "coin1", {coin1.cambiarImagen()})
-	  game.onTick(1, "coin2", {coin2.cambiarImagen()})
-	  game.onTick(600, "coin1", {coin1.mover(izquierda)})
-	  game.onTick(600, "coin2", {coin2.mover(izquierda)})
-	  game.onTick(100, "token1", {token1.cambiarImagen()})
-	  game.onTick(600, "token1", {token1.mover(izquierda)})
-	  game.onTick(1, "misil1", {misil1.cambiarImagen()})
-	  game.onTick(1, "misil2", {misil2.cambiarImagen()})
-	  game.onTick(50, "gravedad", {barry.caer()})  
+    game.onCollideDo(barry, {cosa => cosa.colisiono(barry)})  
   }
 }

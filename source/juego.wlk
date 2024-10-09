@@ -4,16 +4,19 @@ import enemigos.*
 import extras.*
 import posiciones.*
 import sonidos.*
+import hud.*
+
 
 object juego {
 
     method visuals() {
+        game.addVisual(barra)
         game.addVisual(timer)
         game.addVisual(personaje)
         game.addVisual(puntosDeVida)
         game.addVisual(cargador)
         //game.addVisual(cura1)
-        game.addVisual(balas)
+        //game.addVisual(Balas)
         //game.addVisual(oro1)
         //game.addVisual(oro2)
         //game.addVisual(oro3)
@@ -50,6 +53,7 @@ object juego {
         keyboard.z().onPressDo({managerZombie.spawnearZombieComun()})
         keyboard.c().onPressDo({managerItems.spawnearCura1()})
         keyboard.o().onPressDo({managerItems.spawnearOro1()})
+        keyboard.m().onPressDo({managerItems.spawnearMunicion()})
 
         game.onTick(1000, "timer", {timer.tick()})
     }

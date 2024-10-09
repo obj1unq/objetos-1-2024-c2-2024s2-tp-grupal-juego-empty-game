@@ -1,5 +1,7 @@
 import wollok.game.*
 import posiciones.*
+import extras.*
+import hud.*
 
 object dangalf {
 
@@ -35,7 +37,7 @@ object dangalf {
         return "potion.png"
     }
     method sinMunicion(){
-        game.sound("sin-balas.mp3").play()
+        game.sound("mago-sin-municion.mp3").play()
     }
 
     method sonidoRecarga(){

@@ -1,12 +1,13 @@
 import wollok.game.*
 import posiciones.*
 import extras.*
+import hud.*
 import noel.*
 import dangalf.*
 
 object personaje {
     //Imagen y posicion
-    var property pj = dangalf
+    var property pj = noel
     var property image = pj.imagenInicial()
     var property position = game.at(5,5)
     //Estadisticas

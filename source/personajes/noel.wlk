@@ -1,6 +1,8 @@
 import wollok.game.*
 import posiciones.*
 import extras.*
+import hud.*
+
 
 
 object noel {

@@ -38,7 +38,7 @@ object personaje {
         self.image(pj.imagenAtaque(direccion))
         game.schedule(200,{self.image(pj.imagenNormal(direccion))})
         municion -= 1
-        pj.sonidoAtaque()
+        pj.sonidoAtaque().volume(0.6)
     }
 
     method validarAtaque(direccion) {

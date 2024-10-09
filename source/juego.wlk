@@ -59,15 +59,17 @@ object juego {
     }
 
 
-/*
+
     method sonido() {
-        keyboard.p().onPressDo({sape.play()})
-        const rain = game.sound("echo-in-the-night.mp3")
-        rain.shouldLoop(true)
-        rain.volume(0.3)
-        game.schedule(005, { sonidoFondo.play()} )
+
+        const sonidoFondo = game.sound("echo-in-the-night.mp3")
+        keyboard.y().onPressDo({sonidoFondo.volume(0.6)})
+        keyboard.u().onPressDo({sonidoFondo.volume(0.3)})
+        keyboard.i().onPressDo({sonidoFondo.volume(0)})
+        sonidoFondo.shouldLoop(true)
+        game.schedule(003, { sonidoFondo.play()} )
     }
-*/
+
 
 
     method colisiones() {

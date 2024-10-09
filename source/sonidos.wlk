@@ -1,19 +1,18 @@
 import wollok.game.*
 
-object sape {
+object musicaDeFondo{
 
-    method play(){
-        game.sound("sape-sape.mp3").play()
-    }
-}
-
-object sonidoFondo{
-
-    method play(){
-        game.sound("echo-in-the-night.mp3").play()
+    var property volumen = 0.5 
+    
+    method tema(){
+        return game.sound("echo-in-the-night.mp3")
     }
 
-    //method volume(valor){
-    //    game.sound("echo-in-the-night.mp3").volume(valor)
-    //}
+    method volumeUp(num){
+        volumen += num
+    }
+
+    method volumeDown(num){
+        volumen += num 
+    }
 }

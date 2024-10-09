@@ -56,10 +56,7 @@ object dispenser {
     agua.position(game.at(6,9))
     game.addVisual(agua)
     recogido = true
-
-    
-    
-
+    agua.recogido(true)
   }
   
 }
@@ -67,7 +64,7 @@ object dispenser {
 object agua {
   var property image = "agua_.png"
   var property position = null
-  var property recogido = true
+  var property recogido = false
 
 }
 

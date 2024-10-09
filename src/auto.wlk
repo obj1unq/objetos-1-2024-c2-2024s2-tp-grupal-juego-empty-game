@@ -25,14 +25,13 @@ object auto{
       self.validarAgarrar()
       const objeto = game.uniqueCollider(self)
       objeto.objetoALaBarra()
-      //objeto.recogido(true)
 
       self.verSiGane()
     }
 
     method verSiGane(){
       if (self.recogiTodosLosObjetos()){
-        game.addVisual("gane_!!.png")
+        game.addVisual(ganeJuego)
 
         game.stop()
       }
@@ -54,5 +53,12 @@ object auto{
     }
 
 
+
+
     
+}
+
+object ganeJuego{
+  const property position = game.at(0,0)
+  const property image = "ganeJuego.png"
 }

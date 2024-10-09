@@ -33,6 +33,10 @@ object dangalf {
         game.sound("wizard-death.mp3").play()
     }
 
+    method hudMunicion(){
+        
+    }
+    
     method municionImagen(){
         return "potion.png"
     }

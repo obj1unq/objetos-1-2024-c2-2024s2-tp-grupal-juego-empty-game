@@ -35,6 +35,10 @@ object noel {
         game.sound("noel-muerte-sonido.mp3").play()
     }
 
+    method hudMunicion(){
+        return "balas-"
+    }
+
     method municionImagen(){
         return "balas.png"
     }

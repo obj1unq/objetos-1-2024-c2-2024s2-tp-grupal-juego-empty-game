@@ -57,19 +57,17 @@ object puntosDeVida {
 
 //----------------------------------------------MUNICION-----------------------------
 
-object cargador {
-    var property position = game.at(6, 16)
-
-    method text() {
-        return personaje.municion().toString()
-    }
-
-    method colisionPj() {}
-
-    method textColor() {
-        return "90EE90"
-    }
-}
+//object cargador {
+//
+//    var property image =  "balas-12.png"
+//    var property position = game.at(4, 16)
+//
+//    method actualizar(){
+//        self.image(personaje.imagenMunicion() +personaje.municion+".png")
+//    }
+//    
+//    method colisionPj() {}
+//}
 
 
 //----------------------------------------------ORO-----------------------------

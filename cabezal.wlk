@@ -1,3 +1,4 @@
+import characters.*
 //import characters.*
 import wollok.game.*
 import direcciones.*
@@ -6,47 +7,92 @@ import map.*
 
 
 object cabezal {
-    var property seleccionActual = null
+    var property seleccionActualAliada = null
     var property position = game.origin()
-    var cantidadDeMovimientos = 0
+    var property modoCabezal = cabezalNormal
+    var property seleccionActualEnemiga = null
+
+    method image(){
+      return modoCabezal.image()
+    }
 
     method mover(direccion) {
-        //const siguiente = direccion.siguiente(self.position())
         position = direccion.siguiente(self.position())
     }
 
-    method image() {
-        return "cabezal.png"
+
+    method validarCabezalBatalla() {
+      if (modoCabezal != cabezalBatalla){
+        self.error("Solo se puede elegir enemigo en modo batalla!")
+      }
+    }
+
+    method seleccionarEnemigo() {
+      self.validarCabezalBatalla()
+      mapa.validarSeleccionEnemiga(self.position())
+      seleccionActualEnemiga = self.obtenerPjEnemigo(self.position())
+    }
+    
+    method obtenerPjEnemigo(_position) {
+      return mapa.enemigosEn(_position)
     }
 
     //por ahora solo selecciona un aliado para moverlo
-    method seleccionar() {
-        mapa.validarSeleccion(self.position())
-        seleccionActual = self.obtenerPj(self.position())
+    method seleccionarAliado() {
+        mapa.validarSeleccionAliada(self.position())
+        seleccionActualAliada = self.obtenerPjAliado(self.position())
+        modoCabezal = cabezalSeleccion
     }
 
-    method obtenerPj(_position) {
+    method obtenerPjAliado(_position) {
       return mapa.aliadosEn(_position)
-
     }
 
     method moverPj() {
-      seleccionActual.mover(self.position())
-      seleccionActual = null
+      seleccionActualAliada.mover(self.position())
+      seleccionActualAliada.definirEnemigosAlAlcance(self.position())
+      seleccionActualAliada = null
+      modoCabezal = cabezalNormal
+
     }
 
 
     method cancelar() {
-      seleccionActual = null 
+      modoCabezal = cabezalNormal
+      seleccionActualAliada = null
+      seleccionActualEnemiga = null 
     }
 
+    method modoBatalla() {
+      self.verificarEnemigos()
+      modoCabezal = cabezalBatalla
+    }
+
+    method verificarEnemigos() {
+      if (seleccionActualAliada.enemigosAlAlcance().size() < 1) {
+        self.error("No hay nadie para atacar!")
+      }      
+    }
   
 }
 
-object seleccionado {
-  
+object cabezalSeleccion {
+  method image() {
+        return "cabezal_seleccion.png"
+    }  
 }
 
-object deseleccionado {
-  
+object cabezalBatalla {
+  method image() {
+        return "cabezal_batalla.png"
+    } 
 }
+
+object cabezalNormal {
+  method image() {
+        return "cabezal.png"
+    } 
+}
+
+
+

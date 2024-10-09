@@ -7,7 +7,7 @@ object noel {
     method disparar(direccion,posDada) {
        const balaNueva = new Bala(image="bala-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
         game.addVisual(balaNueva)
-        game.onTick(40, "viajeDeProyectil".identity(), {balaNueva.disparoHacia(direccion)})
+        balaNueva.nuevoViaje(direccion)
     }
 
     method imagenInicial(){

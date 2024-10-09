@@ -57,17 +57,30 @@ object puntosDeVida {
 
 //----------------------------------------------MUNICION-----------------------------
 
-//object cargador {
-//
-//    var property image =  "balas-12.png"
-//    var property position = game.at(4, 16)
-//
-//    method actualizar(){
-//        self.image(personaje.imagenMunicion() +personaje.municion+".png")
-//    }
-//    
-//    method colisionPj() {}
-//}
+object cargador {
+    var property  municion = 12 
+    const property duenio = personaje.pj()
+    var property position = game.at(4, 16)
+
+    method image(){
+        return duenio.hudMunicion() + municion.toString() + ".png"
+    }
+    
+    method recargar(balas){
+        duenio.sonidoRecarga()
+        municion += balas
+        municion = municion.min(12) 
+    }
+
+    method validarAtaque(){
+        if (municion == 0){
+            duenio.sinMunicion()
+            self.error("")
+        } else {municion -= 1}
+    }
+    
+    method colisionPj() {}
+}
 
 
 //----------------------------------------------ORO-----------------------------

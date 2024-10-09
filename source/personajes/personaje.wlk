@@ -13,7 +13,6 @@ object personaje {
     //Estadisticas
     var property vida = 100 //que sea un manager de vida aparte
     var property visualAmmo = pj.municionImagen()
-    var property municion = 12
     var property oro = 0
 
     //var property zombiesAsesinados = 0   - A implementar
@@ -33,31 +32,13 @@ object personaje {
 
     // -------------ataque-------------------------------
     
-    method ataque(direccion) {                                                       
-        self.validarAtaque(direccion)                                                             
+    method ataque(direccion) { 
+        self.image(pj.imagenNormal(direccion))                                                      
+        cargador.validarAtaque()                                                             
         self.image(pj.imagenAtaque(direccion))
         game.schedule(200,{self.image(pj.imagenNormal(direccion))})
-        municion -= 1
         pj.sonidoAtaque()
     }
-
-    method validarAtaque(direccion) {
-        if (municion == 0){
-            self.image(pj.imagenNormal(direccion))
-            pj.sinMunicion()
-            self.error("")
-        }
-    }
-
-    method recargar(balas){
-        pj.sonidoRecarga()
-        municion += balas
-        municion = municion.min(12) 
-    }
-
-    //method imagenMunicion(){
-    //    return pj.hudMunicion()
-    //}
 
     // -------------muerte-------------------------------
 

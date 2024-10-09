@@ -17,7 +17,9 @@ object cabezal {
     }
 
     method mover(direccion) {
-        position = direccion.siguiente(self.position())
+      const siguiente = direccion.siguiente(self.position()) 
+      mapa.validarSiEstaDentro(siguiente)
+      position = siguiente
     }
 
 
@@ -40,8 +42,15 @@ object cabezal {
     //por ahora solo selecciona un aliado para moverlo
     method seleccionarAliado() {
         mapa.validarSeleccionAliada(self.position())
+        self.validarSiTengoAlgoSeleccionado()
         seleccionActualAliada = self.obtenerPjAliado(self.position())
         modoCabezal = cabezalSeleccion
+    }
+
+    method validarSiTengoAlgoSeleccionado() {
+      return if (modoCabezal == cabezalSeleccion) {
+        self.error("Ya tengo seleccionada una unidad")
+      }
     }
 
     method obtenerPjAliado(_position) {
@@ -49,6 +58,8 @@ object cabezal {
     }
 
     method moverPj() {
+      mapa.validarSiHayAlgunPersonaje(self.position())
+      seleccionActualAliada.limpiarEnemigosAlAlcance()
       seleccionActualAliada.mover(self.position())
       seleccionActualAliada.definirEnemigosAlAlcance(self.position())
       seleccionActualAliada = null

@@ -22,4 +22,23 @@ describe "testear set de enemigos contiguos"{
         
         assert.equals(#{comandante2, comandante3, comandante4, comandante5}, comandante.enemigosAlAlcance())
     }
+
+    test "seleccion actual aliada" {
+        const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3))
+	    mapa.agregarAliado(comandante)
+
+        cabezal.position(game.at(3,3))
+        cabezal.accionar()
+
+        assert.equals(cabezal.seleccionActualAliada(), comandante)
+        
+        cabezal.seleccionActualAliada().mover(game.at(3,4))
+        
+        cabezal.setAliado(null)
+        cabezal.position(game.at(3,4))
+        cabezal.setModo(cabezalNormal)
+        cabezal.accionar()
+        
+        assert.equals(cabezal.seleccionActualAliada(), comandante)
+    }
 }

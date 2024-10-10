@@ -9,10 +9,18 @@ class Comandante {
     const property defensaBase = 3
     const property vidaBase = 15
     var property vidaActual = vidaBase
+
     const property team = null
     const property inventario = null
+    
     var property position = null
     const property enemigosAlAlcance =#{}
+
+    var property fueMovido = false
+
+    method efectoMover() {
+        fueMovido = true
+    }
 
     method quitarEnemigoAlAlcance(enemigo) {
         enemigosAlAlcance.remove(enemigo)
@@ -70,6 +78,17 @@ class Comandante {
 
        method mover(_pos) {
         position = _pos
+        self.efectoMover()
+    }
+
+    method verificarMovimiento() {
+        if (fueMovido) {
+            self.error("Ya me movi este turno")
+        }
+    }
+
+    method recargarMovimiento() {
+      fueMovido = false
     }
 }
 

@@ -42,12 +42,12 @@ program juego {
     keyboard.right().onPressDo({cabezal.mover(derecha)})
     keyboard.up().onPressDo({cabezal.mover(arriba)})
     keyboard.down().onPressDo({cabezal.mover(abajo)})
-	keyboard.a().onPressDo({cabezal.seleccionarAliado()})
-	keyboard.q().onPressDo({cabezal.moverPj()})
-	keyboard.b().onPressDo({cabezal.seleccionActualAliada().batallar()})
+	keyboard.a().onPressDo({cabezal.accionar()})
+	//keyboard.q().onPressDo({cabezal.moverPj()})
+	//keyboard.b().onPressDo({cabezal.seleccionActualAliada().batallar()})
 	keyboard.s().onPressDo({cabezal.cancelar()})
-	keyboard.e().onPressDo({cabezal.seleccionarEnemigo()})
-	keyboard.k().onPressDo({cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())})
+	//keyboard.e().onPressDo({cabezal.seleccionarEnemigo()})
+	//keyboard.k().onPressDo({cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())})
 		
 
 

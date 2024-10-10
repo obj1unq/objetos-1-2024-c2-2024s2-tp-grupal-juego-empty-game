@@ -8,7 +8,7 @@ import randomizer.*
 import pelea.*
 
 object personaje {
-
+	var property enemigos = [fabricaDeOjos.nuevoEnemigo()] //esta FEO, despues arreglar.
 	var  position = game.at(7,2);
     var property vida = 450
 	const property bolsa = []
@@ -51,7 +51,7 @@ object personaje {
 	method mover(direccion) {
 		self.validarMover(direccion)
 		position = direccion.siguiente(position)
-		enemigo1.mover()
+		enemigos.head().mover()
 	}   
 
 	method validarMover(posicion) {

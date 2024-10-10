@@ -4,21 +4,59 @@ import posiciones.*
 import pelea.*
 
 /*Tenemos que hacerlo clase pero yo no entendí :)*/
-object enemigo1 {
-    var  position = game.at(14,12)
+
+class Enemigo {
+    var position
+    var vida
     const objetivoADestruir = personaje
-    var property vida = 150
+
+    method position(){
+        return position
+    }
+    method image() 
+    method estado() 
+    method colisiono(personaje) {
+     self.combate() 
+    }
+    method combate() {
+        combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
+        combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
+
+        position = position.right(1)    //se posiciona una celda a la derecha del personaje
+        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va aquitar
+
+        combate.cambiarTurnoA(self) //Empieza el combate
+    }
+      
+    method atacarPre() {
+      self.atacar()
+    }
+
+    method atacar()
+    
+     method recibirDanho(cantidad){
+        vida = vida - cantidad
+    }
+    method mover() 
+
+    method morir()
+    method vida()
+    
+  
+}
+
+class OjoVolador inherits Enemigo {
 	
-	method position() {
-		return position
+    override method vida() {
+      return vida
+    }
+   override  method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
+		return "ojito32a.png"
+        //return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
 	}
 
-    method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
-	}
-
-	method estado() {
-		return enemigoSinArma //como, de momento, tiene un solo estado, es un poco raro. Tendrá mas sentido si tiene más estados (como el pj)
+	override method estado() {
+		return ojoSinArma //como, de momento, tiene un solo estado, es un poco raro. Tendrá mas sentido si tiene más estados (como el pj)
 	}
 
     //MOVIMIENTO
@@ -31,7 +69,7 @@ object enemigo1 {
         return (objetivoADestruir.position().y() - position.y())
     }
 
-    method mover() { 
+   override  method mover() { 
         if (self.distanciaEnEjeX().abs() > self.distanciaEnEjeY().abs()) {
             if(self.distanciaEnEjeX() > 0) {
                 position = derecha.siguiente(position)
@@ -48,7 +86,7 @@ object enemigo1 {
     }
 
     // cuando el pj colsiona con el enemigo, este incia el combate
-    method colisiono(personaje){
+   override method colisiono(personaje){
         self.combate()
     }
 
@@ -58,7 +96,7 @@ object enemigo1 {
         - Se le manda el enemigo a la barra de estado para saber con que enemigo esta peleando.
         - Aparece la barra de estado.
     */
-    method combate() {
+   override method combate() {
         
         combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
         combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
@@ -69,21 +107,21 @@ object enemigo1 {
         combate.cambiarTurnoA(self) //Empieza el combate
     }
 
-    method atacarPre() {
+    override method atacarPre() {
         //game.schedule(300, { self.atacar(self)}) // para que quede más lindo a lo visual, que tarde un toque en atacar, que no sea instantaneo (NO porque causa arrastre de daño)
         self.atacar()
     }
 
-    method atacar() {
+   override method atacar() {
         objetivoADestruir.recibirDanho(20) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
         combate.cambiarTurnoA(objetivoADestruir)
     }
 
-    method recibirDanho(cantidad){
+   override method recibirDanho(cantidad){
         vida = vida - cantidad
     }
 
-    method morir() {
+   override method morir() {
         /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
         position = game.at(7,4)
         vida = 150
@@ -91,10 +129,61 @@ object enemigo1 {
 
 }
 
-object enemigoSinArma {
+class Esqueleto inherits Enemigo {
+  override method image() {
+    return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
+  }
+
+  override method estado() {
+        return esqueletoSinArma
+  }
+
+  override method mover() {
+           
+  }
+
+   override method atacar() {
+        objetivoADestruir.recibirDanho(43) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
+        combate.cambiarTurnoA(objetivoADestruir)
+    }
+
+   override method recibirDanho(cantidad){
+        vida = vida - cantidad
+    }
+
+   override method morir() {
+        /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
+        position = game.at(7,4)
+        vida = 150
+    }
+
+    override method vida() {
+      return vida
+    }
+}
+
+object fabricaDeOjos {
+  method nuevoEnemigo() {
+    return new OjoVolador(position = game.at(14,12) , vida = 150)
+  }
+}
+
+object fabricaDeEsqueleto {
+  method nuevoEnemigo() {
+    return new Esqueleto(position = game.at(9,14) , vida = 200)
+  }
+}
+
+object ojoSinArma {
 
     method imagenParaPersonaje() {
         return ""
     }
-
 }
+object esqueletoSinArma {
+
+    method imagenParaPersonaje() {
+      return ""
+    }
+}
+

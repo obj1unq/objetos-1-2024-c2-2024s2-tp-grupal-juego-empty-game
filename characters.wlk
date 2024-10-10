@@ -26,6 +26,10 @@ class Comandante {
         enemigosAlAlcance.remove(enemigo)
     }
 
+    method limpiarEnemigosAlAlcance() {
+        enemigosAlAlcance.clear()
+    }
+
     method definirEnemigosAlAlcance(posicion){
         enemigosAlAlcance.addAll(self.definirEnemigoHacia(arriba.siguiente(posicion))) 
         enemigosAlAlcance.addAll(self.definirEnemigoHacia(abajo.siguiente(posicion)))
@@ -64,6 +68,7 @@ class Comandante {
         mapa.quitarEnemigo(self)
         self.quitarEnemigoAlAlcance(self)
         game.removeVisual(self)
+        cabezal.modoCabezal(cabezalNormal)
     }
     
 

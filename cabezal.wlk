@@ -14,9 +14,13 @@ object cabezal {
     return modoCabezal.image()
   }
 
+
   method mover(direccion) {
-    position = direccion.siguiente(self.position())
+    const siguiente = direccion.siguiente(self.position()) 
+    mapa.validarSiEstaDentro(siguiente)
+    position = siguiente
   }
+
 
   method cancelar() {
     modoCabezal = cabezalNormal

@@ -1,3 +1,4 @@
+import hud.*
 import wollok.game.*
 import personajes.personaje.*
 
@@ -54,7 +55,7 @@ class Balas inherits Drop(image=personaje.visualAmmo()){
     //var property image = personaje.visualAmmo()
 
     method colisionPj() {
-        personaje.recargar(6)
+        cargador.recargar(6)
         game.removeVisual(self)
     }
 }

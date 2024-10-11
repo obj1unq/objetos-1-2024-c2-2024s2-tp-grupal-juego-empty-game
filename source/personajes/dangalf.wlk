@@ -7,7 +7,7 @@ object dangalf {
     method disparar(direccion, posDada) {
         const bolaNueva = new BolaDeFuego(image="bola-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
         game.addVisual(bolaNueva)
-        game.onTick(150, "viajeDeProyectil".identity(), {bolaNueva.disparoHacia(direccion)})
+        bolaNueva.nuevoViaje(direccion)
     }
 
     method imagenInicial(){

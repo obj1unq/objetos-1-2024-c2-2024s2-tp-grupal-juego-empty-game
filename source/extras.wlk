@@ -19,6 +19,12 @@ object managerItems {
         game.addVisual(oro1Nuevo)
         //drops.add(oro1Nuevo)
     }
+
+    method spawnearMunicion() {
+        const nuevaMunicion = new Balas(position=self.posicionRandom())
+        game.addVisual(nuevaMunicion)
+        //drops.add(oro1Nuevo)
+    }
 }
 
 //---------------------------------Drops---------------------------------------
@@ -41,12 +47,16 @@ class Cura1 inherits Drop(image="vida.png"){
 }
 //---------------------------------Municion---------------------------------------
 //volverlo clase y que haga algo
-object balas {
 
-    var property position = game.at(8,1)
-    var property image = "balas.png"
+//object balas {
+class Balas inherits Drop(image=personaje.visualAmmo()){
+    //var property position = game.at(8,1)
+    //var property image = personaje.visualAmmo()
 
-    method colisionPj() {}
+    method colisionPj() {
+        personaje.recargar(6)
+        game.removeVisual(self)
+    }
 }
 
 //---------------------------------Monedas---------------------------------------
@@ -90,65 +100,3 @@ object muro  {
 
 }
 
-//---------------------------------Timer---------------------------------------
-
-object timer {
-
-    var segundos = 0
-    var minutos  = 0
-
-    method position() {
-        return game.at(8, game.height() - 1 )
-    }
-
-    method text() {
-        return minutos.toString() +":"+ segundos.toString()
-    }
-
-    method textColor() {
-        return "FFFFFF"
-    }
-
-    method tick() {
-        if(segundos < 60){
-            segundos += 1
-        }else{
-            minutos += 1
-            segundos = 0
-            segundos += 1
-        }
-
-    }
-
-    method colisionPj() {}
-
-}
-
-object puntosDeVida {
-
-    var property image =  "barravida-100.png"
-    var property position = game.at(1, 16)
-
-    method actualizar(){
-        self.image("barravida-"+personaje.vida()+".png")
-    }
-
-    method colisionPj() {}
-}
-
-object oroObtenido {
-
-    method position() {
-        return game.at(4, game.height() - 1 )
-    }
-
-    method text() {
-        return personaje.oro().toString()
-    }
-
-    method colisionPj() {}
-
-    method textColor() {
-        return "FFFFFF"
-    }
-}

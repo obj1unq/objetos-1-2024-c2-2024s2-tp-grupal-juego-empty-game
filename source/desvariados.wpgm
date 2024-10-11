@@ -19,7 +19,7 @@ program desvariados {
 
     juego.ataque()
 
-    //juego.sonido()
+    juego.sonido()
 
     //juego.pausa() arreglar =/
 

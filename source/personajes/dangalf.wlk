@@ -1,5 +1,7 @@
 import wollok.game.*
 import posiciones.*
+import extras.*
+import hud.*
 
 object dangalf {
 
@@ -29,5 +31,20 @@ object dangalf {
 
     method sonidoMuerte(){
         game.sound("wizard-death.mp3").play()
+    }
+
+    method hudMunicion(){
+        
+    }
+    
+    method municionImagen(){
+        return "potion.png"
+    }
+    method sinMunicion(){
+        game.sound("mago-sin-municion.mp3").play()
+    }
+
+    method sonidoRecarga(){
+        game.sound("mana.mp3").play()
     }
 }

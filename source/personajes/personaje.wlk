@@ -1,17 +1,20 @@
 import wollok.game.*
 import posiciones.*
 import extras.*
+import hud.*
 import noel.*
 import dangalf.*
 
 object personaje {
     //Imagen y posicion
-    var property pj = dangalf
+    var property pj = noel
     var property image = pj.imagenInicial()
     var property position = game.at(5,5)
     //Estadisticas
     var property vida = 100 //que sea un manager de vida aparte
+    var property visualAmmo = pj.municionImagen()
     var property oro = 0
+
     //var property zombiesAsesinados = 0   - A implementar
 
     // -------------movimiento-------------------------------
@@ -29,8 +32,9 @@ object personaje {
 
     // -------------ataque-------------------------------
     
-    method ataque(direccion) {                                                       
-        //validar ataque                                                             
+    method ataque(direccion) { 
+        self.image(pj.imagenNormal(direccion))                                                      
+        cargador.validarAtaque()                                                             
         self.image(pj.imagenAtaque(direccion))
         game.schedule(200,{self.image(pj.imagenNormal(direccion))})
         pj.sonidoAtaque()

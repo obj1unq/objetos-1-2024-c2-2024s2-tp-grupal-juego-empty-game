@@ -2,6 +2,7 @@ import wollok.game.*
 import personaje.*
 import randomizer.*
 import paleta.*
+import enemigos.*
 
 object listaDeObjetos {
 
@@ -64,6 +65,8 @@ object listaCon0 {
 
 object dungeon {
 
+    const property enemigos = []
+
     method validarDentro(posicion) {
         if (!self.estaDentro(posicion)) {
             self.error("Soy una pared. No podés pasarme.") //entiendo que al no tener visual ni posición esto nunca se ve. igual mejor así!
@@ -72,6 +75,10 @@ object dungeon {
 
     method estaDentro(posicion) {
         return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
+    }
+
+    method accionEnemigos() {
+        enemigos.forEach({enemigo => enemigo.mover()})
     }
 }
 

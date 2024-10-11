@@ -2,7 +2,10 @@ import wollok.game.*
 import personaje.*
 import posiciones.*
 import pelea.*
+import extras.*
 
+//PREGUNTAR sobre como hacer un objeto que herencie una clase que está
+//dentro de una superclase --> esqueleto
 
 class Enemigo {
     var position
@@ -55,7 +58,7 @@ class OjoVolador inherits Enemigo {
 
    override  method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
 		return "ojito32a.png"
-        //return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
+        
 	}
 
 	override method estado() {
@@ -105,8 +108,6 @@ class OjoVolador inherits Enemigo {
 
 class Esqueleto inherits Enemigo {
 
-    //const rangoDeVisionX = [1,2,3,4,5,6,7]
-
     override method image() {
         return "esqueleto" + self.estado().imagenParaPersonaje() + "-32Bits.png"
     }
@@ -116,21 +117,23 @@ class Esqueleto inherits Enemigo {
     }
 
     override method mover() {
-           
+           self.encontrarObjetivo()
     }
 
+    method encontrarObjetivo() {
+        self.validarEncontrar()
+        position = objetivoADestruir.position()
+        self.combate()
+    }
 
-    //quiero que el "colisiono" en el esqueleto adquiera el hayObjetivoEnVision
-    //para que cuando pase el personaje por esas posiciones de x empiece el combate
-    //pero en este colisiono en particular me dice que esta malformado
-    /*override method colisiono(personaje) {
-        if (hayObjetivoEnVision()) {
-            self.combate()
+    method validarEncontrar() {
+        if (!self.hayObjetivoEnVision()) {
+            self.error("")
         }
-    }*/ 
+    }
 
     method hayObjetivoEnVision() {
-        return objetivoADestruir.position().x().between(4, 7)
+        return objetivoADestruir.position().x().between(3, 7) && objetivoADestruir.position().y() == self.position().y()
     }
 
     override method atacar() {
@@ -175,23 +178,30 @@ class Goblin inherits Enemigo {
 object fabricaDeOjos {
 
     method nuevoEnemigo() {
-        return new OjoVolador(position = game.at(14,12) , vida = 150)
+        const ojo = new OjoVolador(position = game.at(14,12) , vida = 150)
+        dungeon.enemigos().add(ojo)
+        return ojo
   }
 }
 
 object fabricaDeEsqueleto {
 
     method nuevoEnemigo() {
-        return new Esqueleto(position = game.at(3,10) , vida = 200)
+        const esqueletoIzq = new Esqueleto(position = game.at(3,10) , vida = 200)
+        dungeon.enemigos().add(esqueletoIzq)
+        return esqueletoIzq
   }
 }
 
-object fabricaDeEsqueleto2 {
+/*object fabricaDeEsqueleto1 {
 
     method nuevoEnemigo() {
-        return new Esqueleto(position = game.at(26,13) , vida = 200)
+        const esqueletoDer = new Esqueleto(position = game.at(26,13) , vida = 200)
+        dungeon.enemigos().add(esqueletoDer)
+        return esqueletoDer
   }
-}
+}*/
+
 
 object ojoSinArma {
 

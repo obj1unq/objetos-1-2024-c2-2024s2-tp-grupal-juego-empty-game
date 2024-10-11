@@ -6,7 +6,7 @@ import posiciones.*
 import sonidos.*
 import juego.*
 
-describe "testeo de estados" {
+//describe "testeo de estados" {
   /*
   test "muerte" {
 
@@ -32,4 +32,4 @@ describe "testeo de estados" {
     assert.equals(90, personaje.oro())
   }
 */
-}
+//}

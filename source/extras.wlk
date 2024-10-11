@@ -6,7 +6,7 @@ object managerItems {
     //const property drops = #{}
 
     method posicionRandom() {
-        return (game.at(0.randomUpTo(game.width()-2), 0.randomUpTo(game.height()-2)))
+        return (game.at(0.randomUpTo(game.width()-1), 0.randomUpTo(game.height()-2)))
     }
 
     method spawnearCura1() {

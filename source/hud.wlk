@@ -49,7 +49,7 @@ object puntosDeVida {
     var property position = game.at(0, 16)
 
     method actualizar(){
-        self.image("barravida-"+personaje.vida()+".png")
+        self.image("barravida-" + personaje.vida() + ".png")
     }
 
     method colisionPj() {}
@@ -76,7 +76,11 @@ object cargador {
         if (municion == 0){
             duenio.sinMunicion()
             self.error("")
-        } else {municion -= 1}
+        }
+    }
+
+    method quitarMunicion(cantidad) {
+        municion -= cantidad
     }
     
     method colisionPj() {}

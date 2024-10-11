@@ -7,11 +7,12 @@ class Arma {
     var property estaEquipada = false
     const property position = randomizer.posicionRandomDeArma()
     const nivel = 1.randomUpTo(3).round() 
-    var  durabilidad  
+    var durabilidad  
 
     method durabilidad() {
       return durabilidad
     }
+
     method serEquipada() {
       self.estaEquipada(true) 
     }
@@ -41,10 +42,7 @@ class Arma {
 }
 
 class Espada inherits Arma {
-    //porque es un dato cambiante que debe cambiar y no recalcularse cada vez.
-    //y la declaramos acá porque si se declara en la superclase ya no le podemos dar valor inicial personalizado a menos que sea usando 
-    //algún método
-    
+
     override method restarDurabilidad(cantidadRestada) {
         durabilidad -= cantidadRestada
     }
@@ -73,9 +71,6 @@ class Espada inherits Arma {
 }
 
 class ArcoYFlecha inherits Arma {
-     //porque es un dato cambiante que debe cambiar y no recalcularse cada vez.
-    //y la declaramos acá porque si se declara en la superclase ya no le podemos dar valor inicial personalizado a menos que sea usando 
-    //algún método
 
     override method restarDurabilidad(cantidadRestada) {
         durabilidad -= cantidadRestada
@@ -102,10 +97,6 @@ class ArcoYFlecha inherits Arma {
 }
 
 class MartilloDeGuerra inherits Arma {
-     //porque es un dato cambiante que debe cambiar y no recalcularse cada vez.
-    //y la declaramos acá porque si se declara en la superclase ya no le podemos dar valor inicial personalizado a menos que sea usando 
-    //algún método
-
 
     override method restarDurabilidad(cantidadRestada) {
         durabilidad -= cantidadRestada

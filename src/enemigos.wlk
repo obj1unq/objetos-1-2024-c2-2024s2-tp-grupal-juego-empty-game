@@ -3,27 +3,33 @@ import personaje.*
 import posiciones.*
 import pelea.*
 
-/*Tenemos que hacerlo clase pero yo no entendí :)*/
 
 class Enemigo {
     var position
     var vida
     const objetivoADestruir = personaje
 
-    method position(){
+    method position() {
         return position
     }
+
     method image() 
     method estado() 
+
     method colisiono(personaje) {
      self.combate() 
     }
+    
+    method vida() {
+        return vida
+    }
+
     method combate() {
         combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
         combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
 
         position = position.right(1)    //se posiciona una celda a la derecha del personaje
-        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va aquitar
+        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va a quitar
 
         combate.cambiarTurnoA(self) //Empieza el combate
     }
@@ -33,23 +39,20 @@ class Enemigo {
     }
 
     method atacar()
+    //method habilidad()
     
-     method recibirDanho(cantidad){
+    method recibirDanho(cantidad){
         vida = vida - cantidad
     }
-    method mover() 
 
+    method mover() 
     method morir()
-    method vida()
-    
-  
+
+      
 }
 
 class OjoVolador inherits Enemigo {
-	
-    override method vida() {
-      return vida
-    }
+
    override  method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
 		return "ojito32a.png"
         //return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
@@ -69,7 +72,7 @@ class OjoVolador inherits Enemigo {
         return (objetivoADestruir.position().y() - position.y())
     }
 
-   override  method mover() { 
+   override method mover() { 
         if (self.distanciaEnEjeX().abs() > self.distanciaEnEjeY().abs()) {
             if(self.distanciaEnEjeX() > 0) {
                 position = derecha.siguiente(position)
@@ -85,40 +88,11 @@ class OjoVolador inherits Enemigo {
         }
     }
 
-    // cuando el pj colsiona con el enemigo, este incia el combate
-   override method colisiono(personaje){
-        self.combate()
-    }
-
     // COMBATE/PELEA
-
-    /*  - La posicion del enemigo es una celda a la derecha del personaje cuando empieza el combate.
-        - Se le manda el enemigo a la barra de estado para saber con que enemigo esta peleando.
-        - Aparece la barra de estado.
-    */
-   override method combate() {
-        
-        combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
-        combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
-
-        position = position.right(1)    //se posiciona una celda a la derecha del personaje
-        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va aquitar
-
-        combate.cambiarTurnoA(self) //Empieza el combate
-    }
-
-    override method atacarPre() {
-        //game.schedule(300, { self.atacar(self)}) // para que quede más lindo a lo visual, que tarde un toque en atacar, que no sea instantaneo (NO porque causa arrastre de daño)
-        self.atacar()
-    }
 
    override method atacar() {
         objetivoADestruir.recibirDanho(20) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
         combate.cambiarTurnoA(objetivoADestruir)
-    }
-
-   override method recibirDanho(cantidad){
-        vida = vida - cantidad
     }
 
    override method morir() {
@@ -130,47 +104,92 @@ class OjoVolador inherits Enemigo {
 }
 
 class Esqueleto inherits Enemigo {
-  override method image() {
-    return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
-  }
 
-  override method estado() {
+    //const rangoDeVisionX = [1,2,3,4,5,6,7]
+
+    override method image() {
+        return "esqueleto" + self.estado().imagenParaPersonaje() + "-32Bits.png"
+    }
+
+    override method estado() {
         return esqueletoSinArma
-  }
+    }
 
-  override method mover() {
+    override method mover() {
            
-  }
+    }
 
-   override method atacar() {
-        objetivoADestruir.recibirDanho(43) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
+
+    //quiero que el "colisiono" en el esqueleto adquiera el hayObjetivoEnVision
+    //para que cuando pase el personaje por esas posiciones de x empiece el combate
+    //pero en este colisiono en particular me dice que esta malformado
+    /*override method colisiono(personaje) {
+        if (hayObjetivoEnVision()) {
+            self.combate()
+        }
+    }*/ 
+
+    method hayObjetivoEnVision() {
+        return objetivoADestruir.position().x().between(4, 7)
+    }
+
+    override method atacar() {
+        objetivoADestruir.recibirDanho(43) //FUTURO: Hacer las habilidades del enemigo
         combate.cambiarTurnoA(objetivoADestruir)
     }
 
-   override method recibirDanho(cantidad){
-        vida = vida - cantidad
-    }
-
    override method morir() {
-        /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
-        position = game.at(7,4)
-        vida = 150
+        game.removeVisual(self)
     }
 
-    override method vida() {
-      return vida
+}
+
+class Goblin inherits Enemigo {
+    
+    override method image() {
+        return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
     }
+
+    override method estado() {
+        return goblinSinArma
+    }
+
+    override method mover() {
+           
+    }
+
+    method hayObjetivoEnVision() {
+        return objetivoADestruir.position().x().between(4, 7)
+    }
+
+    override method atacar() {
+        objetivoADestruir.recibirDanho(37) //FUTURO: Hacer las habilidades del enemigo
+        combate.cambiarTurnoA(objetivoADestruir)
+    }
+
+    override method morir() {
+        game.removeVisual(self)
+    }    
 }
 
 object fabricaDeOjos {
-  method nuevoEnemigo() {
-    return new OjoVolador(position = game.at(14,12) , vida = 150)
+
+    method nuevoEnemigo() {
+        return new OjoVolador(position = game.at(14,12) , vida = 150)
   }
 }
 
 object fabricaDeEsqueleto {
-  method nuevoEnemigo() {
-    return new Esqueleto(position = game.at(9,14) , vida = 200)
+
+    method nuevoEnemigo() {
+        return new Esqueleto(position = game.at(3,10) , vida = 200)
+  }
+}
+
+object fabricaDeEsqueleto2 {
+
+    method nuevoEnemigo() {
+        return new Esqueleto(position = game.at(26,13) , vida = 200)
   }
 }
 
@@ -180,10 +199,18 @@ object ojoSinArma {
         return ""
     }
 }
+
 object esqueletoSinArma {
 
     method imagenParaPersonaje() {
       return ""
+    }
+}
+
+object goblinSinArma {
+
+    method imagenParaPersonaje() {
+        return ""
     }
 }
 

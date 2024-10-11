@@ -10,12 +10,15 @@ object personaje {
     var property pj = noel
     var property image = pj.imagenInicial()
     var property position = game.at(5,5)
+    var property municion = 10
     //Estadisticas
     var property vida = 100 //que sea un manager de vida aparte
     var property visualAmmo = pj.municionImagen()
     var property oro = 0
 
     //var property zombiesAsesinados = 0   - A implementar
+    method tieneMunicion() {return municion > 0}
+
 
     // -------------movimiento-------------------------------
     
@@ -32,12 +35,26 @@ object personaje {
 
     // -------------ataque-------------------------------
     
-    method ataque(direccion) { 
-        self.image(pj.imagenNormal(direccion))                                                      
-        cargador.validarAtaque()                                                             
+    method ataque(direccion) {                                                       
+        if (self.tieneMunicion()) {
+            self.animacionAtaque(direccion)
+            pj.disparar(direccion,position)
+            municion -= 1
+        }           
+        else {
+            self.animacionSinMunicion(direccion)
+        }                                               
+    }
+
+    method animacionAtaque(direccion) {
         self.image(pj.imagenAtaque(direccion))
         game.schedule(200,{self.image(pj.imagenNormal(direccion))})
         pj.sonidoAtaque()
+    }
+
+    method animacionSinMunicion(direccion) {
+        self.image(pj.imagenNormal(direccion))
+        //pj.sonidoSinMunicion()  -- Para implementarlo despues
     }
 
     // -------------muerte-------------------------------

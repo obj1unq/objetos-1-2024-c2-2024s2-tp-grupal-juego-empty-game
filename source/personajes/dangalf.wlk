@@ -1,3 +1,4 @@
+import proyectiles.*
 import wollok.game.*
 import posiciones.*
 import extras.*
@@ -5,8 +6,10 @@ import hud.*
 
 object dangalf {
 
-    method nombre(){
-        return "dangalf"
+    method disparar(direccion, posDada) {
+        const bolaNueva = new BolaDeFuego(image="bola-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
+        game.addVisual(bolaNueva)
+        bolaNueva.nuevoViaje(direccion)
     }
 
     method imagenInicial(){
@@ -14,16 +17,14 @@ object dangalf {
     }
 
     method imagenAtaque(dir) {
-        return self.nombre() + "-ataque-" + dir.toString() + ".png"
+        return "dangalf-ataque-" + dir.toString() + ".png"
     }
 
     method imagenNormal(dir) {
-        return self.nombre() + "-normal-" + dir.toString() + ".png"
+        return "dangalf-normal-" + dir.toString() + ".png"
     }
 
-    method especial(){
-
-    }
+    method especial(){}
 
     method sonidoAtaque(){
         game.sound("magia1.mp3").play()

@@ -2,13 +2,14 @@ import wollok.game.*
 import posiciones.*
 import extras.*
 import hud.*
-
-
+import proyectiles.*
 
 object noel {
 
-    method nombre() {
-        return "noelnuevo"
+    method disparar(direccion,posDada) {
+       const balaNueva = new Bala(image="bala-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
+        game.addVisual(balaNueva)
+        balaNueva.nuevoViaje(direccion)
     }
 
     method imagenInicial(){
@@ -16,16 +17,14 @@ object noel {
     }
 
     method imagenAtaque(direccion) {
-        return self.nombre() + "-ataque-" + direccion.toString() + ".png"
+        return "noelnuevo-ataque-" + direccion.toString() + ".png"
     }
 
     method imagenNormal(direccion) {
-        return self.nombre() + "-normal-" + direccion.toString() + ".png"
+        return "noelnuevo-normal-" + direccion.toString() + ".png"
     }
 
-    method especial(){
-
-    }
+    method especial(){}
 
     method sonidoAtaque(){
         game.sound("tiro1.mp3").play()

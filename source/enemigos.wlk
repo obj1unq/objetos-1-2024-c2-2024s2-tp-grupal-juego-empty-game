@@ -20,15 +20,22 @@ class Zombie {
     var property image = null
     var property position = null
     var property vida = null
-    var property danio = null
+    var property dmg = null
     var property tipo = Zombie
 
     method colisionPj() {}
 
+    method impactoProyectil(danio) {
+        vida -= danio
+        self.fijarseMuerte()
+    }
+
 // Persecucion -------------------------------------
 
+    method nombreEvento() {return "persecucion".identity()}
+
     method persecucion() {
-        game.onTick(1000, "persecucion".identity(), {self.perseguirAPersonaje()})
+        game.onTick(1000, self.nombreEvento(), {self.perseguirAPersonaje()})
     }
 
     method perseguirAPersonaje() {
@@ -65,31 +72,25 @@ class Zombie {
 	    position = direccion.siguientePosicion(self.position()) 
 	}
 
-    method colisiono(objeto) {}
 
 // Ataque -----------------------------------------
 
     method herirAgro() {
-        agro.herir(danio)
+        agro.herir(dmg)
     }
 
 // Vida -------------------------------------------
 
     method fijarseMuerte() {
-        if (vida == 0) {
+        if (vida <= 0) {
             game.removeVisual(self)
-            game.removeTickEvent("persecucion".identity())
+            game.removeTickEvent(self.nombreEvento())
         }
-    }
-
-    method recibirDanio(cantidad) {
-        vida = (vida - cantidad).max(0)
-        self.fijarseMuerte()
     }
 
 }
 
-class ZombieComun inherits Zombie(vida = 100, danio = 10){
+class ZombieComun inherits Zombie(vida = 100, dmg = 10){
 
     override method moverseHaciaAgroEjeY() {
         if (agro.position().y() > position.y()) {

@@ -41,7 +41,7 @@ object noel {
     method municionImagen(){
         return "balas.png"
     }
-    method sinMunicion(){
+    method sinMunicion(dir){
         game.sound("sin-balas.mp3").play()
     }
 

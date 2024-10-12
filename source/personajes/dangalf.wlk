@@ -41,7 +41,7 @@ object dangalf {
     method municionImagen(){
         return "potion.png"
     }
-    method sinMunicion(){
+    method sinMunicion(dir){
         game.sound("mago-sin-municion.mp3").play()
     }
 

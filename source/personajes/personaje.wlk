@@ -7,7 +7,7 @@ import dangalf.*
 
 object personaje {
     //Imagen y posicion
-    var property pj = dangalf
+    var property pj = noel
     var property image = pj.imagenInicial()
     var property position = game.at(5,5)
     //Estadisticas
@@ -34,8 +34,8 @@ object personaje {
     // -------------ataque-------------------------------
     
     method ataque(direccion) { 
-        cargador.validarAtaque()
-        cargador.quitarMunicion(1)
+        self.image(pj.imagenNormal(direccion))
+        cargador.validarAtaque(direccion)
         self.animacionAtaque(direccion)
         pj.disparar(direccion,position)                                               
     }

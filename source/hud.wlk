@@ -33,12 +33,16 @@ object timer {
 
     method colisionPj() {}
 
+    method impactoProyectil(danio) {}
+
 }
 //----------------------------------------------HUD-----------------------------
 object barra{
     var property image =  "blacklong.png"
     var property position = game.at(0, 16)
 
+    method impactoProyectil(danio) {}
+    method colisionPj() {}
     //game.addVisual("black.png")
 }
 //----------------------------------BARRA DE VIDA-----------------------------
@@ -53,6 +57,8 @@ object puntosDeVida {
     }
 
     method colisionPj() {}
+
+     method impactoProyectil(danio) {}
 }
 
 //----------------------------------------------MUNICION-----------------------------
@@ -72,11 +78,12 @@ object cargador {
         municion = municion.min(12) 
     }
 
-    method validarAtaque(){
+    method validarAtaque(dir){
         if (municion == 0){
-            duenio.sinMunicion()
+            duenio.sinMunicion(dir)
             self.error("")
         }
+        else {self.quitarMunicion(1)}
     }
 
     method quitarMunicion(cantidad) {
@@ -84,6 +91,8 @@ object cargador {
     }
     
     method colisionPj() {}
+
+     method impactoProyectil(danio) {}
 }
 
 
@@ -103,6 +112,8 @@ object oroObtenido {
     method textColor() {
         return "D4AF37"
     }
+
+    method impactoProyectil(danio) {}
 }
 
 

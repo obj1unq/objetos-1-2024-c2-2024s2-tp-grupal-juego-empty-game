@@ -35,7 +35,7 @@ object dangalf {
     }
 
     method hudMunicion(){
-        
+        return "mana-"
     }
     
     method municionImagen(){

@@ -10,11 +10,12 @@ import hud.*
 object juego {
 
     method visuals() {
+        game.addVisual(municionActual)
         game.addVisual(barra)
         game.addVisual(timer)
         game.addVisual(personaje)
         game.addVisual(puntosDeVida)
-        //game.addVisual(cargador)
+        game.addVisual(cargador)
         //game.addVisual(cura1)
         //game.addVisual(Balas)
         //game.addVisual(oro1)
@@ -22,7 +23,7 @@ object juego {
         //game.addVisual(oro3)
         //game.addVisual(muro)
         game.addVisual(oroObtenido)
-        game.addVisual(municionActual)
+        
     }
 
     method ataque() {

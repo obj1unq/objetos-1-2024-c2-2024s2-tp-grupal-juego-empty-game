@@ -7,7 +7,7 @@ import proyectiles.*
 object noel {
 
     method disparar(direccion,posDada) {
-       const balaNueva = new Bala(image="bala-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
+        const balaNueva = new Bala(image="bala-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
         game.addVisual(balaNueva)
         balaNueva.nuevoViaje(direccion)
     }
@@ -51,5 +51,13 @@ object noel {
 
     method cura1(){
         return "cura1-noel.png"
+    }
+
+    method cura2(){
+        return "cura2-noel.png"
+    }
+
+    method cura3(){
+        return "cura3-noel.png"
     }
 }

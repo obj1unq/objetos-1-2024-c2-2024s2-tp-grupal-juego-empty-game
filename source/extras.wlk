@@ -46,6 +46,26 @@ class Cura1 inherits Drop(image=personaje.visualHealth1()){
         //managerItems.drops().remove(self)
     }
 }
+
+class Cura2 inherits Drop(image=personaje.visualHealth2()){
+    const vidaDada = 40
+
+    method colisionPj() {
+        personaje.curarse(vidaDada)
+        game.removeVisual(self)
+        //managerItems.drops().remove(self)
+    }
+}
+
+class Cura3 inherits Drop(image=personaje.visualHealth3()){
+    const vidaDada = 80
+
+    method colisionPj() {
+        personaje.curarse(vidaDada)
+        game.removeVisual(self)
+        //managerItems.drops().remove(self)
+    }
+}
 //---------------------------------Municion---------------------------------------
 
 //object balas {

@@ -14,6 +14,8 @@ object personaje {
     var property vida = 100 //que sea un manager de vida aparte
     var property visualAmmo = pj.municionImagen()
     var property visualHealth1 = pj.cura1()
+    var property visualHealth2 = pj.cura2()
+    var property visualHealth3 = pj.cura3()
     var property oro = 0
 
     //var property zombiesAsesinados = 0   - A implementar

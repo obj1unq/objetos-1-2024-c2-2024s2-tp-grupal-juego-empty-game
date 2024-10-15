@@ -52,4 +52,12 @@ object dangalf {
     method cura1(){
         return "cura1-mago.png"
     }
+
+    method cura2(){
+        return "cura2-mago.png"
+    }
+
+    method cura3(){
+        return "cura3-mago.png"
+    }
 }

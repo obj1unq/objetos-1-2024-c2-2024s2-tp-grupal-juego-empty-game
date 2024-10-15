@@ -1,3 +1,4 @@
+import turno.*
 import wollok.game.*
 import map.*
 import characters.*
@@ -15,8 +16,6 @@ program juego {
 	game.ground("ground.png")
 
 	//  VISUALES
- 	game.addVisual(mago)
-    mapa.agregarAliado(mago)
     
     const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3), ataqueBase = 10)
     mapa.agregarAliado(comandante)
@@ -43,9 +42,9 @@ program juego {
     keyboard.up().onPressDo({cabezal.mover(arriba)})
     keyboard.down().onPressDo({cabezal.mover(abajo)})
 	keyboard.a().onPressDo({cabezal.accionar()})
-	//keyboard.q().onPressDo({cabezal.moverPj()})
-	//keyboard.b().onPressDo({cabezal.seleccionActualAliada().batallar()})
 	keyboard.s().onPressDo({cabezal.cancelar()})
+	keyboard.t().onPressDo({turno.pasarABatalla()})
+	keyboard.r().onPressDo({turno.terminarTurno()})
 	//keyboard.e().onPressDo({cabezal.seleccionarEnemigo()})
 	//keyboard.k().onPressDo({cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())})
 		

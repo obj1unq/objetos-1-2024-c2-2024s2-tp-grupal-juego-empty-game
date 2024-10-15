@@ -11,6 +11,8 @@ class Enemigo {
     var position
     var vida
     const objetivoADestruir = personaje
+    var acumuladorDeTurnos = 0
+    const danioBase 
 
     method position() {
         return position
@@ -41,21 +43,30 @@ class Enemigo {
       self.atacar()
     }
 
-    method atacar()
-    //method habilidad()
+    method atacar() {
+        objetivoADestruir.recibirDanho(self.danio()) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
+        combate.cambiarTurnoA(objetivoADestruir)
+        acumuladorDeTurnos+=1
+    }
+
+    method danio()
+    method habilidad()
     
     method recibirDanho(cantidad){
         vida = vida - cantidad
     }
 
     method mover() 
-    method morir()
+
+    method morir() {
+        game.removeVisual(self)
+    }
 
       
 }
 
 class OjoVolador inherits Enemigo {
-
+    
    override  method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
 		return "ojito32a.png"
         
@@ -92,18 +103,22 @@ class OjoVolador inherits Enemigo {
     }
 
     // COMBATE/PELEA
-
-   override method atacar() {
-        objetivoADestruir.recibirDanho(20) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
-        combate.cambiarTurnoA(objetivoADestruir)
+    
+    override method atacar() {
+        if(acumuladorDeTurnos < 1) {
+            objetivoADestruir.recibirDanho(danioBase)
+        } else {
+            self.habilidad()
+        }
+    }
+   
+    override method danio() {
+        
     }
 
-   override method morir() {
-        /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
-        position = game.at(7,4)
-        vida = 150
+    override method habilidad() {
+        combate.cambiarTurnoA(self)
     }
-
 }
 
 class Esqueleto inherits Enemigo {
@@ -135,20 +150,22 @@ class Esqueleto inherits Enemigo {
     method hayObjetivoEnVision() {
         return objetivoADestruir.position().x().between(3, 7) && objetivoADestruir.position().y() == self.position().y()
     }
-
-    override method atacar() {
-        objetivoADestruir.recibirDanho(43) //FUTURO: Hacer las habilidades del enemigo
-        combate.cambiarTurnoA(objetivoADestruir)
+    override method danio() {
+        if(acumuladorDeTurnos < 4) {
+          return danioBase //43
+        } else {
+            return self.habilidad()
+        }
     }
 
-   override method morir() {
-        game.removeVisual(self)
+    override method habilidad() {
+        return
+        acumuladorDeTurnos = 0
     }
-
 }
 
 class Goblin inherits Enemigo {
-    
+       
     override method image() {
         return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
     }
@@ -161,24 +178,24 @@ class Goblin inherits Enemigo {
            
     }
 
-    method hayObjetivoEnVision() {
-        return objetivoADestruir.position().x().between(4, 7)
+    override method danio() {
+        if(acumuladorDeTurnos < 2) {
+          return danioBase //37
+        } else {
+            return self.habilidad()
+        }
     }
 
-    override method atacar() {
-        objetivoADestruir.recibirDanho(37) //FUTURO: Hacer las habilidades del enemigo
-        combate.cambiarTurnoA(objetivoADestruir)
+    override method habilidad() {
+        return danioBase * 3
+        acumuladorDeTurnos = 0
     }
-
-    override method morir() {
-        game.removeVisual(self)
-    }    
 }
 
 object fabricaDeOjos {
 
     method nuevoEnemigo() {
-        const ojo = new OjoVolador(position = game.at(14,12) , vida = 150)
+        const ojo = new OjoVolador(position = game.at(14,9) , vida = 150, danioBase = 20)
         dungeon.enemigos().add(ojo)
         return ojo
   }
@@ -187,10 +204,18 @@ object fabricaDeOjos {
 object fabricaDeEsqueleto {
 
     method nuevoEnemigo() {
-        const esqueletoIzq = new Esqueleto(position = game.at(3,10) , vida = 200)
+        const esqueletoIzq = new Esqueleto(position = game.at(3,10) , vida = 200, danioBase = 43)
         dungeon.enemigos().add(esqueletoIzq)
         return esqueletoIzq
   }
+}
+
+object fabricaDeGoblin {
+    method nuevoEnemigo() {
+        const goblin = new Goblin(position = game.at(15, 14), vida = 95, danioBase = 37)
+        dungeon.enemigos().add(goblin)
+        return goblin
+    }
 }
 
 /*object fabricaDeEsqueleto1 {

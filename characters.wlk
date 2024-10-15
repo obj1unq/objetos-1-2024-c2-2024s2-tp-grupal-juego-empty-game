@@ -41,12 +41,6 @@ class Comandante {
         return mapa.enemigos().filter({enemigo => enemigo.position()== posicion})
     }
 
-    method batallar(){
-        // mi ataque - defensa enemiga -> daño al enemigo
-        // el ataque enemigo - mi defensa -> daño hacia mi
-        // rango vs melee no hay trade
-        cabezal.modoBatalla()
-    }
 
     method atacar(enemigo) {
         enemigo.recibirDano()

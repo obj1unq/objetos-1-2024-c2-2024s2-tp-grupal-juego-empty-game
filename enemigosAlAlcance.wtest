@@ -3,6 +3,8 @@ import map.*
 import characters.*
 import cabezal.*
 import direcciones.*
+import turno.*
+
 
 describe "testear set de enemigos contiguos"{
 
@@ -41,4 +43,28 @@ describe "testear set de enemigos contiguos"{
         
         assert.equals(cabezal.seleccionActualAliada(), comandante)
     }
+}
+
+describe "recargar movimientos" {
+
+    
+  test "description" {
+    
+    const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3))
+	mapa.agregarAliado(comandante)
+
+    cabezal.position(game.at(3,3))
+    cabezal.accionar()
+
+    assert.equals(cabezal.seleccionActualAliada(), comandante)
+    
+    cabezal.position(game.at(3,4))
+    cabezal.accionar()
+
+    assert.equals(mapa.aliadosEn(cabezal.position()).fueMovido(), true)
+    assert.equals(#{comandante}, mapa.aliados())
+    turno.terminarTurno()
+    assert.equals(mapa.aliadosEn(cabezal.position()).fueMovido(), false)
+
+  }
 }

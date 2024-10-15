@@ -32,10 +32,6 @@ object cabezal {
     modoCabezal.accionar()
   }
 
-  method modoBatalla() {
-    modoCabezal = cabezalBatalla
-  }
-
   method limpiarSelecAliada() {
     return null
   }
@@ -50,6 +46,14 @@ object cabezal {
 
   method setEnemigo(enemigo) {
     seleccionActualEnemiga = enemigo    
+  }
+
+  method obtenerPjAliado(_position) {
+    return mapa.aliadosEn(_position)
+  }
+
+  method obtenerPjEnemigo(_position) {
+    return mapa.enemigosEn(_position)
   }
   
 }
@@ -84,13 +88,12 @@ object cabezalBatalla {
   //SELECCIONAR ENEMIGO
   method accionar() {
     //self.validarCabezalBatalla()
-    mapa.validarSeleccionEnemiga(cabezal.position())
-    cabezal.setEnemigo(self.obtenerPjEnemigo(cabezal.position()))
+    mapa.validarSeleccionAliada(cabezal.position())
+    cabezal.setAliado(cabezal.obtenerPjAliado(cabezal.position()))
+    cabezal.setModo(cabezalAtaque)
   }
 
-  method obtenerPjEnemigo(_position) {
-    return mapa.enemigosEn(_position)
-  }
+  
 
   method verificarEnemigos() {
     if (cabezal.seleccionActualAliada.enemigosAlAlcance().size() < 1) {
@@ -107,14 +110,24 @@ object cabezalNormal {
   //SELECCIONAR
   method accionar() {
     mapa.validarSeleccionAliada(cabezal.position())
-    cabezal.setAliado(self.obtenerPjAliado(cabezal.position()))
+    cabezal.setAliado(cabezal.obtenerPjAliado(cabezal.position()))
     cabezal.setModo(cabezalSeleccion)
   }
 
-  method obtenerPjAliado(_position) {
-    return mapa.aliadosEn(_position)
-  }
+  
 }
 
+object cabezalAtaque {
+  
+  method image() {
+    return "cabezal_ataque.png"
+  }
 
+  method accionar() {
+    cabezal.setEnemigo(cabezal.obtenerPjEnemigo(cabezal.position()))
+    cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())
+  }
+
+
+}
 

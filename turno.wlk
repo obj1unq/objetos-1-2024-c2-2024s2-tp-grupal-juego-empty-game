@@ -4,11 +4,11 @@ import cabezal.*
 object turno {
 
     method pasarABatalla() {
-    cabezal.modoBatalla()
+        cabezal.setModo(cabezalBatalla)
     }
 
     method terminarTurno() {
-        mapa.aliados.forEach({aliado => aliado.recargarMovimiento()})
+        mapa.aliados().forEach({aliado => aliado.recargarMovimiento()})
     }
   
 }

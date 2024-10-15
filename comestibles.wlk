@@ -1,121 +1,129 @@
-import wollok.game.*
 import objetosCocina.*
-import remy.*
+import Chef_remy.*
 
-class Pizza {
+import wollok.game.*
 
-    var property position = null // va dependiendo donde este ubicado el horno
-    var property nivelCoccion = 0
-    const property ingredientes = #{} // se deberian agregar  la maza, el temate y queso ?  cuando sea crea el new Pizza
-    // creo que se hace desde el chef  con su coleccion de ingrediente  sacarndo de el y agregando aca
-    const property valor = 4500 //  a modificar 
-
-
-    method image(){
-
-        return "pizaa_" + nivelCoccion + ".png"
-    }
-
-    method serCocinada(){
-        if (nivelCoccion < 2) nivelCoccion+1 else self.pizzaQuemada() // con los ontick del horno va cambiando solo, aca deberia  haber una imagen de pizza quemada  si se llega a 2 (o mas si decidimos tenes otros casos)
-
-    } //  creo que si lo  hacemos desde el horno aca no hace falta  que manejemos  las imagenes  sino que campartan el mismo numero de imagen el horno y la pizza 
-    // lo dejo por las dias
-
-    method pizzaQuemada(){
-        game.say(self,"me olvidaste en el horno :()")
-    }
-
-    method coccion(){
-
-        return nivelCoccion
-    }
-}
-
-class Ingrediente {
+class Ingrediente { 
     var property position = null
     var property image = null // Depende del ingrediente
+    const property precio = null //cada ingrediente tenga un precio diferente que se le sume a la pizza?
 
     method serSostenido(chef) {
-
-        // Aca hay que decidir que queremos que pase cuando intentamos agarrar un ingrediente
-        // cuando ya esta sosteniendo algo, si simplemente lo pisa o tira un texto de error
-        self.validarSostener(chef.listaDeLoQueSostieneElChef())
-
-        chef.bandeja().add(self) //Quizas el chef deberia tener una bandeja donde se muestra la imagen
-        // de lo que sea que tenga en las manos asi es mas claro que es lo que tiene, La bandeja 
-        // probablemente tenga que ser otro objeto
+        //self.validarSerSostenido(chef.tieneLasManosOcupadas())
+        //creo que la validacion debería estar en el cheff ya que no le debería importar eso al ingrediente
+        chef.bandeja().add(self) 
+        game.removeVisual(self)
     }
-    /* Aca deberia haber un keyboard.onPressDo(chef.ingedienteDelante().SerSostenido()) */
 
-    method validarSostener(lista) {
+    method serProcesado() //depende de cada ingrediente
+
+/*
+    method validarSerSostenido(lista) {
          if(not lista.isEmpty()){ 
             self.error("Ya esta sosteniendo algo")
         }
     } 
-
-
-    method validarIngrediente(lista) {
-        if(lista.any({cosa => cosa.image() == self.image()})){ //Esto nose si esta bien asi
-            self.error("Ya tiene este ingrediente")
-        }
-    }
-     
-    method sumarseAPizza(pizzaDelante) { //Aca el chef probablemente necesite un metodo que devuelva
- //       self.validarIngrediente(pizza.ingredientes())// la pizza que tenga delante si es que la tiene
-   //     pizza.ingredientes().add(self)
-    } // con el mismo boton que se agarran los ingredientes deberian poder ser colocados en la pizza
+*/
 }
 
-class Tomate {
-
-    var property position = null
-    
-
-    method serSostenido(remy){
-        remy.recogerIngrediente(self)
-    }
-
-    method image(){
-
-        return "tomate.png"
-    }
-
-}
-
-
-class Muzzarella {
-
-    var  property position = null 
-    
-
-    method serSostenido(remy){
-
-        remy.recogerIngrediente(self)
-    }
-
-    method image(){
-
-        return "muzzarella.png"
+object cruda {
+    method estarCruda(pizza) {
+      return "" + pizza.ingreDientePrincipal() + ".cruda.png" 
     }
 }
 
-class Masa {
-
-    var property position = null
-    
-
-    method serSostenido(remy){
-
-        remy.recogerIngrediente(self)
-    }
-
-    method image(){
-
-        return "masa.png"
+object dorada {
+    method dorarse(pizza) {
+      return "" + pizza.ingreDientePrincipal() + ".dorada.png" 
     }
 }
 
+object quemada {
+
+    method estarQuemada(pizza) {
+      self.quemarse(pizza)
+      self.advertir()
+    }
+
+    method quemarse(pizza) {
+      return "" + pizza.ingreDientePrincipal() + ".quemada.png" //ej: atun.quemada.png
+    }
+
+    method advertir(){
+        game.say(self,"me olvidaste en el horno :()")
+    }
+}
+
+class Masa inherits Ingrediente( position = game.at(0,0), image = "masa.png", precio = 4000 ) {
+    const property ingredientes = #{} //se hace desde el chef y eso modifica el precio de la piza tmb
+    //var property estado = cruda
+
+    method serCocinada(gradosHorno){
+        self.actualizarEstadoMasa(gradosHorno)
+    }
+    method actualizarEstadoMasa(gradosHorno) {
+       //image = 
+       //if (gradosHorno < 2) gradosHorno+1 else quemada.quemarse(self) -> faltaría cruda y quemada
+    }
+    method ingreDientePrincipal() {
+      //
+    }
+}
+
+
+class Queso inherits Ingrediente( position = game.at(0,0), image = ".png", precio = 100 ){
+    override method serProcesado() {
+      
+    }
+}
+
+class Tomate inherits Ingrediente ( position = game.at(0,0), image = ".png", precio = 100 ){
+  override method serProcesado() {
+      
+    }
+}
+
+class Aceituna inherits Ingrediente ( position = game.at(0,0), image = ".png", precio = 100 ) {
+ override method serProcesado() {
+      
+    }
+}
+
+class Huevo inherits Ingrediente ( position = game.at(0,0), image = ".png", precio = 100 ){
+  override method serProcesado() {
+      
+    }
+}
+
+class Atun inherits Ingrediente ( position = game.at(0,0), image = ".png", precio = 100 ) {
+  override method serProcesado() {
+      
+    }
+}
+
+class Hongo inherits Ingrediente ( position = game.at(0,0), image = ".png", precio = 100 ) { 
+  override method serProcesado() {
+      
+    }
+}
+/*
+    bebidas y postres: -> NO SON CLASE INGREDIENTE
+    tiene que tener posición e imagen
+    tiene que saber su precio
+    tiene que saber que opción de bebida son 
+        -> coca, sprite, fanta
+        -> helado, torta, etc?
+*/
+class Bebida {
+  
+}
+
+class Postre {
+  
+}
+
+//creo que el puré de tomate sigue siendo un tomate solo que fue procesado y lo unico que hace es cambiar la imagen
+//en la lista dentro de la pizza (masa) podría contar como un tomate pero uno procesado?
 class PureTomate {
 
     var property position = null
@@ -127,6 +135,8 @@ class PureTomate {
     }
 }
 
+
+//no creo que se deba hacer con factories, estaría bueno que simplemente puedas hagarrar los ingredientes infinitamente cuando quieras y que la dificultad del tiempo esté en los clientes y la de los ingredientes sea la gestion tal vez
 object administradorIngredientes{
      const creados = #{}
      const factories = [tomateFactory,masaFactory,muzzarellaFactory]
@@ -175,7 +185,7 @@ object masaFactory {
 
         method construir(){
 
-            return new Masa (position = position)
+            //return new Masa (position = position)
         }
 }
 
@@ -185,6 +195,6 @@ object muzzarellaFactory {
 
     method construir(){
 
-        return new Muzzarella (position = position)
+        return new Queso (position = position)
     }
 }

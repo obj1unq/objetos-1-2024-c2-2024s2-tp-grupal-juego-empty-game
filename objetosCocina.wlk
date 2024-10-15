@@ -1,24 +1,41 @@
-import wollok.game.*
 import comestibles.*
+import wollok.game.*
 
 
 object horno {
-  var property position = game.at(0, 0)
-  var property image = "oven_" + estadoComida + ".png"
-  var property estadoComida = 0
+  var property position = game.at(4, 4)
+  var property image = "oven" + grados + ".png"
+  var property grados = 0
+  var property contenido = []
 
-  method cocinar(comida) { 
-    game.onTick(2500, self, {self.calentar(comida)})
+  
+  method recibirPizza(pizza) {
+      self.validarRecibirPizza()
+      self.contenido().add(pizza)      
+  }
+
+  method validarRecibirPizza() {
+    if(not contenido.isEmpty()){
+      self.error("ya hay algo calentandose")
+    }
+  }
+
+  method cocinar() { 
+    game.onTick(2500, self, {self.calentar(contenido.head())})
   } 
 
   method calentar(comida) {
-    comida.serCocinada()
-    self.nivelDeHorno(comida)
+    self.subirNivelDeHorno()
+    comida.serCocinada(grados)
+    self.actualizarEstado()
   }
 
-  method nivelDeHorno(comida){
-    estadoComida = comida.coccion()
-    image = if (comida.heatLevel() <= 2) (comida.heatLevel() + 1) else self.simularFuego()
+  method subirNivelDeHorno(){
+    grados = (grados + 1).min(3)
+  }
+
+  method actualizarEstado() {
+    if (grados == 3) self.simularFuego()
   }
 
   method simularFuego() {
@@ -27,3 +44,15 @@ object horno {
   }
 }
 
+object basura {
+/*
+  tiene que entender eliminar objeto : para cuando se arruine la comida, se queme o así 
+
+*/  
+}
+
+class Mesada {
+/*
+  unico lugar donde se pueden "procesar" los ingredientes
+*/  
+}

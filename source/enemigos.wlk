@@ -1,6 +1,7 @@
 import wollok.game.*
 import posiciones.*
 import personajes.personaje.*
+import sonidos.*
 
 object managerZombie {
     const property zombies = #{}
@@ -21,6 +22,7 @@ class Zombie {
     var property position = null
     var property vida = null
     var property dmg = null
+    var property velocidad = null
     var property tipo = Zombie
 
     method colisionPj() {}
@@ -35,7 +37,7 @@ class Zombie {
     method nombreEvento() {return "persecucion".identity()}
 
     method persecucion() {
-        game.onTick(1000, self.nombreEvento(), {self.perseguirAPersonaje()})
+        game.onTick(velocidad, self.nombreEvento(), {self.perseguirAPersonaje()})
     }
 
     method perseguirAPersonaje() {
@@ -90,7 +92,7 @@ class Zombie {
 
 }
 
-class ZombieComun inherits Zombie(vida = 100, dmg = 10){
+class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 
     override method moverseHaciaAgroEjeY() {
         if (agro.position().y() > position.y()) {
@@ -113,4 +115,33 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10){
             self.image("zombie-comun-izquierda.png")
         }
     }
+
+    //game.schedule(1000, game.sound("zombie-1.mp3").play())
+}
+
+
+class Perros inherits Zombie(vida = 50, dmg = 10,  velocidad = 500){
+
+    override method moverseHaciaAgroEjeY() {
+        if (agro.position().y() > position.y()) {
+            self.mover(arriba) 
+            self.image("zombie-comun-arriba.png")
+        }
+        else if (agro.position().y() < position.y()) {
+            self.mover(abajo)
+            self.image("zombie-comun-abajo.png")
+        }
+    }
+
+    override method moverseHaciaAgroEjeX() {
+        if (agro.position().x() > position.x()) {
+            self.mover(derecha)
+            self.image("zombie-comun-derecha.png")
+        }
+        else if (agro.position().x() < position.x()) {
+            self.mover(izquierda)
+            self.image("zombie-comun-izquierda.png")
+        }
+    }
+
 }

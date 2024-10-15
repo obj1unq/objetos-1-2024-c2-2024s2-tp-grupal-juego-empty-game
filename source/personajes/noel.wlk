@@ -48,4 +48,8 @@ object noel {
     method sonidoRecarga(){
         game.sound("pistola-recarga.mp3").play()
     }
+
+    method cura1(){
+        return "cura1-noel.png"
+    }
 }

@@ -7,12 +7,13 @@ import dangalf.*
 
 object personaje {
     //Imagen y posicion
-    var property pj = dangalf
+    var property pj = noel
     var property image = pj.imagenInicial()
     var property position = game.at(5,5)
     //Estadisticas
     var property vida = 100 //que sea un manager de vida aparte
     var property visualAmmo = pj.municionImagen()
+    var property visualHealth1 = pj.cura1()
     var property oro = 0
 
     //var property zombiesAsesinados = 0   - A implementar

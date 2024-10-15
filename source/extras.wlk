@@ -37,7 +37,7 @@ class Drop {
 }
 
 //---------------------------------Curas---------------------------------------
-class Cura1 inherits Drop(image="vida.png"){
+class Cura1 inherits Drop(image=personaje.visualHealth1()){
     const vidaDada = 20
 
     method colisionPj() {
@@ -47,7 +47,6 @@ class Cura1 inherits Drop(image="vida.png"){
     }
 }
 //---------------------------------Municion---------------------------------------
-//volverlo clase y que haga algo
 
 //object balas {
 class Balas inherits Drop(image=personaje.visualAmmo()){

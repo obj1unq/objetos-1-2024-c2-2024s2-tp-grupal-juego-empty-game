@@ -16,3 +16,10 @@ object musicaDeFondo{
         volumen += num 
     }
 }
+
+object enemigos{
+    method zombieSonido(){
+        return game.sound("zombie-1.mp3")
+        //game.sound("zombie-2.mp3").play()
+    }
+}

@@ -48,4 +48,8 @@ object dangalf {
     method sonidoRecarga(){
         game.sound("mana.mp3").play()
     }
+
+    method cura1(){
+        return "cura1-mago.png"
+    }
 }

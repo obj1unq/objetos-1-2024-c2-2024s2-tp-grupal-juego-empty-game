@@ -7,7 +7,7 @@ import dangalf.*
 
 object personaje {
     //Imagen y posicion
-    var property pj = noel
+    var property pj = dangalf
     var property image = pj.imagenInicial()
     var property position = game.at(5,5)
     //Estadisticas

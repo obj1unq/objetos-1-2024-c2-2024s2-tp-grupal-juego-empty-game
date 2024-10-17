@@ -2,23 +2,78 @@ import wollok.game.*
 import personaje.*
 import posiciones.*
 import pelea.*
+import extras.*
 
-/*Tenemos que hacerlo clase pero yo no entendí :)*/
-object enemigo1 {
-    var  position = game.at(14,12)
+//PREGUNTAR sobre como hacer un objeto que herencie una clase que está
+//dentro de una superclase --> esqueleto
+
+class Enemigo {
+    var position
+    var vida
     const objetivoADestruir = personaje
-    var property vida = 150
-	
-	method position() {
-		return position
+    var acumuladorDeTurnos = 0
+    const danioBase 
+
+    method position() {
+        return position
+    }
+
+    method image() 
+    method estado() 
+
+    method colisiono(personaje) {
+     self.combate() 
+    }
+    
+    method vida() {
+        return vida
+    }
+
+    method combate() {
+        combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
+        combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
+
+        position = position.right(1)    //se posiciona una celda a la derecha del personaje
+        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va a quitar
+
+        combate.cambiarTurnoA(self) //Empieza el combate
+    }
+      
+    method atacarPre() {
+      self.atacar()
+    }
+
+    method atacar() {
+        objetivoADestruir.recibirDanho(self.danio()) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
+        combate.cambiarTurnoA(objetivoADestruir)
+        acumuladorDeTurnos+=1
+    }
+
+    method danio()
+    method habilidad()
+    
+    method recibirDanho(cantidad){
+        vida = vida - cantidad
+    }
+
+    method mover() 
+
+    method morir() {
+        game.removeVisual(self)
+    }
+
+      
+}
+
+class OjoVolador inherits Enemigo {
+    
+   override  method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
+		return "ojito32a.png"
+        
 	}
 
-    method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
-	}
-
-	method estado() {
-		return enemigoSinArma //como, de momento, tiene un solo estado, es un poco raro. Tendrá mas sentido si tiene más estados (como el pj)
+	override method estado() {
+		return ojoSinArma //como, de momento, tiene un solo estado, es un poco raro. Tendrá mas sentido si tiene más estados (como el pj)
 	}
 
     //MOVIMIENTO
@@ -31,7 +86,7 @@ object enemigo1 {
         return (objetivoADestruir.position().y() - position.y())
     }
 
-    method mover() { 
+   override method mover() { 
         if (self.distanciaEnEjeX().abs() > self.distanciaEnEjeY().abs()) {
             if(self.distanciaEnEjeX() > 0) {
                 position = derecha.siguiente(position)
@@ -47,54 +102,150 @@ object enemigo1 {
         }
     }
 
-    // cuando el pj colsiona con el enemigo, este incia el combate
-    method colisiono(personaje){
+    // COMBATE/PELEA
+    
+    override method atacar() {
+        if(acumuladorDeTurnos < 1) {
+            objetivoADestruir.recibirDanho(danioBase)
+        } else {
+            self.habilidad()
+        }
+    }
+   
+    override method danio() {
+        
+    }
+
+    override method habilidad() {
+        combate.cambiarTurnoA(self)
+    }
+}
+
+class Esqueleto inherits Enemigo {
+
+    override method image() {
+        return "esqueleto" + self.estado().imagenParaPersonaje() + "-32Bits.png"
+    }
+
+    override method estado() {
+        return esqueletoSinArma
+    }
+
+    override method mover() {
+           self.encontrarObjetivo()
+    }
+
+    method encontrarObjetivo() {
+        self.validarEncontrar()
+        position = objetivoADestruir.position()
         self.combate()
     }
 
-    // COMBATE/PELEA
-
-    /*  - La posicion del enemigo es una celda a la derecha del personaje cuando empieza el combate.
-        - Se le manda el enemigo a la barra de estado para saber con que enemigo esta peleando.
-        - Aparece la barra de estado.
-    */
-    method combate() {
-        
-        combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
-        combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
-
-        position = position.right(1)    //se posiciona una celda a la derecha del personaje
-        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va aquitar
-
-        combate.cambiarTurnoA(self) //Empieza el combate
+    method validarEncontrar() {
+        if (!self.hayObjetivoEnVision()) {
+            self.error("")
+        }
     }
 
-    method atacarPre() {
-        //game.schedule(300, { self.atacar(self)}) // para que quede más lindo a lo visual, que tarde un toque en atacar, que no sea instantaneo (NO porque causa arrastre de daño)
-        self.atacar()
+    method hayObjetivoEnVision() {
+        return objetivoADestruir.position().x().between(3, 7) && objetivoADestruir.position().y() == self.position().y()
+    }
+    override method danio() {
+        if(acumuladorDeTurnos < 4) {
+          return danioBase //43
+        } else {
+            return self.habilidad()
+        }
     }
 
-    method atacar() {
-        objetivoADestruir.recibirDanho(20) //FUTURO: Hacer las habilidades del enemigo y hacerlo clase
-        combate.cambiarTurnoA(objetivoADestruir)
+    override method habilidad() {
+        return
+        acumuladorDeTurnos = 0
     }
-
-    method recibirDanho(cantidad){
-        vida = vida - cantidad
-    }
-
-    method morir() {
-        /*Este método despues se va cambiar por un removeVisual o algo asi, esta así ahora para testear porque solo tenemos un enemigo.*/
-        position = game.at(7,4)
-        vida = 150
-    }
-
 }
 
-object enemigoSinArma {
+class Goblin inherits Enemigo {
+       
+    override method image() {
+        return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png"
+    }
+
+    override method estado() {
+        return goblinSinArma
+    }
+
+    override method mover() {
+           
+    }
+
+    override method danio() {
+        if(acumuladorDeTurnos < 2) {
+          return danioBase //37
+        } else {
+            return self.habilidad()
+        }
+    }
+
+    override method habilidad() {
+        return danioBase * 3
+        acumuladorDeTurnos = 0
+    }
+}
+
+object fabricaDeOjos {
+
+    method nuevoEnemigo() {
+        const ojo = new OjoVolador(position = game.at(14,9) , vida = 150, danioBase = 20)
+        dungeon.enemigos().add(ojo)
+        return ojo
+  }
+}
+
+object fabricaDeEsqueleto {
+
+    method nuevoEnemigo() {
+        const esqueletoIzq = new Esqueleto(position = game.at(3,10) , vida = 200, danioBase = 43)
+        dungeon.enemigos().add(esqueletoIzq)
+        return esqueletoIzq
+  }
+}
+
+object fabricaDeGoblin {
+    method nuevoEnemigo() {
+        const goblin = new Goblin(position = game.at(15, 14), vida = 95, danioBase = 37)
+        dungeon.enemigos().add(goblin)
+        return goblin
+    }
+}
+
+/*object fabricaDeEsqueleto1 {
+
+    method nuevoEnemigo() {
+        const esqueletoDer = new Esqueleto(position = game.at(26,13) , vida = 200)
+        dungeon.enemigos().add(esqueletoDer)
+        return esqueletoDer
+  }
+}*/
+
+
+object ojoSinArma {
 
     method imagenParaPersonaje() {
         return ""
     }
-
 }
+
+object esqueletoSinArma {
+
+    method imagenParaPersonaje() {
+      return ""
+    }
+}
+
+object goblinSinArma {
+
+    method imagenParaPersonaje() {
+        return ""
+    }
+}
+

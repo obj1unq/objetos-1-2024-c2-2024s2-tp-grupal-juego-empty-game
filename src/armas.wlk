@@ -7,6 +7,11 @@ class Arma {
     var property estaEquipada = false
     const property position = randomizer.posicionRandomDeArma()
     const nivel = 1.randomUpTo(3).round() 
+    var durabilidad  
+
+    method durabilidad() {
+      return durabilidad
+    }
 
     method serEquipada() {
       self.estaEquipada(true) 
@@ -17,29 +22,26 @@ class Arma {
         personaje.equiparArma(self)
     }
 
-    //se implementan en cada una de las subclases de tipos de arma (ya que en todas varía)
-    method danho()
-    method image() 
-    method imagenParaPersonaje()
-    method restarDurabilidad(cantidadRestada)
-    method realizarActualizacionDeArmas()
-    method habilidadEspecial()
-
-}
-
-class Espada inherits Arma {
-    var property durabilidad = 90.randomUpTo(120).round() //porque es un dato cambiante que debe cambiar y no recalcularse cada vez.
-    //y la declaramos acá porque si se declara en la superclase ya no le podemos dar valor inicial personalizado a menos que sea usando 
-    //algún método
-
-    override method realizarActualizacionDeArmas() {
-        if (self.durabilidad() <= 15) {
+    method realizarActualizacionDeArmas() {
+        if ( self.durabilidad() <= 15) {
             personaje.actualizarArmaActual()
             personaje.bolsa().remove(personaje.bolsa().head()) //se borra esta arma, que era la primera y la anterior actual
         } else {
             self.restarDurabilidad(15)
         }
     }
+
+    //se implementan en cada una de las subclases de tipos de arma (ya que en todas varía)
+    method danho()
+    method image() 
+    method imagenParaPersonaje()
+    method restarDurabilidad(cantidadRestada)
+    method habilidadEspecial()
+    
+
+}
+
+class Espada inherits Arma {
 
     override method restarDurabilidad(cantidadRestada) {
         durabilidad -= cantidadRestada
@@ -69,18 +71,6 @@ class Espada inherits Arma {
 }
 
 class ArcoYFlecha inherits Arma {
-    var property durabilidad = 120.randomUpTo(150).round() //porque es un dato cambiante que debe cambiar y no recalcularse cada vez.
-    //y la declaramos acá porque si se declara en la superclase ya no le podemos dar valor inicial personalizado a menos que sea usando 
-    //algún método
-
-    override method realizarActualizacionDeArmas() {
-        if (self.durabilidad() <= 15) {
-            personaje.actualizarArmaActual()
-            personaje.bolsa().remove(personaje.bolsa().head()) //se borra esta arma, que era la primera y la anterior actual
-        } else {
-            self.restarDurabilidad(15)
-        }
-    }
 
     override method restarDurabilidad(cantidadRestada) {
         durabilidad -= cantidadRestada
@@ -107,18 +97,6 @@ class ArcoYFlecha inherits Arma {
 }
 
 class MartilloDeGuerra inherits Arma {
-    var property durabilidad = 60.randomUpTo(90).round() //porque es un dato cambiante que debe cambiar y no recalcularse cada vez.
-    //y la declaramos acá porque si se declara en la superclase ya no le podemos dar valor inicial personalizado a menos que sea usando 
-    //algún método
-
-    override method realizarActualizacionDeArmas() {
-        if (self.durabilidad() <= 15) {
-            personaje.actualizarArmaActual()
-            personaje.bolsa().remove(personaje.bolsa().head()) //se borra esta arma, que era la primera y la anterior actual
-        } else {
-            self.restarDurabilidad(15)
-        }
-    }
 
     override method restarDurabilidad(cantidadRestada) {
         durabilidad -= cantidadRestada
@@ -162,7 +140,7 @@ object mano { //objeto especial (hay que trabajar con los efectos que causa porq
 object fabricaEspada {
 
     method nuevaArma() {
-        return new Espada()
+        return new Espada(durabilidad = 90.randomUpTo(120).round())
     }
 
 }
@@ -170,7 +148,7 @@ object fabricaEspada {
 object fabricaArcoYFlecha {
 
     method nuevaArma() {
-        return new ArcoYFlecha()
+        return new ArcoYFlecha(durabilidad = 120.randomUpTo(150).round())
     }
 
 }
@@ -178,7 +156,7 @@ object fabricaArcoYFlecha {
 object fabricaMartilloDeGuerra {
 
     method nuevaArma() {
-        return new MartilloDeGuerra()
+        return new MartilloDeGuerra(durabilidad = 60.randomUpTo(90).round())
     }
 
 }

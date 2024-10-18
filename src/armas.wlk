@@ -31,21 +31,20 @@ class Arma {
         }
     }
 
+    method restarDurabilidad(cantidadRestada) {
+        durabilidad -= cantidadRestada
+    }
+
     //se implementan en cada una de las subclases de tipos de arma (ya que en todas varía)
     method danho()
     method image() 
     method imagenParaPersonaje()
-    method restarDurabilidad(cantidadRestada)
     method habilidadEspecial()
     
 
 }
 
 class Espada inherits Arma {
-
-    override method restarDurabilidad(cantidadRestada) {
-        durabilidad -= cantidadRestada
-    }
 
     override method danho() {
         return 35 + nivel * 3
@@ -59,7 +58,7 @@ class Espada inherits Arma {
         return "ConEspada"
     }
 
-    override method habilidadEspecial() {
+    override method habilidadEspecial() { //de momento, no está siendo usada en el juego
         return self.danho() * 2 //golpe critico RASGUÑO MORTALLLLL
     }
 
@@ -71,10 +70,6 @@ class Espada inherits Arma {
 }
 
 class ArcoYFlecha inherits Arma {
-
-    override method restarDurabilidad(cantidadRestada) {
-        durabilidad -= cantidadRestada
-    }
 
     override method danho() {
         return 20 + nivel * 3
@@ -91,16 +86,12 @@ class ArcoYFlecha inherits Arma {
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
     method textColor() = paleta.azul()
 
-    override method habilidadEspecial() {
+    override method habilidadEspecial() { //de momento, no está siendo usada en el juego
         return //veneno
     }
 }
 
 class MartilloDeGuerra inherits Arma {
-
-    override method restarDurabilidad(cantidadRestada) {
-        durabilidad -= cantidadRestada
-    }
 
     override method danho() {
         return 80 + nivel * 3
@@ -118,13 +109,13 @@ class MartilloDeGuerra inherits Arma {
     method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
     method textColor() = paleta.azul()
 
-    override method habilidadEspecial() {
+    override method habilidadEspecial() { //de momento, no está siendo usada en el juego
         return //pierde turno enemigo
     }
 
 }
 
-object mano { //objeto especial (hay que trabajar con los efectos que causa porque noto efectos raros en la pelea al usar la mano)
+object mano { //objeto especial
 
     method danho() {
         return 5
@@ -137,7 +128,7 @@ object mano { //objeto especial (hay que trabajar con los efectos que causa porq
 
 //FÁBRICAS (su única función es devolverme en nuevo objeto de la subclase de Arma a la que están ligadas. nos permiten crear armas random)
 
-object fabricaEspada {
+object fabricaDeEspada {
 
     method nuevaArma() {
         return new Espada(durabilidad = 90.randomUpTo(120).round())
@@ -145,7 +136,7 @@ object fabricaEspada {
 
 }
 
-object fabricaArcoYFlecha {
+object fabricaDeArcoYFlecha {
 
     method nuevaArma() {
         return new ArcoYFlecha(durabilidad = 120.randomUpTo(150).round())
@@ -153,7 +144,7 @@ object fabricaArcoYFlecha {
 
 }
 
-object fabricaMartilloDeGuerra {
+object fabricaDeMartilloDeGuerra {
 
     method nuevaArma() {
         return new MartilloDeGuerra(durabilidad = 60.randomUpTo(90).round())

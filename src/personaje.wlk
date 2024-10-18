@@ -10,7 +10,7 @@ import pelea.*
 object personaje {
 	//var property enemigos = fabricaDeOjos.nuevoEnemigo() //Esto hay que arreglarlo
 	//para que funcione sin esta lista fea donde el personaje conoce al enemigo en vez de la dungeon
-	var  position = game.at(7,2);
+	var  position = game.at(7,2)
     var property vida = 450
 	const property bolsa = []
 	var estaEnCombate = false
@@ -92,7 +92,7 @@ object personaje {
 
 	method actualizarArmaActual() { //esto se ejecuta solamente cuando se descarta el arma actual
 		if(bolsa.size()>1) {
-			armaActual = bolsa.get(1); //pone la 2da de la bolsa como el arma actual
+			armaActual = bolsa.get(1) //pone la 2da de la bolsa como el arma actual
 		} else {
 			armaActual = mano
 		}

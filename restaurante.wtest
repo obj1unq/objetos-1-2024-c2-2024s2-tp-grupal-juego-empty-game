@@ -1,7 +1,7 @@
 import comestibles.*
-import Chef_remy.*
+import restaurante.*
 import wollok.game.*
-
+import Chef_remy.*
 describe "restaurante" {
 
     const tomate1 = new Tomate(position= game.origin())
@@ -20,8 +20,10 @@ describe "restaurante" {
 
     assert.equals(#{tomate1}, remy.ingredienteEnMano())
 
-
-    
+  test "el restaurante dice si encuentra lo que se busca en el restaurante" {
+    assert.that(restaurante.hayIngredienteAqui(game.at(0,0)))
+    assert.notThat(restaurante.hayIngredienteAqui(game.at(0,2)))
+    assert.that(restaurante.estaLaPreparacionAqui(game.at(1,1)))
   }
 
   test "el chef agarra un queso y lo tiene en la mano"{

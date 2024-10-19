@@ -1,6 +1,6 @@
 import comestibles.*
 import restaurante.*
-import game.*
+import wollok.game.*
 describe "restaurante" {
 
     method initialize() {

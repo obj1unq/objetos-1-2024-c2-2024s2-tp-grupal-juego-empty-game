@@ -1,13 +1,16 @@
-
+import comestibles.*
+import restaurante.*
+import game.*
 describe "restaurante" {
 
     method initialize() {
       game.height(10)
       game.width(10)
     }
-  test "el chef agarra un tomate y lo tiene en la mano" {
 
-
-    
+  test "el restaurante dice si encuentra lo que se busca en el restaurante" {
+    assert.that(restaurante.hayIngredienteAqui(game.at(0,0)))
+    assert.notThat(restaurante.hayIngredienteAqui(game.at(0,2)))
+    assert.that(restaurante.estaLaPreparacionAqui(game.at(1,1)))
   }
 }

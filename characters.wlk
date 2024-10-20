@@ -11,7 +11,7 @@ class Personaje {
 
     var property team
 
-    var property position
+    var property position = game.at(0,0)
     const property enemigosAlAlcance = #{}
 
     var property fueMovido = false

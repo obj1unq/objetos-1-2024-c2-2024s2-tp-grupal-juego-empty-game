@@ -29,7 +29,12 @@ program juego {
     keyboard.down().onPressDo({cabezal.mover(abajo)})
 	keyboard.a().onPressDo({cabezal.seleccionar()})
 	keyboard.q().onPressDo({cabezal.moverPj()})
-	keyboard.space().onPressDo({castillo.spawn(new Comandante(team=aliado))})
+	keyboard.num1().onPressDo({castillo.spawn(new Comandante(team = aliado))})
+	keyboard.num2().onPressDo({castillo.spawn(new Soldado (team=aliado))})
+	keyboard.num3().onPressDo({castillo.spawn(new Arquero(team = aliado))})
+	keyboard.num4().onPressDo({castillo.spawn(new Mago (team = aliado))})
+	keyboard.num5().onPressDo({castillo.spawn(new Golem (team= aliado))})
+	keyboard.num6().onPressDo({castillo.spawn(new Dragon (team = aliado))})
 
 
 	

@@ -21,7 +21,11 @@ class Personaje {
         fueMovido = true
     }
 
-        method quitarEnemigoAlAlcance(enemigo) {
+    method efectoAtacar(){
+        atacoEsteTurno = true
+    }
+
+    method quitarEnemigoAlAlcance(enemigo) {
         enemigosAlAlcance.remove(enemigo)
     }
 
@@ -41,7 +45,7 @@ class Personaje {
     }
 
 
-           method mover(_pos) {
+    method mover(_pos) {
         position = _pos
     }
 

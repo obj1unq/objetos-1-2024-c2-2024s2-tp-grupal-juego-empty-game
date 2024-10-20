@@ -25,8 +25,8 @@ object cabezal {
         seleccionActual = self.obtenerPj(self.position())
     }
 
-    method obtenerPj(_position) {
-      return mapa.aliadosEn(_position)
+    method obtenerPj(posicion) {
+      return mapa.aliadosEn(posicion)
 
     }
 

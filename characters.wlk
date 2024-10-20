@@ -2,15 +2,38 @@ import wollok.game.*
 import map.*
 import direcciones.*
 
-class Comandante {
-    //stats provisionales
-    const ataqueBase = 10 
-    const defensaBase = 3
-    const vidaBase = 15
-    const property team = null
-    const property inventario = null
+class Personaje {
+    //stats
+    const property ataqueBase = null
+    const property defensaBase = null
+    const property vidaBase = null
+    var property vidaActual = vidaBase
+
+    //team 
+    const property equipo = null
+    const property inventario = #{}
+
     var property position = null
-    const property enemigosAlAlcance =#{}
+    const property enemigosAlAlcance = #{}
+
+    var property fueMovido = false
+    var property atacoEsteTurno = false
+
+}
+
+class Comandante inherits Personaje {
+
+    method efectoMover() {
+        fueMovido = true
+    }
+
+    method quitarEnemigoAlAlcance(enemigo) {
+        enemigosAlAlcance.remove(enemigo)
+    }
+
+    method limpiarEnemigosAlAlcance() {
+        enemigosAlAlcance.clear()
+    }
 
     method definirEnemigosAlAlcance(posicion){
         enemigosAlAlcance.addAll(self.definirEnemigoHacia(arriba.siguiente(posicion))) 
@@ -50,6 +73,26 @@ object mago {
         return "mage.png"
     }
   
+}
+
+object comandante {
+
+}
+
+object soldado {
+
+}
+
+object arquero {
+
+}
+
+object golem {
+
+}
+
+object dragon {
+
 }
 
 object aliado {

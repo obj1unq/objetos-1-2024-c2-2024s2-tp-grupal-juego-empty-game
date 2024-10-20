@@ -4,15 +4,14 @@ import direcciones.*
 
 class Personaje {
     //stats
-    const property ataqueBase = null
-    const property defensaBase = null
-    const property vidaBase = null
+    const property ataqueBase
+    const property defensaBase
+    const property vidaBase
     var property vidaActual = vidaBase
 
-    //team 
-    const property team = null
+    var property team
 
-    var property position = null
+    var property position
     const property enemigosAlAlcance = #{}
 
     var property fueMovido = false
@@ -48,11 +47,12 @@ class Personaje {
 
 }
 
-class Comandante inherits Personaje {
+class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 100) {
 
     const property inventario = #{}
 
-   method image(){
+
+    method image(){
         return "comandante-" + team.estado() + ".png"
     }
 
@@ -60,7 +60,7 @@ class Comandante inherits Personaje {
 }
 
 
-class Mago inherits Personaje {
+class Mago inherits Personaje(ataqueBase = 2, defensaBase = 1, vidaBase = 100) {
 
 
     method image() {
@@ -70,20 +70,32 @@ class Mago inherits Personaje {
 }
 
 
-class Soldado inherits Personaje {
+class Soldado inherits Personaje(ataqueBase = 4, defensaBase = 2, vidaBase = 100) {
 
+    method image(){
+        return "soldado-" + team.estado() +".png"
+    }
 }
 
-class Arquero inherits Personaje {
-
+class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 100) {
+    
+    method image(){
+        return "arquero-" + team.estado() +".png"
+    }
 }
 
-class Golem inherits Personaje {
-
+class Golem inherits Personaje(ataqueBase = 5, defensaBase = 5, vidaBase = 100) {
+    
+    method image(){
+        return "golem-" + team.estado() + ".png"
+    }
 }
 
-object dragon {
+class Dragon inherits Personaje (ataqueBase = 10, defensaBase = 3, vidaBase = 100) {
 
+    method image(){
+        return "dragon-"+ team.estado() + ".png"
+    }
 }
 
 object aliado {

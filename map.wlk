@@ -36,4 +36,12 @@ object mapa {
     method hayAliadosEn(coordenadas) {
         return aliados.any({aliado => aliado.position() == coordenadas})
     }
+
+    method hayEnemigosEn(coordenadas){
+        return enemigos.any({enemigo => enemigo.position() == coordenadas})
+    }
+
+    method hayUnidadAca(posicion){
+        return self.hayAliadosEn(posicion) and self.hayEnemigosEn(posicion)
+    }
 }

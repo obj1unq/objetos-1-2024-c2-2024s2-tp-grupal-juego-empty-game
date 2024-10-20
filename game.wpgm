@@ -3,6 +3,7 @@ import map.*
 import characters.*
 import cabezal.*
 import direcciones.*
+import edificios.*
 
 
 
@@ -15,26 +16,10 @@ program juego {
 	game.ground("ground.png")
 
 	//  VISUALES
- 	game.addVisual(mago)
-    mapa.agregarAliado(mago)
-    
-    const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3))
-    mapa.agregarAliado(comandante)
-	const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,4))
-	mapa.agregarEnemigo(comandante2)
-    const comandante3 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2))
-	mapa.agregarEnemigo(comandante3)
-    const comandante4 = new Comandante (team=enemigo, inventario =#{}, position = game.at(4,3))
-	mapa.agregarEnemigo(comandante4)
-    const comandante5 = new Comandante (team=enemigo, inventario =#{}, position = game.at(2,3))
-	mapa.agregarEnemigo(comandante5)
 
-	game.addVisual(comandante5)
-	game.addVisual(comandante4)
-	game.addVisual(comandante3)
-	game.addVisual(comandante2)
-	game.addVisual(comandante)
+
     game.addVisual(cabezal)
+	game.addVisual(castillo)
 	
  	
     // CABEZAL
@@ -44,6 +29,7 @@ program juego {
     keyboard.down().onPressDo({cabezal.mover(abajo)})
 	keyboard.a().onPressDo({cabezal.seleccionar()})
 	keyboard.q().onPressDo({cabezal.moverPj()})
+	keyboard.space().onPressDo({castillo.spawn(new Comandante())})
 
 
 	

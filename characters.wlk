@@ -11,7 +11,6 @@ class Personaje {
 
     //team 
     const property team = null
-    const property inventario = #{}
 
     var property position = null
     const property enemigosAlAlcance = #{}
@@ -51,6 +50,7 @@ class Personaje {
 
 class Comandante inherits Personaje {
 
+    const property inventario = #{}
 
    method image(){
         return "comandante-" + team.estado() + ".png"
@@ -60,32 +60,25 @@ class Comandante inherits Personaje {
 }
 
 
-object mago {
-    var property position = game.at(1,1)
+class Mago inherits Personaje {
 
-    method mover(_pos) {
-        position = _pos
-    }
 
     method image() {
-        return "mage.png"
+        return "mage-" + team.estado()+".png"
     }
   
 }
 
-object comandante {
+
+class Soldado inherits Personaje {
 
 }
 
-object soldado {
+class Arquero inherits Personaje {
 
 }
 
-object arquero {
-
-}
-
-object golem {
+class Golem inherits Personaje {
 
 }
 

@@ -11,7 +11,7 @@ class Personaje {
 
     var property team
 
-    var property position = game.at(0,0)
+    var property position = game.at(0,0) //me pedia inicializarlo, pero spawnean en el castillo.
     const property enemigosAlAlcance = #{}
 
     var property fueMovido = false

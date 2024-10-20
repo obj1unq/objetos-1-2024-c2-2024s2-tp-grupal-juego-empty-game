@@ -42,6 +42,6 @@ object mapa {
     }
 
     method hayUnidadAca(posicion){
-        return self.hayAliadosEn(posicion) and self.hayEnemigosEn(posicion)
+        return self.hayAliadosEn(posicion) || self.hayEnemigosEn(posicion)
     }
 }

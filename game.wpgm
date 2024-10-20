@@ -17,9 +17,9 @@ program juego {
 
 	//  VISUALES
 
-
-    game.addVisual(cabezal)
 	game.addVisual(castillo)
+    game.addVisual(cabezal)
+	
 	
  	
     // CABEZAL
@@ -29,7 +29,7 @@ program juego {
     keyboard.down().onPressDo({cabezal.mover(abajo)})
 	keyboard.a().onPressDo({cabezal.seleccionar()})
 	keyboard.q().onPressDo({cabezal.moverPj()})
-	keyboard.space().onPressDo({castillo.spawn(new Comandante())})
+	keyboard.space().onPressDo({castillo.spawn(new Comandante(team=aliado))})
 
 
 	

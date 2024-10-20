@@ -10,7 +10,7 @@ class Personaje {
     var property vidaActual = vidaBase
 
     //team 
-    const property equipo = null
+    const property team = null
     const property inventario = #{}
 
     var property position = null
@@ -19,15 +19,11 @@ class Personaje {
     var property fueMovido = false
     var property atacoEsteTurno = false
 
-}
-
-class Comandante inherits Personaje {
-
     method efectoMover() {
         fueMovido = true
     }
 
-    method quitarEnemigoAlAlcance(enemigo) {
+        method quitarEnemigoAlAlcance(enemigo) {
         enemigosAlAlcance.remove(enemigo)
     }
 
@@ -36,29 +32,31 @@ class Comandante inherits Personaje {
     }
 
     method definirEnemigosAlAlcance(posicion){
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(arriba.siguiente(posicion))) 
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(abajo.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(izquierda.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(derecha.siguiente(posicion)))    
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(arriba.siguiente(posicion))) 
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(abajo.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(izquierda.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(derecha.siguiente(posicion)))    
     }
 
-    method definirEnemigoHacia(posicion){
+    method definirEnemigoEn(posicion){
         return mapa.enemigos().filter({enemigo => enemigo.position()== posicion})
     }
 
-    method batallar(){
-        // mi ataque - defensa enemiga -> daño al enemigo
-        // el ataque enemigo - mi defensa -> daño hacia mi
-        // rango vs melee no hay trade
+
+           method mover(_pos) {
+        position = _pos
     }
 
-    method image(){
+}
+
+class Comandante inherits Personaje {
+
+
+   method image(){
         return "comandante-" + team.estado() + ".png"
     }
 
-       method mover(_pos) {
-        position = _pos
-    }
+
 }
 
 

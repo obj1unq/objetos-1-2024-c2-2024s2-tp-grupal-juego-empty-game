@@ -22,7 +22,7 @@ program juego {
     mapa.agregarAliado(comandante)
 	const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,4))
 	mapa.agregarEnemigo(comandante2)
-     const comandante3 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2))
+    const comandante3 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2))
 	mapa.agregarEnemigo(comandante3)
     const comandante4 = new Comandante (team=enemigo, inventario =#{}, position = game.at(4,3))
 	mapa.agregarEnemigo(comandante4)

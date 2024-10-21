@@ -25,6 +25,7 @@ class Personaje {
 
     method efectoAtacar(){
         atacoEsteTurno = true
+        cabezal.setModo(cabezalBatalla)
     }
 
     method quitarEnemigoAlAlcance(enemigo) {
@@ -62,6 +63,40 @@ class Personaje {
     method recargarMovimiento() {
       fueMovido = false
     }
+
+    method recargarAtaque(){
+        atacoEsteTurno = false
+    }
+
+    method atacar(enemigo) {
+        self.validarAtaque()
+        enemigo.recibirDano()
+        enemigo.morirSiCorresponde()
+        self.efectoAtacar()
+    }
+
+    method validarAtaque(){
+        if (atacoEsteTurno){
+            self.error("Ya ataque este turno")
+        }
+    }
+
+    method recibirDano() {
+        vidaActual -= (cabezal.seleccionActualAliada().ataqueBase() - cabezal.seleccionActualEnemiga().defensaBase())
+    }
+    method morirSiCorresponde() {
+        if (vidaActual < 1){
+            self.morir()
+        }
+    }
+    method morir() {
+        mapa.quitarEnemigo(self)
+        self.quitarEnemigoAlAlcance(self)
+        game.removeVisual(self)
+        cabezal.modoCabezal(cabezalNormal)
+    }
+    
+
 
 }
 

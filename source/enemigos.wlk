@@ -29,7 +29,7 @@ class Zombie {
     }
 
     method impactoProyectil(danio) {
-        vida -= danio
+        vida = 0.max(vida - danio)
         self.fijarseMuerte()
     }
 
@@ -97,15 +97,15 @@ class Zombie {
 // Vida -------------------------------------------
 
     method fijarseMuerte() {
-        if (vida <= 0) {
+        if (vida == 0) {
             game.removeVisual(self)
             game.removeTickEvent(self.nombreEvento())
             managerZombie.zombies().remove(self)
         }
     }
-
 }
 
+// hay que hacer algo para que las demás clases hijas no tengan que sobreescribir el mismo código solo para cambiar la imagenn...
 class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 
     override method moverseHaciaAgroEjeY() {

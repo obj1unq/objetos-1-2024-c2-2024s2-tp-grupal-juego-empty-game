@@ -1,5 +1,6 @@
 import wollok.game.*
 import posiciones.*
+import enemigos.*
 
 
 class Proyectil {
@@ -10,17 +11,38 @@ class Proyectil {
 	    position = direccion.siguientePosicion(position)
 	}
 
-    method nombreEvento() {return "viajeDeProyectil" + self.identity()}
+    method nombreEvento() {return "evento" + self.identity()}
 
     method disparoHacia(dir) {}
 
-    method siguenColisiones(dir) {
-        return (not(game.getObjectsIn(dir.siguientePosicion(position)).isEmpty()))
+    method sigueOHayZombie(dir) {
+        const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(dir,zombie)}) // reotcasr
+        return (not (zombiesHacia.isEmpty()))
+    }
+
+    method sigueOEsta(dir,zombie) {
+        return zombie.position() == dir.siguientePosicion(position) or zombie.position() == position
     }
 
     var property image = null
     var property position = null
     method colisionPj() {} // por si las dudas -_-
+
+    method impacto(dir) {
+        game.removeTickEvent(self.nombreEvento())
+        game.schedule(100,{game.removeVisual(self)})
+    }
+
+    method validarViajeProyectil(dir) {
+        if (self.sigueOHayZombie(dir)) {
+            const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(dir,zombie)})
+            zombiesHacia.forEach({zombie => zombie.impactoProyectil(danio)})
+            self.impacto(dir)
+        }
+        else if (not(tablero.estaDentro(dir.siguientePosicion(position)))) {
+            self.impacto(dir)
+        }
+    }
 
 }
 
@@ -36,19 +58,8 @@ class Bala inherits Proyectil(danio=10) {
     }
 
     override method disparoHacia(direccion) {
-        self.validarViajeBala(direccion)
+        self.validarViajeProyectil(direccion)
         self.animacionBala(direccion)
-    }
-
-    method validarViajeBala(direccion) {
-        if (self.siguenColisiones(direccion)) {
-            const hitbox = game.getObjectsIn(direccion.siguientePosicion(position))
-            hitbox.forEach({colision => colision.impactoProyectil(danio)})
-            self.balaImpacto(direccion)
-        }
-        else if (not(tablero.estaDentro(direccion.siguientePosicion(position)))) {
-            self.balaImpacto(direccion)
-        }
     }
 
     method animacionBala(direccion) {
@@ -59,10 +70,9 @@ class Bala inherits Proyectil(danio=10) {
         self.imagenEnNumDir(1, direccion)
     }
 
-    method balaImpacto(dir) {
+    override method impacto(dir) {
         self.image("bala-impacto-" + dir.toString() + ".png")
-        game.removeTickEvent(self.nombreEvento())
-        game.schedule(100,{game.removeVisual(self)})
+        super(dir)
     }
 }
 
@@ -77,19 +87,8 @@ class BolaDeFuego inherits Proyectil(danio=20) {
     }
 
      override method disparoHacia(direccion) {
-        self.validarViajeBola(direccion)
+        self.validarViajeProyectil(direccion)
         self.animacionBola(direccion)
-    }
-
-    method validarViajeBola(direccion) {
-        if (self.siguenColisiones(direccion)) {
-            const hitbox = game.getObjectsIn(direccion.siguientePosicion(position))
-            hitbox.forEach({colision => colision.impactoProyectil(danio)})
-            self.bolaImpacto(direccion)
-        }
-        else if (not(tablero.estaDentro(direccion.siguientePosicion(position)))) {
-            self.bolaImpacto(direccion)
-        }
     }
 
     method animacionBola(direccion) {
@@ -100,9 +99,8 @@ class BolaDeFuego inherits Proyectil(danio=20) {
         self.imagenEnNumDir(1, direccion)
     }
 
-    method bolaImpacto(dir) {
+    override method impacto(dir) {
         self.image("bola-impacto-" + dir.toString() + ".png")
-        game.removeTickEvent(self.nombreEvento())
-        game.schedule(100,{game.removeVisual(self)})
+        super(dir)
     } 
 }

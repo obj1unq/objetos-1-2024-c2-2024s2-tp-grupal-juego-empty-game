@@ -7,7 +7,7 @@ object managerZombie {
     const property zombies = #{}
 
     method spawnearZombieComun() {
-        const zombieSpawneado = new ZombieComun(position = game.at(game.width() -1, game.height() -1), image = "zombie-comun-izquierda.png")
+        const zombieSpawneado = new Perro(position = game.at(game.width() -1, game.height() -1), image = "zombie-comun-izquierda.png")
         zombies.add(zombieSpawneado)
         game.addVisual(zombieSpawneado)
         zombieSpawneado.persecucion()
@@ -34,7 +34,7 @@ class Zombie {
 
 // Persecucion -------------------------------------
 
-    method nombreEvento() {return "persecucion".identity()}
+    method nombreEvento() {return "evento".identity()}
 
     method persecucion() {
         game.onTick(velocidad, self.nombreEvento(), {self.perseguirAPersonaje()})
@@ -87,6 +87,7 @@ class Zombie {
         if (vida <= 0) {
             game.removeVisual(self)
             game.removeTickEvent(self.nombreEvento())
+            managerZombie.zombies().remove(self)
         }
     }
 
@@ -95,23 +96,21 @@ class Zombie {
 class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 
     override method moverseHaciaAgroEjeY() {
+        super()
         if (agro.position().y() > position.y()) {
-            self.mover(arriba) 
             self.image("zombie-comun-arriba.png")
         }
         else if (agro.position().y() < position.y()) {
-            self.mover(abajo)
             self.image("zombie-comun-abajo.png")
         }
     }
 
     override method moverseHaciaAgroEjeX() {
+        super()
         if (agro.position().x() > position.x()) {
-            self.mover(derecha)
             self.image("zombie-comun-derecha.png")
         }
         else if (agro.position().x() < position.x()) {
-            self.mover(izquierda)
             self.image("zombie-comun-izquierda.png")
         }
     }
@@ -120,7 +119,7 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 }
 
 
-class Perros inherits Zombie(vida = 50, dmg = 10,  velocidad = 500){
+class Perro inherits Zombie(vida = 50, dmg = 10,  velocidad = 500){
 
     override method moverseHaciaAgroEjeY() {
         if (agro.position().y() > position.y()) {

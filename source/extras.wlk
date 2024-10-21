@@ -10,8 +10,12 @@ object managerItems {
     }
 
     method spawnearCura1() {
-        const nuevaCura = new Cura1(position=self.posicionRandom())
-        game.addVisual(nuevaCura)
+        const nuevaCura1 = new Cura1(position=self.posicionRandom())
+        const nuevaCura2 = new Cura2(position=self.posicionRandom())
+        const nuevaCura3 = new Cura3(position=self.posicionRandom())
+        game.addVisual(nuevaCura1)
+        game.addVisual(nuevaCura2)
+        game.addVisual(nuevaCura3)
         //drops.add(nuevaCura)
     }
 

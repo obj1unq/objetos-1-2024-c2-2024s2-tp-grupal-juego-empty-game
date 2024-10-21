@@ -7,7 +7,7 @@ object managerZombie {
     const property zombies = #{}
 
     method spawnearZombieComun() {
-        const zombieSpawneado = new ZombieComun(position = game.at(game.width() -2, game.height() -2), image = "zombie-comun-izquierda.png")
+        const zombieSpawneado = new Perro(position = game.at(game.width() -2, game.height() -2), image = "perronio-izquierda.png")
         zombies.add(zombieSpawneado)
         game.addVisual(zombieSpawneado)
         zombieSpawneado.persecucion()
@@ -89,7 +89,7 @@ class Zombie {
     }
 
     method imagenHacia(dir) {
-        return self.imagenMovimiento().toString() + dir.toString() + ".png"
+        return self.imagenMovimiento() + dir.toString() + ".png"
     }
 
     method imagenMovimiento()
@@ -107,7 +107,7 @@ class Zombie {
 // Vida -------------------------------------------
 
     method fijarseMuerte() {
-        if (vida <= 0) {
+        if (vida == 0) {
             self.sonidoMuerte()
             game.removeVisual(self)
             game.removeTickEvent(self.nombreEvento())
@@ -140,10 +140,18 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 }
 
 
-class Perro inherits Zombie(vida = 50, dmg = 10,  velocidad = 500){
+class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 500){
+
+    override method sonidoHerida(){
+        game.sound("zombie-1.mp3").play()
+    }
+
+    override method sonidoMuerte(){
+        game.sound("zombie-2.mp3").play()
+    }
 
     override method imagenMovimiento() {
-        return "zombie-comun-"
+        return "perronio-"
     }
 
 }

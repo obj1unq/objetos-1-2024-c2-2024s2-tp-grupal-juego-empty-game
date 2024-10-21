@@ -23,3 +23,12 @@ object castillo {
         }
     }
 }
+
+class Casa {
+
+    var property position
+
+    method curarUnidad(){
+        mapa.aliadosEn(self.position())
+    }
+}

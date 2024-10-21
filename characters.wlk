@@ -45,8 +45,8 @@ class Personaje {
     }
 
 
-    method mover(_pos) {
-        position = _pos
+    method mover(posicion) {
+        position = posicion
     }
 
 }

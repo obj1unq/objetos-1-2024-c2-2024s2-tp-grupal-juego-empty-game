@@ -7,7 +7,7 @@ object managerZombie {
     const property zombies = #{}
 
     method spawnearZombieComun() {
-        const zombieSpawneado = new Perro(position = game.at(game.width() -2, game.height() -2), image = "zombie-comun-izquierda.png")
+        const zombieSpawneado = new ZombieComun(position = game.at(game.width() -2, game.height() -2), image = "zombie-comun-izquierda.png")
         zombies.add(zombieSpawneado)
         game.addVisual(zombieSpawneado)
         zombieSpawneado.persecucion()
@@ -31,6 +31,7 @@ class Zombie {
     method impactoProyectil(danio) {
         vida = 0.max(vida - danio)
         self.fijarseMuerte()
+        self.sonidoHerida()
     }
 
 // Persecucion -------------------------------------
@@ -106,12 +107,20 @@ class Zombie {
 // Vida -------------------------------------------
 
     method fijarseMuerte() {
-        if (vida == 0) {
+        if (vida <= 0) {
+            self.sonidoMuerte()
             game.removeVisual(self)
             game.removeTickEvent(self.nombreEvento())
             managerZombie.zombies().remove(self)
         }
     }
+
+// Sonido -------------------------------------------
+
+    method sonidoHerida()
+
+    method sonidoMuerte()
+
 }
 
 // hay que hacer algo para que las demás clases hijas no tengan que sobreescribir el mismo código solo para cambiar la imagenn...
@@ -121,7 +130,13 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
         return "zombie-comun-"
     }
 
-    //game.schedule(1000, game.sound("zombie-1.mp3").play())
+    override method sonidoHerida(){
+        game.sound("zombie-1.mp3").play()
+    }
+
+    override method sonidoMuerte(){
+        game.sound("zombie-2.mp3").play()
+    }
 }
 
 

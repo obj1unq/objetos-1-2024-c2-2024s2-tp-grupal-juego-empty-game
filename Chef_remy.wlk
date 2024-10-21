@@ -2,28 +2,32 @@ import posiciones.*
 import objetosCocina.*
 import comestibles.*
 
-object remy { //remy es el de Ratatouille -> mejor nombre imposible
+object remy {
     var property position = game.center() 
-    const property image = "chefPrueba.png"
-    var property ingredienteEnMano = #{}
-   // const property ingredientes = #{}
-    const limiteEnMano = 1  // después va a ser mucho lio el que elija cuál de los 10 ingredientes que tiene va a poner en l apizza, opino que solo tenga 1 en la bandeja por simplicidad
-    //var direccionALaQueMira  -> para los sprites
 
+    var property bandeja = plato
+    var orientacion = abajo
+    // const limiteDeIngredientes = 10 -> después va a ser mucho lio el que elija,
+    // cuál de los 10 ingredientes que tiene va a poner en la pizza, opino que solo tenga 1 en la bandeja por simplicidad
 
-    method mover(direccion){
-		self.validarMover(direccion)
-		position =  direccion.siguiente(self.position())
+    method mover(direccion) {
+		if(direccion.esValida(position)){
+			position = direccion.siguiente(position)
+      orientacion = direccion
+		}
 	}
 
-	method validarMover(direccion) {
-		const siguiente = direccion.siguiente(self.position())
-		tablero.validarDentro(siguiente)
-	}
+  method orientacion() {
+    return orientacion
+  }
 
+  method image() {
+    return "chefPrueba.png"
+    //"chef_" + orientacion + ".png"
+  }
 
+  method recogerIngrediente(){ //puede agarrar cualquier ingrediente de la cocina
 
- // method recogerIngrediente(){ //puede agarrar cualquier ingrediente de la cocina
     // game.onCollideDo(self, {algo = algo.serSostenido(self)})
     //game.uniqueCollider(self).serSostenido(self)
 
@@ -103,7 +107,26 @@ object remy { //remy es el de Ratatouille -> mejor nombre imposible
   method procesarIngrediente(){
     //ingredientes.forEach({ingrediente => ingrediente.serProcesado()})
 
-    ingredienteEnMano.head().serProcesado()
+
+    bandeja.contenido().serProcesado()
+  }
+
+}
+// Aca hay un tema con los nombres no sabia como ponerle para que no tenga el mismo nombre que la variable del chef
+// Preferiria que este objeto sea la bandeja y que la variable del chef se llame de otra manera pero no
+// me gustaron las alternativas que se me ocurrieron
+
+object plato { 
+  const property chef = remy
+  const property image = "pizza_1.png" // Le puse la imagen de la pizza para ver si funciona
+  const property contenido = #{}
+  
+
+  method position() {
+    return chef.orientacion().siguiente(chef.position())
+
+    
+
   }
 
 }

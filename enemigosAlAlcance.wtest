@@ -1,0 +1,70 @@
+import wollok.game.*
+import map.*
+import characters.*
+import cabezal.*
+import direcciones.*
+import turno.*
+
+
+describe "testear set de enemigos contiguos"{
+
+    test "comandante enemigo hacia arriba"{
+        const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3))
+	    mapa.agregarAliado(comandante)
+	    const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,4))
+	    mapa.agregarEnemigo(comandante2)
+         const comandante3 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2))
+	    mapa.agregarEnemigo(comandante3)
+         const comandante4 = new Comandante (team=enemigo, inventario =#{}, position = game.at(4,3))
+	    mapa.agregarEnemigo(comandante4)
+         const comandante5 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2))
+	    mapa.agregarEnemigo(comandante5)
+
+        comandante.definirEnemigosAlAlcance(game.at(3,3))
+        
+        assert.equals(#{comandante2, comandante3, comandante4, comandante5}, comandante.enemigosAlAlcance())
+    }
+
+    test "seleccion actual aliada" {
+        const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3))
+	    mapa.agregarAliado(comandante)
+
+        cabezal.position(game.at(3,3))
+        cabezal.accionar()
+
+        assert.equals(cabezal.seleccionActualAliada(), comandante)
+        
+        cabezal.seleccionActualAliada().mover(game.at(3,4))
+        
+        cabezal.setAliado(null)
+        cabezal.position(game.at(3,4))
+        cabezal.setModo(cabezalNormal)
+        cabezal.accionar()
+        
+        assert.equals(cabezal.seleccionActualAliada(), comandante)
+    }
+}
+
+describe "recargar movimientos" {
+
+    
+  test "description" {
+    
+    const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3))
+	mapa.agregarAliado(comandante)
+
+    cabezal.position(game.at(3,3))
+    cabezal.accionar()
+
+    assert.equals(cabezal.seleccionActualAliada(), comandante)
+    
+    cabezal.position(game.at(3,4))
+    cabezal.accionar()
+
+    assert.equals(mapa.aliadosEn(cabezal.position()).fueMovido(), true)
+    assert.equals(#{comandante}, mapa.aliados())
+    turno.terminarTurno()
+    assert.equals(mapa.aliadosEn(cabezal.position()).fueMovido(), false)
+
+  }
+}

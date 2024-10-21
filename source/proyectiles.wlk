@@ -5,27 +5,29 @@ import enemigos.*
 
 class Proyectil {
 
-    var property danio = null
+    var property danio
+    var property image
+    var property position
 
     method mover(direccion) {
 	    position = direccion.siguientePosicion(position)
 	}
 
-    method nombreEvento() {return "evento" + self.identity()}
+    method nombreEvento() {
+        return "evento" + self.identity()
+    }
 
-    method disparoHacia(dir) {}
+    method disparoHacia(direccion)
 
-    method sigueOHayZombie(dir) {
-        const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(dir,zombie)}) // reotcasr
+    method sigueOHayZombie(direccion) {
+        const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(direccion, zombie)}) // reotcasr
         return (not (zombiesHacia.isEmpty()))
     }
 
-    method sigueOEsta(dir,zombie) {
-        return zombie.position() == dir.siguientePosicion(position) or zombie.position() == position
+    method sigueOEsta(direccion, zombie) {
+        return zombie.position() == direccion.siguientePosicion(position) or zombie.position() == position
     }
 
-    var property image = null
-    var property position = null
     method colisionPj() {} // por si las dudas -_-
 
     method impacto(dir) {
@@ -33,14 +35,14 @@ class Proyectil {
         game.schedule(100,{game.removeVisual(self)})
     }
 
-    method validarViajeProyectil(dir) {
-        if (self.sigueOHayZombie(dir)) {
-            const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(dir,zombie)})
+    method validarViajeProyectil(direccion) {
+        if (self.sigueOHayZombie(direccion)) {
+            const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(direccion, zombie)})
             zombiesHacia.forEach({zombie => zombie.impactoProyectil(danio)})
-            self.impacto(dir)
+            self.impacto(direccion)
         }
-        else if (not(tablero.estaDentro(dir.siguientePosicion(position)))) {
-            self.impacto(dir)
+        else if (not(tablero.estaDentro(direccion.siguientePosicion(position)))) {
+            self.impacto(direccion)
         }
     }
 
@@ -86,7 +88,7 @@ class BolaDeFuego inherits Proyectil(danio=20) {
         return "bola-" + num.toString() + "-" + direccion.toString() + ".png"
     }
 
-     override method disparoHacia(direccion) {
+    override method disparoHacia(direccion) {
         self.validarViajeProyectil(direccion)
         self.animacionBola(direccion)
     }

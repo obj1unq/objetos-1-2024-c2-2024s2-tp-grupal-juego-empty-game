@@ -49,15 +49,7 @@ object noel {
         game.sound("pistola-recarga.mp3").play()
     }
 
-    method cura1(){
-        return "cura1-noel.png"
-    }
-
-    method cura2(){
-        return "cura2-noel.png"
-    }
-
-    method cura3(){
-        return "cura3-noel.png"
+    method cura(numero){
+        return "cura" + numero + "-noel.png"
     }
 }

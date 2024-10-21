@@ -6,7 +6,7 @@ object managerItems {
     //const property drops = #{}
 
     method posicionRandom() {
-        return (game.at(0.randomUpTo(game.width()-1), 0.randomUpTo(game.height()-2)))
+        return (game.at(0.randomUpTo(game.width() - 1), 0.randomUpTo(game.height() - 2)))
     }
 
     method spawnearCura1() {
@@ -37,7 +37,7 @@ class Drop {
 }
 
 //---------------------------------Curas---------------------------------------
-class Cura1 inherits Drop(image=personaje.visualHealth1()){
+class Cura1 inherits Drop(image = personaje.visualHealth(1)){
     const vidaDada = 20
 
     method colisionPj() {
@@ -47,7 +47,7 @@ class Cura1 inherits Drop(image=personaje.visualHealth1()){
     }
 }
 
-class Cura2 inherits Drop(image=personaje.visualHealth2()){
+class Cura2 inherits Drop(image = personaje.visualHealth(2)){
     const vidaDada = 40
 
     method colisionPj() {
@@ -57,7 +57,7 @@ class Cura2 inherits Drop(image=personaje.visualHealth2()){
     }
 }
 
-class Cura3 inherits Drop(image=personaje.visualHealth3()){
+class Cura3 inherits Drop(image = personaje.visualHealth(3)){
     const vidaDada = 80
 
     method colisionPj() {

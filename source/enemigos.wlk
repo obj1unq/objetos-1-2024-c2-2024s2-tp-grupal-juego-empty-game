@@ -7,25 +7,26 @@ object managerZombie {
     const property zombies = #{}
 
     method spawnearZombieComun() {
-        const zombieSpawneado = new Perro(position = game.at(game.width() -1, game.height() -1), image = "zombie-comun-izquierda.png")
+        const zombieSpawneado = new Perro(position = game.at(game.width() -2, game.height() -2), image = "zombie-comun-izquierda.png")
         zombies.add(zombieSpawneado)
         game.addVisual(zombieSpawneado)
         zombieSpawneado.persecucion()
     }
-
 }
 
 class Zombie {
 
-    var property agro = personaje
-    var property image = null
-    var property position = null
-    var property vida = null
-    var property dmg = null
-    var property velocidad = null
-    var property tipo = Zombie
+    var property image
+    var property position
+    var property vida
+    var property dmg
+    var property velocidad
 
     method colisionPj() {}
+
+    method agro() {
+        return personaje
+    }
 
     method impactoProyectil(danio) {
         vida -= danio
@@ -34,7 +35,9 @@ class Zombie {
 
 // Persecucion -------------------------------------
 
-    method nombreEvento() {return "evento".identity()}
+    method nombreEvento() {
+        return "evento".identity()
+    }
 
     method persecucion() {
         game.onTick(velocidad, self.nombreEvento(), {self.perseguirAPersonaje()})
@@ -46,28 +49,38 @@ class Zombie {
     }
 
     method atacarSiPuede() {
-        if (self.estaSobreAgro()) {self.herirAgro()}
+        if (self.estaSobreAgro()) {
+            self.herirAgro()
+        }
     }
 
     method estaSobreAgro() {
-        return game.onSameCell(position, agro.position())
+        return game.onSameCell(position, self.agro().position())
     }
 
     method moverseHaciaAgro() {
         self.moverseHaciaAgroEjeX()
-        game.schedule(500,{self.moverseHaciaAgroEjeY()})
+        game.schedule(500, {self.moverseHaciaAgroEjeY()})
     }
 
 // Movimiento -------------------------------------
 
     method moverseHaciaAgroEjeY() {
-        if (agro.position().y() > position.y()) {self.mover(arriba)}
-        else if (agro.position().y() < position.y()) {self.mover(abajo)}
+        if (self.agro().position().y() > position.y()) {
+            self.mover(arriba)
+        }
+        else if (self.agro().position().y() < position.y()) {
+            self.mover(abajo)
+        }
     }
 
     method moverseHaciaAgroEjeX() {
-        if (agro.position().x() > position.x()) {self.mover(derecha)}
-        else if (agro.position().x() < position.x()) {self.mover(izquierda)}
+        if (self.agro().position().x() > position.x()) {
+            self.mover(derecha)
+        }
+        else if (self.agro().position().x() < position.x()) {
+            self.mover(izquierda)
+        }
     }
 
     method mover(direccion) {
@@ -78,7 +91,7 @@ class Zombie {
 // Ataque -----------------------------------------
 
     method herirAgro() {
-        agro.herir(dmg)
+        self.agro().herir(dmg)
     }
 
 // Vida -------------------------------------------
@@ -97,20 +110,20 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 
     override method moverseHaciaAgroEjeY() {
         super()
-        if (agro.position().y() > position.y()) {
+        if (self.agro().position().y() > position.y()) {
             self.image("zombie-comun-arriba.png")
         }
-        else if (agro.position().y() < position.y()) {
+        else if (self.agro().position().y() < position.y()) {
             self.image("zombie-comun-abajo.png")
         }
     }
 
     override method moverseHaciaAgroEjeX() {
         super()
-        if (agro.position().x() > position.x()) {
+        if (self.agro().position().x() > position.x()) {
             self.image("zombie-comun-derecha.png")
         }
-        else if (agro.position().x() < position.x()) {
+        else if (self.agro().position().x() < position.x()) {
             self.image("zombie-comun-izquierda.png")
         }
     }
@@ -122,22 +135,22 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 class Perro inherits Zombie(vida = 50, dmg = 10,  velocidad = 500){
 
     override method moverseHaciaAgroEjeY() {
-        if (agro.position().y() > position.y()) {
+        if (self.agro().position().y() > position.y()) {
             self.mover(arriba) 
             self.image("zombie-comun-arriba.png")
         }
-        else if (agro.position().y() < position.y()) {
+        else if (self.agro().position().y() < position.y()) {
             self.mover(abajo)
             self.image("zombie-comun-abajo.png")
         }
     }
 
     override method moverseHaciaAgroEjeX() {
-        if (agro.position().x() > position.x()) {
+        if (self.agro().position().x() > position.x()) {
             self.mover(derecha)
             self.image("zombie-comun-derecha.png")
         }
-        else if (agro.position().x() < position.x()) {
+        else if (self.agro().position().x() < position.x()) {
             self.mover(izquierda)
             self.image("zombie-comun-izquierda.png")
         }

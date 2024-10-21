@@ -52,7 +52,7 @@ class Bala inherits Proyectil(danio=10) {
 
 
     method nuevoViaje(dir) { 
-        game.onTick(60, self.nombreEvento() , {self.disparoHacia(dir)})
+        game.onTick(120, self.nombreEvento() , {self.disparoHacia(dir)})
     }
 
     method imagenEnNumDir(num,direccion) {
@@ -67,9 +67,9 @@ class Bala inherits Proyectil(danio=10) {
     method animacionBala(direccion) {
         self.image(self.imagenEnNumDir(2, direccion))
         game.schedule(20,{self.imagenEnNumDir(3, direccion)})
-        game.schedule(20,{self.imagenEnNumDir(4, direccion)})
-        self.mover(direccion)
-        self.imagenEnNumDir(1, direccion)
+        game.schedule(40,{self.imagenEnNumDir(4, direccion)})
+        game.schedule(60,{self.mover(direccion)})
+        game.schedule(80,{self.imagenEnNumDir(1, direccion)})
     }
 
     override method impacto(dir) {
@@ -95,10 +95,10 @@ class BolaDeFuego inherits Proyectil(danio=20) {
 
     method animacionBola(direccion) {
         self.image(self.imagenEnNumDir(2, direccion))
-        game.schedule(50,{self.imagenEnNumDir(3, direccion)})
+        game.schedule(20,{self.imagenEnNumDir(3, direccion)})
         game.schedule(50,{self.imagenEnNumDir(4, direccion)})
-        self.mover(direccion)
-        self.imagenEnNumDir(1, direccion)
+        game.schedule(80,{self.mover(direccion)})
+        game.schedule(100,{self.imagenEnNumDir(1, direccion)})
     }
 
     override method impacto(dir) {

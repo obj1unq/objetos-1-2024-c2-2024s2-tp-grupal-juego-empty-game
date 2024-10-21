@@ -4,6 +4,7 @@ import map.*
 import characters.*
 import cabezal.*
 import direcciones.*
+import edificios.*
 
 
 
@@ -16,24 +17,10 @@ program juego {
 	game.ground("ground.png")
 
 	//  VISUALES
-    
-    const comandante = new Comandante(team=aliado, inventario = #{}, position = game.at(3,3), ataqueBase = 10)
-    mapa.agregarAliado(comandante)
-	const comandante2 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,4),ataqueBase = 1)
-	mapa.agregarEnemigo(comandante2)
-     const comandante3 = new Comandante (team=enemigo, inventario =#{}, position = game.at(3,2), ataqueBase = 1)
-	mapa.agregarEnemigo(comandante3)
-    const comandante4 = new Comandante (team=enemigo, inventario =#{}, position = game.at(4,3), ataqueBase = 1)
-	mapa.agregarEnemigo(comandante4)
-    const comandante5 = new Comandante (team=enemigo, inventario =#{}, position = game.at(2,3),ataqueBase = 1)
-	mapa.agregarEnemigo(comandante5)
 
-	game.addVisual(comandante5)
-	game.addVisual(comandante4)
-	game.addVisual(comandante3)
-	game.addVisual(comandante2)
-	game.addVisual(comandante)
+	game.addVisual(castillo)
     game.addVisual(cabezal)
+	
 	
  	
     // CABEZAL
@@ -41,6 +28,12 @@ program juego {
     keyboard.right().onPressDo({cabezal.mover(derecha)})
     keyboard.up().onPressDo({cabezal.mover(arriba)})
     keyboard.down().onPressDo({cabezal.mover(abajo)})
+	keyboard.num1().onPressDo({castillo.spawn(new Comandante(team = aliado))})
+	keyboard.num2().onPressDo({castillo.spawn(new Soldado (team=aliado))})
+	keyboard.num3().onPressDo({castillo.spawn(new Arquero(team = aliado))})
+	keyboard.num4().onPressDo({castillo.spawn(new Mago (team = aliado))})
+	keyboard.num5().onPressDo({castillo.spawn(new Golem (team= aliado))})
+	keyboard.num6().onPressDo({castillo.spawn(new Dragon (team = aliado))})
 	keyboard.a().onPressDo({cabezal.accionar()})
 	keyboard.s().onPressDo({cabezal.cancelar()})
 	keyboard.t().onPressDo({turno.pasarABatalla()})

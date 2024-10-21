@@ -3,23 +3,28 @@ import wollok.game.*
 import map.*
 import direcciones.*
 
-class Comandante {
-    //stats provisionales
-    const property ataqueBase = null 
-    const property defensaBase = 3
-    const property vidaBase = 15
+class Personaje {
+    //stats
+    const property ataqueBase
+    const property defensaBase
+    const property vidaBase
     var property vidaActual = vidaBase
 
-    const property team = null
-    const property inventario = null
-    
-    var property position = null
-    const property enemigosAlAlcance =#{}
+    var property team
+
+    var property position = game.at(0,0) //me pedia inicializarlo, pero spawnean en el castillo.
+    const property enemigosAlAlcance = #{}
 
     var property fueMovido = false
+    var property atacoEsteTurno = false
 
     method efectoMover() {
         fueMovido = true
+    }
+    
+
+    method efectoAtacar(){
+        atacoEsteTurno = true
     }
 
     method quitarEnemigoAlAlcance(enemigo) {
@@ -31,50 +36,23 @@ class Comandante {
     }
 
     method definirEnemigosAlAlcance(posicion){
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(arriba.siguiente(posicion))) 
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(abajo.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(izquierda.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoHacia(derecha.siguiente(posicion)))    
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(arriba.siguiente(posicion))) 
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(abajo.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(izquierda.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(derecha.siguiente(posicion)))    
     }
 
-    method definirEnemigoHacia(posicion){
+    method definirEnemigoEn(posicion){
         return mapa.enemigos().filter({enemigo => enemigo.position()== posicion})
     }
 
 
-    method atacar(enemigo) {
-        enemigo.recibirDano()
-        enemigo.morirSiCorresponde()
-    }
-
-
-    method recibirDano() {
-        vidaActual -= (cabezal.seleccionActualAliada().ataqueBase() - cabezal.seleccionActualEnemiga().defensaBase())
-    }
-
-    method morirSiCorresponde() {
-        if (vidaActual < 1){
-            self.morir()
-        }
-    }
-
-    method morir() {
-        mapa.quitarEnemigo(self)
-        self.quitarEnemigoAlAlcance(self)
-        game.removeVisual(self)
-        cabezal.modoCabezal(cabezalNormal)
-    }
-    
-
-    method image(){
-        return "comandante-" + team.estado() + ".png"
-    }
-
-       method mover(_pos) {
-        position = _pos
+    method mover(posicion) {
+        position = posicion
         self.efectoMover()
     }
 
+    
     method verificarMovimiento() {
         if (fueMovido) {
             self.error("Ya me movi este turno")
@@ -84,20 +62,57 @@ class Comandante {
     method recargarMovimiento() {
       fueMovido = false
     }
+
+}
+
+class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 100) {
+
+    const property inventario = #{}
+
+
+    method image(){
+        return "comandante-" + team.estado() + ".png"
+    }
+
 }
 
 
-object mago {
-    var property position = game.at(1,1)
+class Mago inherits Personaje(ataqueBase = 2, defensaBase = 1, vidaBase = 100) {
 
-    method mover(_pos) {
-        position = _pos
-    }
 
     method image() {
-        return "mage.png"
+        return "mage-" + team.estado()+".png"
     }
   
+}
+
+
+class Soldado inherits Personaje(ataqueBase = 4, defensaBase = 2, vidaBase = 100) {
+
+    method image(){
+        return "soldado-" + team.estado() +".png"
+    }
+}
+
+class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 100) {
+    
+    method image(){
+        return "arquero-" + team.estado() +".png"
+    }
+}
+
+class Golem inherits Personaje(ataqueBase = 5, defensaBase = 5, vidaBase = 100) {
+    
+    method image(){
+        return "golem-" + team.estado() + ".png"
+    }
+}
+
+class Dragon inherits Personaje (ataqueBase = 10, defensaBase = 3, vidaBase = 100) {
+
+    method image(){
+        return "dragon-"+ team.estado() + ".png"
+    }
 }
 
 object aliado {

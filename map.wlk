@@ -61,13 +61,17 @@ object mapa {
         return aliados.any({aliado => aliado.position() == coordenadas})
     }
 
+    method hayEnemigosEn(coordenadas){
+        return enemigos.any({enemigo => enemigo.position() == coordenadas})
+    }
+
+    method hayUnidadAca(posicion){
+        return self.hayAliadosEn(posicion) || self.hayEnemigosEn(posicion)
+    }
     method validarSeleccionEnemiga(coordenadas) {
         if (not self.hayEnemigosEn(coordenadas)){
             cabezal.error("No hay nada para seleccionar!")
         }
     }
 
-    method hayEnemigosEn(coordenadas) {
-        return enemigos.any({enemigo => enemigo.position() == coordenadas})
-    }
 }

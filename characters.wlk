@@ -1,3 +1,4 @@
+import cabezal.*
 import wollok.game.*
 import map.*
 import direcciones.*
@@ -20,6 +21,7 @@ class Personaje {
     method efectoMover() {
         fueMovido = true
     }
+    
 
     method efectoAtacar(){
         atacoEsteTurno = true
@@ -47,6 +49,18 @@ class Personaje {
 
     method mover(posicion) {
         position = posicion
+        self.efectoMover()
+    }
+
+    
+    method verificarMovimiento() {
+        if (fueMovido) {
+            self.error("Ya me movi este turno")
+        }
+    }
+
+    method recargarMovimiento() {
+      fueMovido = false
     }
 
 }
@@ -59,7 +73,6 @@ class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 
     method image(){
         return "comandante-" + team.estado() + ".png"
     }
-
 
 }
 

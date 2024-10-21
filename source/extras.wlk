@@ -25,8 +25,14 @@ object managerItems {
         //drops.add(oro1Nuevo)
     }
 
-    method spawnearMunicion() {
+    method spawnearMunicionRandom() {
         const nuevaMunicion = new Balas(position=self.posicionRandom())
+        game.addVisual(nuevaMunicion)
+        //drops.add(oro1Nuevo)
+    }
+
+    method spawnearMunicionEn(posicion) {
+        const nuevaMunicion = new Balas(position = posicion)
         game.addVisual(nuevaMunicion)
         //drops.add(oro1Nuevo)
     }

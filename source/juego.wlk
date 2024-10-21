@@ -52,7 +52,7 @@ object juego {
         keyboard.z().onPressDo({managerZombie.spawnearZombieComun()})
         keyboard.c().onPressDo({managerItems.spawnearCura1()})
         keyboard.o().onPressDo({managerItems.spawnearOro1()})
-        keyboard.m().onPressDo({managerItems.spawnearMunicion()})
+        keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
 
         game.onTick(1000, "timer", {timer.tick()})
     }

@@ -1,3 +1,4 @@
+import extras.*
 import wollok.game.*
 import posiciones.*
 import personajes.personaje.*
@@ -112,6 +113,7 @@ class Zombie {
             game.removeVisual(self)
             game.removeTickEvent(self.nombreEvento())
             managerZombie.zombies().remove(self)
+            managerItems.spawnearMunicionEn(self.position())
         }
     }
 
@@ -137,7 +139,6 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image 
         game.sound("zombie-2.mp3").play()
     }
 }
-
 
 class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 500, image = "perronio-abajo.png"){
 

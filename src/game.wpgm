@@ -22,12 +22,14 @@ program aventuraDelMate{
 	game.addVisual(frameYerba)
 	game.addVisual(frameAgua)
 	game.addVisual(frameMate)
+	/*
 	game.addVisual(new FramePregunta(position = game.at(5,9 )))
 	game.addVisual(new FramePregunta(position = game.at(4,9 )))
-
+	*/
 
 
 	//agregar elementos al mapa
+	/*
 	game.addVisual(yerba)
 	game.addVisual(termo)
 	game.addVisual(bizcochitos)
@@ -35,6 +37,7 @@ program aventuraDelMate{
 
 	game.addVisual(manzanita)
 	game.addVisual(mate)
+    */
 
 	//visual auto
 	game.addVisual(auto)
@@ -43,7 +46,7 @@ program aventuraDelMate{
 	//fondo
 	game.addVisual(inicio)
 	
-	
+	/*
 	//agarrar
 	keyboard.a().onPressDo({auto.agarrarObjeto()})
 
@@ -52,6 +55,7 @@ program aventuraDelMate{
 	keyboard.down().onPressDo ({auto.mover(abajo)})
 	keyboard.right().onPressDo({auto.mover(derecha)})
 
+	*/
 	keyboard.s().onPressDo({inicio.cambiar()})
 
 	//Agrego el reloj

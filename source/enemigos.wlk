@@ -36,7 +36,7 @@ class Zombie {
 // Persecucion -------------------------------------
 
     method nombreEvento() {
-        return "evento".identity()
+        return "evento" + self.identity()
     }
 
     method persecucion() {
@@ -68,25 +68,34 @@ class Zombie {
     method moverseHaciaAgroEjeY() {
         if (self.agro().position().y() > position.y()) {
             self.mover(arriba)
+            self.image(self.imagenHacia(arriba))
         }
         else if (self.agro().position().y() < position.y()) {
             self.mover(abajo)
+            self.image(self.imagenHacia(abajo))
         }
     }
 
     method moverseHaciaAgroEjeX() {
         if (self.agro().position().x() > position.x()) {
             self.mover(derecha)
+            self.image(self.imagenHacia(derecha))
         }
         else if (self.agro().position().x() < position.x()) {
             self.mover(izquierda)
+            self.image(self.imagenHacia(izquierda))
         }
     }
+
+    method imagenHacia(dir) {
+        return self.imagenMovimiento().toString() + dir.toString() + ".png"
+    }
+
+    method imagenMovimiento()
 
     method mover(direccion) {
 	    position = direccion.siguientePosicion(self.position()) 
 	}
-
 
 // Ataque -----------------------------------------
 
@@ -108,24 +117,8 @@ class Zombie {
 // hay que hacer algo para que las demás clases hijas no tengan que sobreescribir el mismo código solo para cambiar la imagenn...
 class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 
-    override method moverseHaciaAgroEjeY() {
-        super()
-        if (self.agro().position().y() > position.y()) {
-            self.image("zombie-comun-arriba.png")
-        }
-        else if (self.agro().position().y() < position.y()) {
-            self.image("zombie-comun-abajo.png")
-        }
-    }
-
-    override method moverseHaciaAgroEjeX() {
-        super()
-        if (self.agro().position().x() > position.x()) {
-            self.image("zombie-comun-derecha.png")
-        }
-        else if (self.agro().position().x() < position.x()) {
-            self.image("zombie-comun-izquierda.png")
-        }
+    override method imagenMovimiento() {
+        return "zombie-comun-"
     }
 
     //game.schedule(1000, game.sound("zombie-1.mp3").play())
@@ -134,26 +127,8 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000){
 
 class Perro inherits Zombie(vida = 50, dmg = 10,  velocidad = 500){
 
-    override method moverseHaciaAgroEjeY() {
-        if (self.agro().position().y() > position.y()) {
-            self.mover(arriba) 
-            self.image("zombie-comun-arriba.png")
-        }
-        else if (self.agro().position().y() < position.y()) {
-            self.mover(abajo)
-            self.image("zombie-comun-abajo.png")
-        }
-    }
-
-    override method moverseHaciaAgroEjeX() {
-        if (self.agro().position().x() > position.x()) {
-            self.mover(derecha)
-            self.image("zombie-comun-derecha.png")
-        }
-        else if (self.agro().position().x() < position.x()) {
-            self.mover(izquierda)
-            self.image("zombie-comun-izquierda.png")
-        }
+    override method imagenMovimiento() {
+        return "zombie-comun-"
     }
 
 }

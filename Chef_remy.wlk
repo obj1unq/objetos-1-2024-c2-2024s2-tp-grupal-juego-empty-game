@@ -10,14 +10,18 @@ object remy { //remy es el de Ratatouille -> mejor nombre imposible
     const limiteEnMano = 1  // después va a ser mucho lio el que elija cuál de los 10 ingredientes que tiene va a poner en l apizza, opino que solo tenga 1 en la bandeja por simplicidad
     //var direccionALaQueMira  -> para los sprites
 
-    method puedeMover(nuevaPosicion) {
-      return (nuevaPosicion.x() >= 0 and nuevaPosicion.x() < (game.width()) and
-            nuevaPosicion.y() >= 0 and nuevaPosicion.y() < (game.height()))
-    }
 
     method mover(direccion){
+		self.validarMover(direccion)
 		position =  direccion.siguiente(self.position())
 	}
+
+	method validarMover(direccion) {
+		const siguiente = direccion.siguiente(self.position())
+		tablero.validarDentro(siguiente)
+	}
+
+
 
  // method recogerIngrediente(){ //puede agarrar cualquier ingrediente de la cocina
     // game.onCollideDo(self, {algo = algo.serSostenido(self)})

@@ -40,7 +40,8 @@ class Personaje {
         enemigosAlAlcance.addAll(self.definirEnemigoEn(arriba.siguiente(posicion))) 
         enemigosAlAlcance.addAll(self.definirEnemigoEn(abajo.siguiente(posicion)))
         enemigosAlAlcance.addAll(self.definirEnemigoEn(izquierda.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(derecha.siguiente(posicion)))    
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(derecha.siguiente(posicion)))  
+
     }
 
     method definirEnemigoEn(posicion){
@@ -134,6 +135,20 @@ class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 10
     method image(){
         return "arquero-" + team.estado() +".png"
     }
+
+    override method definirEnemigosAlAlcance(posicion){
+        super(posicion)
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(noroeste.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(noreste.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(sudeste.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(sudoeste.siguiente(posicion)))
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(arriba.siguiente(arriba.siguiente(posicion)))) // perdon, no queriamos hacer subtareas
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(abajo.siguiente(abajo.siguiente(posicion))))   // PERDON, NO NOS DESAPRUEBEN
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(derecha.siguiente(derecha.siguiente(posicion)))) // FUE IDEA DE RAMA
+        enemigosAlAlcance.addAll(self.definirEnemigoEn(izquierda.siguiente(izquierda.siguiente(posicion)))) // ESTABAMOS TODOS EN CONTRA, PERO FUE MAS FUERTE QUE NOSOTROS
+    }
+
+
 }
 
 class Golem inherits Personaje(ataqueBase = 5, defensaBase = 5, vidaBase = 100) {

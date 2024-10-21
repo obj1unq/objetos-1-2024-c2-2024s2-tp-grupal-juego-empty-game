@@ -87,8 +87,7 @@ object cabezalBatalla {
 
   //SELECCIONAR ENEMIGO
   method accionar() {
-    //self.validarCabezalBatalla()
-    mapa.validarSeleccionAliada(cabezal.position())
+    mapa.validarSeleccionAliada(cabezal.position()) // 
     cabezal.setAliado(cabezal.obtenerPjAliado(cabezal.position()))
     cabezal.setModo(cabezalAtaque)
   }

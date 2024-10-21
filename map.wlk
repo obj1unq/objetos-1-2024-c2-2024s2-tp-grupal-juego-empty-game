@@ -26,7 +26,7 @@ object mapa {
 	}
 
     method validarSiHayAlgunPersonaje(posicion) {
-        return if (self.hayAliadosEn(posicion) or self.hayEnemigosEn(posicion)) {
+        return if (self.hayUnidadAca(posicion)) {
             cabezal.error("No puedo mover la seleccion actual a esa posición ya que hay otro personaje")
         }
     }

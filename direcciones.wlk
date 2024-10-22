@@ -1,52 +1,65 @@
 import wollok.game.*
 
+class Direccion {
 
-object arriba {
-    method siguiente(direccion) {
-        return direccion.up(1)
+    method siguiente(posicion) {
+        return self.siguiente(posicion, 1)
+    }
+
+    method siguiente (posicion, rango)
+}
+
+object arriba inherits Direccion {
+    override method siguiente(direccion, rango) {
+        return direccion.up(rango)
     }
 }
 
-object abajo {
-    method siguiente(direccion) {
-        return direccion.down(1)
+object abajo inherits Direccion {
+    override method siguiente(direccion, rango) {
+        return direccion.down(rango)
     }
 }
 
-object izquierda {
-    method siguiente(direccion) {
-        return direccion.left(1)
+object izquierda inherits Direccion {
+    override method siguiente(direccion, rango) {
+        return direccion.left(rango)
     }
 }
 
-object derecha {
-    method siguiente(direccion) {
-        return direccion.right(1)
+object derecha inherits Direccion {
+    override method siguiente(direccion, rango) {
+        return direccion.right(rango)
     }
 }
 
-object noreste {
-    method siguiente(direccion){
-        return direccion.right(1).up(1)
+object noreste inherits Direccion   {
+    override method siguiente(direccion, rango){
+        return direccion.right(rango).up(rango)
     }
 }
 
-object noroeste {
-    method siguiente(direccion){
-        return direccion.left(1).up(1)
+object noroeste inherits Direccion {
+    override method siguiente(direccion, rango) {
+        return direccion.left(rango).up(rango)
     }
 }
 
-object sudeste {
+object sudeste inherits Direccion {
 
-    method siguiente (direccion){
-        return direccion.right(1).down(1)
+    override method siguiente(direccion, rango) {
+        return direccion.right(rango).down(rango)
     }
 }
  
 
-object sudoeste {
-    method siguiente(direccion){
-        return direccion.left(1).down(1)
+object sudoeste inherits Direccion {
+    override method siguiente(direccion, rango) {
+        return direccion.left(rango).down(rango)
     }
+}
+
+object direcciones {
+    const property todas = #{arriba, abajo, izquierda, derecha, noroeste, noreste, sudeste, sudoeste}
+    const property principales = #{arriba, abajo, izquierda, derecha}
 }

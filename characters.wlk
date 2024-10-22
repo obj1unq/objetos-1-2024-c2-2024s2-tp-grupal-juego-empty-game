@@ -13,7 +13,7 @@ class Personaje {
     var property team
 
     var property position = game.at(0,0) //me pedia inicializarlo, pero spawnean en el castillo.
-    const property enemigosAlAlcance = #{}
+
 
     var property fueMovido = false
     var property atacoEsteTurno = false
@@ -28,19 +28,14 @@ class Personaje {
         cabezal.setModo(cabezalBatalla)
     }
 
-    method quitarEnemigoAlAlcance(enemigo) {
-        enemigosAlAlcance.remove(enemigo)
+
+    method enemigosAlAlcance() {
+        return self.enemigosAlAlcance(direcciones.principales(), 1)
+
     }
 
-    method limpiarEnemigosAlAlcance() {
-        enemigosAlAlcance.clear()
-    }
-
-    method definirEnemigosAlAlcance(posicion){
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(arriba.siguiente(posicion))) 
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(abajo.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(izquierda.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(derecha.siguiente(posicion)))  
+    method enemigosAlAlcance(direcciones, rango) {
+        return direcciones.flatMap({direccion => self.definirEnemigoEn(direccion.siguiente(self.position(), rango))})
 
     }
 
@@ -73,7 +68,7 @@ class Personaje {
         self.validarAtaque()
         enemigo.recibirDano()
         enemigo.morirSiCorresponde()
-        self.efectoAtacar()
+        // self.efectoAtacar()
     }
 
     method validarAtaque(){
@@ -92,7 +87,6 @@ class Personaje {
     }
     method morir() {
         mapa.quitarEnemigo(self)
-        self.quitarEnemigoAlAlcance(self)
         game.removeVisual(self)
         cabezal.modoCabezal(cabezalNormal)
     }
@@ -136,16 +130,10 @@ class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 10
         return "arquero-" + team.estado() +".png"
     }
 
-    override method definirEnemigosAlAlcance(posicion){
-        super(posicion)
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(noroeste.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(noreste.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(sudeste.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(sudoeste.siguiente(posicion)))
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(arriba.siguiente(arriba.siguiente(posicion)))) // perdon, no queriamos hacer subtareas
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(abajo.siguiente(abajo.siguiente(posicion))))   // PERDON, NO NOS DESAPRUEBEN
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(derecha.siguiente(derecha.siguiente(posicion)))) // FUE IDEA DE RAMA
-        enemigosAlAlcance.addAll(self.definirEnemigoEn(izquierda.siguiente(izquierda.siguiente(posicion)))) // ESTABAMOS TODOS EN CONTRA, PERO FUE MAS FUERTE QUE NOSOTROS
+    override method enemigosAlAlcance(){
+        return self.enemigosAlAlcance(direcciones.principales(), 2) + self.enemigosAlAlcance(direcciones.todas(), 1)
+
+
     }
 
 

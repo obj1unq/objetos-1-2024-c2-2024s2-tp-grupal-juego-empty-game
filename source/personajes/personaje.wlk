@@ -5,7 +5,7 @@ import hud.*
 import noel.*
 import dangalf.*
 
-object personaje {
+object personaje { 
     //Imagen y posicion
     var property pj = noel
     var property image = pj.imagenInicial()
@@ -56,24 +56,23 @@ object personaje {
 
     method muerte() {
         pj.sonidoMuerte()
-        //game.sound("muerte-musica.mp3").play()
-        //game.say(self, "morí reyes TT")
+        // game.sound("muerte-musica.mp3").play()
+        // game.say(self, "morí reyes")
         game.allVisuals().forEach({visual => game.removeVisual(visual)})
-        game.boardGround("pantalla-muerte.jpg")
-        game.schedule(300, {game.stop()})
+        // game.boardGround("pantalla-muerte.jpg")
+        game.schedule(1000, {game.stop()})
     }
 
     // -------------Prueba de curarse-------------------------------
 
 	method curarse(cura){
         game.sound("cura-sonido.mp3").play()
-        vida += cura
-        vida = vida.min(100) 
+        vida = 100.min(vida + cura) 
         puntosDeVida.actualizar()
     }
 
     method herir(cantidad) {
-        vida = (vida - cantidad).max(0)
+        vida = 0.max(vida - cantidad)
         puntosDeVida.actualizar()
         self.revisarMorir()
     }

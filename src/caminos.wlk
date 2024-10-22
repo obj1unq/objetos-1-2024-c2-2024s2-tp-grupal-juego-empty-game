@@ -13,34 +13,38 @@ class Calle {
 	}
 
     method image() 
+
+    method esAgarrable(){
+        return false
+    }
 }
 
-class C1 inherits Calle (){
+class Esquina1 inherits Calle (){ //
 
     override method image() = "esquina_1.png"
 }
 
-class C2 inherits Calle (){
+class Esquina2 inherits Calle (){
 
     override method image() = "esquina_2.png"
 }
 
-class C3 inherits Calle (){
+class Esquina3 inherits Calle (){
 
     override method image() = "esquina_3.png"
 }
 
-class C4 inherits Calle (){
+class Esquina4 inherits Calle (){
 
     override method image() = "esquina_4.png"
 }
 
-class C5 inherits Calle (){
+class CalleHorizontal inherits Calle (){
 
     override method image() = "calleHorizontal.png"
 }
 
-class C6 inherits Calle (){
+class CalleVertical inherits Calle (){
 
     override method image() = "calleVertical.png"
 }
@@ -53,44 +57,65 @@ class Vereda {
 	}
 
     method image()
+
+    method esAgarrable(){
+        return false
+    }
 }
 
-class V1 inherits Vereda (){
+class VIzqArriba inherits Vereda (){
 
     override method image() = "vIzqArriba.png"
 }
 
-class V2 inherits Vereda (){
+class VHorArriba inherits Vereda (){
 
     override method image() = "vHorArriba.png"
 }
 
-class V3 inherits Vereda (){
+class VDerArriba inherits Vereda (){
 
     override method image() = "vDerArriba.png"
 }
 
-class V4 inherits Vereda (){
+class VVertDer inherits Vereda (){
 
     override method image() = "vVertDer.png"
 }
 
-class V5 inherits Vereda (){
+class VDerAbajo inherits Vereda (){
 
     override method image() = "vDerAbajo.png"
 }
 
-class V6 inherits Vereda (){
+class VHorAbajo inherits Vereda (){
 
     override method image() = "vHorAbajo.png"
 }
 
-class V7 inherits Vereda (){
+class VIzqAbajo inherits Vereda (){
 
     override method image() = "vIzqAbajo.png"
 }
 
-class V8 inherits Vereda (){
+class VVertIzq inherits Vereda (){
 
     override method image() = "vVerticalIzq.png"
 }
+
+class VEsqInfDer inherits Vereda (){
+
+    override method image() = "vEsqInfDer.png"
+}
+// class VEsqInfIzq inherits Vereda (){
+
+//     override method image() = "vEsqInfIzq.png"
+// }
+// class VEsqSupDer inherits Vereda (){
+
+//     override method image() = "vEsqSupDer.png"
+// }
+// class VEsqSupIzq inherits Vereda (){
+
+//     override method image() = "vEsqSupIzq.png"
+// }

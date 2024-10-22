@@ -29,3 +29,4 @@ class FramePregunta {
   const property image = "framePregunta.png"
   var property position = null
 }
+

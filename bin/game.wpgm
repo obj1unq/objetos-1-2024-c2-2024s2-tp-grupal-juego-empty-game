@@ -6,6 +6,7 @@ import posiciones.*
 import reloj.*
 import barraSuperior.*
 import inicio.*
+import mapaPrueba.*
 
 
 program aventuraDelMate{
@@ -14,20 +15,23 @@ program aventuraDelMate{
 	game.width(10) 			
 	game.cellSize(50) 		
 	game.ground("ground.png")
-	// game.sound("musicJuego.mp3").play() //NO ME DEJA SUBIR EL ARCHIVO DE MUSICA A GITHUB, PERO LOGRÉ QUE SE REPRODUZCA
-
+	//game.sound("musiJuego.mp3").play() //NO ME DEJA SUBIR EL ARCHIVO DE MUSICA A GITHUB, PERO LOGRÉ QUE SE REPRODUZCA
 
 	//barra superior
 	game.addVisual(frameTermo)
 	game.addVisual(frameYerba)
 	game.addVisual(frameAgua)
 	game.addVisual(frameMate)
-	game.addVisual(new FramePregunta(position = game.at(5,9 )))
-	game.addVisual(new FramePregunta(position = game.at(4,9 )))
+
+	game.addVisual(new FramePregunta(position = game.at(5,9)))
+	game.addVisual(new FramePregunta(position = game.at(4,9)))
+	
+	mapa.dibujar()
 
 
 
 	//agregar elementos al mapa
+	/*
 	game.addVisual(yerba)
 	game.addVisual(termo)
 	game.addVisual(bizcochitos)
@@ -35,9 +39,10 @@ program aventuraDelMate{
 
 	game.addVisual(manzanita)
 	game.addVisual(mate)
+    */
 
 	//visual auto
-	game.addVisual(auto)
+	//game.addVisual(auto)
 	game.addVisual(reloj)
 
 	//fondo
@@ -47,7 +52,9 @@ program aventuraDelMate{
 	//agarrar
 	keyboard.a().onPressDo({auto.agarrarObjeto()})
 
-    keyboard.up().onPressDo	  ({auto.mover(arriba)})
+
+	
+	keyboard.up().onPressDo	  ({auto.mover(arriba)})
 	keyboard.left().onPressDo ({auto.mover(izquierda)})
 	keyboard.down().onPressDo ({auto.mover(abajo)})
 	keyboard.right().onPressDo({auto.mover(derecha)})
@@ -56,10 +63,6 @@ program aventuraDelMate{
 
 	//Agrego el reloj
 	game.onTick(1000, "reloj", { reloj.tick() })
-
-	const musica = game.sound("musicaJuego.mp3")
-	musica.shouldLoop(true) //para q se repita en caso de terminar el audio
-	musica.play()
 
 
 

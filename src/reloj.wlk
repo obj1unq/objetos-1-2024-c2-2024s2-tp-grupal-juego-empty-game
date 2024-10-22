@@ -5,7 +5,7 @@ import inicio.*
 
 object reloj {
 
-    var property segundos = 20
+    var property segundos = 40
 
     var property  position = game.at(0, 9 )
     

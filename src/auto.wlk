@@ -6,10 +6,10 @@ import reloj.*
 
 
 object auto{
-  /*
+ 
     var property position = game.at(0,0)
     var property image = "autoHaciaArriba.png"
-    const objetosARecoger = [termo, yerba, bizcochitos, dispenser, agua, manzanita, mate]
+   // const objetosARecoger = [termo, yerba, bizcochitos, dispenser, agua, manzanita, mate]
 
     method mover(direccion){
         const nuevaDireccion = direccion.siguiente(position)
@@ -29,44 +29,40 @@ object auto{
 
     method validarAtravesables(_position) {
 		if (self.haySolido(_position)) {
-			self.error("No puedo ir ahí")
+			tablero.error("No puedo ir ahí")
 		}
 	}
-
+ 
     method agarrarObjeto() {
       self.validarAgarrar()
-      const objeto = game.uniqueCollider(self)
-      objeto.objetoALaBarra()
+      const objeto = game.colliders(self).find({objeto => objeto.esAgarrable()})
+      objeto.cosaALaBarra()
 
-      self.verSiGane()
+     // self.verSiGane()
     }
 
-    method verSiGane(){
-      if (self.recogiTodosLosObjetos()){
-        game.addVisual(ganeJuego)
+    // method verSiGane(){
+    //   if (self.recogiTodosLosObjetos()){
+    //     game.addVisual(ganeJuego)
 
-        game.stop()
-      }
-    }
+    //     game.stop()
+    //   }
+    // }
 
-    method recogiTodosLosObjetos(){
-      return objetosARecoger.all({objeto => objeto.recogido()})
-    }
+    // method recogiTodosLosObjetos(){
+    //   return objetosARecoger.all({objeto => objeto.recogido()})
+    // }
 
 
     method validarAgarrar(){
       if(not self.hayObjeto()){
-        self.error("") 
+        self.error("No nada para agarrar!") 
       }  
     }
 
     method hayObjeto(){
-      return game.colliders(self).size() > 0
+      return game.colliders(self).any({objeto => objeto.esAgarrable()})
     }
-
-
-
-*/
     
 }
 

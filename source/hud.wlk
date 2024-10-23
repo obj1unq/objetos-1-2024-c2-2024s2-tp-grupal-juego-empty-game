@@ -58,7 +58,7 @@ object puntosDeVida {
 
     method colisionPj() {}
 
-     method impactoProyectil(danio) {}
+    method impactoProyectil(danio) {}
 }
 
 //----------------------------------------------MUNICION-----------------------------
@@ -92,7 +92,7 @@ object cargador {
     
     method colisionPj() {}
 
-     method impactoProyectil(danio) {}
+    method impactoProyectil(danio) {}
 }
 
 
@@ -100,7 +100,7 @@ object cargador {
 object oroObtenido {
 
     method position() {
-        return game.at(12, game.height() - 1 )
+        return game.at(10, game.height() - 1 )
     }
 
     method text() {
@@ -110,11 +110,41 @@ object oroObtenido {
     method colisionPj() {}
 
     method textColor() {
-        return "D4AF37"
+        return "ffff00"
     }
 
     method impactoProyectil(danio) {}
 }
 
 
-//----------------------------------------------energia(?-----------------------------
+//----------------------------------------------energia-----------------------------
+
+
+object barraDeEnergia {
+
+    var property image =  "energia-"+ energia.toString() + ".png"
+    var property energia = 10
+    const property duenio = personaje
+
+    method position() {
+            return game.at(12, 16)
+    }
+    
+    method validarEnergia(){
+        if (energia > 0){
+            self.quitarEnergia(1)
+        }
+        else {self.error("")}
+    }
+
+    method quitarEnergia(cantidad) {
+        energia -= cantidad
+    }
+
+    method recargarEnergia(){
+        energia = (energia + 1).min(10)
+    }
+    
+    method colisionPj() {}
+
+}

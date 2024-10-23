@@ -139,10 +139,12 @@ object barraDeEnergia {
 
     method quitarEnergia(cantidad) {
         energia -= cantidad
+        self.image("energia-"+ energia.toString() + ".png") 
     }
 
     method recargarEnergia(){
         energia = (energia + 1).min(10)
+        self.image("energia-"+ energia.toString() + ".png") 
     }
     
     method colisionPj() {}

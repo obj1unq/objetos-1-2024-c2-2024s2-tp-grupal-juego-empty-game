@@ -70,7 +70,35 @@ class Zombie {
 
     // Movimiento -------------------------------------
 
-    method moverseHaciaAgro() {
+     method moverseHaciaAgro() {
+        if (self.estaDistanciaLineal()) {
+            self.moverseLineal()
+        } else if(self.estaDistanciaDiagonal()) {
+            self.moverseDiagonal()
+        }
+    }
+
+    method estaDistanciaDiagonal() {
+        return 
+    }
+
+    method estaDistanciaLineal() {
+        return self.position().x() == self.agro().position().x() or self.position().y() == self.agro().position().y()
+    }
+
+    method moverseLineal() {
+        if (self.agro().position().x() < position.x() and self.agro().position().y() == position.y()) {
+            self.moverse(izquierda)
+        } else if (self.agro().position().x() > position.x() and self.agro().position().y() == position.y()) {
+            self.moverse(derecha)
+        } else if (self.agro().position().y() > position.y() and self.agro().position().x() == position.x()) {
+            self.moverse(arriba)
+        } else if (self.agro().position().y() < position.y() and self.agro().position().x() == position.x()) {
+            self.moverse(abajo)
+        }
+    }
+
+    method moverseDiagonal() {
         if (self.agro().position().y() > position.y() and self.agro().position().x() > position.x()) {
             self.moverse(arriba)
             game.schedule(velocidad, {self.moverse(derecha)})
@@ -83,14 +111,6 @@ class Zombie {
         } else if (self.agro().position().y() > position.y() and self.agro().position().x() < position.x()) {
             self.moverse(arriba)
             game.schedule(velocidad, {self.moverse(izquierda)})
-        } else if (self.agro().position().x() < position.x() and self.agro().position().y() == position.y()) {
-            self.moverse(izquierda)
-        } else if (self.agro().position().x() > position.x() and self.agro().position().y() == position.y()) {
-            self.moverse(derecha)
-        } else if (self.agro().position().y() > position.y() and self.agro().position().x() == position.x()) {
-            self.moverse(arriba)
-        } else if (self.agro().position().y() < position.y() and self.agro().position().x() == position.x()) {
-            self.moverse(abajo)
         }
     }
 

@@ -41,7 +41,7 @@ class Zombie {
     }
 
     method perseguirAPersonaje() {
-        self.moverse()
+        self.mover()
         self.atacarSiPuede() 
     }
     
@@ -64,7 +64,7 @@ class Zombie {
 
     // Persecucion -------------------------------------
 
-    method moverse() {
+    method mover() {
         self.moverseHaciaAgro()
     }
 
@@ -169,7 +169,7 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image 
 
 class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perronio-abajo.png"){
 
-    override method moverse() {
+    override method mover() {
         if(!managerZombie.agroEstaCerca(position)) {
         self.moverseHaciaAgro()
         }
@@ -221,7 +221,7 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
         // acá hace la animación primero y luego hace el daño...
     }
 
-    override method moverse() {
+    override method mover() {
         if(!managerZombie.agroEstaCerca(position)) {
         self.moverseHaciaAgro()
         }
@@ -251,24 +251,39 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
     }
 }
 
-class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 1200, image = "zombie-comun-abajo.png"){
+class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 300, image = "zombie-comun-abajo.png"){  //velocidad normal = 1200 (300 de prueba)
     
-    // movimiento ------------------------------------
-
-    override method moverse() {
-        if(!self.agroEstaAlFrente() and !self.puedeBajar()) {
-            self.moverse(arriba)
-        } else if (!self.agroEstaAlFrente() and self.puedeBajar()){
-            self.moverse(abajo)
+    override method mover() {
+        var contador = 0 
+        if(!self.agroEstaAbajo() and !self.estaAlFinalIzquierdo() and contador.even()) {
+            self.moverse(izquierda)
+        } else if(!self.agroEstaAbajo() and !self.estaAlFinalDerecho() and !contador.even()) {
+            self.moverse(derecha)
+        } else if (!self.agroEstaAbajo() and self.estaAlFinalDerecho()){
+            contador += 1
+            self.moverse(izquierda)
+        } else if (!self.agroEstaAbajo() and self.estaAlFinalIzquierdo()){
+            contador += 1
+            self.moverse(derecha)
         }
     }
 
-    method agroEstaAlFrente() {
-        return self.agro().position().y() == self.position().y()
+    // movimiento ------------------------------------
+
+    method estaAlFinal() {
+        return  self.estaAlFinalIzquierdo() or self.estaAlFinalDerecho()
     }
 
-    method puedeBajar() { 
-        return abajo.siguientePosicion(self.position()).y() >= 0
+    method estaAlFinalDerecho() {
+        return position.x() == game.width() - 1
+    }
+
+    method estaAlFinalIzquierdo() {
+        return position.x() == 0
+    }
+
+    method agroEstaAbajo() {
+        return self.agro().position().x() == self.position().x()
     }
 
     // ataque y colisión ------------------------------
@@ -276,7 +291,7 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 1200, image
     override method colisionPj() {}
 
     override method atacarSiPuede() {
-        if(self.agroEstaAlFrente()) {
+        if(self.agroEstaAbajo()) {
             self.AtacarAgro()
         }
     }

@@ -72,7 +72,7 @@ object juego {
 
 
     method colisiones() {
-        game.onCollideDo(personaje, {item => item.colisionPj()})
+        game.onCollideDo(personaje, {objeto => objeto.colisionPj()})
     }
 
 /*

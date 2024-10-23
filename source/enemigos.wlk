@@ -7,6 +7,10 @@ import sonidos.*
 object managerZombie {
     const property zombies = #{}
 
+    method agroEstaCerca(pos) {
+        return pos.distance(personaje.position()) == 1
+    }
+
     method spawnearZombieComun() {
         const zombieSpawneado = new ZombieThrower(position = game.at(game.width() -2, game.height() -2))
         zombies.add(zombieSpawneado)
@@ -146,33 +150,20 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image 
 class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perronio-abajo.png"){
 
     override method moverse() {
-        if(!self.agroEstaCerca()) {
+        if(!managerZombie.agroEstaCerca(position)) {
         self.moverseHaciaAgro()
         }
+
     }
 
     override method atacarSiPuede() {
-        if (self.agroEstaCerca()) {
+        if (managerZombie.agroEstaCerca(position)) {
             self.AtacarAgro()
         }
     }
 
     override method AtacarAgro() {
         self.agro().herir(dmg)
-    }
-
- 
-    method agroEstaCerca() {
-        return self.posicionesAlRededor().any({posicion => posicion == self.agro().position()})
-    }
-
-    method posicionesAlRededor() {
-        return #{arriba.siguientePosicion(self.position()), abajo.siguientePosicion(self.position()),
-                    izquierda.siguientePosicion(self.position()), derecha.siguientePosicion(self.position()),
-                        arriba.siguientePosicion(derecha.siguientePosicion(self.position())),
-                            arriba.siguientePosicion(izquierda.siguientePosicion(self.position())),
-                                abajo.siguientePosicion(derecha.siguientePosicion(self.position())),
-                                    abajo.siguientePosicion(izquierda.siguientePosicion(self.position()))}
     }
 
     override method colisionPj() {}
@@ -197,7 +188,7 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
     }
 
     override method atacarSiPuede() {
-        if(self.agroEstaCerca()) {
+        if(managerZombie.agroEstaCerca(position)) {
             self.AtacarAgro()
         }
     }
@@ -211,24 +202,11 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
     }
 
     override method moverse() {
-        if(!self.agroEstaCerca()) {
+        if(!managerZombie.agroEstaCerca(position)) {
         self.moverseHaciaAgro()
         }
     }
-
-    method agroEstaCerca() {
-        return self.posicionesAlRededor().any({posicion => posicion == self.agro().position()})
-    }
-
-    method posicionesAlRededor() {
-        return #{arriba.siguientePosicion(self.position()), abajo.siguientePosicion(self.position()),
-                    izquierda.siguientePosicion(self.position()), derecha.siguientePosicion(self.position()),
-                        arriba.siguientePosicion(derecha.siguientePosicion(self.position())),
-                            arriba.siguientePosicion(izquierda.siguientePosicion(self.position())),
-                                abajo.siguientePosicion(derecha.siguientePosicion(self.position())),
-                                    abajo.siguientePosicion(izquierda.siguientePosicion(self.position()))}
-    }
-
+   
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
     }

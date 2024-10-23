@@ -8,19 +8,19 @@ object managerZombie {
     const property zombies = #{}
 
     method spawnearZombieComun() {
-        const zombieSpawneado = new ZombieComun(position = game.at(game.width() -2, game.height() -2))
+        const zombieSpawneado = new ZombieThrower(position = game.at(game.width() -2, game.height() -2))
         zombies.add(zombieSpawneado)
         game.addVisual(zombieSpawneado)
         zombieSpawneado.persecucion()
     }
 }
 
-class Enemigo {
+class Zombie {
     var property image
     var property position
     var property vida
-    var property dmg
-    var property velocidad
+    const property dmg
+    const property velocidad
 
     method agro() {
         return personaje
@@ -54,15 +54,9 @@ class Enemigo {
     }
 
     method atacarSiPuede()
-    method herirAgro()
+    method AtacarAgro()
     method sonidoHerida()
     method sonidoMuerte()
-
-    method morir() {
-        self.sonidoMuerte()
-        game.removeVisual(self)
-        game.removeTickEvent(self.nombreEvento())
-    }
 
     // Persecucion -------------------------------------
 
@@ -74,25 +68,25 @@ class Enemigo {
 
     method moverseHaciaAgro() {
         if (self.agro().position().y() > position.y() and self.agro().position().x() > position.x()) {
-            self.mover(arriba)
-            game.schedule(velocidad, {self.mover(derecha)})
+            self.moverse(arriba)
+            game.schedule(velocidad, {self.moverse(derecha)})
         } else if (self.agro().position().y() < position.y() and self.agro().position().x() < position.x()) {
-            self.mover(abajo)
-            game.schedule(velocidad, {self.mover(izquierda)})
+            self.moverse(abajo)
+            game.schedule(velocidad, {self.moverse(izquierda)})
         } else if (self.agro().position().y() < position.y() and self.agro().position().x() > position.x()) {
-            self.mover(abajo)
-            game.schedule(velocidad, {self.mover(derecha)})
+            self.moverse(abajo)
+            game.schedule(velocidad, {self.moverse(derecha)})
         } else if (self.agro().position().y() > position.y() and self.agro().position().x() < position.x()) {
-            self.mover(arriba)
-            game.schedule(velocidad, {self.mover(izquierda)})
+            self.moverse(arriba)
+            game.schedule(velocidad, {self.moverse(izquierda)})
         } else if (self.agro().position().x() < position.x() and self.agro().position().y() == position.y()) {
-            self.mover(izquierda)
+            self.moverse(izquierda)
         } else if (self.agro().position().x() > position.x() and self.agro().position().y() == position.y()) {
-            self.mover(derecha)
+            self.moverse(derecha)
         } else if (self.agro().position().y() > position.y() and self.agro().position().x() == position.x()) {
-            self.mover(arriba)
+            self.moverse(arriba)
         } else if (self.agro().position().y() < position.y() and self.agro().position().x() == position.x()) {
-            self.mover(abajo)
+            self.moverse(abajo)
         }
     }
 
@@ -102,18 +96,15 @@ class Enemigo {
 
     method imagenMovimiento()
 
-    method mover(direccion) {
+    method moverse(direccion) {
 	    position = direccion.siguientePosicion(self.position())
         image = self.imagenHacia(direccion)
 	}
-}
 
-class Zombie inherits Enemigo(){
-
-    // Vida -------------------------------------------
-
-    override method morir() {
-        super()
+    method morir() {
+        self.sonidoMuerte()
+        game.removeVisual(self)
+        game.removeTickEvent(self.nombreEvento())
         managerZombie.zombies().remove(self)
         managerItems.spawnearMunicionEn(self.position())
     }
@@ -123,13 +114,13 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image 
     
     override method atacarSiPuede() {
         if (self.estaSobreAgro()) {
-            self.herirAgro()
+            self.AtacarAgro()
         }
     }
 
     // Ataque -----------------------------------------
 
-    override method herirAgro() {
+    override method AtacarAgro() {
         self.agro().herir(dmg)
     }
 
@@ -162,11 +153,11 @@ class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perr
 
     override method atacarSiPuede() {
         if (self.agroEstaCerca()) {
-            self.herirAgro()
+            self.AtacarAgro()
         }
     }
 
-    override method herirAgro() {
+    override method AtacarAgro() {
         self.agro().herir(dmg)
     }
 
@@ -199,19 +190,19 @@ class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perr
     }
 }
 
-class Golem inherits Enemigo(vida = 200, dmg = 50, velocidad = 1500, image = "zombie-comun-abajo.png") {
+class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image = "zombie-comun-abajo.png") {
     
     override method impactoProyectil(danio) {
-        super(danio * 0.75) // recibe un 25% menos de daño (tipo por tener "armadura")
+        super(danio * 0.75)             // recibe un 25% menos de daño (tipo por tener "armadura")
     }
 
     override method atacarSiPuede() {
         if(self.agroEstaCerca()) {
-            self.herirAgro()
+            self.AtacarAgro()
         }
     }
 
-    override method herirAgro() {
+    override method AtacarAgro() {
         self.golpearSuelo()
     }
 
@@ -246,12 +237,69 @@ class Golem inherits Enemigo(vida = 200, dmg = 50, velocidad = 1500, image = "zo
         game.sound("zombie-2.mp3").play() // hay q ponerle otros sonidos para q quede mejorr
     }
 
-    override method imagenMovimiento() {
-        return "zombie-comun-"
-    }
 
     override method morir() {
         super()
         // y algo más, como que explota y hace daño una última vez o algo así...
+    }
+
+    // sonido -----------------------------------------
+
+
+    // imagen -----------------------------------------
+
+    override method imagenMovimiento() {
+        return "zombie-comun-"
+    }
+}
+
+class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 1200, image = "zombie-comun-abajo.png"){
+    
+    // movimiento ------------------------------------
+
+    override method moverse() {
+        if(!self.agroEstaAlFrente() and !self.puedeBajar()) {
+            self.moverse(arriba)
+        } else if (!self.agroEstaAlFrente() and self.puedeBajar()){
+            self.moverse(abajo)
+        }
+    }
+
+    method agroEstaAlFrente() {
+        return self.agro().position().y() == self.position().y()
+    }
+
+    method puedeBajar() { 
+        return abajo.siguientePosicion(self.position()).y() >= 0
+    }
+
+    // ataque y colisión ------------------------------
+
+    override method colisionPj() {}
+
+    override method atacarSiPuede() {
+        if(self.agroEstaAlFrente()) {
+            self.AtacarAgro()
+        }
+    }
+
+    override method AtacarAgro() {
+
+    }
+
+    // sonido -----------------------------------------
+
+    override method sonidoHerida(){
+        game.sound("zombie-1.mp3").play()
+    }
+
+    override method sonidoMuerte(){
+        game.sound("zombie-2.mp3").play()
+    }
+
+    // imagen -----------------------------------------
+
+    override method imagenMovimiento() {
+        return "zombie-comun-"
     }
 }

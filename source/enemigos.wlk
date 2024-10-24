@@ -252,9 +252,9 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
 }
 
 class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 300, image = "zombie-comun-abajo.png"){  //velocidad normal = 1200 (300 de prueba)
-    
+    var contador = 0
+
     override method mover() {
-        var contador = 0 
         if(!self.agroEstaAbajo() and !self.estaAlFinalIzquierdo() and contador.even()) {
             self.moverse(izquierda)
         } else if(!self.agroEstaAbajo() and !self.estaAlFinalDerecho() and !contador.even()) {

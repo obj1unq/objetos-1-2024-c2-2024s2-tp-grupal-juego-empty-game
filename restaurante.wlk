@@ -9,6 +9,7 @@ object restaurante {
     //entonces poner la pila de ingredientes como un mueble y en ingredientes se manejan todos los ingredientes sueltos que esta moviendo el chef
     const property ingredientes = [tomate, queso, masa]
     const property hornos = [horno]
+    const property filasDeClientes = []
 //  
     method hayObjetoDeListaAqui(lista, position){
       return lista.any({objeto => objeto.position() == position})
@@ -86,6 +87,15 @@ object restaurante {
 
     method hayMasaAqui(position) {
       return not ingredientes.filter({ingrediente => ingrediente.aceptaIngredientesEncima()}).isEmpty()
+    }
+//probar:
+    method hayClienteAqui(position) {
+      return self.hayObjetoDeListaAqui(filasDeClientes, position)
+      //la factory de clientes tiene que agregar los clientes a la fila del restaurante
+    }
+    
+    method clienteAqui(position) {
+      return self.objetoDeListaAqui(filasDeClientes, position)
     }
     
 }

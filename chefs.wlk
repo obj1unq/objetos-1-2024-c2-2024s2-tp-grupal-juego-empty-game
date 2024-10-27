@@ -137,6 +137,17 @@ class Chef {
       self.error("no hay ningun tacho aqui")
     }
   }
+//probar:
+  method preguntarPedido() {
+    self.validarPreguntarPedido()
+    restaurante.clienteAqui(self.dondeEstoyApuntando()).decirPedido()
+  }
+
+  method validarPreguntarPedido(){
+    if(not restaurante.hayClienteAqui(self.dondeEstoyApuntando())){
+      self.error("no hay ningun cliente aqui")
+    }
+  }
 }
 
 object bandejaVacia {

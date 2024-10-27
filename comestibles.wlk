@@ -8,7 +8,7 @@ import wollok.game.*
 class Ingrediente { 
     var property position = game.center()    
     var property image = null 
-    const property precio = null
+    var property precio = null
 
    method esBandejaVacia(){
     return false
@@ -74,6 +74,7 @@ class Masa inherits Ingrediente( image = "", precio = 100 ) {
 
     method recibirIngrediente(ingrediente){
         ingredientes.add(ingrediente)
+        precio = precio + ingrediente.precio()
     }
 
     method tieneIngredientes() {

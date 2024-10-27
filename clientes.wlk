@@ -6,10 +6,10 @@ import wollok.game.*
 
 class Cliente{
     var property position = game.at(0,7) //o donde esté la puerta
-    var property image = ""
+    var property image = null
     var property pedidoQueEspero = #{}
     var property emocion = "" //las emocines podrían ser estados
-    const nivelDePaciencia = null //depende del tipo de cliente
+    var nivelDePaciencia = null //depende del tipo de cliente
 
     method avanzarAHacerPedido() {
       //podría ser un tipo de animación donde avanza paso por paso hasta llegar a la mesa de recepción para hacer el pedido
@@ -28,13 +28,14 @@ class Cliente{
 
     method recibirPedido(pedido) {
       self.reaccionarAPedido(pedido)
-      self.pagarPedido()
+      self.pagarPedido(pedido)
     }
 
     method reaccionarAPedido(pedido) {
       if(self.esLoQueEsperaba(pedido)){
         emocion = "" //aca debería cambiar el estado?
       } else{
+        nivelDePaciencia = nivelDePaciencia - 20
         emocion = "" //aca debería cambiar el estado?
       }
     }
@@ -47,22 +48,18 @@ class Cliente{
         return  pedido.aceptaIngredientesEncima()
     }
 
-    method pagarPedido() {
-      return //pagar pedido va a ser dar la plata degun una cuenta que tiene que involucrar la paciencia del cliente
+    method plataAPagarPorPedido(pedido) {
+      return pedido.precio() * nivelDePaciencia / 100 
+    }
+
+    method pagarPedido(pedido) {
+      //caja.recibir(slef.plataAPagarPorPedido(pedido))
+      //hacer caja.
     }
 }
 
-/*
-    tiene que tener posición e imagen -> sería facil que solo se mueva derecho para entrar y salir
-    tienen saber pedir un pedido -> imagen
-    tiene que saber que pedido quería -> para despues comprarlo con el que le dan
-    tiene que devolver una opinión (la opinión afecta el pago?) -> emojis
-    tienen que tener la plata para pagar su pedido 
-*/
-/*
-    -Herencia con clientes -> clientes quisquillosos, clientes que perdonan, cliente que acepta de malas.
+class ClienteNormal inherits Cliente(nivelDePaciencia = 100, image = "image_clieneNormal.png"){}
 
-*/
-/*
-creo que se va a tener que hacer una factory de clientes con un randomizer para lo que quieran pedir.
-*/
+class ClienteQuisquilloso inherits Cliente(nivelDePaciencia = 80, image = "image_clieneQuisquilloso.png"){}
+
+class ClientePaciente inherits Cliente(nivelDePaciencia = 110, image = "image_clienePaciente.png"){}

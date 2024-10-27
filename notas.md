@@ -21,4 +21,11 @@
         *hacerlas
         *imagenes placeholder para estas
 
+    -FACTORY DE CLIENTES:
+        *hacer 1 que suelte random los tipos de clientes.
+        *la factory de clientes tiene que agregar los clientes a la fila del restaurante
+
+    -CAJA:
+        *hacer la caja
+
         

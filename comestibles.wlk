@@ -37,6 +37,8 @@ class Ingrediente {
             image = self.imagenIngredienteFinal()
         }
     }
+
+    method id()
 }
 
 
@@ -80,6 +82,10 @@ class Masa inherits Ingrediente( image = "", precio = 100 ) {
     method tieneIngredientes() {
       return not ingredientes.isEmpty()
     }
+
+    override method id(){
+        return "masa"
+    }
 }
 
 object cruda {
@@ -120,6 +126,10 @@ class Queso inherits Ingrediente( image = "muzzarella_inicial.png", precio = 200
         override method imagenIngredienteFinal(){
             return "muzzarella_final.png"
         }
+
+        override method id(){
+            return "queso"
+        }
 }
 
 class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
@@ -133,15 +143,35 @@ class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
 
         return "tomate_inicial.png"
       }
+
+      override method id(){
+            return "tomate"
+        }
 }
 
-class Aceituna inherits Ingrediente( image = "", precio = 200) {}
+class Aceituna inherits Ingrediente( image = "", precio = 200) {
+    override method id(){
+            return "aceituna"
+        }
+}
 
-class Huevo inherits Ingrediente( image = "", precio = 200) {}
+class Huevo inherits Ingrediente( image = "", precio = 200) {
+    override method id(){
+            return "huevo"
+        }
+}
 
-class Atun inherits Ingrediente( image = "", precio = 200) {}
+class Atun inherits Ingrediente( image = "", precio = 200) {
+    override method id(){
+            return "atun"
+        }
+}
 
-class Hongo inherits Ingrediente( image = "", precio = 200) {}
+class Hongo inherits Ingrediente( image = "", precio = 200) {
+    override method id(){
+            return "hongo"
+        }
+}
 
 
 /*

@@ -22,13 +22,10 @@ class Cliente{
     }
 
     method generarPedido() {
-      const ingredientePrincipal1 = #{"lista de ingredientes distinguibles para imagenes"}.randomized().head()
-      const ingredientePrincipal2 = #{"lista de ingredientes distinguibles para imagenes"}.randomized().head() 
+      const ingredientePrincipal = #{"aceitunas", "queso", "atun", "hongos"}.randomized().head()
 
-      pedidoQueEspero = #{"salsa", "queso"} + #{ingredientePrincipal1, ingredientePrincipal2}
+      pedidoQueEspero = #{"salsa", "queso"} + #{ingredientePrincipal}
 
-      //la masa debe reconocer cuales son sus 2 ingredientes principales tal vez y en eso basar la imagen? -> eso si no vamos a hacer que la imagen de los ingredientes flote encima de la masa 
-      //o los diferentes tipos de pedidos pueden ser un objto de una clase menu?
     }
 
     method recibirPedido(pedido) {
@@ -46,8 +43,12 @@ class Cliente{
       }
     }
 
-    method esLoQueEsperaba(pedido){ 
-      return self.esUnaPiza(pedido) and pedido.ingredientes() == pedidoQueEspero //puede recibir un ingrediente solo pero eso lo va a hacer enojar.
+    method esLoQueEsperaba(pedido){  //puede recibir un ingrediente solo pero eso lo va a hacer enojar.
+      return self.esUnaPiza(pedido) and self.esLaPizzaQuePedi(pedido)
+    }
+
+    method esLaPizzaQuePedi(pedido){
+      return pedido.ingredientes().map({ingrediente => ingrediente.id()}) == pedidoQueEspero //fijarse en la comparacion si lo pasa a set el map
     }
 
     method esUnaPiza(pedido){
@@ -70,13 +71,13 @@ object neutral {
 object feliz {
   const property image = "imagen emotion feliz"
   method mostrarse(cliente){
-    game.addVisual(cliente.position().up()) //no sé como hacer que sure solo un rato la imagen
+    game.addVisual(cliente.position().up()) //no sé como hacer que dure solo un rato la imagen
   }
 }
 object decepcionado {
   const property image = "imagen emotion decepcionado/ enojado/ triste"
   method mostrarse(cliente){
-    game.addVisual(cliente.position().up()) //no sé como hacer que sure solo un rato la imagen
+    game.addVisual(cliente.position().up()) //no sé como hacer que dure solo un rato la imagen
   }
 }
 

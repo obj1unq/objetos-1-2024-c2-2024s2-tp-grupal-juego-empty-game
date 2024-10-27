@@ -22,8 +22,8 @@ class Cliente{
     }
 
     method generarPedido() {
-      const ingredientePrincipal1 = #{"lista de ingredientes distinguibles para imagenes"}.head() //como es set es random
-      const ingredientePrincipal2 = #{"lista de ingredientes distinguibles para imagenes"}.head() //como es set es random
+      const ingredientePrincipal1 = #{"lista de ingredientes distinguibles para imagenes"}.randomized().head()
+      const ingredientePrincipal2 = #{"lista de ingredientes distinguibles para imagenes"}.randomized().head() 
 
       pedidoQueEspero = #{"salsa", "queso"} + #{ingredientePrincipal1, ingredientePrincipal2}
 

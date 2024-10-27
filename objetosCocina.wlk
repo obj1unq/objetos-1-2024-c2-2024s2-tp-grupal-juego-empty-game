@@ -1,6 +1,6 @@
 import comestibles.*
 import restaurante.*
-import Chefs.*
+import chefs.*
 
 
 import wollok.game.*

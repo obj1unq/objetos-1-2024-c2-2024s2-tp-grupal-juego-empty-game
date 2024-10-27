@@ -1,5 +1,5 @@
 import restaurante.*
-import Chefs.*
+import chefs.*
 import comestibles.*
 import objetosCocina.*
 import posiciones.*

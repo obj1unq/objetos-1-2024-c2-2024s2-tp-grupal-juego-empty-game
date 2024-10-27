@@ -1,4 +1,4 @@
-import Chefs.*
+import chefs.*
 import comestibles.*
 
 

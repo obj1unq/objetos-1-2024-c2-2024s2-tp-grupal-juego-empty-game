@@ -1,88 +1,166 @@
 import comestibles.*
+import restaurante.*
+import Chefs.*
+
+
 import wollok.game.*
 
 
-object horno {
-  var property position = game.at(4, 4)
+class Horno {
+  const property position = game.at(4, 4)
+  var image = "" //ponerle una imagen base normal
   var property temperatura = 0
-  var property contenido = []
-
-  method image() {
-    return "oven_" + temperatura + ".png" 
-  }
-
-  // Aca saque la variable imagen y la deje solo en un metodo, ya que al depender del valor de otra variable,
-  // (grados/temperatura) para hacer el calculo de que imagen mostrar creo que queda medio como un precalculo.
+  var property contenido = [] 
   
-  method recibirPizza(pizza) {
+  method recibir(pizza) {
       self.validarRecibirPizza()
       self.contenido().add(pizza)      
   }
 
   method validarRecibirPizza() {
-    if(not contenido.isEmpty()){
-      self.error("ya hay algo calentandose")
+    if(not self.hayEspacioEnHorno()){ //podría cambiarse la capacidad del horno si es por nivel o puntos y ahí se le pone en variable.
+      self.error("ya hay cosas calentandose")
     }
   }
 
-  method cocinar() { 
-    game.onTick(2500, self, {self.calentar(contenido.head())})
-  } 
-
-  method calentar(comida) {
-    self.subirNivelDeHorno()
-    comida.serCocinada(temperatura)
-    self.actualizarEstado()
+  method hayEspacioEnHorno(){
+    return contenido.isEmpty() || contenido.size() < 2
   }
+
+  method hayAlMenos1Pizza() {
+    return not contenido.isEmpty()
+  }
+
+  method sacaDelHorno(chef) {
+    chef.recibirIngrediente(self.primeraPizzaEnHorno())
+    contenido.remove(self.primeraPizzaEnHorno())
+  }
+
+  method primeraPizzaEnHorno() {
+    return contenido.head()
+  }
+
+  method cocinar() { 
+    game.onTick(2500, self, {
+                                contenido.forEach({pizza => pizza.serCocinada()})  
+                            })
+    game.onTick(2500, self, {self.subirNivelDeHorno()})
+  } 
 
   method subirNivelDeHorno(){
     temperatura = (temperatura + 1).min(3)
+    self.actualizarEstadoHorno()
   }
 
-  method actualizarEstado() {
+  method actualizarEstadoHorno() {
     if (temperatura == 3) self.simularFuego()
   }
 
   method simularFuego() {
-    game.say(self, "la comida se está quemando")
-    /*acá la idea es hacer que alterne en 2 imagenes de horno sacando humo pero no se me ocurre como hacerlo todavía*/
-    /* Quiza algo asi?
-        method actualizarEstado() {
-          game.say("La comida se esta quemando")
-          game.onTick(500, self, {self.simularFuego()})
-        }
-        
-        
-        method simularFuego() {
-          if(image == "ovenFuego1.png") {
+    if(image == "ovenFuego1.png") {
             image = "ovenFuego2.png"
           } else 
-            image == "ovenFuego1.png"
-        }*/
+            image = "ovenFuego1.png" 
   }
 
 }
 
-object basura {
-  const desechos = []
+class Mueble {
+  const property position = game.center()
+  const property image = ""
+  
 
-  // Probablemente aca sea mejor que tenga un metodo polimorfico, que tengan otros objetos que tambien reciban un objeto
-  // y que lo use para lo que lo necesite.
-
-  method recibirDesecho(desecho) {
-    desechos.add(desecho)
+  method esMuebleDeCocina(){
+    return false
   }
 
-  /* Aca podriamos agregar un detallito de que tenga otro metodo polimorfico para entregar algo, que tengan otros
-  objetos, y que te devuelva una pizza toda podrida o algo asi.
-  method entregarObjeto() {
-    return "pizzaPodrida.png"
+  method esParaProcesar(){
+    return false
   }
-  */
+
+  method estaLibre(){
+    return false
+  }
+
+  method esPilaDeIngredientes(){
+    return false
+  }
+
+  method esTacho() {
+    return false
+  }
+
 }
 
-class Mesada {
+class Mesada inherits Mueble{
+  var property cosasEncima = bandejaVacia
+
+  override method esMuebleDeCocina() {
+    return true 
+  }
+
+  override method esParaProcesar(){
+    return true
+  }
+
+  override method estaLibre(){
+    return cosasEncima.esBandejaVacia() || self.tieneUnaPiza()
+  }
+
+  method tieneUnaPiza(){
+    return cosasEncima.aceptaIngredientesEncima()
+  }
+  method recibirIngrediente(ingrediente) {
+    if(self.tieneUnaPiza()){
+      cosasEncima.recibirIngrediente(ingrediente)
+      ingrediente.serDejadoAqui(cosasEncima.position())
+    } else{
+      cosasEncima = ingrediente
+      ingrediente.serDejadoAqui(self.position())
+    }
+  }
+
+  method entregarIngredienteEncima(){
+    //cosasEncima.remove(self.cosaEncima())
+    cosasEncima = bandejaVacia
+  }
+}
+
+class Tacho inherits Mueble{
+
+  override method esTacho() {
+    return true
+  }
+  method recibirBasura(chef) {
+    //o mandarle un mensaje al chef de que si tiro la basura entonces cambie su imagen
+    chef.image(self.chefBandejaVacia(chef))
+    chef.bandeja(bandejaVacia) 
+  }
+
+  method chefBandejaVacia(chef) {
+    return chef.nombre() + "_bandejaVacia.png" //se necesita esa imagen
+  }
+
+}
+
+class Dispencer inherits Mueble{
+  override method esMuebleDeCocina(){
+    return false
+  }
+
+  override method esParaProcesar(){
+    return false
+  }
+
+  override method estaLibre() {
+    return false
+  }
+
+  override method esPilaDeIngredientes(){
+    return false
+  }
+}
+
 /*
-  unico lugar donde se pueden "procesar" los ingredientes
-*/  
-}
+las pilas de ingredientes deberian ir en muebles e instanciar un nuevo ingrediente cada vez que se precion x en frente de ellas.
+*/

@@ -1,67 +1,92 @@
 import comestibles.*
-/*
-    -la pizzería sabe todo lo que tiene, para consultar posiciones y cosas y validaciones como en la granja. 
-    -puede tener una lista con todas las cosas de la cocina y  todas las cosas de la recepcion -> como la granja de Hector
-*/    
-const masa = new Masa( position = game.at(1,1) )
-const tomate = new Tomate ( position = game.at(0,0) )
-const queso = new Queso ( position = game.at(0,0) )
+import objetosCocina.*
+import objetosParaTests.*
 
+//HACER UNA CLASE POSICION DE OBJETO?
 object restaurante {
 
-    const property muebles = #{}
-    const property ingredientes = #{tomate, queso} //acá en realidad se pondrían las estaciones donde estan los ingredientes
-    const property hornos = #{}
-    const property preparacion = #{masa} //para las pizzas solo, la masa
-    const property tachos ={}
-    const caja = 0 // aca se podría el objeto único de la caja
-    const postres = 0 // aca se pondría el objeto único de la caja de postres
-    const bebidas = 0 // aca se pondría el objeto único de la maquina expendedora
-
-    method hayIngredienteAqui(direccion){
-        return ingredientes.any({ingrediente => ingrediente.position() == direccion})
+    const property muebles = [tacho3, mesada1, mesada2] //los muebles saben su clasificacion
+    //entonces poner la pila de ingredientes como un mueble y en ingredientes se manejan todos los ingredientes sueltos que esta moviendo el chef
+    const property ingredientes = [tomate, queso, masa]
+    const property hornos = [horno]
+//  
+    method hayObjetoDeListaAqui(lista, position){
+      return lista.any({objeto => objeto.position() == position})
     }
 
-    method ingredienteAqui(direccion) {
-        return ingredientes.filter({ingrediente => ingrediente.position() == direccion}).head()
+    method objetoDeListaAqui(lista, position) {
+      return lista.filter({objeto => objeto.position() == position}).head()
     }
 
-    method hayMuebleAqui(direccion) {
-        return muebles.any({mueble => mueble.position() == direccion})
+//
+    method hayIngredienteAqui(position){
+        return self.hayObjetoDeListaAqui(ingredientes, position) || self.hayPilaDeIngredientesAqui(position)
     }
 
-    method hayHornoAqui(direccion) {
-        return hornos.any({horno => horno.position() == direccion})
+    method ingredienteAqui(position) {
+        return self.objetoDeListaAqui(ingredientes, position)
     }
 
-    method hayTachosAqui(direccion) {
-        return tachos.any({tacho => tacho.position() == direccion})
+    method hayPilaDeIngredientesAqui(position){
+      return muebles.any({mueble => mueble.esPilaDeIngredientes()})
     }
 
-    method estaLaPreparacionAqui(direccion) {
-        return preparacion.any({masa => masa.position() == direccion})
+    method hayMuebleAqui(position) {
+        return self.hayObjetoDeListaAqui(muebles, position)
     }
 
-    method hayCajaAqui(direccion) {
-        return caja.direccion() == direccion
+    method muebleAqui(position) {
+      return self.objetoDeListaAqui(muebles, position)
     }
 
-    method hayPostresAqui(direccion){
-        return postres.direccion() == direccion
+    method hayHornoAqui(position) {
+        return self.hayObjetoDeListaAqui(hornos, position)
     }
 
-    method hayBebidasAqui(direccion){
-        return bebidas.direccion() == direccion
+    method hornoAqui(position) {
+      return self.objetoDeListaAqui(hornos, position)
     }
 
+    method hayObjetoSolidoEn(position){
+        return self.hayMuebleAqui(position) or self.hayHornoAqui(position)
+    }
+
+    method hayEspacioLibreAqui(position) {
+      return self.hayMuebleAqui(position) and self.muebleAqui(position).estaLibre() //LOS MUEBLES PUEDEN TENER SOLO UN INGREDINTE ENCIMA.
+    }
+
+    method seDejaIngredienteAqui(ingrediente, position){
+      ingredientes.add(ingrediente)
+      self.muebleAqui(position).recibirIngrediente(ingrediente)
+    }
+
+    method estacionDeProcesamientoAqui(position) {
+      return muebles.filter({mueble => mueble.position() == position}).head()
+    }
+
+    method basuraAqui(position) {
+      return muebles.filter({mueble => mueble.esTacho()}).head()
+    }
+
+    method masaAqui(position) {
+      return ingredientes.filter({ingrediente => ingrediente.aceptaIngredientesEncima()}).head()
+    }
+
+    method hayEstacionDeProcesamientoAqui(position) {
+      return self.hayMuebleAqui(position) and self.muebleAqui(position).esParaProcesar()
+    }
+
+    method hayHornoConEspacioAqui(position){
+        return self.hornoAqui(position).hayEspacioEnHorno() //self.hayHornoAqui(position) and 
+    }
+
+    method hayBasuraAqui(position) {
+      return not muebles.filter({mueble => mueble.esTacho() and mueble.position() == position}).isEmpty()
+    }
+
+    method hayMasaAqui(position) {
+      return not ingredientes.filter({ingrediente => ingrediente.aceptaIngredientesEncima()}).isEmpty()
+    }
+    
 }
 
-class Cliente{
-/*
-    tiene que tener posición e imagen -> sería facil que solo se mueva derecho para entrar y salir
-    tienen saber pedir un pedido -> imagen
-    tiene que saber que pedido quería -> para despues comprarlo con el que le dan
-    tiene que devolver una opinión (la opinión afecta el pago?) -> emojis
-    tienen que tener la plata para pagar su pedido 
-*/
-}

@@ -28,7 +28,7 @@ class Ingrediente {
         position = nuevaPosition
     }
 
-    method imagenIngredienteInicial()
+    method imagenIngredienteInicial() //ingrediente inicial y final tal vez podrían ser una constante y se declara en cada clase
 
     method imagenIngredienteFinal()
 
@@ -115,8 +115,6 @@ object quemada {
     }
 }
 
-//no entiendo que es eso de proceso y por qué lo hacen en otro objeto
-
 class Queso inherits Ingrediente( image = "muzzarella_inicial.png", precio = 200) {
 
         override method imagenIngredienteInicial(){
@@ -150,24 +148,60 @@ class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
 }
 
 class Aceituna inherits Ingrediente( image = "", precio = 200) {
+
+    override method imagenIngredienteInicial(){
+            return ""
+        }
+
+        override method imagenIngredienteFinal(){
+            return ""
+        }
+
     override method id(){
             return "aceituna"
         }
 }
 
 class Huevo inherits Ingrediente( image = "", precio = 200) {
+
+    override method imagenIngredienteInicial(){
+            return ""
+        }
+
+        override method imagenIngredienteFinal(){
+            return ""
+        }
+
     override method id(){
             return "huevo"
         }
 }
 
 class Atun inherits Ingrediente( image = "", precio = 200) {
+
+    override method imagenIngredienteInicial(){
+            return ""
+        }
+
+        override method imagenIngredienteFinal(){
+            return ""
+        }
+
     override method id(){
             return "atun"
         }
 }
 
 class Hongo inherits Ingrediente( image = "", precio = 200) {
+
+    override method imagenIngredienteInicial(){
+            return ""
+        }
+
+        override method imagenIngredienteFinal(){
+            return ""
+        }
+
     override method id(){
             return "hongo"
         }

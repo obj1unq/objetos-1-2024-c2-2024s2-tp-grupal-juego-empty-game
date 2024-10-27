@@ -9,12 +9,12 @@ object mapa {
   const tablero = [
     [__, __, __, __, __, __, __, __, __, __],     //reloj + frame
     [__, __, v1, c6, v1, __, __, __, __, __],
-    [__, __, v1, c6, v1, __, __, __, __, __],
-    [__, __, v1, c6, v1, __, __, __, __, __],
-    [__, __, v1, c6, v1, __, __, __, __, __],
-    [__, __, v1, c6, v1, __, __, __, __, __],
-    [__, __, v1, c6, v1, __, __, __, __, __],
-    [v1, v1, v1, c6, v1, __, __, __, __, __],
+    [h1, __, v1, c6, v1, __, h1, __, __, __],
+    [__, __, v1, c6, v1, __, __, __, h2, __],
+    [h1, __, v1, c6, v1, __, __, __, __, __],
+    [__, __, v1, c6, v1, __, __, h3, __, __],
+    [h1, __, v1, c6, v1, __, __, __, h3, __],
+    [v1, v1, v1, c6, v1, h1, __, __, __, __],
     [c2, c5, c5, c3, v1, __, __, __, __, __],
     [c6, v1, v1, v1, v1, __, __, __, __, __]
   ].reverse()
@@ -88,4 +88,20 @@ object v1 {
   }
 }
 
+object h1 {
+    method dibujarEn(position) {
+    game.addVisual(new Casa1(position = position))
+  }
+}
 
+object h2 {
+    method dibujarEn(position) {
+    game.addVisual(new Casa2(position = position))
+  }
+}
+
+object h3 {
+    method dibujarEn(position) {
+    game.addVisual(new Casa3(position = position))
+  }
+}

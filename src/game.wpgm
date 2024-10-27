@@ -14,7 +14,7 @@ program aventuraDelMate{
 	game.height(10) 		
 	game.width(10) 			
 	game.cellSize(50) 		
-	game.ground("ground.png")
+	game.boardGround("boardGame.png")
 	//game.sound("musiJuego.mp3").play() //NO ME DEJA SUBIR EL ARCHIVO DE MUSICA A GITHUB, PERO LOGRÉ QUE SE REPRODUZCA
 
 	//barra superior

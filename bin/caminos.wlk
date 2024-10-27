@@ -63,3 +63,28 @@ class Vereda {
     }
 }
 
+class Casa{
+    const property position 
+
+    method solida() {
+		return true
+	}
+
+    method image()
+
+    method esAgarrable(){
+        return false
+    }
+}
+
+class Casa1 inherits Casa{
+    override method image() = "casa1.png"
+}
+
+class Casa2 inherits Casa{
+    override method image() = "casa2.png"
+}
+
+class Casa3 inherits Casa{
+    override method image() = "casa3.png"
+}

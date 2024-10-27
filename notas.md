@@ -25,6 +25,9 @@
         *hacer 1 que suelte random los tipos de clientes.
         *la factory de clientes tiene que agregar los clientes a la fila del restaurante
 
+    -CLIENTES:
+        *imagenes para los diferentes tipos de clientes
+
     -CAJA:
         *hacer la caja
 

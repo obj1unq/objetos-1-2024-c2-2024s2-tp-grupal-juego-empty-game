@@ -1,5 +1,5 @@
 import restaurante.*
-import Chefs.*
+import chefs.*
 import comestibles.*
 import objetosCocina.*
 import posiciones.*
@@ -13,7 +13,7 @@ program wollocook {
     // config
     game.height(10)
 	game.width(10)
-    game.ground("fondoPizzeria.jpg")
+    
     //game.addVisual(horno)
     //game.addVisual(new Masa(position = game.origin()))
 

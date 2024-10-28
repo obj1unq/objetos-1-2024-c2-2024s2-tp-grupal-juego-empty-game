@@ -8,7 +8,7 @@ import wollok.game.*
 class Ingrediente { 
     var property position = game.center()    
     var property image = null 
-    const property precio = null
+    var property precio = null
 
    method esBandejaVacia(){
     return false
@@ -28,7 +28,7 @@ class Ingrediente {
         position = nuevaPosition
     }
 
-    method imagenIngredienteInicial()
+    method imagenIngredienteInicial() //ingrediente inicial y final tal vez podrían ser una constante y se declara en cada clase
 
     method imagenIngredienteFinal()
 
@@ -37,6 +37,8 @@ class Ingrediente {
             image = self.imagenIngredienteFinal()
         }
     }
+
+    method id()
 }
 
 
@@ -74,10 +76,15 @@ class Masa inherits Ingrediente( image = "", precio = 100 ) {
 
     method recibirIngrediente(ingrediente){
         ingredientes.add(ingrediente)
+        precio = precio + ingrediente.precio()
     }
 
     method tieneIngredientes() {
       return not ingredientes.isEmpty()
+    }
+
+    override method id(){
+        return "masa"
     }
 }
 
@@ -108,8 +115,6 @@ object quemada {
     }
 }
 
-//no entiendo que es eso de proceso y por qué lo hacen en otro objeto
-
 class Queso inherits Ingrediente( image = "muzzarella_inicial.png", precio = 200) {
 
         override method imagenIngredienteInicial(){
@@ -118,6 +123,10 @@ class Queso inherits Ingrediente( image = "muzzarella_inicial.png", precio = 200
 
         override method imagenIngredienteFinal(){
             return "muzzarella_final.png"
+        }
+
+        override method id(){
+            return "queso"
         }
 }
 
@@ -132,15 +141,71 @@ class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
 
         return "tomate_inicial.png"
       }
+
+      override method id(){
+            return "tomate"
+        }
 }
 
-class Aceituna inherits Ingrediente( image = "", precio = 200) {}
+class Aceituna inherits Ingrediente( image = "", precio = 200) {
 
-class Huevo inherits Ingrediente( image = "", precio = 200) {}
+    override method imagenIngredienteInicial(){
+            return ""
+        }
 
-class Atun inherits Ingrediente( image = "", precio = 200) {}
+        override method imagenIngredienteFinal(){
+            return ""
+        }
 
-class Hongo inherits Ingrediente( image = "", precio = 200) {}
+    override method id(){
+            return "aceituna"
+        }
+}
+
+class Huevo inherits Ingrediente( image = "", precio = 200) {
+
+    override method imagenIngredienteInicial(){
+            return ""
+        }
+
+        override method imagenIngredienteFinal(){
+            return ""
+        }
+
+    override method id(){
+            return "huevo"
+        }
+}
+
+class Atun inherits Ingrediente( image = "", precio = 200) {
+
+    override method imagenIngredienteInicial(){
+            return ""
+        }
+
+        override method imagenIngredienteFinal(){
+            return ""
+        }
+
+    override method id(){
+            return "atun"
+        }
+}
+
+class Hongo inherits Ingrediente( image = "", precio = 200) {
+
+    override method imagenIngredienteInicial(){
+            return ""
+        }
+
+        override method imagenIngredienteFinal(){
+            return ""
+        }
+
+    override method id(){
+            return "hongo"
+        }
+}
 
 
 /*

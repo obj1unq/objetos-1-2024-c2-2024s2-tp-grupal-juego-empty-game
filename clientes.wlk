@@ -22,10 +22,14 @@ class Cliente{
     }
 
     method generarPedido() {
-      const ingredientePrincipal = #{"aceitunas", "queso", "atun", "hongos"}.randomized().head()
+      const ingredientePrincipal = self.ingredientePrincipalRandom()
 
       pedidoQueEspero = #{"salsa", "queso"} + #{ingredientePrincipal}
 
+    }
+
+    method ingredientePrincipalRandom() {
+      return ["aceitunas", "queso", "atun", "hongos"].randomized().head()
     }
 
     method recibirPedido(pedido) {
@@ -71,13 +75,13 @@ object neutral {
 object feliz {
   const property image = "imagen emotion feliz"
   method mostrarse(cliente){
-    game.addVisual(cliente.position().up()) //no sé como hacer que dure solo un rato la imagen
+    //game.addVisual(cliente.position().up()) //no sé como hacer que dure solo un rato la imagen
   }
 }
 object decepcionado {
   const property image = "imagen emotion decepcionado/ enojado/ triste"
   method mostrarse(cliente){
-    game.addVisual(cliente.position().up()) //no sé como hacer que dure solo un rato la imagen
+    //game.addVisual(cliente.position().up()) //no sé como hacer que dure solo un rato la imagen
   }
 }
 
@@ -86,3 +90,5 @@ class ClienteNormal inherits Cliente(nivelDePaciencia = 100, image = "image_clie
 class ClienteQuisquilloso inherits Cliente(nivelDePaciencia = 80, image = "image_clieneQuisquilloso.png"){}
 
 class ClientePaciente inherits Cliente(nivelDePaciencia = 110, image = "image_clienePaciente.png"){}
+
+const cliente = new ClienteNormal() //lo agrego para probar en la consola al cliente

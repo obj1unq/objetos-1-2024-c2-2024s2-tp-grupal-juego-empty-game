@@ -32,7 +32,7 @@ class Chef {
     image = orientacion.imagen(nombre)
   }
 
-  method dondeEstoyApuntando() {
+  method dondeEstoyApuntando() { 
     return orientacion.moverse(self.position())
   }
 

@@ -5,10 +5,10 @@ import objetosParaTests.*
 //HACER UNA CLASE POSICION DE OBJETO?
 object restaurante {
 
-    const property muebles = [tacho3, mesada1, mesada2] //los muebles saben su clasificacion
+    const property muebles = [tacho3, mesada1, mesada2] //los muebles saben su clasificacion 
     //entonces poner la pila de ingredientes como un mueble y en ingredientes se manejan todos los ingredientes sueltos que esta moviendo el chef
-    const property ingredientes = [tomate, queso, masa]
-    const property hornos = [horno]
+    const property ingredientes = [tomate, queso, masa] //cambiar nombre a ingredientes sueltos -> porque acá guarda solo los ingredientes sueltos. NO TODOS 
+    const property hornos = [horno] //excusa : después compras más hornos y los agregas y es el unico mueble que agregas
     const property filasDeClientes = []
 //  
     method hayObjetoDeListaAqui(lista, position){

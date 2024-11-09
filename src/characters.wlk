@@ -2,6 +2,8 @@ import cabezal.*
 import wollok.game.*
 import map.*
 import direcciones.*
+import edificios.*
+import objetos.*
 
 class Personaje {
     //stats
@@ -9,6 +11,7 @@ class Personaje {
     const property defensaBase
     const property vidaBase
     var property vidaActual = vidaBase
+    const property valor 
 
     var property team
 
@@ -47,6 +50,13 @@ class Personaje {
     method mover(posicion) {
         position = posicion
         self.efectoMover()
+        self.recogerObjeto(posicion)
+    }
+
+    method recogerObjeto(posicion) {
+        if(mapa.hayObjetoEn(posicion)) {
+            mapa.objetoEn(posicion).recogerObjeto()
+        }
     }
 
     
@@ -92,10 +102,17 @@ class Personaje {
     }
     
 
+    method condicionParaSpawn() {
+        return true // Lo establezco como true y en las clases que si tienen una condicion para el spawn les hago un override.
+    }
+
+    method efectosEnRecursosSpawn() {
+        castillo.oroEnReserva(castillo.oroEnReserva() - self.valor())
+    }
 
 }
 
-class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 100) {
+class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 20, valor = 30) {
 
     const property inventario = #{}
 
@@ -104,27 +121,31 @@ class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 
         return "comandante-" + team.estado() + ".png"
     }
 
+
 }
 
 
-class Mago inherits Personaje(ataqueBase = 2, defensaBase = 1, vidaBase = 100) {
+class Mago inherits Personaje(ataqueBase = 2, defensaBase = 1, vidaBase = 12, valor = 5) {
 
 
     method image() {
         return "mage-" + team.estado()+".png"
     }
   
+
 }
 
 
-class Soldado inherits Personaje(ataqueBase = 4, defensaBase = 2, vidaBase = 100) {
+class Soldado inherits Personaje(ataqueBase = 4, defensaBase = 2, vidaBase = 15, valor = 15) {
 
     method image(){
         return "soldado-" + team.estado() +".png"
     }
+
+
 }
 
-class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 100) {
+class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 10, valor = 8) {
     
     method image(){
         return "arquero-" + team.estado() +".png"
@@ -132,25 +153,44 @@ class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 10
 
     override method enemigosAlAlcance(){
         return self.enemigosAlAlcance(direcciones.principales(), 2) + self.enemigosAlAlcance(direcciones.todas(), 1)
-
-
     }
+
 
 
 }
 
-class Golem inherits Personaje(ataqueBase = 5, defensaBase = 5, vidaBase = 100) {
+class Golem inherits Personaje(ataqueBase = 5, defensaBase = 5, vidaBase = 30, valor = 45) {
     
     method image(){
         return "golem-" + team.estado() + ".png"
     }
+
+    override method condicionParaSpawn() {
+        return castillo.piedrasEnReserva() >= 3
+    }
+
+    override method efectosEnRecursosSpawn() {
+        super()
+        castillo.piedrasEnReserva(castillo.piedrasEnReserva() - 3)
+    }
+
 }
 
-class Dragon inherits Personaje (ataqueBase = 10, defensaBase = 3, vidaBase = 100) {
+class Dragon inherits Personaje (ataqueBase = 10, defensaBase = 3, vidaBase = 20, valor = 35) {
 
     method image(){
         return "dragon-"+ team.estado() + ".png"
     }
+
+    override method condicionParaSpawn() {
+        return castillo.huevosEnReserva() >= 1
+    }
+
+    override method efectosEnRecursosSpawn() {
+        super()
+        castillo.huevosEnReserva(castillo.huevosEnReserva() - 1)
+    }
+
 }
 
 object aliado {

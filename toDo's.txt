@@ -1,3 +1,0 @@
-Crear objeto batalla -> que reciba aliado y enemigo -> cuando recibe a los dos
-automaticamente, calcular batalla y mandar resultado a los participantes.
-

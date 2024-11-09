@@ -2,6 +2,9 @@ import characters.*
 import wollok.game.*
 import direcciones.*
 import map.*
+import objetos.*
+import edificios.*
+
 
 
 object cabezal {
@@ -16,7 +19,7 @@ object cabezal {
 
 
   method mover(direccion) {
-    const siguiente = direccion.siguiente(self.position()) 
+    const siguiente = direccion.siguiente(position) 
     mapa.validarSiEstaDentro(siguiente)
     position = siguiente
   }
@@ -48,12 +51,16 @@ object cabezal {
     seleccionActualEnemiga = enemigo    
   }
 
-  method obtenerPjAliado(_position) {
-    return mapa.aliadosEn(_position)
+  method obtenerPjAliado() {
+    return mapa.aliadosEn(position)
   }
 
-  method obtenerPjEnemigo(_position) {
-    return mapa.enemigosEn(_position)
+  method obtenerPjEnemigo() {
+    return mapa.enemigosEn(position)
+  }
+
+  method obtenerObjetoEn() {
+    return mapa.objetoEn(position)
   }
   
 }
@@ -68,7 +75,7 @@ object cabezalSeleccion {
   method accionar() {
     cabezal.seleccionActualAliada().verificarMovimiento()
     cabezal.seleccionActualAliada().mover(cabezal.position())
-    cabezal.seleccionActualAliada().definirEnemigosAlAlcance(cabezal.position())
+    cabezal.seleccionActualAliada().enemigosAlAlcance()
     cabezal.setAliado(null)
     cabezal.setModo(cabezalNormal)
   }
@@ -88,7 +95,7 @@ object cabezalBatalla {
   //SELECCIONAR ENEMIGO
   method accionar() {
     mapa.validarSeleccionAliada(cabezal.position()) // 
-    cabezal.setAliado(cabezal.obtenerPjAliado(cabezal.position()))
+    cabezal.setAliado(cabezal.obtenerPjAliado())
     cabezal.setModo(cabezalAtaque)
   }
 
@@ -109,7 +116,7 @@ object cabezalNormal {
   //SELECCIONAR
   method accionar() {
     mapa.validarSeleccionAliada(cabezal.position())
-    cabezal.setAliado(cabezal.obtenerPjAliado(cabezal.position()))
+    cabezal.setAliado(cabezal.obtenerPjAliado())
     cabezal.setModo(cabezalSeleccion)
   }
 
@@ -123,7 +130,8 @@ object cabezalAtaque {
   }
 
   method accionar() {
-    cabezal.setEnemigo(cabezal.obtenerPjEnemigo(cabezal.position()))
+    mapa.validarSeleccionEnemiga(cabezal.position())
+    cabezal.setEnemigo(cabezal.obtenerPjEnemigo())
     cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())
   }
 

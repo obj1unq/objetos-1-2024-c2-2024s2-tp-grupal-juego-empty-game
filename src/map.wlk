@@ -1,5 +1,7 @@
 import cabezal.*
 import wollok.game.*
+import objetos.*
+import characters.*
 
 
 object fondo {
@@ -14,6 +16,7 @@ object fondo {
 object mapa {
     const property aliados = #{}
     const property enemigos = #{}
+    const property objetos = #{}
 
     method validarSiEstaDentro(posicion) {
         return if (not self.estaDentro(posicion)) {
@@ -43,35 +46,50 @@ object mapa {
         enemigos.add(enemigo)
     }
 
-    method aliadosEn(position) {
-        return aliados.find({pj => pj.position() == cabezal.position()})
+    method aliadosEn(posicion) {
+        return aliados.find({pj => pj.position() == posicion})
     }
 
-    method enemigosEn(position) {
-        return enemigos.find({pj => pj.position() == cabezal.position()})
+    method enemigosEn(posicion) {
+        return enemigos.find({pj => pj.position() == posicion})
     }
 
-    method validarSeleccionAliada(coordenadas) {
-        if (not self.hayAliadosEn(coordenadas)){
+    method validarSeleccionAliada(posicion) {
+        if (not self.hayAliadosEn(posicion)){
             cabezal.error("No hay nada para seleccionar!")
         }
     }
 
-    method hayAliadosEn(coordenadas) {
-        return aliados.any({aliado => aliado.position() == coordenadas})
+    method hayAliadosEn(posicion) {
+        return aliados.any({aliado => aliado.position() == posicion})
     }
 
-    method hayEnemigosEn(coordenadas){
-        return enemigos.any({enemigo => enemigo.position() == coordenadas})
+    method hayEnemigosEn(posicion){
+        return enemigos.any({enemigo => enemigo.position() == posicion})
     }
 
     method hayUnidadAca(posicion){
         return self.hayAliadosEn(posicion) || self.hayEnemigosEn(posicion)
     }
-    method validarSeleccionEnemiga(coordenadas) {
-        if (not self.hayEnemigosEn(coordenadas)){
+    method validarSeleccionEnemiga(posicion) {
+        if (not self.hayEnemigosEn(posicion)){
             cabezal.error("No hay nada para seleccionar!")
         }
     }
 
+    method agregarObjeto(objeto) {
+        objetos.add(objeto)
+    }
+
+    method eliminarObjeto(objeto) {
+        objetos.remove(objeto)
+    } 
+
+    method objetoEn(posicion) {
+        return objetos.find({o => o.position() == posicion})
+    }
+
+    method hayObjetoEn(posicion) {
+        return objetos.any({o => o.position() == posicion})
+    }
 }

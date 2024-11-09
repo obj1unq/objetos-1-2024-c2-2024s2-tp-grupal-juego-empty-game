@@ -1,5 +1,6 @@
 import wollok.game.*
 
+
 class Direccion {
 
     method siguiente(posicion) {
@@ -62,4 +63,28 @@ object sudoeste inherits Direccion {
 object direcciones {
     const property todas = #{arriba, abajo, izquierda, derecha, noroeste, noreste, sudeste, sudoeste}
     const property principales = #{arriba, abajo, izquierda, derecha}
+}
+
+
+object randomizer {
+		
+	method position() {
+		return 	game.at( 
+					(0 .. game.width() - 1 ).anyOne(),
+					(0..  game.height() - 1).anyOne()
+		) 
+	}
+	
+	method emptyPosition() {
+		const position = self.position()
+		if(game.getObjectsIn(position).isEmpty()) {
+			return position	
+		}
+		else {
+			return self.emptyPosition()
+		}
+	}
+
+	
+	
 }

@@ -44,6 +44,9 @@ class Drop {
     var property position = null
     var property image = null
 
+    method traspasable() {
+        return true
+    }
 }
 
 //---------------------------------Curas---------------------------------------
@@ -128,6 +131,9 @@ object muro  {
     var property position = game.at(8,8)
     var property image = "madera.png"
 
+    method traspasable() {
+        return false
+    }
 }
 
 object municionActual {
@@ -140,4 +146,18 @@ object municionActual {
 
     method textColor() {return "FFFFFF"}
 
+}
+
+class SueloRoto {
+    var property image = "tanqueimpacto.png"
+    const property position
+    const causante 
+
+    method colisionPj() {
+        causante.agro().herir(causante.dmg())
+    }
+
+    method traspasable() {
+        return true
+    }
 }

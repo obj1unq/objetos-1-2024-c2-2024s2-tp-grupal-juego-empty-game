@@ -28,3 +28,12 @@ object tablero {
       position.y().between(0, game.height() - 2) 
   }
 }
+
+object alrededor {
+    method posiciones(position) {
+        return #{abajo.siguientePosicion(position), arriba.siguientePosicion(position),
+            izquierda.siguientePosicion(position), derecha.siguientePosicion(position),
+            abajo.siguientePosicion(izquierda.siguientePosicion(position)), abajo.siguientePosicion(derecha.siguientePosicion(position)),
+            arriba.siguientePosicion(izquierda.siguientePosicion(position)), arriba.siguientePosicion(derecha.siguientePosicion(position))}
+    }
+}

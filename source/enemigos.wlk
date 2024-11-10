@@ -12,7 +12,7 @@ object managerZombie {
     }
 
     method spawnearZombieComun() {
-        const zombieSpawneado = new ZombieThrower(position = game.at(game.width() -2, game.height() -2))
+        const zombieSpawneado = new ZombieTanque(position = game.at(game.width() -2, game.height() -2))
         zombies.add(zombieSpawneado)
         game.addVisual(zombieSpawneado)
         zombieSpawneado.persecucion()
@@ -30,7 +30,7 @@ class Zombie {
         return personaje
     }
 
-    method colisionPj()
+    method colisionPj() {}
 
     method nombreEvento() {
         return "evento" + self.identity()
@@ -57,7 +57,20 @@ class Zombie {
         }
     }
 
-    method atacarSiPuede()
+    method traspasable() {
+        return false
+    }
+
+    method atacarSiPuede() {
+        if (self.agroEstaParaAtacar()) {
+            self.AtacarAgro()
+        }
+    }
+
+    method agroEstaParaAtacar() {
+        return managerZombie.agroEstaCerca(position)
+    }
+
     method AtacarAgro()
     method sonidoHerida()
     method sonidoMuerte()
@@ -135,24 +148,12 @@ class Zombie {
 }
 
 class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image = "zombie-comun-abajo.png"){
-    
-    override method atacarSiPuede() {
-        if (self.estaSobreAgro()) {
-            self.AtacarAgro()
-        }
-    }
 
     // Ataque -----------------------------------------
 
     override method AtacarAgro() {
         self.agro().herir(dmg)
     }
-
-    method estaSobreAgro() {
-        return game.onSameCell(position, self.agro().position())
-    }
-
-    override method colisionPj() {}
 
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
@@ -173,20 +174,11 @@ class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perr
         if(!managerZombie.agroEstaCerca(position)) {
         self.moverseHaciaAgro()
         }
-
-    }
-
-    override method atacarSiPuede() {
-        if (managerZombie.agroEstaCerca(position)) {
-            self.AtacarAgro()
-        }
     }
 
     override method AtacarAgro() {
         self.agro().herir(dmg)
     }
-
-    override method colisionPj() {}
 
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
@@ -201,18 +193,12 @@ class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perr
     }
 }
 
-class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image = "zombie-comun-abajo.png") {
+class ZombieTanque inherits Zombie(vida = 1, dmg = 50, velocidad = 1500, image = "tanque-1-abajo.png") { // subir vida (era para testear)
     
     override method impactoProyectil(danio) {
         super(danio * 0.75)             // recibe un 25% menos de daño (tipo por tener "armadura")
     }
-
-    override method atacarSiPuede() {
-        if(managerZombie.agroEstaCerca(position)) {
-            self.AtacarAgro()
-        }
-    }
-
+    
     override method AtacarAgro() {
         self.golpearSuelo()
     }
@@ -226,7 +212,25 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
         self.moverseHaciaAgro()
         }
     }
-   
+
+    override method morir() {
+        self.explotar()
+        super()
+    }
+    
+    method explotar() {
+        alrededor.posiciones(position).forEach({p => self.romperSuelo(p)})
+        self.romperSuelo(position)
+    }
+
+    method romperSuelo(posicion) {
+        const suelo = new SueloRoto(position = posicion, causante = self)
+        game.addVisual(suelo)
+        game.schedule(1000, game.removeVisual(suelo))
+    }
+
+    // sonido -----------------------------------------
+
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
     }
@@ -235,19 +239,10 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
         game.sound("zombie-2.mp3").play() // hay q ponerle otros sonidos para q quede mejorr
     }
 
-
-    override method morir() {
-        super()
-        // y algo más, como que explota y hace daño una última vez o algo así...
-    }
-
-    // sonido -----------------------------------------
-
-
     // imagen -----------------------------------------
 
     override method imagenMovimiento() {
-        return "zombie-comun-"
+        return "tanque-1-"
     }
 }
 
@@ -288,13 +283,9 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 300, image 
 
     // ataque y colisión ------------------------------
 
-    override method colisionPj() {}
-
-    override method atacarSiPuede() {
-        if(self.agroEstaAbajo()) {
-            self.AtacarAgro()
-        }
-    }
+   override method agroEstaParaAtacar() {
+        return self.agroEstaAbajo()
+   }
 
     override method AtacarAgro() {
 

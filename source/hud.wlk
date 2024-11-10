@@ -35,6 +35,10 @@ object timer {
 
     method impactoProyectil(danio) {}
 
+    method traspasable() {
+        return true
+    }
+
 }
 //----------------------------------------------HUD-----------------------------
 object barra{
@@ -44,6 +48,10 @@ object barra{
     method impactoProyectil(danio) {}
     method colisionPj() {}
     //game.addVisual("black.png")
+
+    method traspasable() {
+        return false
+    }
 }
 //----------------------------------BARRA DE VIDA-----------------------------
 
@@ -58,7 +66,11 @@ object puntosDeVida {
 
     method colisionPj() {}
 
-     method impactoProyectil(danio) {}
+    method impactoProyectil(danio) {}
+
+    method traspasable() {
+        return false
+    }
 }
 
 //----------------------------------------------MUNICION-----------------------------
@@ -92,7 +104,11 @@ object cargador {
     
     method colisionPj() {}
 
-     method impactoProyectil(danio) {}
+    method impactoProyectil(danio) {}
+
+    method traspasable() {
+        return false
+    }
 }
 
 
@@ -114,6 +130,10 @@ object oroObtenido {
     }
 
     method impactoProyectil(danio) {}
+
+    method traspasable() {
+        return false
+    }
 }
 
 

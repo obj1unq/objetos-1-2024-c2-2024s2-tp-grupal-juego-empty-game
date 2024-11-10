@@ -46,6 +46,9 @@ class Proyectil {
         }
     }
 
+    method traspasable() {
+        return true
+    }
 }
 
 class Bala inherits Proyectil(danio=10) {

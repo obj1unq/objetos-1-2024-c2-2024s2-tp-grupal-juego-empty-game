@@ -31,7 +31,18 @@ object personaje {
     method validarMover(direccion) {
 		const siguiente = direccion.siguientePosicion(position)
 		tablero.validarDentro(siguiente)
+        self.validarTraspasables(siguiente)
 	}
+
+    method validarTraspasables(posicion) {
+        if(!self.hayTraspasables(posicion)) {
+            self.error("")
+        }
+    }
+
+    method hayTraspasables(posicion) {
+        return game.getObjectsIn(posicion).all({o => o.traspasable()})
+    }
 
     // -------------ataque-------------------------------
     

@@ -95,7 +95,7 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
         return (objetivoADestruir.position().y() - position.y())
     }
 
-    override method reaccionarAMovimiento() {   // SI HAY MAS DE UN ENEMIGO QUE NO SE METAN LOS DOS EN LA MISMA CELDA
+    override method reaccionarAMovimiento() {
         if (self.distanciaEnEjeX().abs() > self.distanciaEnEjeY().abs()) {
             if(self.distanciaEnEjeX() > 0) {
                 const posicionSiguiente = derecha.siguiente(position)
@@ -150,16 +150,6 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
         self.revisarSiHayObjetivo()
     }
 
-    //se tuvo que remplazar la validación por directamente un if. Si se cumple condición, se dispara combate.
-    //la validación causaba que, si personaje no estaba en el rango de visión del esqueleto, tirara ERROR, y eso causaba que se deje de
-
-    //ejecutar el método de dungeon accionEnemigos() que hace que todos los enemigos de la dungeon ejecuten reaccionarAMovimiento(),
-
-    //por lo que todos los enemigos que venían después del 1er esqueleto en la lista de enemigos de la dungeon NO SE MOVÍAN (ya que
-    //el error paraba la ejecución del método accionEnemigos)
-    //con el if no pasa eso. Si no está en el rango de visión del esqueleto, no hace nada y listo. NO se tira un error.
-    //entiendo que, conceptualmente, no está mal, ya que el método no promete atacar, sino que promete REVISAR (y, si dps de revisar,
-    //ve al personaje cerca, ahí sí ataca)
     method revisarSiHayObjetivo() {
         //self.validarEncontrar() ESTO CAUSABA BUG AL TENER 2 ESQUELETOS. No queda otra más que sacarlo
         if(self.hayObjetivoEnVision() && self.position()!=objetivoADestruir.position()) { //esto para que no se choque con el self.combate() de colisiono()

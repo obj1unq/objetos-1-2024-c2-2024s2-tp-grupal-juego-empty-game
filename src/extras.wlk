@@ -4,6 +4,35 @@ import randomizer.*
 import paleta.*
 import enemigos.*
 
+object dungeon {
+
+    const property enemigos = []
+
+    method registrarEnemigo(enemigo) {
+        enemigos.add(enemigo)
+    }
+
+    method validarDentro(posicion) {
+        if (!self.estaDentro(posicion)) {
+            self.error("") //entiendo que al no tener visual ni posición, este mensaje de error nunca se ve.
+        }
+    }
+
+    method estaDentro(posicion) {
+        return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
+    }
+
+    method accionEnemigos() {
+        enemigos.forEach({enemigo => enemigo.reaccionarAMovimiento()})
+    }
+
+    method hayEnemigoEn(celda){
+        return enemigos.any({enemigo => enemigo.position() == celda})
+    }
+
+}
+
+//To do: hacer un objeto con el visual de las armas que se tienen (en vez de los números, como ahora) que remplace a listaDeObjetos
 object listaDeObjetos {
 
     method position() {
@@ -11,18 +40,18 @@ object listaDeObjetos {
 	}
 
 	method image() { 
-		return "listaDeObj" + self.estado().imagenParaLista() + "-64Bits.png"
+		return "listaDeObj" + self.imagenSegunEstado() + "-64Bits.png"
 	}
 
-    method estado() {
+    method imagenSegunEstado() {
         if(personaje.bolsa().size()==3) {
-            return listaCon3
+            return "3"
         } else if (personaje.bolsa().size()==2) {
-            return listaCon2
+            return "2"
         } else if (personaje.bolsa().size()==1) {
-            return listaCon1
+            return "1"
         } else {
-            return listaCon0
+            return "0"
         }
     }
 
@@ -31,6 +60,7 @@ object listaDeObjetos {
 
 }
 
+/* el profe dijo que no estaba tan piola hacer objs estados si solo los vamos a usar para retornar el string para el image
 object listaCon3 {
 
     method imagenParaLista() {
@@ -62,34 +92,7 @@ object listaCon0 {
     }
 
 }
-
-object dungeon {
-
-    const property enemigos = []
-
-    method registrarEnemigo(enemigo) {
-        enemigos.add(enemigo)
-    }
-
-    method validarDentro(posicion) {
-        if (!self.estaDentro(posicion)) {
-            self.error("Soy una pared. No podés pasarme.") //entiendo que al no tener visual ni posición esto nunca se ve. igual mejor así!
-        }
-    }
-
-    method estaDentro(posicion) {
-        return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
-    }
-
-    method accionEnemigos() {
-        enemigos.forEach({enemigo => enemigo.reaccionarAMovimiento()})
-    }
-
-    method hayEnemigoEn(celda){
-        return enemigos.any({enemigo => enemigo.position() == celda})
-    }
-
-}
+*/
 
 class Corazon {
     const property position = randomizer.posicionRandomDeCorazon()
@@ -103,3 +106,8 @@ class Corazon {
     }
 
 }
+
+object vidas {
+
+}
+

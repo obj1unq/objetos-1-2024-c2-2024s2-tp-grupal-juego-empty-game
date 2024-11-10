@@ -8,28 +8,26 @@ import randomizer.*
 import pelea.*
 
 object personaje {
-	//var property enemigos = fabricaDeOjos.nuevoEnemigo() //Esto hay que arreglarlo
-	//para que funcione sin esta lista fea donde el personaje conoce al enemigo en vez de la dungeon
 	var  position = game.at(7,2)
-    var property vida = 450
+    var property vida = 300
 	var property cantVidas = 3
 	const property bolsa = []
 	var estaEnCombate = false
-	var property armaActual = mano //en vez de bolsa.head() porque ahora empieza con bolsa vacía
+	var property armaActual = mano //porque empieza con bolsa vacía
 
 	method position() {
 		return position
 	}
 
-	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "personaje" + self.estado().imagenParaPersonaje() + "-32Bits.png"
+	method image() { 
+		return "personaje" + self.imagenSegunEstado() + "-32Bits.png"
 	}
 
-	method estado() {
+	method imagenSegunEstado() {
 		if(self.estaSinArma()) {
-			return sinArma
+			return ""
 		} else {
-			return conArma
+			return self.armaActual().imagenParaPersonaje()
 		}
 	}
 
@@ -82,18 +80,15 @@ object personaje {
 
 	method atacar() {
         self.validarCombate() // para que no le pegue a x enemigo cuando no esta peleando
-
-		enemigoCombatiendo.recibirDanho(armaActual.danho()) //todo esto solo se llega a ejecutar posterior al cambio de turno en una pelea
+		enemigoCombatiendo.recibirDanho(armaActual.danho()) 
 		armaActual.realizarActualizacionDeArmas()
-
-        esTurno = false //para que no pueda atacar al enemigo cuando no es su turno
-
-		combate.cambiarTurnoA(enemigoCombatiendo)   //el pj termina de atacar y cambia el turno al enemigo
+        esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
+		combate.cambiarTurnoA(enemigoCombatiendo)   //como ya terminó el turno del pj, se cambia el turno al enemigo
 	}
 
 	method actualizarArmaActual() { //esto se ejecuta solamente cuando se descarta el arma actual
 		if(bolsa.size()>1) {
-			armaActual = bolsa.get(1) //pone la 2da de la bolsa como el arma actual
+			armaActual = bolsa.get(1) //pone la 2da de la bolsa como el arma actual (la 1ra es la que se va a descartar)
 		} else {
 			armaActual = mano
 		}
@@ -108,16 +103,16 @@ object personaje {
 	method recibirDanho(cantidad) {
 		vida -= cantidad
 	}
-
-	method perderVida() { //pierde una vida cuando el pj muere
-	  cantVidas -= 1
-	}
 	
 	method morir() {
-		self.perderVida() // pierde la vida
-		self.validarVida() // valida que no este muerto (no no tenga mas vidas)
+		self.perderVida() // pierde una vida
+		self.validarVida() // valida si está muerto (no tiene más vidas)
 		position = game.at(2,2) 
         vida = 450
+	}
+
+	method perderVida() { //se pierde una vida cuando la salud del pj llega a 0
+	  cantVidas -= 1
 	}
 
 	method validarVida() {
@@ -137,6 +132,7 @@ object personaje {
 
 //ESTADOS
 
+/* el profe dijo que no estaba tan piola hacer objs estados si solo los vamos a usar para retornar el string para el image
 object sinArma {
 
 	method imagenParaPersonaje() {
@@ -151,5 +147,6 @@ object conArma {
 	}
 
 }
+*/
 
 

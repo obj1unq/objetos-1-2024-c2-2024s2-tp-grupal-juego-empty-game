@@ -12,7 +12,7 @@ object managerZombie {
     }
 
     method spawnearZComun() {
-        const zombieSpawneado = new Perro(position = game.at(game.width() -2, game.height() -2))
+        const zombieSpawneado = new ZombieTanque(position = game.at(game.width() -2, game.height() -2))
         zombies.add(zombieSpawneado)
         game.addVisual(zombieSpawneado)
         zombieSpawneado.persecucion()
@@ -101,7 +101,7 @@ class Zombie {
     }
 
     method sigPosFavorable() {
-        const disponibles = tablero.alrededoresDe(self).filter({pos => not(managerZombie.posTieneZombie(pos))})
+        const disponibles = tablero.alrededoresDe(position).filter({pos => not(managerZombie.posTieneZombie(pos))})
         return disponibles.min({pos => pos.distance(self.agro().position())})
     }
 
@@ -184,23 +184,23 @@ class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perr
     }
 }
 
-class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image = "zombie-comun-abajo.png") {
+class ZombieTanque inherits Zombie(vida = 10, dmg = 50, velocidad = 1500, image = "tanque-1-abajo.png") { // poner la vida de nuevo en 300 (es para testear)
     
     override method impactoProyectil(danio) {
         super(danio * 0.75)             // recibe un 25% menos de daño (tipo por tener "armadura")
     }
 
-
     method golpearSuelo() {
         // acá hace la animación primero y luego hace el daño...
     }
+
     override method morir() {
         self.explotar()
         super()
     }
     
     method explotar() {
-        alrededor.posiciones(position).forEach({p => self.romperSuelo(p)})
+        tablero.alrededoresDe(position).forEach({p => self.romperSuelo(p)})
         self.romperSuelo(position)
     }
 
@@ -210,6 +210,9 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
         game.schedule(1000, game.removeVisual(suelo))
     }
    
+
+    // sonido -----------------------------------------
+    
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
     }
@@ -217,9 +220,6 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
     override method sonidoMuerte(){
         game.sound("zombie-2.mp3").play() // hay q ponerle otros sonidos para q quede mejorr
     }
-
-    // sonido -----------------------------------------
-
 
     // imagen -----------------------------------------
 

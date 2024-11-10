@@ -41,6 +41,10 @@ class Zombie {
         return "evento" + self.identity()
     }
 
+    method traspasable() {
+        return false
+    }
+
     method persecucion() {
         game.onTick(velocidad, self.nombreEvento(), {self.perseguirAPersonaje()})
     }
@@ -91,7 +95,9 @@ class Zombie {
         else if (pos.y() > position.y()) {
             return arriba
         }
-        else { return abajo}
+        else {
+            return abajo
+        }
     }
 
     method sigPosFavorable() {
@@ -109,7 +115,9 @@ class Zombie {
         else if (self.distanciaX() == 0 and self.distanciaY() < 0) {
             return abajo
         }
-        else {return arriba}
+        else {
+            return arriba
+        }
     }
 
     method distanciaX() {
@@ -186,6 +194,21 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
     method golpearSuelo() {
         // acá hace la animación primero y luego hace el daño...
     }
+    override method morir() {
+        self.explotar()
+        super()
+    }
+    
+    method explotar() {
+        alrededor.posiciones(position).forEach({p => self.romperSuelo(p)})
+        self.romperSuelo(position)
+    }
+
+    method romperSuelo(posicion) {
+        const suelo = new SueloRoto(position = posicion, causante = self)
+        game.addVisual(suelo)
+        game.schedule(1000, game.removeVisual(suelo))
+    }
    
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
@@ -195,19 +218,13 @@ class ZombieTanque inherits Zombie(vida = 200, dmg = 50, velocidad = 1500, image
         game.sound("zombie-2.mp3").play() // hay q ponerle otros sonidos para q quede mejorr
     }
 
-
-    override method morir() {
-        super()
-        // y algo más, como que explota y hace daño una última vez o algo así...
-    }
-
     // sonido -----------------------------------------
 
 
     // imagen -----------------------------------------
 
     override method imagenMovimiento() {
-        return "zombie-comun-"
+        return "tanque-1-"
     }
 }
 
@@ -246,7 +263,7 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 300, image 
         return self.agro().position().x() == self.position().x()
     }
 
-    // ataque y colisión ------------------------------
+    // ataque ------------------------------
 
     // sonido -----------------------------------------
 

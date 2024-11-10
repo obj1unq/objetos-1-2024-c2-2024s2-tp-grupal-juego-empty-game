@@ -27,4 +27,13 @@ object tablero {
     return position.x().between(0, game.width() - 1) and 
       position.y().between(0, game.height() - 2) 
   }
+
+  method alrededoresDe(cosa) {
+        const alrededores = #{}
+        alrededores.add(game.at(cosa.position().x() + 1, cosa.position().y()))
+        alrededores.add(game.at(cosa.position().x() - 1, cosa.position().y()))
+        alrededores.add(game.at(cosa.position().x(), cosa.position().y() + 1))
+        alrededores.add(game.at(cosa.position().x(), cosa.position().y() + -1))
+        return alrededores
+    }
 }

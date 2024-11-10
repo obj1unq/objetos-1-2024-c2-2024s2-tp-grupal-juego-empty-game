@@ -49,7 +49,7 @@ object juego {
 
         // para testear las clases vamos a colocar teclas para hacer aparecer cada una
         // mas adelante sus spawns van a estar decididos por otros eventos y no estas teclas
-        keyboard.z().onPressDo({managerZombie.spawnearZombieComun()})
+        keyboard.z().onPressDo({managerZombie.spawnearZComun()})
         keyboard.c().onPressDo({managerItems.spawnearCura1()})
         keyboard.o().onPressDo({managerItems.spawnearOro1()})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})

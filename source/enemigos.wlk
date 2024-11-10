@@ -3,6 +3,7 @@ import wollok.game.*
 import posiciones.*
 import personajes.personaje.*
 import sonidos.*
+import proyectiles.*
 
 object managerZombie {
     const property zombies = #{}
@@ -76,7 +77,7 @@ class Zombie {
             self.atacarAgro()
         }
         else {
-            image = self.imagenHacia(self.dirDeTransicionA(self.sigPosFavorable()))
+            self.imagenHacia(self.dirDeTransicionA(self.sigPosFavorable()))
             position = self.sigPosFavorable()
         }
     }
@@ -131,15 +132,10 @@ class Zombie {
     // Movimiento -------------------------------------
 
     method imagenHacia(dir) {
-        return self.imagenMovimiento() + dir.toString() + ".png"
+        image = self.imagenMovimiento() + dir.toString() + ".png"
     }
 
     method imagenMovimiento()
-
-    method moverse(direccion) {
-	    position = direccion.siguientePosicion(self.position())
-        image = self.imagenHacia(direccion)
-	}
 
     method morir() {
         self.sonidoMuerte()
@@ -186,28 +182,45 @@ class Perro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perr
 
 class ZombieTanque inherits Zombie(vida = 10, dmg = 50, velocidad = 1500, image = "tanque-1-abajo.png") { // poner la vida de nuevo en 300 (es para testear)
     
+     var estado = 1
+
+    override method atacarAgro() {
+        self.golpearSuelo()
+    }
+
     override method impactoProyectil(danio) {
         super(danio * 0.75)             // recibe un 25% menos de daño (tipo por tener "armadura")
     }
 
     method golpearSuelo() {
-        // acá hace la animación primero y luego hace el daño...
+        game.removeTickEvent(self.nombreEvento())
+        //animacion //con schedule primero
+        self.animacionAtaque() //calcular duracion
+        game.schedule(1250,{managerCrater.explosionEnCon(position,dmg)}) //con schedule duracion anterior + un poquito
+        game.schedule(1500,{self.persecucion()})
+        //reiniciar persecucion ultimo
     }
+
+    method animacionAtaque() {
+        estado = 2
+        self.imagenHacia(self.dirAgroPegado())
+        game.schedule(600,{estado += 1})
+        game.schedule(650,{self.imagenHacia(self.dirAgroPegado())})
+        game.schedule(1200,{estado += 1})
+        game.schedule(1200,{self.imagenHacia(self.dirAgroPegado())})
+        game.schedule(1250,{estado = 1})
+        game.schedule(1450,{self.imagenHacia(self.dirAgroPegado())})
+    }
+
 
     override method morir() {
         self.explotar()
         super()
     }
     
-    method explotar() {
-        tablero.alrededoresDe(position).forEach({p => self.romperSuelo(p)})
-        self.romperSuelo(position)
-    }
 
-    method romperSuelo(posicion) {
-        const suelo = new SueloRoto(position = posicion, causante = self)
-        game.addVisual(suelo)
-        game.schedule(1000, game.removeVisual(suelo))
+    method explotar() {
+        managerCrater.explosionEnCon(position,dmg)
     }
    
 
@@ -224,13 +237,14 @@ class ZombieTanque inherits Zombie(vida = 10, dmg = 50, velocidad = 1500, image 
     // imagen -----------------------------------------
 
     override method imagenMovimiento() {
-        return "tanque-1-"
+        return "tanque-" + estado.toString() + "-"
     }
+
 }
 
 class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 300, image = "zombie-comun-abajo.png"){  //velocidad normal = 1200 (300 de prueba)
     var contador = 0
-
+/*
     override method perseguirAPersonaje() {
         if(!self.agroEstaAbajo() and !self.estaAlFinalIzquierdo() and contador.even()) {
             self.moverse(izquierda)
@@ -244,6 +258,7 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 300, image 
             self.moverse(derecha)
         }
     }
+*/
 
     // movimiento ------------------------------------
 
@@ -274,6 +289,7 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 30, velocidad = 300, image 
     override method sonidoMuerte(){
         game.sound("zombie-2.mp3").play()
     }
+
 
     // imagen -----------------------------------------
 

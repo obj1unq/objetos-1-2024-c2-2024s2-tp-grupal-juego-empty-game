@@ -148,16 +148,3 @@ object municionActual {
 
 }
 
-class SueloRoto {
-    var property image = "tanqueimpacto.png"
-    const property position
-    const causante 
-
-    method colisionPj() {
-        causante.agro().herir(causante.dmg())
-    }
-
-    method traspasable() {
-        return true
-    }
-}

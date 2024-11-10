@@ -1,7 +1,7 @@
+import personajes.personaje.*
 import wollok.game.*
 import posiciones.*
 import enemigos.*
-
 
 class Proyectil {
 
@@ -108,4 +108,38 @@ class BolaDeFuego inherits Proyectil(danio=20) {
         self.image("bola-impacto-" + dir.toString() + ".png")
         super(dir)
     } 
+}
+
+object managerCrater {
+
+    method explosionEnCon(pos,dmg) {
+        tablero.alrededoresDe(pos).forEach({pos => self.aparecerCraterEn(pos,dmg)})
+    }
+
+    method aparecerCraterEn(pos,dmg) {
+        const craterNuevo = new Crater(position=pos)
+        game.addVisual(craterNuevo)
+        craterNuevo.daniar(dmg)
+    }
+
+}
+
+class Crater {
+    var property image = "tanqueimpacto.png"
+    const property position
+
+    method colisionPj() {}
+
+    method daniar(dmg) {
+        const colisiones = managerZombie.zombies().filter({z => z.position() == position})
+        if (personaje.position() == position) {
+            colisiones.add(personaje)
+        }
+        colisiones.forEach({c => c.herir(dmg)})
+        game.schedule(2000,{game.removeVisual(self)})
+    }
+
+    method traspasable() {
+        return true
+    }
 }

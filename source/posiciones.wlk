@@ -27,6 +27,7 @@ object tablero {
     return position.x().between(0, game.width() - 1) and 
       position.y().between(0, game.height() - 2) 
   }
+<<<<<<< HEAD
 }
 
 object alrededor {
@@ -35,5 +36,15 @@ object alrededor {
             izquierda.siguientePosicion(position), derecha.siguientePosicion(position),
             abajo.siguientePosicion(izquierda.siguientePosicion(position)), abajo.siguientePosicion(derecha.siguientePosicion(position)),
             arriba.siguientePosicion(izquierda.siguientePosicion(position)), arriba.siguientePosicion(derecha.siguientePosicion(position))}
+=======
+
+  method alrededoresDe(cosa) {
+        const alrededores = #{}
+        alrededores.add(game.at(cosa.position().x() + 1, cosa.position().y()))
+        alrededores.add(game.at(cosa.position().x() - 1, cosa.position().y()))
+        alrededores.add(game.at(cosa.position().x(), cosa.position().y() + 1))
+        alrededores.add(game.at(cosa.position().x(), cosa.position().y() + -1))
+        return alrededores
+>>>>>>> master
     }
 }

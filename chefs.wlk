@@ -8,7 +8,7 @@ import wollok.game.*
 
 class Chef {
     var property position = game.at(0,0) 
-    var property image = null
+    var property image 
     var property bandeja = bandejaVacia
     var property orientacion = abajo //en donde está mirando
     var property nombre = null
@@ -30,8 +30,8 @@ class Chef {
 
   method nuevaImagen(){
 
-    image = "chefPrueba.png"
-    //image = orientacion.imagen(nombre)
+    image = "chef_down.png"
+    image = orientacion.imagen(nombre)
     // hay que hacer los place holder del chef con bandeja
   }
 
@@ -43,6 +43,7 @@ class Chef {
     self.validarRecogerIngrediente()
     const ingredienteAqui = restaurante.ingredienteAqui(self.dondeEstoyApuntando())
     self.recibirIngrediente(ingredienteAqui)
+    
   }
 
   method recibirIngrediente(ingrediente){

@@ -1,3 +1,4 @@
+import mapa.*
 import comestibles.*
 import restaurante.*
 import chefs.*
@@ -159,6 +160,28 @@ class Dispencer inherits Mueble{
   override method esPilaDeIngredientes(){
     return false
   }
+}
+
+class PilaIngrediente inherits Mueble {
+
+   override method esMuebleDeCocina() = true
+
+   override method esPilaDeIngredientes() = true
+
+}
+
+object estacionTomate  inherits PilaIngrediente{
+
+  override method position() = game.at(3, 5)
+
+  override method image() = "tomate_inicial.png"
+
+  method recogerIngrediente(chef){
+
+    
+  }
+
+
 }
 
 /*

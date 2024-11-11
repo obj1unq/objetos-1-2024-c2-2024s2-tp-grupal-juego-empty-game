@@ -1,7 +1,8 @@
 object arriba {
 
 	method imagen(chef) {
-		return chef + "" + ".arriba.png"
+		return "chef_up.png"
+		// chef + "" + ".arriba.png"
 	}
 
 	method moverse(chefPosition) {
@@ -12,7 +13,9 @@ object arriba {
 object abajo {
 
 	method imagen(chef) {
-		return chef + "" + ".abajo.png"
+		return "chef_down.png"
+		
+		//chef + "" + ".abajo.png"
 	}
 	
 	method moverse(chefPosition) {
@@ -23,7 +26,9 @@ object abajo {
 object izquierda {
 
 	method imagen(chef) {
-		return chef + "" + ".izquierda.png"
+		return  "chef_left.png"
+		
+		//chef + "" + ".izquierda.png"
 	}
 
 	method moverse(chefPosition) {
@@ -34,7 +39,9 @@ object izquierda {
 object derecha {
 
 	method imagen(chef) {
-		return chef + "" + ".derecha.png"
+		return  "chef_right.png"
+		
+		//chef + "" + ".derecha.png"
 	}
 
 	method moverse(chefPosition) {

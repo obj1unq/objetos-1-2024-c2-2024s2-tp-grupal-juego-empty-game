@@ -143,3 +143,39 @@ class Crater {
         return true
     }
 }
+
+object managerAcido {
+    method acidoEnCon(pos, dmg) {
+        const acidoNuevo = new Acido(position = pos)
+        game.addVisual(acidoNuevo)
+        acidoNuevo.daniar(dmg)
+    }
+}
+
+class Acido {
+    var property image = "arbusto.png"
+    const property position
+    
+    method colisionPj() {}
+
+    method daniar(dmg) {
+        game.onTick(250, self.identidad(), {self.colisiones().forEach({c => c.herir(dmg)})})
+        game.schedule(1750, {game.removeTickEvent(self.identidad())})
+        game.schedule(2000,{game.removeVisual(self)})
+    }
+
+    method colisiones() {
+        const colisiones = managerZombie.zombies().filter({z => z.position() == position})
+        if (personaje.position() == position) {
+            colisiones.add(personaje)
+        }
+    }
+
+    method identidad() {
+        return self.identity().toString()
+    }
+
+    method traspasable() {
+        return true
+    }
+}

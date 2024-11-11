@@ -1,0 +1,32 @@
+import restaurante.*
+import chefs.*
+import comestibles.*
+import objetosCocina.*
+import posiciones.*
+import objetosParaTests.*
+import mapa.*
+
+
+import wollok.game.*
+
+
+program wollocook {
+    
+   // tamaño mapa
+    dimension.tamanioMapa()
+    
+ 
+
+    //teclas
+    teclas.movimiento()
+
+
+    //chef
+    imagen.chef()
+    //ingredientes
+   imagen.ingredientes()
+   // hornos
+   imagen.horno()
+
+    game.start()
+}

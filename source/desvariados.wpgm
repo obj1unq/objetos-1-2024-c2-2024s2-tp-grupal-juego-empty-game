@@ -6,6 +6,7 @@ import posiciones.*
 import sonidos.*
 import juego.*
 import proyectiles.*
+import hud.*
 
 
 program desvariados {

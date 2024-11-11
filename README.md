@@ -15,6 +15,7 @@
 
  - Para moverse, pulse las teclas W, A, S y D
  - Para atacar cuando está en combate, pulse la tecla "up arrow" (flecha hacia arriba)
+ - Para curarse cuando está en combate y tiene una poción, pulse la tecla "down arrow" (flecha hacia abajo)
 
 
 ## Otros

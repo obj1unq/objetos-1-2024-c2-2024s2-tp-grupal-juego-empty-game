@@ -17,7 +17,7 @@ object randomizer {
 		return game.at(posRnd.head(), posRnd.last())
 	}
 
-	method posicionRandomDeCorazon() {
+	method posicionRandomDePocion() {
 		const posRnd = [[2,19], [27,19], [27,2]].anyOne() //solo esquinas del tablero que no sean en la que empieza el personaje
 		return game.at(posRnd.head(), posRnd.last())
 	}

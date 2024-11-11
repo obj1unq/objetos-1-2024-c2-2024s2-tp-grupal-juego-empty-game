@@ -3,7 +3,46 @@ import personaje.*
 import randomizer.*
 import paleta.*
 import enemigos.*
+import mapa.*
 
+object dungeon {
+
+    const property enemigos = []
+
+    method registrarEnemigo(enemigo) {
+        enemigos.add(enemigo)
+    }
+
+    method validarDentro(posicion) {
+        if (!self.estaDentro(posicion)) {
+            self.error("") //entiendo que al no tener visual ni posición, este mensaje de error nunca se ve.
+        }
+    }
+
+    method estaDentro(posicion) {
+        return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
+    }
+
+    method accionEnemigos() {
+        enemigos.forEach({enemigo => enemigo.reaccionarAMovimiento()})
+    }
+
+    method hayEnemigoEn(celda){
+        return enemigos.any({enemigo => enemigo.position() == celda})
+    }
+
+}
+
+object gestorDeFondo {
+    var property image = "fondoNivel1.png"
+
+    method position() {
+        return game.at(0,0)
+    }
+}
+
+
+//To do: hacer un objeto con el visual de las armas que se tienen (en vez de los números, como ahora) que remplace a listaDeObjetos
 object listaDeObjetos {
 
     method position() {
@@ -11,26 +50,24 @@ object listaDeObjetos {
 	}
 
 	method image() { 
-		return "listaDeObj" + self.estado().imagenParaLista() + "-64Bits.png"
+		return "listaDeObj" + self.imagenSegunEstado() + "-64Bits.png"
 	}
 
-    method estado() {
+    method imagenSegunEstado() {
         if(personaje.bolsa().size()==3) {
-            return listaCon3
+            return "3"
         } else if (personaje.bolsa().size()==2) {
-            return listaCon2
+            return "2"
         } else if (personaje.bolsa().size()==1) {
-            return listaCon1
+            return "1"
         } else {
-            return listaCon0
+            return "0"
         }
     }
 
-    method text() {return personaje.armaActual()}
-    method textColor() = paleta.rojo()
-
 }
 
+/* el profe dijo que no estaba tan piola hacer objs estados si solo los vamos a usar para retornar el string para el image
 object listaCon3 {
 
     method imagenParaLista() {
@@ -62,44 +99,64 @@ object listaCon0 {
     }
 
 }
+*/
 
-object dungeon {
+class Pocion {
+    const property position = randomizer.posicionRandomDePocion()
+    const property image = "pocion-32Bits.png"
+    //const saludOtorgada = 150
 
-    const property enemigos = []
-
-    method registrarEnemigo(enemigo) {
-        enemigos.add(enemigo)
-    }
-
-    method validarDentro(posicion) {
-        if (!self.estaDentro(posicion)) {
-            self.error("Soy una pared. No podés pasarme.") //entiendo que al no tener visual ni posición esto nunca se ve. igual mejor así!
-        }
-    }
-
-    method estaDentro(posicion) {
-        return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
-    }
-
-    method accionEnemigos() {
-        enemigos.forEach({enemigo => enemigo.reaccionarAMovimiento()})
-    }
-
-    method hayEnemigoEn(celda){
-        return enemigos.any({enemigo => enemigo.position() == celda})
+    // El personaje colisiona con la poción y su salud aumenta
+    method colisiono(personaje){
+        //personaje.aumentarSalud(saludOtorgada)
+        personaje.agregarPocion()
+        game.removeVisual(self)
     }
 
 }
 
-class Corazon {
-    const property position = randomizer.posicionRandomDeCorazon()
-    const property image = "corazon-32Bits.png"
-    const vidaOtorgada = 150
+object salud {
+    method position() { return game.at(1, game.height()-1) }
+    method text() { return "salud: " + personaje.salud().toString() }
+    method textColor() { return paleta.rojo() }
+}
 
-    // El personaje colisiona con el corazón y su vida aumenta
-    method colisiono(personaje){
-        personaje.aumentarVida(vidaOtorgada)
-        game.removeVisual(self)
+object vidas {
+    method position() { return game.at(3, game.height()-1) }
+
+    method image() { 
+		return "vidas" + self.imagenSegunEstado() + ".png"
+	}
+
+    method imagenSegunEstado() {
+        if(personaje.cantVidas()==3) {
+            return "3"
+        } else if (personaje.cantVidas()==2) {
+            return "2"
+        } else {
+            return "1"
+        }
+    }
+
+}
+
+object pociones {
+    method position() { return game.at(7, game.height()-1) }
+
+    method image() { 
+		return "pociones" + self.imagenSegunEstado() + ".png"
+	}
+
+    method imagenSegunEstado() {
+        if(personaje.cantPociones()==3) {
+            return "3"
+        } else if (personaje.cantPociones()==2) {
+            return "2"
+        } else if (personaje.cantPociones()==1) {
+            return "1"
+        } else {
+            return "0"
+        }
     }
 
 }

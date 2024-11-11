@@ -6,35 +6,43 @@ import enemigos.*
 import armas.*
 import randomizer.*
 import pelea.*
+import mapa.*
 
 object personaje {
-	//var property enemigos = fabricaDeOjos.nuevoEnemigo() //Esto hay que arreglarlo
-	//para que funcione sin esta lista fea donde el personaje conoce al enemigo en vez de la dungeon
 	var  position = game.at(7,2)
-    var property vida = 450
-	var property cantVidas = 3
+    var property salud = 300
+	var cantVidas = 3
+	var cantPociones = 3
 	const property bolsa = []
 	var estaEnCombate = false
-	var property armaActual = mano //en vez de bolsa.head() porque ahora empieza con bolsa vacía
+	var property armaActual = mano //porque empieza con bolsa vacía
 
 	method position() {
 		return position
 	}
 
-	method image() { //image() se calcula a cada frame al igual que position(), si no entendí mal
-		return "personaje" + self.estado().imagenParaPersonaje() + "-32Bits.png"
+	method image() { 
+		return "personaje" + self.imagenSegunEstado() + "-32Bits.png"
 	}
 
-	method estado() {
+	method imagenSegunEstado() {
 		if(self.estaSinArma()) {
-			return sinArma
+			return ""
 		} else {
-			return conArma
+			return self.armaActual().imagenParaPersonaje()
 		}
 	}
 
 	method estaSinArma() {
 		return bolsa.size()==0
+	}
+
+	method cantVidas() {
+		return cantVidas
+	}
+
+	method cantPociones() {
+		return cantPociones
 	}
 
 	/// ARMA    
@@ -68,7 +76,7 @@ object personaje {
 		}
 	}
 
-	//COMBATE/PELEA
+	//COMBATE/PELEA (y habilidades, ya sean ataque, curación, etc)
     var property enemigoCombatiendo = null //el enemigo con quien está en combate
 	var esTurno = false //si es su turno en un combate
 
@@ -77,23 +85,20 @@ object personaje {
     }
 
     method atacarPre() {
-        esTurno = true
+        esTurno = true //esto da luz verde a que el usuario pueda ejecutar una habilidad (lo que no se puede hacer si no estás en combate)
     }
 
 	method atacar() {
         self.validarCombate() // para que no le pegue a x enemigo cuando no esta peleando
-
-		enemigoCombatiendo.recibirDanho(armaActual.danho()) //todo esto solo se llega a ejecutar posterior al cambio de turno en una pelea
+		enemigoCombatiendo.recibirDanho(armaActual.danho()) 
 		armaActual.realizarActualizacionDeArmas()
-
-        esTurno = false //para que no pueda atacar al enemigo cuando no es su turno
-
-		combate.cambiarTurnoA(enemigoCombatiendo)   //el pj termina de atacar y cambia el turno al enemigo
+        esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
+		combate.cambiarTurnoA(enemigoCombatiendo)   //como ya terminó el turno del pj, se cambia el turno al enemigo
 	}
 
 	method actualizarArmaActual() { //esto se ejecuta solamente cuando se descarta el arma actual
 		if(bolsa.size()>1) {
-			armaActual = bolsa.get(1) //pone la 2da de la bolsa como el arma actual
+			armaActual = bolsa.get(1) //pone la 2da de la bolsa como el arma actual (la 1ra es la que se va a descartar)
 		} else {
 			armaActual = mano
 		}
@@ -101,53 +106,58 @@ object personaje {
 
     method validarCombate() {
         if(!estaEnCombate && !esTurno){
-            self.error("No puedo atacar ahora")
+            self.error("No puedo ejecutar una habilidad ahora")
         }
     }
 
 	method recibirDanho(cantidad) {
-		vida -= cantidad
-	}
-
-	method perderVida() { //pierde una vida cuando el pj muere
-	  cantVidas -= 1
+		salud -= cantidad
 	}
 	
 	method morir() {
-		self.perderVida() // pierde la vida
-		self.validarVida() // valida que no este muerto (no no tenga mas vidas)
+		self.perderVida() // pierde una vida
+		self.validarVida() // valida si está muerto (no tiene más vidas)
 		position = game.at(2,2) 
-        vida = 450
+        salud = 300
+	}
+
+	method perderVida() { //se pierde una vida cuando la salud del pj llega a 0
+	  cantVidas -= 1
 	}
 
 	method validarVida() {
 	  if (cantVidas <= 0){
 		//position = game.at(27, 19) //si muere lo manda arriba a la izq 
-		//vida = 0
+		//salud = 0
 		//self.error("Perdi!")
+		gestorDeFondo.image("fondoFin.png")
+		mapa.limpiar()
 		game.stop()
 	  }
 	}
 
-	method aumentarVida(vidaSumada) {
-		vida += vidaSumada
+	method agregarPocion() {
+		cantPociones = (cantPociones+1).min(3) //estaría bueno informarle al jugador de que, como ya alcanzó el limite de 3, no se le suma otra poción
 	}
 
-}
-
-//ESTADOS
-
-object sinArma {
-
-	method imagenParaPersonaje() {
-		return ""
+	method curarse() {
+		self.validarCombate() // para que no le pegue a x enemigo cuando no esta peleando
+		self.validarPociones()
+		self.aumentarSalud(150)
+		cantPociones -= 1
+		esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
+		combate.cambiarTurnoA(enemigoCombatiendo)   //como ya terminó el turno del pj, se cambia el turno al enemigo
 	}
 
-}
+	method validarPociones() {
+		if(cantPociones<=0) {
+			self.error("No se puede realizar una curación sin pociones de vida")
+		}
+	}
 
-object conArma {
-	method imagenParaPersonaje() {
-		return personaje.armaActual().imagenParaPersonaje()
+	//ahora se va a usar en el método curarse()
+	method aumentarSalud(saludSumada) {
+		salud += saludSumada
 	}
 
 }

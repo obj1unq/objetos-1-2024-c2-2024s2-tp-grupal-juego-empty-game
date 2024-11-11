@@ -8,16 +8,21 @@ import paleta.*
 import armas.*
 import paredes.*
 import pelea.*
+import mapa.*
 
 program rpgPorTurnos {
 	game.title("RPG por turnos de nombre a confirmar")
 	game.height(25) 		
 	game.width(30) 			
 	game.cellSize(32) 		
-	game.boardGround("fondoNivel1.png") //posibilidad: usar objeto fondo para manejar el fondo (¿aún así lo inicializamos con esto, no?)
+	//game.boardGround("fondoNivel1.png") //se le da este valor como el inicial al objeto gestorDeFondo
 
 	//OBJETOS CON LOS QUE NO SE INTERACTUA
+	game.addVisual(gestorDeFondo)
 	game.addVisual(listaDeObjetos)
+	game.addVisual(salud)
+	game.addVisual(vidas)
+	game.addVisual(pociones)
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
 	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(23,15), 150, 20)
@@ -25,19 +30,15 @@ program rpgPorTurnos {
 	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, visionDerecha) 
 	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda) 
 	//¿el que más vida tiene es el que más daño causa? ¿no es too much?
-	//por alguna razón, el 2do esqueleto solamente busca al pj dps de muerto el 1er esqueleto. de hecho. el 1er esqueleto como que 
-	//lockea el movimiento de todo lo que viene dps de él. si ponemos el ojo dps del 1er esqueleto tampoco sigue al personaje como debería
-	//probé poniendo 2 ojos y no pasa que el 1ro lockee el movimiento del 2do. Es algo de la subclase Esqueleto, parece
-	//mientras el 1er esqueleto esté vivo, el 2do NO hace lo de ver a su alrededor para atacar
 	
-	//podríamos replicar el no uso de un const/referencia para las armas y corazones tal como se hace arriba con los enemigos!
+	//podríamos replicar el no uso de un const/referencia para las armas y pociones tal como se hace arriba con los enemigos!
     const arma1 = randomizer.armaRandom()
 	game.addVisual(arma1)
 	const arma2 = randomizer.armaRandom() 
 	game.addVisual(arma2)
 
-	const corazon1 = new Corazon() 
-	game.addVisual(corazon1)
+	const pocion1 = new Pocion() 
+	game.addVisual(pocion1)
 
 	//PERSONAJE
 	game.addVisual(personaje)
@@ -50,6 +51,7 @@ program rpgPorTurnos {
     
     //TECLAS COMBATE
     keyboard.up().onPressDo({ personaje.atacar()})
+	keyboard.down().onPressDo({ personaje.curarse()})
 
 	//COLISIÓN
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})

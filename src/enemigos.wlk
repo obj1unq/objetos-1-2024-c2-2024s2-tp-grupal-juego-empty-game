@@ -3,14 +3,12 @@ import personaje.*
 import posiciones.*
 import pelea.*
 import extras.*
-
-//PREGUNTAR sobre como hacer un objeto que herencie una clase que está
-//dentro de una superclase --> esqueleto
+import mapa.*
 
 class Enemigo {
     const danhoBase 
     var position
-    var vida
+    var salud
     const objetivoADestruir = personaje
     var acumuladorDeTurnos = 0
     const turnoRequeridoParaHabilidad
@@ -19,8 +17,8 @@ class Enemigo {
         return position
     }
 
-    method vida() {
-        return vida
+    method salud() {
+        return salud
     }
 
     method colisiono(personaje) {
@@ -48,7 +46,7 @@ class Enemigo {
     }
     
     method recibirDanho(cantidad){
-        vida = vida - cantidad
+        salud -= cantidad
     }
 
     method morir() {
@@ -67,7 +65,6 @@ class Enemigo {
     }
 
     method image() 
-    method estado() 
     method reaccionarAMovimiento() 
     //method danhoAtaque()
     //method habilidad()
@@ -78,11 +75,7 @@ class Enemigo {
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
     
    override  method image() { 
-		return "ojoVolador" + self.estado().imagenParaPersonaje() + "-32Bits.png"
-	}
-
-	override method estado() {
-		return ojoSinArma //como, de momento, tiene un solo estado, es un poco raro. Tendrá mas sentido si tiene más estados (como el pj)
+		return "ojoVolador-32Bits.png"
 	}
 
     //MOVIMIENTO
@@ -95,7 +88,7 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
         return (objetivoADestruir.position().y() - position.y())
     }
 
-    override method reaccionarAMovimiento() {   // SI HAY MAS DE UN ENEMIGO QUE NO SE METAN LOS DOS EN LA MISMA CELDA
+    override method reaccionarAMovimiento() {
         if (self.distanciaEnEjeX().abs() > self.distanciaEnEjeY().abs()) {
             if(self.distanciaEnEjeX() > 0) {
                 const posicionSiguiente = derecha.siguiente(position)
@@ -126,8 +119,8 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
     //el cuarto ataque es habilidad
 
     override method utilizarHabilidad() {
-        game.say(self, "¡Uso habilidad Poción de Vida!")
-        vida += danhoBase * 3
+        game.say(self, "¡Uso habilidad Poción de salud!")
+        salud += danhoBase * 2.5
     }
 
 }
@@ -136,11 +129,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
     const vision
 
     override method image() {
-        return "esqueleto" + self.estado().imagenParaPersonaje() + "-32Bits.png" //EMOSIDO ENGAÑADO. ES DE 64X64!!
-    }
-
-    override method estado() {
-        return esqueletoSinArma
+        return "esqueleto3-32Bits.png" //En realidad es de 64x64
     }
 
     //MOVIMIENTO (en realidad, no se mueve, pero es lo que hace en vez de moverse)
@@ -150,16 +139,6 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
         self.revisarSiHayObjetivo()
     }
 
-    //se tuvo que remplazar la validación por directamente un if. Si se cumple condición, se dispara combate.
-    //la validación causaba que, si personaje no estaba en el rango de visión del esqueleto, tirara ERROR, y eso causaba que se deje de
-
-    //ejecutar el método de dungeon accionEnemigos() que hace que todos los enemigos de la dungeon ejecuten reaccionarAMovimiento(),
-
-    //por lo que todos los enemigos que venían después del 1er esqueleto en la lista de enemigos de la dungeon NO SE MOVÍAN (ya que
-    //el error paraba la ejecución del método accionEnemigos)
-    //con el if no pasa eso. Si no está en el rango de visión del esqueleto, no hace nada y listo. NO se tira un error.
-    //entiendo que, conceptualmente, no está mal, ya que el método no promete atacar, sino que promete REVISAR (y, si dps de revisar,
-    //ve al personaje cerca, ahí sí ataca)
     method revisarSiHayObjetivo() {
         //self.validarEncontrar() ESTO CAUSABA BUG AL TENER 2 ESQUELETOS. No queda otra más que sacarlo
         if(self.hayObjetivoEnVision() && self.position()!=objetivoADestruir.position()) { //esto para que no se choque con el self.combate() de colisiono()
@@ -185,7 +164,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
 
     override method utilizarHabilidad() {
         game.say(self, "¡Uso habilidad Robo de Energia!")
-        vida += danhoBase * 1.5
+        salud += danhoBase * 1.5
         objetivoADestruir.recibirDanho(danhoBase * 1.5)
     }
 
@@ -212,11 +191,7 @@ object visionIzquierda {
 class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
        
     override method image() {
-        return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png" //momentáneamente, la imagen es la de Silvestre
-    }
-
-    override method estado() {
-        return goblinSinArma
+        return "goblinEscudo-32Bits.png" 
     }
 
     //MOVIMIENTO (en realidad, no se mueve)
@@ -240,8 +215,8 @@ class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
 
 object fabricaDeOjoVolador {
 
-    method agregarNuevoEnemigo(_position, _vida, _danhoBase) {
-        const ojo = new OjoVolador(position = _position, vida = _vida, danhoBase = _danhoBase)
+    method agregarNuevoEnemigo(_position, _salud, _danhoBase) {
+        const ojo = new OjoVolador(position = _position, salud = _salud, danhoBase = _danhoBase)
         dungeon.registrarEnemigo(ojo)
         game.addVisual(ojo)
   }
@@ -250,8 +225,8 @@ object fabricaDeOjoVolador {
 
 object fabricaDeEsqueleto {
 
-    method agregarNuevoEnemigo(_position, _vida, _danhoBase, _vision) {
-        const esqueleto = new Esqueleto(position = _position, vida = _vida, danhoBase = _danhoBase, vision = _vision)
+    method agregarNuevoEnemigo(_position, _salud, _danhoBase, _vision) {
+        const esqueleto = new Esqueleto(position = _position, salud = _salud, danhoBase = _danhoBase, vision = _vision)
         dungeon.registrarEnemigo(esqueleto)
         game.addVisual(esqueleto)
   }
@@ -260,40 +235,10 @@ object fabricaDeEsqueleto {
 
 object fabricaDeGoblin {
 
-    method agregarNuevoEnemigoCon(_position, _vida, _danhoBase) {
-        const goblin = new Goblin(position = _position, vida = _vida, danhoBase = _danhoBase)
+    method agregarNuevoEnemigoCon(_position, _salud, _danhoBase) {
+        const goblin = new Goblin(position = _position, salud = _salud, danhoBase = _danhoBase)
         dungeon.registrarEnemigo(goblin)
         game.addVisual(goblin)
     }
 
 }
-
-//estados de las distintas clases de enemigos 
-//(¿van a tener algo más que solo la imagen? porque, sino, leo dijo que no está tan bueno hacer objetos de estado así. Podríamos no tener
-//estado y en el método image() simplemente hacer un if, según dijo)
-
-
-object ojoSinArma {
-
-    method imagenParaPersonaje() {
-        return ""
-    }
-
-}
-
-object esqueletoSinArma {
-
-    method imagenParaPersonaje() {
-      return ""
-    }
-
-}
-
-object goblinSinArma {
-
-    method imagenParaPersonaje() {
-        return ""
-    }
-
-}
-

@@ -1,3 +1,4 @@
+import wollok.game.*
 import personaje.*
 import extras.*
 import enemigos.*
@@ -7,6 +8,7 @@ import paleta.*
 import armas.*
 import paredes.*
 import pelea.*
+import mapa.*
 
 /*
 describe "prueba de movimiento de enemigo1" {
@@ -24,12 +26,29 @@ describe "prueba de movimiento de enemigo1" {
 
 describe "testeo de funcionalidades" {
 
+    method initialize() {
+        game.width(30)
+        game.height(25)
+    }
+
     test "lista de enemigos de la dungeon" {
         fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(20,9), 150, 20)
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, visionDerecha) 
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda)
-	fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15, 14), 95, 37)
+	    fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, visionDerecha) 
+	    fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda)
+	    fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15, 14), 95, 37)
         assert.equals(4, dungeon.enemigos().size())
+    }
+
+    test "método de game getObjectsIn(pos) y método de mapa limpiar()" {
+        fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(23,15), 150, 20)
+        fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15,14), 95, 37)
+        fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, visionDerecha) 
+        fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda) 
+        assert.equals(1, game.getObjectsIn(game.at(26,10)).size())
+        assert.equals(1, game.getObjectsIn(game.at(23,15)).size())
+        mapa.limpiar()
+        assert.equals(0, game.getObjectsIn(game.at(26,10)).size())
+        assert.equals(0, game.getObjectsIn(game.at(23,15)).size())
     }
 
 }

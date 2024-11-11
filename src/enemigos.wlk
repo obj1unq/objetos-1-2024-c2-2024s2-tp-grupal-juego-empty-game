@@ -11,7 +11,7 @@ import mapa.*
 class Enemigo {
     const danhoBase 
     var position
-    var vida
+    var salud
     const objetivoADestruir = personaje
     var acumuladorDeTurnos = 0
     const turnoRequeridoParaHabilidad
@@ -20,8 +20,8 @@ class Enemigo {
         return position
     }
 
-    method vida() {
-        return vida
+    method salud() {
+        return salud
     }
 
     method colisiono(personaje) {
@@ -49,7 +49,7 @@ class Enemigo {
     }
     
     method recibirDanho(cantidad){
-        vida = vida - cantidad
+        salud -= cantidad
     }
 
     method morir() {
@@ -127,8 +127,8 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
     //el cuarto ataque es habilidad
 
     override method utilizarHabilidad() {
-        game.say(self, "¡Uso habilidad Poción de Vida!")
-        vida += danhoBase * 3
+        game.say(self, "¡Uso habilidad Poción de salud!")
+        salud += danhoBase * 3
     }
 
 }
@@ -176,7 +176,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
 
     override method utilizarHabilidad() {
         game.say(self, "¡Uso habilidad Robo de Energia!")
-        vida += danhoBase * 1.5
+        salud += danhoBase * 1.5
         objetivoADestruir.recibirDanho(danhoBase * 1.5)
     }
 
@@ -231,8 +231,8 @@ class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
 
 object fabricaDeOjoVolador {
 
-    method agregarNuevoEnemigo(_position, _vida, _danhoBase) {
-        const ojo = new OjoVolador(position = _position, vida = _vida, danhoBase = _danhoBase)
+    method agregarNuevoEnemigo(_position, _salud, _danhoBase) {
+        const ojo = new OjoVolador(position = _position, salud = _salud, danhoBase = _danhoBase)
         dungeon.registrarEnemigo(ojo)
         game.addVisual(ojo)
   }
@@ -241,8 +241,8 @@ object fabricaDeOjoVolador {
 
 object fabricaDeEsqueleto {
 
-    method agregarNuevoEnemigo(_position, _vida, _danhoBase, _vision) {
-        const esqueleto = new Esqueleto(position = _position, vida = _vida, danhoBase = _danhoBase, vision = _vision)
+    method agregarNuevoEnemigo(_position, _salud, _danhoBase, _vision) {
+        const esqueleto = new Esqueleto(position = _position, salud = _salud, danhoBase = _danhoBase, vision = _vision)
         dungeon.registrarEnemigo(esqueleto)
         game.addVisual(esqueleto)
   }
@@ -251,8 +251,8 @@ object fabricaDeEsqueleto {
 
 object fabricaDeGoblin {
 
-    method agregarNuevoEnemigoCon(_position, _vida, _danhoBase) {
-        const goblin = new Goblin(position = _position, vida = _vida, danhoBase = _danhoBase)
+    method agregarNuevoEnemigoCon(_position, _salud, _danhoBase) {
+        const goblin = new Goblin(position = _position, salud = _salud, danhoBase = _danhoBase)
         dungeon.registrarEnemigo(goblin)
         game.addVisual(goblin)
     }

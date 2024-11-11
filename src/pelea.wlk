@@ -33,7 +33,7 @@ object combate {
     }
 
     method validarFinDeCombate() {
-        if(entidadAtacando.vida() <= 0) {
+        if(entidadAtacando.salud() <= 0) {
             hayCombate = false
             heroe.estaEnCombate(false)
             barraEstadoPeleas.desaparecerJuntoADemasBarras()
@@ -58,15 +58,15 @@ object barraEstadoPeleas {
     var property heroe = personaje
 
     method text() = "Barra De Peleas"
-    method textColor() = paleta.rojo()
+    method textColor() = paleta.gris()
 
-    method position() = game.at(7, heroe.position().y() - 3)
+    method position() = game.at(heroe.position().x(), heroe.position().y() + 4)
 
     // aparece todo lo que tiene que mostrar la barra de estado
     method aparecerJuntoADemasBarras() {
             game.addVisual(self)
-            game.addVisual(vidaPersonaje)
-            game.addVisual(vidaEnemigo)
+            game.addVisual(saludPersonaje)
+            game.addVisual(saludEnemigo)
             game.addVisual(ataque)
             //game.addVisual(turnoTest)
     }
@@ -74,35 +74,35 @@ object barraEstadoPeleas {
     // desaparece la barra y todo lo que muestra tras darse la muerte del personaje o el enemigo
     method desaparecerJuntoADemasBarras() {
         game.removeVisual(self)
-        game.removeVisual(vidaPersonaje)
-        game.removeVisual(vidaEnemigo)
+        game.removeVisual(saludPersonaje)
+        game.removeVisual(saludEnemigo)
         game.removeVisual(ataque)
         //game.removeVisual(turnoTest)
     }
 
 }
 
-object vidaPersonaje{
+object saludPersonaje{
 
-    method text() = "Vida: " + personaje.vida().toString()
+    method text() = "salud: " + personaje.salud().toString()
         method textColor() = paleta.rojo()
 
     method position() = barraEstadoPeleas.position().down(1).left(2)
 
 }
 
-object vidaEnemigo {
+object saludEnemigo {
 
-    method text() = " Vida enemigo: " + barraEstadoPeleas.enemigo().vida().toString()
-    method textColor() = paleta.rojo()
+    method text() = " salud enemigo: " + barraEstadoPeleas.enemigo().salud().toString()
+    method textColor() = paleta.azul()
 
-    method position() = vidaPersonaje.position().right(3)
+    method position() = saludPersonaje.position().right(3)
 
 }
 
 object ataque{
 
-    method position() = vidaPersonaje.position().down(1).right(2)
+    method position() = saludPersonaje.position().down(1).right(2)
     method text() = "Durabilidad (" +personaje.armaActual().toString() + "): " + personaje.armaActual().durabilidad().toString() //+ "\n Nivel: " + personaje.armaActual().nivel().toString()
     method textColor() = paleta.rojo()
 

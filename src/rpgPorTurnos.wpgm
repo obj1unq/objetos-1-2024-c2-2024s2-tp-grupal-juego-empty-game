@@ -20,8 +20,8 @@ program rpgPorTurnos {
 	//OBJETOS CON LOS QUE NO SE INTERACTUA
 	game.addVisual(gestorDeFondo)
 	game.addVisual(listaDeObjetos)
-	//el indicador de vidas
-	//el indicador de salud
+	game.addVisual(vidas)
+	game.addVisual(salud)
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
 	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(23,15), 150, 20)
@@ -30,14 +30,14 @@ program rpgPorTurnos {
 	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda) 
 	//¿el que más vida tiene es el que más daño causa? ¿no es too much?
 	
-	//podríamos replicar el no uso de un const/referencia para las armas y corazones tal como se hace arriba con los enemigos!
+	//podríamos replicar el no uso de un const/referencia para las armas y pociones tal como se hace arriba con los enemigos!
     const arma1 = randomizer.armaRandom()
 	game.addVisual(arma1)
 	const arma2 = randomizer.armaRandom() 
 	game.addVisual(arma2)
 
-	const corazon1 = new Corazon() 
-	game.addVisual(corazon1)
+	const pocion1 = new Pocion() 
+	game.addVisual(pocion1)
 
 	//PERSONAJE
 	game.addVisual(personaje)

@@ -33,6 +33,15 @@ object dungeon {
 
 }
 
+object gestorDeFondo {
+    var property image = "fondoNivel1.png"
+
+    method position() {
+        return game.at(0,0)
+    }
+}
+
+
 //To do: hacer un objeto con el visual de las armas que se tienen (en vez de los números, como ahora) que remplace a listaDeObjetos
 object listaDeObjetos {
 
@@ -55,9 +64,6 @@ object listaDeObjetos {
             return "0"
         }
     }
-
-    method text() {return personaje.armaActual()}
-    method textColor() = paleta.rojo()
 
 }
 
@@ -95,28 +101,40 @@ object listaCon0 {
 }
 */
 
-class Corazon {
-    const property position = randomizer.posicionRandomDeCorazon()
-    const property image = "corazon-32Bits.png"
-    const vidaOtorgada = 150
+class Pocion {
+    const property position = randomizer.posicionRandomDePocion()
+    const property image = "pocion-32Bits.png"
+    const saludOtorgada = 150
 
-    // El personaje colisiona con el corazón y su vida aumenta
+    // El personaje colisiona con la poción y su salud aumenta
     method colisiono(personaje){
-        personaje.aumentarVida(vidaOtorgada)
+        personaje.aumentarSalud(saludOtorgada)
         game.removeVisual(self)
     }
 
 }
 
 object vidas {
+    method position() { return game.at(3, game.height()-1) }
 
-}
+    method image() { 
+		return "vidas" + self.imagenSegunEstado() + ".png"
+	}
 
-object gestorDeFondo {
-    var property image = "fondoNivel1.png"
-
-    method position() {
-        return game.at(0,0)
+    method imagenSegunEstado() {
+        if(personaje.cantVidas()==3) {
+            return "3"
+        } else if (personaje.cantVidas()==2) {
+            return "2"
+        } else {
+            return "1"
+        }
     }
+
 }
 
+object salud {
+    method position() { return game.at(1, game.height()-1) }
+    method text() { return "salud: " + personaje.salud().toString() }
+    method textColor() { return paleta.rojo() }
+}

@@ -10,8 +10,8 @@ import mapa.*
 
 object personaje {
 	var  position = game.at(7,2)
-    var property vida = 300
-	var property cantVidas = 3
+    var property salud = 300
+	var cantVidas = 3
 	const property bolsa = []
 	var estaEnCombate = false
 	var property armaActual = mano //porque empieza con bolsa vacía
@@ -34,6 +34,10 @@ object personaje {
 
 	method estaSinArma() {
 		return bolsa.size()==0
+	}
+
+	method cantVidas() {
+		return cantVidas
 	}
 
 	/// ARMA    
@@ -102,14 +106,14 @@ object personaje {
     }
 
 	method recibirDanho(cantidad) {
-		vida -= cantidad
+		salud -= cantidad
 	}
 	
 	method morir() {
 		self.perderVida() // pierde una vida
 		self.validarVida() // valida si está muerto (no tiene más vidas)
 		position = game.at(2,2) 
-        vida = 450
+        salud = 300
 	}
 
 	method perderVida() { //se pierde una vida cuando la salud del pj llega a 0
@@ -119,7 +123,7 @@ object personaje {
 	method validarVida() {
 	  if (cantVidas <= 0){
 		//position = game.at(27, 19) //si muere lo manda arriba a la izq 
-		//vida = 0
+		//salud = 0
 		//self.error("Perdi!")
 		gestorDeFondo.image("fondoFin.png")
 		mapa.limpiar()
@@ -127,8 +131,8 @@ object personaje {
 	  }
 	}
 
-	method aumentarVida(vidaSumada) {
-		vida += vidaSumada
+	method aumentarSalud(saludSumada) {
+		salud += saludSumada
 	}
 
 }

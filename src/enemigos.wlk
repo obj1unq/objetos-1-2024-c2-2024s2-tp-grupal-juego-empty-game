@@ -5,9 +5,6 @@ import pelea.*
 import extras.*
 import mapa.*
 
-//PREGUNTAR sobre como hacer un objeto que herencie una clase que está
-//dentro de una superclase --> esqueleto
-
 class Enemigo {
     const danhoBase 
     var position
@@ -68,7 +65,6 @@ class Enemigo {
     }
 
     method image() 
-    method estado() 
     method reaccionarAMovimiento() 
     //method danhoAtaque()
     //method habilidad()
@@ -79,11 +75,7 @@ class Enemigo {
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
     
    override  method image() { 
-		return "ojoVolador" + self.estado().imagenParaPersonaje() + "-32Bits.png"
-	}
-
-	override method estado() {
-		return ojoSinArma //como, de momento, tiene un solo estado, es un poco raro. Tendrá mas sentido si tiene más estados (como el pj)
+		return "ojoVolador-32Bits.png"
 	}
 
     //MOVIMIENTO
@@ -137,11 +129,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
     const vision
 
     override method image() {
-        return "esqueleto" + self.estado().imagenParaPersonaje() + "-32Bits.png" //EMOSIDO ENGAÑADO. ES DE 64X64!!
-    }
-
-    override method estado() {
-        return esqueletoSinArma
+        return "esqueleto3-32Bits.png" //En realidad es de 64x64
     }
 
     //MOVIMIENTO (en realidad, no se mueve, pero es lo que hace en vez de moverse)
@@ -203,11 +191,7 @@ object visionIzquierda {
 class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
        
     override method image() {
-        return "enemigo1" + self.estado().imagenParaPersonaje() + "-32Bits.png" //momentáneamente, la imagen es la de Silvestre
-    }
-
-    override method estado() {
-        return goblinSinArma
+        return "goblinEscudo-32Bits.png" 
     }
 
     //MOVIMIENTO (en realidad, no se mueve)
@@ -258,33 +242,3 @@ object fabricaDeGoblin {
     }
 
 }
-
-//estados de las distintas clases de enemigos 
-//(¿van a tener algo más que solo la imagen? porque, sino, leo dijo que no está tan bueno hacer objetos de estado así. Podríamos no tener
-//estado y en el método image() simplemente hacer un if, según dijo)
-
-
-object ojoSinArma {
-
-    method imagenParaPersonaje() {
-        return ""
-    }
-
-}
-
-object esqueletoSinArma {
-
-    method imagenParaPersonaje() {
-      return ""
-    }
-
-}
-
-object goblinSinArma {
-
-    method imagenParaPersonaje() {
-        return ""
-    }
-
-}
-

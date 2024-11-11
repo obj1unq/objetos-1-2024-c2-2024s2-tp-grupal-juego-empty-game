@@ -23,6 +23,7 @@ object personaje {
     // -------------movimiento-------------------------------
     
     method mover(direccion) {
+        barraDeEnergia.validarEnergia()
         self.validarMover(direccion)
 	    position = direccion.siguientePosicion(position)
         self.image(pj.imagenNormal(direccion))
@@ -82,6 +83,7 @@ object personaje {
         oro += valor
     }
 
+// -------------energia-------------------------------
+
 }
 
-// -------------estados-------------------------------

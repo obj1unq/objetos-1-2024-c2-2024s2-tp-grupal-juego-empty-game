@@ -16,16 +16,6 @@ object juego {
         game.addVisual(personaje)
         game.addVisual(puntosDeVida)
         game.addVisual(cargador)
-<<<<<<< HEAD
-=======
-        game.addVisual(barraDeEnergia)
-        //game.addVisual(cura1)
-        //game.addVisual(Balas)
-        //game.addVisual(oro1)
-        //game.addVisual(oro2)
-        //game.addVisual(oro3)
-        //game.addVisual(muro)
->>>>>>> master
         game.addVisual(oroObtenido)
         
     }
@@ -61,7 +51,6 @@ object juego {
         keyboard.n().onPressDo({managerItems.spawnearOro1()})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
         game.onTick(1000, "timer", {timer.tick()})
-        game.onTick(2000, "energia", {barraDeEnergia.recargarEnergia()})
     }
 
     method sonido() {

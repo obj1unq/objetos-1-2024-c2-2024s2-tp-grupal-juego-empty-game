@@ -21,7 +21,7 @@ class Proyectil {
 
     method sigueOHayZombie(direccion) {
         const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(direccion, zombie)}) // reotcasr
-        return (not (zombiesHacia.isEmpty()))
+        return (not(zombiesHacia.isEmpty()))
     }
 
     method sigueOEsta(direccion, zombie) {
@@ -38,7 +38,7 @@ class Proyectil {
     method validarViajeProyectil(direccion) {
         if (self.sigueOHayZombie(direccion)) {
             const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(direccion, zombie)})
-            zombiesHacia.forEach({zombie => zombie.impactoProyectil(danio)})
+            zombiesHacia.forEach({zombie => zombie.herir(danio)})
             self.impacto(direccion)
         }
         else if (not(tablero.estaDentro(direccion.siguientePosicion(position)))) {
@@ -159,9 +159,9 @@ class Acido {
     method colisionPj() {}
 
     method daniar(dmg) {
-        game.onTick(250, self.identidad(), {self.colisiones().forEach({c => c.herir(dmg)})})
-        game.schedule(1750, {game.removeTickEvent(self.identidad())})
-        game.schedule(2000,{game.removeVisual(self)})
+        game.onTick(500, self.identidad(), {self.colisiones().forEach({c => c.herir(dmg)})})
+        game.schedule(3550, {game.removeTickEvent(self.identidad())})
+        game.schedule(4000,{game.removeVisual(self)})
     }
 
     method colisiones() {
@@ -169,6 +169,7 @@ class Acido {
         if (personaje.position() == position) {
             colisiones.add(personaje)
         }
+        return colisiones
     }
 
     method identidad() {

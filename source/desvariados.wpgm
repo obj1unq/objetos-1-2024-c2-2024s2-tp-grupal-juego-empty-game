@@ -22,7 +22,7 @@ program desvariados {
 
     juego.sonido()
 
-    //juego.pausa() arreglar =/
+    //juego.pausa() (arreglar)
 
     game.start()
 }

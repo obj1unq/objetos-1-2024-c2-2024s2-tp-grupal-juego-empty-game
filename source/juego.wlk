@@ -16,12 +16,6 @@ object juego {
         game.addVisual(personaje)
         game.addVisual(puntosDeVida)
         game.addVisual(cargador)
-        //game.addVisual(cura1)
-        //game.addVisual(Balas)
-        //game.addVisual(oro1)
-        //game.addVisual(oro2)
-        //game.addVisual(oro3)
-        //game.addVisual(muro)
         game.addVisual(oroObtenido)
         
     }
@@ -49,15 +43,15 @@ object juego {
 
         // para testear las clases vamos a colocar teclas para hacer aparecer cada una
         // mas adelante sus spawns van a estar decididos por otros eventos y no estas teclas
-        keyboard.z().onPressDo({managerZombie.spawnearZComun()})
-        keyboard.c().onPressDo({managerItems.spawnearCura1()})
-        keyboard.o().onPressDo({managerItems.spawnearOro1()})
+        keyboard.z().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieComun(generadorZombie.posicionInicial()))})
+        keyboard.x().onPressDo({managerZombie.spawnearZ(generadorZombie.zombiePerro(generadorZombie.posicionInicial()))})
+        keyboard.c().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieTanque(generadorZombie.posicionInicial()))})
+        keyboard.v().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieThrower(generadorZombie.posicionInicial()))})
+        keyboard.b().onPressDo({managerItems.spawnearCura1()})
+        keyboard.n().onPressDo({managerItems.spawnearOro1()})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
-
         game.onTick(1000, "timer", {timer.tick()})
     }
-
-
 
     method sonido() {
 

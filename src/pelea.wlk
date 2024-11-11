@@ -57,7 +57,7 @@ object barraEstadoPeleas {
     var property enemigo = null
     var property heroe = personaje
 
-    method text() = "Barra De Peleas"
+    method text() = "ARRIBA para atacar - ABAJO para curarse"
     method textColor() = paleta.gris()
 
     method position() = game.at(heroe.position().x(), heroe.position().y() + 4)

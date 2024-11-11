@@ -104,14 +104,21 @@ object listaCon0 {
 class Pocion {
     const property position = randomizer.posicionRandomDePocion()
     const property image = "pocion-32Bits.png"
-    const saludOtorgada = 150
+    //const saludOtorgada = 150
 
     // El personaje colisiona con la poción y su salud aumenta
     method colisiono(personaje){
-        personaje.aumentarSalud(saludOtorgada)
+        //personaje.aumentarSalud(saludOtorgada)
+        personaje.agregarPocion()
         game.removeVisual(self)
     }
 
+}
+
+object salud {
+    method position() { return game.at(1, game.height()-1) }
+    method text() { return "salud: " + personaje.salud().toString() }
+    method textColor() { return paleta.rojo() }
 }
 
 object vidas {
@@ -133,8 +140,23 @@ object vidas {
 
 }
 
-object salud {
-    method position() { return game.at(1, game.height()-1) }
-    method text() { return "salud: " + personaje.salud().toString() }
-    method textColor() { return paleta.rojo() }
+object pociones {
+    method position() { return game.at(7, game.height()-1) }
+
+    method image() { 
+		return "pociones" + self.imagenSegunEstado() + ".png"
+	}
+
+    method imagenSegunEstado() {
+        if(personaje.cantPociones()==3) {
+            return "3"
+        } else if (personaje.cantPociones()==2) {
+            return "2"
+        } else if (personaje.cantPociones()==1) {
+            return "1"
+        } else {
+            return "0"
+        }
+    }
+
 }

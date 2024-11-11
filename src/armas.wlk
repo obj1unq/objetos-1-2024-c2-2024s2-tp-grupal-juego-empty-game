@@ -45,6 +45,8 @@ class Arma {
 
 }
 
+//ACÁ HAY CÓDIGO REPETIDO. Hay que hacer uso de herencia con la superclase Arma para eliminarlo.
+
 class Espada inherits Arma {
 
     override method danho() {
@@ -64,8 +66,8 @@ class Espada inherits Arma {
     }
 
     // Para test
-    method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
-    method textColor() = paleta.azul()
+    method text(){ return "Dur: " + self.durabilidad().toString() + "\nNv: " + nivel.toString()}
+    method textColor() = paleta.gris()
 
 
 }
@@ -84,8 +86,8 @@ class ArcoYFlecha inherits Arma {
     }
 
     // Para test
-    method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
-    method textColor() = paleta.azul()
+    method text(){ return "Dur: " + self.durabilidad().toString() + "\nLvl: " + nivel.toString()}
+    method textColor() = paleta.gris()
 
     override method habilidadEspecial() { //de momento, no está siendo usada en el juego
         return //veneno
@@ -107,8 +109,8 @@ class MartilloDeGuerra inherits Arma {
     }
 
     // Para test
-    method text(){ return "Durabilidad: " + self.durabilidad().toString() + "\nNivel: " + nivel.toString()}
-    method textColor() = paleta.azul()
+    method text(){ return "Dur: " + self.durabilidad().toString() + "\nLvl: " + nivel.toString()}
+    method textColor() = paleta.gris()
 
     override method habilidadEspecial() { //de momento, no está siendo usada en el juego
         return //pierde turno enemigo

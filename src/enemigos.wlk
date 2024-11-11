@@ -120,7 +120,7 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
 
     override method utilizarHabilidad() {
         game.say(self, "¡Uso habilidad Poción de salud!")
-        salud += danhoBase * 3
+        salud += danhoBase * 2.5
     }
 
 }

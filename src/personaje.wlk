@@ -12,6 +12,7 @@ object personaje {
 	var  position = game.at(7,2)
     var property salud = 300
 	var cantVidas = 3
+	var cantPociones = 1
 	const property bolsa = []
 	var estaEnCombate = false
 	var property armaActual = mano //porque empieza con bolsa vacía
@@ -38,6 +39,10 @@ object personaje {
 
 	method cantVidas() {
 		return cantVidas
+	}
+
+	method cantPociones() {
+		return cantPociones
 	}
 
 	/// ARMA    
@@ -71,7 +76,7 @@ object personaje {
 		}
 	}
 
-	//COMBATE/PELEA
+	//COMBATE/PELEA (y habilidades, ya sean ataque, curación, etc)
     var property enemigoCombatiendo = null //el enemigo con quien está en combate
 	var esTurno = false //si es su turno en un combate
 
@@ -80,7 +85,7 @@ object personaje {
     }
 
     method atacarPre() {
-        esTurno = true
+        esTurno = true //esto da luz verde a que el usuario pueda ejecutar una habilidad (lo que no se puede hacer si no estás en combate)
     }
 
 	method atacar() {
@@ -101,7 +106,7 @@ object personaje {
 
     method validarCombate() {
         if(!estaEnCombate && !esTurno){
-            self.error("No puedo atacar ahora")
+            self.error("No puedo ejecutar una habilidad ahora")
         }
     }
 
@@ -131,29 +136,30 @@ object personaje {
 	  }
 	}
 
+	method agregarPocion() {
+		cantPociones+=1
+	}
+
+	method curarse() {
+		self.validarCombate() // para que no le pegue a x enemigo cuando no esta peleando
+		self.validarPociones()
+		self.aumentarSalud(150)
+		cantPociones -= 1
+		esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
+		combate.cambiarTurnoA(enemigoCombatiendo)   //como ya terminó el turno del pj, se cambia el turno al enemigo
+	}
+
+	method validarPociones() {
+		if(cantPociones<=0) {
+			self.error("No se puede realizar una curación sin pociones de vida")
+		}
+	}
+
+	//ahora se va a usar en el método curarse()
 	method aumentarSalud(saludSumada) {
 		salud += saludSumada
 	}
 
 }
-
-//ESTADOS
-
-/* el profe dijo que no estaba tan piola hacer objs estados si solo los vamos a usar para retornar el string para el image
-object sinArma {
-
-	method imagenParaPersonaje() {
-		return ""
-	}
-
-}
-
-object conArma {
-	method imagenParaPersonaje() {
-		return personaje.armaActual().imagenParaPersonaje()
-	}
-
-}
-*/
 
 

@@ -20,8 +20,9 @@ program rpgPorTurnos {
 	//OBJETOS CON LOS QUE NO SE INTERACTUA
 	game.addVisual(gestorDeFondo)
 	game.addVisual(listaDeObjetos)
-	game.addVisual(vidas)
 	game.addVisual(salud)
+	game.addVisual(vidas)
+	game.addVisual(pociones)
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
 	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(23,15), 150, 20)
@@ -50,6 +51,7 @@ program rpgPorTurnos {
     
     //TECLAS COMBATE
     keyboard.up().onPressDo({ personaje.atacar()})
+	keyboard.down().onPressDo({ personaje.curarse()})
 
 	//COLISIÓN
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})

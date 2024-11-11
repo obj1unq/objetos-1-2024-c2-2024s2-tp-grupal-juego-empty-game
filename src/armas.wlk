@@ -1,6 +1,7 @@
 import randomizer.*
 import paleta.*
 import personaje.*
+import mapa.*
 
 
 class Arma {

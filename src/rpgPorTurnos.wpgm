@@ -8,16 +8,20 @@ import paleta.*
 import armas.*
 import paredes.*
 import pelea.*
+import mapa.*
 
 program rpgPorTurnos {
 	game.title("RPG por turnos de nombre a confirmar")
 	game.height(25) 		
 	game.width(30) 			
 	game.cellSize(32) 		
-	game.boardGround("fondoNivel1.png") //posibilidad: usar objeto fondo para manejar el fondo (¿aún así lo inicializamos con esto, no?)
+	//game.boardGround("fondoNivel1.png") //se le da este valor como el inicial al objeto gestorDeFondo
 
 	//OBJETOS CON LOS QUE NO SE INTERACTUA
+	game.addVisual(gestorDeFondo)
 	game.addVisual(listaDeObjetos)
+	//el indicador de vidas
+	//el indicador de salud
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
 	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(23,15), 150, 20)

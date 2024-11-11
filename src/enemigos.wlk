@@ -3,6 +3,7 @@ import personaje.*
 import posiciones.*
 import pelea.*
 import extras.*
+import mapa.*
 
 //PREGUNTAR sobre como hacer un objeto que herencie una clase que está
 //dentro de una superclase --> esqueleto

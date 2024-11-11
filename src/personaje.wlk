@@ -6,6 +6,7 @@ import enemigos.*
 import armas.*
 import randomizer.*
 import pelea.*
+import mapa.*
 
 object personaje {
 	var  position = game.at(7,2)
@@ -120,6 +121,8 @@ object personaje {
 		//position = game.at(27, 19) //si muere lo manda arriba a la izq 
 		//vida = 0
 		//self.error("Perdi!")
+		gestorDeFondo.image("fondoFin.png")
+		mapa.limpiar()
 		game.stop()
 	  }
 	}

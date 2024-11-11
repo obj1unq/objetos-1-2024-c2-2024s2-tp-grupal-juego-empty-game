@@ -4,6 +4,7 @@ import extras.*
 import paleta.*
 import enemigos.*
 import personaje.*
+import mapa.*
 
 object combate {
 

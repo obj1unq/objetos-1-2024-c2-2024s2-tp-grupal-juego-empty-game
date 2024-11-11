@@ -3,6 +3,7 @@ import personaje.*
 import randomizer.*
 import paleta.*
 import enemigos.*
+import mapa.*
 
 object dungeon {
 
@@ -109,5 +110,13 @@ class Corazon {
 
 object vidas {
 
+}
+
+object gestorDeFondo {
+    var property image = "fondoNivel1.png"
+
+    method position() {
+        return game.at(0,0)
+    }
 }
 

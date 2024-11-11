@@ -67,13 +67,10 @@ object puntosDeVida {
     method colisionPj() {}
 
     method impactoProyectil(danio) {}
-<<<<<<< HEAD
 
     method traspasable() {
         return false
     }
-=======
->>>>>>> master
 }
 
 //----------------------------------------------MUNICION-----------------------------
@@ -108,13 +105,10 @@ object cargador {
     method colisionPj() {}
 
     method impactoProyectil(danio) {}
-<<<<<<< HEAD
 
     method traspasable() {
         return false
     }
-=======
->>>>>>> master
 }
 
 

@@ -25,8 +25,8 @@ object teclas{
     keyboard.down().onPressDo({remy.mover(abajo)})
     keyboard.right().onPressDo({remy.mover(derecha)})
     keyboard.left().onPressDo({remy.mover(izquierda)})
-    keyboard.e().onPressDo({remy.recogerIngrediente()})
-    keyboard.q().onPressDo({remy.depositarIngrediente()})
+    //keyboard.e().onPressDo({remy.recogerIngrediente()})
+    //keyboard.q().onPressDo({remy.depositarIngrediente()})
     }
 
     method accion(){
@@ -38,7 +38,8 @@ object teclas{
 object imagen {
 
     method ingredientes(){
-        game.addVisual(new Tomate(position = game.at(4,0)))
+        game.addVisual(estacionTomate)
+        //game.addVisual(new Tomate(position = game.at(4,0)))
         game.addVisual(new Masa(position = game.at(6,0)))
         game.addVisual(new Queso(position = game.at(8,0)))
         game.addVisual(new Aceituna(position = game.at(9,5)))

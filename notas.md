@@ -2,11 +2,11 @@
 
     -CHEFS: 
         *alguna animacion para cuando procesas algun ingrediente
-        *imagen placeholder de remy mirando en las diferentes direcciones
+        *imagen placeholder de remy mirando en las diferentes direcciones // completo 
         *agregarle un timer al procesar elemento
 
     -COMESTIBLES:
-        *imagenes placeholder para los ingredintes
+        *imagenes placeholder para los ingredintes// completo
         *imagenes placeholder de los ingredientes después de ser procesados
         *hacer las bebidas y postres (si hay tiempo)
 

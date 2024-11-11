@@ -12,7 +12,7 @@ object personaje {
 	var  position = game.at(7,2)
     var property salud = 300
 	var cantVidas = 3
-	var cantPociones = 1
+	var cantPociones = 3
 	const property bolsa = []
 	var estaEnCombate = false
 	var property armaActual = mano //porque empieza con bolsa vacía
@@ -137,7 +137,7 @@ object personaje {
 	}
 
 	method agregarPocion() {
-		cantPociones+=1
+		cantPociones = (cantPociones+1).min(3) //estaría bueno informarle al jugador de que, como ya alcanzó el limite de 3, no se le suma otra poción
 	}
 
 	method curarse() {

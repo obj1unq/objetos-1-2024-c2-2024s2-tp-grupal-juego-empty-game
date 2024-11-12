@@ -4,9 +4,7 @@ import comestibles.*
 
 import wollok.game.*
 
-class Cliente{
-    var property position = game.at(0,7) //o donde esté la puerta
-    var property image = null
+class Cliente inherits Persona(position = game.at(0,7) /*o donde esté la puerta*/, image = ""){
     var property pedidoQueEspero = #{}
     var property emocion = neutral //las emocines podrían ser estados
     var nivelDePaciencia = null //depende del tipo de cliente
@@ -85,10 +83,10 @@ object decepcionado {
   }
 }
 
-class ClienteNormal inherits Cliente(nivelDePaciencia = 100, image = "image_clieneNormal.png"){}
+class ClienteNormal inherits Cliente(nivelDePaciencia = 100, image = "image_clieneNormal.png", nombre = "clienteNormal"){}
 
-class ClienteQuisquilloso inherits Cliente(nivelDePaciencia = 80, image = "image_clieneQuisquilloso.png"){}
+class ClienteQuisquilloso inherits Cliente(nivelDePaciencia = 80, image = "image_clieneQuisquilloso.png", nombre = "clienteQuisquilloso"){}
 
-class ClientePaciente inherits Cliente(nivelDePaciencia = 110, image = "image_clienePaciente.png"){}
+class ClientePaciente inherits Cliente(nivelDePaciencia = 110, image = "image_clienePaciente.png", nombre = "clientePaciente"){}
 
-const cliente = new ClienteNormal() //lo agrego para probar en la consola al cliente
+//const cliente = new ClienteNormal() //lo agrego para probar en la consola al cliente

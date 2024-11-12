@@ -28,8 +28,7 @@ class Mueble {
 
   method validarRecibir(chef){
     if(not self.tieneEspacio()){
-      game.say(chef, "no hay espacio para dejar algo aqui") //el error que dice el chef
-      self.error("no hay espacio en el mueble") //no se si dejar vacio o no aca
+      chef.error(chef, "no hay espacio para dejar algo aqui") 
     }
   }
 
@@ -39,8 +38,7 @@ class Mueble {
 
   method validarDar(chef){
     if(not chef.tengoBandejaVacia()){ //lo mismo que recibir acá
-      game.say(chef, "no puedo agarrar algo si tengo las manos llenas")
-      self.error("el chef no puede agarrar lo que hay en el mueble")
+      chef.error(chef, "no puedo agarrar algo si tengo las manos llenas")
     }
   }
 

@@ -22,11 +22,11 @@ program wollocook {
 
 
     //chef
-    imagen.chef()
+    imagenes.chefImg()
     //ingredientes
-   imagen.ingredientes()
+   imagenes.ingredientesImg()
    // hornos
-   imagen.hornoImage()
+   imagenes.hornoImg()
 
     game.start()
 }

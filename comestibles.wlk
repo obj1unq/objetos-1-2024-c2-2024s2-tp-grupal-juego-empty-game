@@ -3,16 +3,16 @@ import chefs.*
 
 
 import wollok.game.*
-
+ /*TAMBIEN NECESITA UN RETOQUE*/
 
 class Ingrediente { 
     var property position = game.center()    
     var property image = null 
     var property precio = null
-    //conviene manejar 2 estados de ingedientes : me estan llevando y estoy libre.
-    //si fue procesado o no debería ser otra propiedad que sea el novel de procesamiento -> objerto
 
-   method esBandejaVacia(){
+    method tipoIngrediente()
+
+   method esVacio(){
     return false
    }
 
@@ -20,11 +20,15 @@ class Ingrediente {
      return false
    }
 
+   method recibirIngrediente(ingrediente){}
+
+   method tieneIngredientes(){
+    return false
+   }
+
     method serSostenido(chef) {
         game.removeVisual(self)
-        position = chef.position() //hay que recordar que te esta llevando el chef y si le preguntan la prosicione ahí pregunta la posicon del chef + 1
-        //se tiene quesi o si recordar al chef y pregunta a cada rato la posicion del chef +1 en la dir que se muebe para que se vea 
-        //que estaen frente del cheff
+        position = chef.position() //ESTO CAMBIARLO
     }
 
     method serDejadoAqui(nuevaPosition){
@@ -32,28 +36,36 @@ class Ingrediente {
         position = nuevaPosition
     }
 
-    method imagenIngredienteInicial() //ingrediente inicial y final tal vez podrían ser una constante y se declara en cada clase
+    method imagenIngredienteInicial() 
+
+    //ingrediente inicial y final tal vez podrían ser una constante y se declara en cada clase
 
     method imagenIngredienteFinal()
 
     method serProcesado(){
-        if(self.image() == self.imagenIngredienteInicial()){ //esto es mejor hacerlo con objetos -> nivel de procesamiento
+        if(self.image() == self.imagenIngredienteInicial()){
             image = self.imagenIngredienteFinal()
         }
-    }
-
-    method id() //que se compare con el hash de la clase en vez del "id"
-    // masa.identity()
-
-    method fueProcesado(){
-        return false
     }
 }
 
 
 class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
-    const property ingredientes = #{} //aunque lo haga el chef la masa tiene que saber que tiene dentro.
-    var property estado = cruda
+    const property ingredientes = [] //aunque lo haga el chef la masa tiene que saber que tiene dentro.
+    var property estado = cruda //pasar a siguiente lo entiende cada estado -> polimorfismo
+
+    override method aceptaIngredientesEncima(){
+      return true
+    }
+
+    override method recibirIngrediente(ingrediente){
+        ingredientes.add(ingrediente)
+        precio = precio + ingrediente.precio()
+    }
+
+    override method tieneIngredientes() {
+      return not ingredientes.isEmpty()
+    }
 
     //override method serProcesado(){} 
 
@@ -65,43 +77,31 @@ class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
         return "masa_final.png" //imagen de masa amazada
     }
 
-
-    override method aceptaIngredientesEncima(){
-      return true
-    }
-
     method serCocinada(){
         self.actualizarEstado()
-        estado.actualizarImagen(self) //y la imagen se va a actualizar automaticamente 
+        estado.actualizarImagen(self)
     }
 
     method actualizarEstado() {
         if (self.estado().esCrudo()) {
-             estado = dorada //seria mejor un estado.pasarASuSiguieten (o Cocinar)
+             estado = dorada
     } else {
             estado = quemada
         }
     }
 
-    method recibirIngrediente(ingrediente){
-        ingredientes.add(ingrediente)
-        precio = precio + ingrediente.precio()
+    override method tipoIngrediente(){
+        return ingredienteMasa
     }
 
-    method tieneIngredientes() {
-      return not ingredientes.isEmpty()
-    }
-
-    override method id(){
-        return "masa"
-    }
 }
+ /*hay que cambiar que la masa misma sepa cual es su siguiente estado de coccion y que la masa mista te actualice la imagen por ejemplo cruda sabe que al ser cocinada va a pasar a dorada*/
 
 object cruda {
     method actualizarImagen(pizza){
-        pizza.image("") //en lugar de settear la imagen debe contestar la imagen segun su estado
+        pizza.image("")
     }
-    method esCrudo() { 
+    method esCrudo() {
       return true
     }
 }
@@ -134,9 +134,9 @@ class Queso inherits Ingrediente( image = "queso_inicial.png", precio = 200) {
             return "queso_final.png"
         }
 
-        override method id(){
-            return "queso"
-        }
+        override method tipoIngrediente(){
+        return ingredienteQueso
+    }
 }
 
 class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
@@ -151,9 +151,9 @@ class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
         return "tomate_final.png"
       }
 
-      override method id(){
-            return "tomate"
-        }
+      override method tipoIngrediente(){
+        return ingredienteTomate
+    }
 }
 
 class Aceituna inherits Ingrediente( image = "aceituna_factory.png", precio = 200) {
@@ -166,9 +166,9 @@ class Aceituna inherits Ingrediente( image = "aceituna_factory.png", precio = 20
             return "aceituna_final.png"
         }
 
-    override method id(){
-            return "aceituna"
-        }
+    override method tipoIngrediente(){
+        return ingredienteAceituna
+    }
 }
 
 class Huevo inherits Ingrediente( image = "huevo_inicial.png", precio = 200) {
@@ -181,9 +181,9 @@ class Huevo inherits Ingrediente( image = "huevo_inicial.png", precio = 200) {
             return "huevo_final.png"
         }
 
-    override method id(){
-            return "huevo"
-        }
+    override method tipoIngrediente(){
+        return ingredienteHuevo
+    }
 }
 
 class Atun inherits Ingrediente( image = "atun_factory.png", precio = 200) {
@@ -196,9 +196,9 @@ class Atun inherits Ingrediente( image = "atun_factory.png", precio = 200) {
             return "atun_final.png"
         }
 
-    override method id(){
-            return "atun"
-        }
+    override method tipoIngrediente(){
+        return ingredienteAtun
+    }
 }
 
 class Hongo inherits Ingrediente( image = "hongo_inicial.png", precio = 200) {
@@ -211,10 +211,19 @@ class Hongo inherits Ingrediente( image = "hongo_inicial.png", precio = 200) {
             return "hongo_final.png"
         }
 
-    override method id(){
-            return "hongo"
-        }
+    override method tipoIngrediente(){
+        return ingredienteHongo
+    }
 }
+
+object ingredienteMasa {}
+object ingredienteQueso {}
+object ingredienteTomate {}
+object ingredienteAceituna {}
+object ingredienteHuevo {}
+object ingredienteAtun {}
+object ingredienteHongo {}
+
 
 
 /*

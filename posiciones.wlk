@@ -1,58 +1,51 @@
 object arriba {
 
-	method imagen(chef) {
-		return "chef_up.png"
-		// chef + "" + ".arriba.png"
+	method imagen(name) {
+		return ""// name + "" + ".arriba.png"
 	}
 
-	method moverse(chefPosition) {
-	  return chefPosition.up(1)
+	method moverse(namePosition) {
+	  return namePosition.up(1)
 	}
 }
 
 object abajo {
 
-	method imagen(chef) {
-		return "chef_down.png"
-		
-		//chef + "" + ".abajo.png"
+	method imagen(name) {
+		return "" //name + "" + ".abajo.png"
 	}
 	
-	method moverse(chefPosition) {
-	  return chefPosition.down(1)
+	method moverse(namePosition) {
+	  return namePosition.down(1)
 	}
 }
 
 object izquierda {
 
-	method imagen(chef) {
-		return  "chef_left.png"
-		
-		//chef + "" + ".izquierda.png"
+	method imagen(name) {
+		return "" //name + "" + ".izquierda.png"
 	}
 
-	method moverse(chefPosition) {
-	  return chefPosition.left(1)
+	method moverse(namePosition) {
+	  return namePosition.left(1)
 	}
 }
 
 object derecha {
 
-	method imagen(chef) {
-		return  "chef_right.png"
-		
-		//chef + "" + ".derecha.png"
+	method imagen(name) {
+		return ""//name + "" + ".derecha.png"
 	}
 
-	method moverse(chefPosition) {
-	  return chefPosition.right(1)
+	method moverse(namePosition) {
+	  return namePosition.right(1)
 	}
 }
 
 /*
 se necesita:
--(nombre chef).derecha.png
--(nombre chef).izquierda.png
--(nombre chef).arriba.png
--(nombre chef).abajo.png
+-(nombre).derecha.png
+-(nombre).izquierda.png
+-(nombre).arriba.png
+-(nombre).abajo.png
 */

@@ -11,15 +11,11 @@
         *hacer las bebidas y postres (si hay tiempo)
 
     -HORNO:
-        *imagenes placeholder para la animacion del fuego
+        *imagenes placeholder para la animacion del humo
 
     -MESADAS:
         *imagenes placeholder para las mesadas
-        *agregar que la mesada se considera ocupada segun el timer de procesar elemento del chef
 
-    -CLASS PILA DE INGREDIENTES:
-        *hacerlas
-        *imagenes placeholder para estas
 
     -FACTORY DE CLIENTES:
         *hacer 1 que suelte random los tipos de clientes.
@@ -27,6 +23,7 @@
 
     -CLIENTES:
         *imagenes para los diferentes tipos de clientes
+        *agregarle comportamientos unicos a cada tipo de cliente-> polimorfismo, que se diferencien 
 
     -CAJA:
         *hacer la caja

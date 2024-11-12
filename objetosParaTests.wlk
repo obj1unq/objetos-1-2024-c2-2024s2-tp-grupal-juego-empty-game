@@ -7,7 +7,7 @@ import clientes.*
 
 import wollok.game.*
 
-//temporal hasta tener todo en el lugar que se debe
+//temporal hasta tener todo en el lugar que se debe -> ir cambiando las cosas como se deben para probar en clienteTest
 
 /*
 
@@ -21,6 +21,8 @@ import wollok.game.*
 [r,H,_,_,_,_,_,_]
 
 */
+
+// no tienen que haber ingredientes tirados, tiene que estar en un mueble para que remy pueda interactuar con los muebles y de ahí agarrar y dejar las cosas en los tests -> cambiar mapa para los tests
 
 const tomate = new Tomate(position= game.at(0, 5)) //T
 const queso = new Queso (position = game.at(5, 5)) //Q

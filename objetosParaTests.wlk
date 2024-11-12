@@ -23,6 +23,8 @@ mapa tests:
 
 */
 
+// no tienen que haber ingredientes tirados, tiene que estar en un mueble para que remy pueda interactuar con los muebles y de ahí agarrar y dejar las cosas en los tests -> cambiar mapa para los tests
+
 const tomate = new Tomate(position= game.at(0, 5)) //T
 const queso = new Queso (position = game.at(5, 5)) //Q
 const masa = new Masa (position = game.at(0, 7)) //M

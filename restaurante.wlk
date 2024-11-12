@@ -15,6 +15,8 @@ object restaurante {
     }
 
     method objetoDeListaAqui(lista, position) {
+      //return lista.findOrElse({objeto => objeto.position() == position}, muebleFantasma)
+      //return lista.findOrElse({objeto => objeto.position() == position}, muebleFantasma) //aca el problema es que hay que repetir codifo para cliente o cambiarlo
       return lista.find({objeto => objeto.position() == position})
     }
 
@@ -30,7 +32,8 @@ object restaurante {
   
 //probar:
     method hayClienteAqui(position) {
-      return self.hayObjetoDeListaAqui(filasDeClientes, position) //creo que debería ser position + 1 porque esta el mueble y después el cliente? o ver otra forma
+      return 
+      self.hayObjetoDeListaAqui(filasDeClientes, position) //creo que debería ser position + 1 porque esta el mueble y después el cliente? o ver otra forma
       //la factory de clientes tiene que agregar los clientes a la fila del restaurante
     }
     

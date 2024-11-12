@@ -28,7 +28,7 @@ class Mueble {
 
   method validarRecibir(chef){
     if(not self.tieneEspacio()){
-      chef.error(chef, "no hay espacio para dejar algo aqui") 
+      self.error("no hay espacio para dejar algo aqui") 
     }
   }
 
@@ -74,6 +74,14 @@ class Mueble {
   
   method primerIngrediente(){
     return contenido.head()
+  }
+
+}
+
+object muebleFantasma inherits Mueble{ //esto es para evitar el error de que no se encuentre ningun mueble en el find
+
+  override method usarse(chef){
+    game.say(restaurante, "no hay ningun mueble Aqui")
   }
 
 }

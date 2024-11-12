@@ -25,7 +25,7 @@ describe "chefs test" {
   test "remy agarra un ingrediente (tomate) que esta arriba suyo en donde mira" {
     remy.position( game.at(0,3) )
     remy.mover(arriba)
-    remy.recogerIngrediente()
+    remy.interactuar() //esto esta mal porque es un ingrediente tirado
 
     assert.equals(tomate, remy.bandeja())
   }
@@ -35,7 +35,7 @@ describe "chefs test" {
 
     assert.equals(game.at(0,1), remy.position())
     assert.equals(game.at(0,2), remy.dondeEstoyApuntando())
-    assert.throwsException({ remy.recogerIngrediente() })
+    assert.throwsException({ remy.interactuar() })
   }
 
   test "remy no puede agarrar un ingrediente porque tiene algo en las manos ya" {
@@ -44,12 +44,15 @@ describe "chefs test" {
 
     assert.equals(game.at(0,5), remy.dondeEstoyApuntando())
 
-    remy.recogerIngrediente()
+    remy.interactuar()
     remy.mover(arriba)
 
-    assert.notThat(restaurante.hayIngredienteAqui(remy.position()))
+    //assert.notThat(restaurante.hayIngredienteAqui(remy.position()))
+    assert.notThat(restaurante.hayMuebleAqui(remy.position()))
+    assert.equals(tomate, restaurante.muebleAqui(remy.position()).primerIngrediente()) //fijarse si es eso lo que tenia el mueble
+
     assert.notThat(remy.tengoBandejaVacia())
-    assert.throwsException({ remy.recogerIngrediente() })
+    assert.throwsException({ remy.interactuar() })
   }
 
   test "remy puede soltar ingrediente porque hay una mesada en donde esta mirando" {
@@ -58,7 +61,7 @@ describe "chefs test" {
 
     assert.equals(game.at(5,5), remy.dondeEstoyApuntando())
 
-    remy.recogerIngrediente()
+    remy.interactuar()
     assert.notThat(remy.tengoBandejaVacia())
 
     remy.mover(izquierda)
@@ -77,26 +80,26 @@ describe "chefs test" {
 
     assert.equals(game.at(5,5), remy.dondeEstoyApuntando())
 
-    remy.recogerIngrediente()
+    remy.interactuar()
     assert.notThat(remy.tengoBandejaVacia())
     assert.notThat(restaurante.hayMuebleAqui(remy.position()))
 
-    assert.throwsException({ remy.soltarIngrediente() })
+    assert.throwsException({ remy.interactuar() })
   }
 
   test "remy puede procesar el tomate porque hay una mesada" {
     remy.position( game.at(3,5) )
     remy.mover(derecha)
-    remy.recogerIngrediente()
+    remy.interactuar()
     assert.notThat(remy.tengoBandejaVacia())
     remy.mover(izquierda)
-    remy.procesarIngrediente()
+    remy.interactuar()
     assert.equals("tomate_inicial.png", tomate.image())
   }
 
   test "remy no puede procesar porque hay un mueble pero no es una mesada, es un tacho" {
     remy.position( game.at(5,6) )
-    remy.recogerIngrediente()
+    remy.interactuar()
     assert.notThat(remy.tengoBandejaVacia())
 
     remy.mover(arriba)
@@ -108,15 +111,16 @@ describe "chefs test" {
 
   test "remi va a tirar el queso que agarro a la basura y se puede porque hay un tacho" {
     remy.position( game.at(5,6) )
-    remy.recogerIngrediente()
+    remy.interactuar()
     assert.notThat(remy.tengoBandejaVacia())
 
     remy.mover(arriba)
     remy.mover(izquierda)
     remy.mover(izquierda)
 
-    assert.that(restaurante.hayBasuraAqui(remy.dondeEstoyApuntando()))
-    remy.tirarALaBasura()
+    //assert.that(restaurante.hayBasuraAqui(remy.dondeEstoyApuntando()))
+    assert.that(restaurante.hayMuebleAqui(remy.dondeEstoyApuntando()))
+    remy.interactuar()
   }
 
   test "remy va a tirar el queso que agarro pero no puede porque no hay un tacho" {
@@ -124,8 +128,8 @@ describe "chefs test" {
     remy.recogerIngrediente()
     assert.notThat(remy.tengoBandejaVacia())
 
-    assert.notThat(restaurante.hayBasuraAqui(remy.dondeEstoyApuntando()))
-    assert.throwsException({ remy.tirarALaBasura() })
+    assert.notThat(restaurante.hayMuebleAqui(remy.dondeEstoyApuntando()))
+    assert.throwsException({ remy.interactuar() })
   }
 
   test "remy agarra una masa con queso y la mete al horno y luego la saca del horno" {
@@ -136,13 +140,15 @@ describe "chefs test" {
 
     assert.that(remy.tengoUnaPreparacion())
 
-    assert.that(restaurante.hayHornoConEspacioAqui(remy.dondeEstoyApuntando()))
+    //assert.that(restaurante.hayHornoConEspacioAqui(remy.dondeEstoyApuntando()))
+    assert.that(restaurante.hayMuebleAqui(remy.dondeEstoyApuntando()))
+    assert.that(restaurante.muebleAqui(remy.dondeEstoyApuntando()).tieneEspacio())
     
-    remy.meterAlHorno()
+    remy.interactuar()
 
     assert.that(horno.hayAlMenos1Pizza())
 
-    remy.sacarDelHorno()
+    remy.interactuar()
 
     assert.notThat(horno.hayAlMenos1Pizza())
     

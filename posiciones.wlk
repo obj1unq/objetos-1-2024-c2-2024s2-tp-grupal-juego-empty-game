@@ -51,8 +51,8 @@ object derecha {
 
 /*
 se necesita:
--(nombre chef).derecha.png
--(nombre chef).izquierda.png
--(nombre chef).arriba.png
--(nombre chef).abajo.png
+-(nombre).derecha.png
+-(nombre).izquierda.png
+-(nombre).arriba.png
+-(nombre).abajo.png
 */

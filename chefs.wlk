@@ -23,7 +23,7 @@ class Persona {
 	}
 
   method validarMoverseHacia(_position){
-    if(restaurante.muebleAqui(_position)){
+    if(restaurante.hayMuebleAqui(_position)){
       self.error("no me puedo mover ahí")
     }
   }
@@ -44,15 +44,15 @@ class Persona {
 
 }
 
-class Chef inherits Persona{
+class Chef inherits Persona {
     var property bandeja = bandejaVacia
 
      method tengoBandejaVacia() {
-    return bandeja.esBandejaVacia()
+    return bandeja.esVacio()
   }
 
    method interactuar() {
-        const mueble = restaurante.hayMuebleAqui(self.dondeEstoyApuntando())
+        const mueble = restaurante.muebleAqui(self.dondeEstoyApuntando())
         mueble.usarse(self)
     }
 

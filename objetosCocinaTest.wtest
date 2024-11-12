@@ -21,19 +21,23 @@ describe "horno" {
     
   }
 
-  test "el horno recibe pizzas hasta su maximo espacio" {
-    assert.equals(2, horno2.maxCapacidad())
-    // horno2.recibir(preparacion)
-    horno2.usarse(remy)
-    // assert.that(horno2.hayAlMenos1Pizza())
+  test "ocurre un fallo porque el horno no puede recibir más de 1 pizza" {
+    remy.bandeja(preparacion)
+    horno.usarse(remy)
+    
     assert.that(horno.tieneAlgo())
-    // horno2.recibir(preparacion2)
-    horno2.usarse(remy)
-    // assert.notThat(horno2.hayEspacioEnHorno())
-    assert.notThat(horno2.hayEspacio())
-    // assert.throwsException({ horno2.recibir(masa) })
-    assert.throwsException({ horno2.usarse(remy) })
+    
+    assert.that(remy.tengoBandejaVacia())
+
+    remy.bandeja(preparacion)
+    assert.throwsException({ horno.usarse(remy) })
   }
+
+  test "ahora el error ocurre porque remy no tienen nada que darle al horno y el horno no tiene nada que darle a remy" {
+    assert.that(remy.tengoBandejaVacia())
+    assert.throwsException({ horno.usarse(remy) })
+  }
+
 }
 
 describe "mesada" {

@@ -16,7 +16,7 @@ class Mueble {
     if(not chef.tengoBandejaVacia()){ //si el cheff tiene algo en su bandeja asume que tiene que recibir algo
       self.validarRecibir(chef)
       self.accionRecibir(chef)
-    } else { //sino asume que el chef intenta agarrar algo 
+    } else { //sino, cuando el chef no tiene nada en la bandeja asume que el chef intenta agarrar algo 
       self.validarDar(chef)
       self.accionDar(chef)
     }
@@ -28,13 +28,15 @@ class Mueble {
 
   method validarRecibir(chef){
     if(self.tieneAlgo()){ //si tiene algo ya no puede recibir lo que tiene el chef
-      chef.error("no hay espacio para dejar algo aqui")  //esta bien o mejor que lo diga el mueble?
+      self.error("no hay espacio para dejar algo aqui")  //esta bien o mejor que lo diga el mueble?
+      //chef
     }
   }
 
-  method validarDar(chef){
-    if(not chef.tengoBandejaVacia()){ //si el chef no tiene espacio no puede agarrar lo del mueble
-      chef.error("no puedo agarrar algo si tengo las manos llenas")
+  method validarDar(chef){ //not chef.tengoBandejaVacia() ya se cumple en la rama del if de usarse
+    if(not self.tieneAlgo()){ //si el chef no tiene espacio no puede agarrar lo del mueble, tambien tiene que haber algo para dar
+      self.error("no puedo agarrar algo si tengo las manos llenas o si no hay nada que agarrar")
+      //chef
     }
   }
 

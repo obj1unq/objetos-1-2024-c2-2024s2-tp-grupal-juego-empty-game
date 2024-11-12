@@ -1,6 +1,8 @@
+import posiciones.*
 import chefs.*
 import restauranteTest.*
 import objetosParaTests.*
+import objetosCocina.*
 
 import wollok.game.*
 
@@ -69,4 +71,14 @@ describe "mesada" {
     // assert.that(preparacion.tieneIngredientes())
     assert.that(preparacion.tieneIngredientes())
   }
+  test "remy va a la canaste de tomates  y toma uno en su bandeja"{
+   
+   remy.position(game.at(0,2))
+   remy.mover(derecha)
+   remy.recogerIngrediente()
+
+   assert.equals(tomate.identity(), remy.bandeja().identity()) //acá hay que cambiar la forma de verificar el objeto
+
+  }
+  // el test da  0 passing eso  esta mal, no le encontre la vuelta 
 }

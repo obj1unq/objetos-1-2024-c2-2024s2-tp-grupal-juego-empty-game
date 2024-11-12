@@ -10,6 +10,8 @@ class Ingrediente {
     var property image = null 
     var property precio = null
 
+    method sabor()
+
    method esVacio(){
     return false
    }
@@ -26,7 +28,7 @@ class Ingrediente {
 
     method serSostenido(chef) {
         game.removeVisual(self)
-        position = chef.position()
+        position = chef.position() //ESTO CAMBIARLO
     }
 
     method serDejadoAqui(nuevaPosition){
@@ -34,7 +36,9 @@ class Ingrediente {
         position = nuevaPosition
     }
 
-    method imagenIngredienteInicial() //ingrediente inicial y final tal vez podrían ser una constante y se declara en cada clase
+    method imagenIngredienteInicial() 
+
+    //ingrediente inicial y final tal vez podrían ser una constante y se declara en cada clase
 
     method imagenIngredienteFinal()
 
@@ -43,8 +47,6 @@ class Ingrediente {
             image = self.imagenIngredienteFinal()
         }
     }
-
-    method id() //esto cambiarlo por la id
 }
 
 
@@ -88,9 +90,10 @@ class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
         }
     }
 
-    override method id(){
-        return "masa"
+    override method sabor(){
+        return saborMasa
     }
+
 }
 
 object cruda {
@@ -130,9 +133,9 @@ class Queso inherits Ingrediente( image = "queso_inicial.png", precio = 200) {
             return "queso_final.png"
         }
 
-        override method id(){
-            return "queso"
-        }
+        override method sabor(){
+        return saborQueso
+    }
 }
 
 class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
@@ -147,9 +150,9 @@ class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
         return "tomate_final.png"
       }
 
-      override method id(){
-            return "tomate"
-        }
+      override method sabor(){
+        return saborTomate
+    }
 }
 
 class Aceituna inherits Ingrediente( image = "aceituna_factory.png", precio = 200) {
@@ -162,9 +165,9 @@ class Aceituna inherits Ingrediente( image = "aceituna_factory.png", precio = 20
             return "aceituna_final.png"
         }
 
-    override method id(){
-            return "aceituna"
-        }
+    override method sabor(){
+        return saborAceituna
+    }
 }
 
 class Huevo inherits Ingrediente( image = "huevo_inicial.png", precio = 200) {
@@ -177,9 +180,9 @@ class Huevo inherits Ingrediente( image = "huevo_inicial.png", precio = 200) {
             return "huevo_final.png"
         }
 
-    override method id(){
-            return "huevo"
-        }
+    override method sabor(){
+        return saborHuevo
+    }
 }
 
 class Atun inherits Ingrediente( image = "atun_factory.png", precio = 200) {
@@ -192,9 +195,9 @@ class Atun inherits Ingrediente( image = "atun_factory.png", precio = 200) {
             return "atun_final.png"
         }
 
-    override method id(){
-            return "atun"
-        }
+    override method sabor(){
+        return saborAtun
+    }
 }
 
 class Hongo inherits Ingrediente( image = "hongo_inicial.png", precio = 200) {
@@ -207,10 +210,19 @@ class Hongo inherits Ingrediente( image = "hongo_inicial.png", precio = 200) {
             return "hongo_final.png"
         }
 
-    override method id(){
-            return "hongo"
-        }
+    override method sabor(){
+        return saborHongo
+    }
 }
+
+object saborMasa {}
+object saborQueso {}
+object saborTomate {}
+object saborAceituna {}
+object saborHuevo {}
+object saborAtun {}
+object saborHongo {}
+
 
 
 /*

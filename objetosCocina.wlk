@@ -130,10 +130,18 @@ class Tacho inherits Mueble{
 
 class PilaIngrediente inherits Mueble {
 
+  override method usarse(chef){
+    self.accionDar(chef)
+  }
+
   override method eliminarLoDado(){}
 
   override method objetoADar(chef){
     return self.nuevoIngrediente(chef)
+  }
+
+  override method tieneAlgo() {
+    return false
   }
 
   method nuevoIngrediente(chef)
@@ -143,7 +151,7 @@ class PilaIngrediente inherits Mueble {
 object estacionTomate  inherits PilaIngrediente(image = "tomate_inicial.png", position = game.at(2, 2)){
 
   override method nuevoIngrediente(chef){
-    return new Tomate(position= chef.position())
+    return new Tomate(position= chef.position()) //debería aparecer dentro de la bandeja del chef
   }
 
 }

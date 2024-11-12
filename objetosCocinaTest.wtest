@@ -3,6 +3,7 @@ import chefs.*
 import restauranteTest.*
 import objetosParaTests.*
 import objetosCocina.*
+import comestibles.*
 
 import wollok.game.*
 
@@ -80,14 +81,13 @@ describe "mesada" {
     
     assert.that(preparacion.tieneIngredientes())
   }
-  test "remy va a la canaste de tomates  y toma uno en su bandeja"{ //ACA HAY UNA FALLA QUE NI SALTA EL ERROR; VER 
+  test "remy va a la canaste de tomates  y toma uno en su bandeja"{ //rarisimo que sigue fallando 
    
-   remy.position(game.at(0,2))
-   remy.mover(derecha)
-   remy.recogerIngrediente()
+   assert.that(remy.tengoBandejaVacia())
+   estacionTomate.usarse(remy)
+   assert.notThat(remy.tengoBandejaVacia())
 
-   assert.equals(tomate.identity(), remy.bandeja().identity()) //acá hay que cambiar la forma de verificar el objeto
+   assert.equals(saborTomate, remy.bandeja().sabor()) //es mejor forma de comparar
 
   }
-  // el test da  0 passing eso  esta mal, no le encontre la vuelta 
 }

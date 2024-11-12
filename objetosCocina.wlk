@@ -9,8 +9,8 @@ import wollok.game.*
 class Mueble {
   const property position = game.center() 
   const image = "" 
-  var contenido = [] //bandejaVacia es un objeto que representa el no tener nada
-  var property maxCapacidad = 1
+  var contenido = bandejaVacia //es un objeto que representa el no tener nada
+  //var property maxCapacidad = 1
 
   method usarse(chef){ //para con 1 solo boton "interactuar" sea algo general y el mueble ve como se arregla en la interaccion
     if(not chef.tengoBandejaVacia()){ //si el cheff tiene algo en su bandeja asume que tiene que recibir algo
@@ -23,41 +23,37 @@ class Mueble {
   }
 
   method tieneAlgo() {
-    return not contenido.isEmpty()
+    return not contenido.esVacio()
   }
 
   method validarRecibir(chef){
-    if(not self.tieneEspacio()){
-      chef.error("no hay espacio para dejar algo aqui")  //esta bien?
+    if(self.tieneAlgo()){ //si tiene algo ya no puede recibir lo que tiene el chef
+      chef.error("no hay espacio para dejar algo aqui")  //esta bien o mejor que lo diga el mueble?
     }
   }
 
-  method tieneEspacio() { //template method para ver si tiene espacio
-    return contenido.size() + 1 <= maxCapacidad 
-  }
-
   method validarDar(chef){
-    if(not chef.tengoBandejaVacia()){ //lo mismo que recibir acá
-      chef.error(chef, "no puedo agarrar algo si tengo las manos llenas")
+    if(not chef.tengoBandejaVacia()){ //si el chef no tiene espacio no puede agarrar lo del mueble
+      chef.error("no puedo agarrar algo si tengo las manos llenas")
     }
   }
 
   method accionRecibir(chef){
-    contenido.add(chef.bandeja())
+    contenido = chef.bandeja()
     chef.soltar() //esto en el chef hace que tenga una bandeja vacia otra vez
   }
 
   method accionDar(chef){
     chef.recibir(self.objetoADar(chef))
-   self.eliminarLoDado() 
+    self.eliminarLoDado() 
   }
 
   method objetoADar(chef){
-    return self.primerIngrediente()
+    return contenido
   }
 
-   method eliminarLoDado(){ //template method para las factories
-    contenido.remove(self.primerIngrediente())
+   method eliminarLoDado(){ //template method para las factories -> mo hace nada eso ya que no tiene "contenido"
+    contenido = bandejaVacia
    }
 
   method contenido(){
@@ -65,42 +61,30 @@ class Mueble {
   }
 
   method estaLibre(){
-    return contenido.esVacio() || self.tienePiza() //buscar mejor nombre para el mensaje de "esVacio"?
+    return not self.tieneAlgo() || self.tienePiza() //buscar mejor nombre para el mensaje de "esVacio"?
   }
 
     method tienePiza(){
-    return self.primerIngrediente().aceptaIngredientesEncima()
+    return contenido.aceptaIngredientesEncima()
   }
   
-  method primerIngrediente(){
-    return contenido.head()
-  }
+  // method primerIngrediente(){ al final no es necesario esto por ahora
+  //   return contenido.head()
+  // }
 
 }
 
-object muebleFantasma inherits Mueble{ //esto es para evitar el error de que no se encuentre ningun mueble en el find
+// object muebleFantasma inherits Mueble{ //esto es para evitar el error de que no se encuentre ningun mueble en el find
 
-  override method usarse(chef){
-    game.say(restaurante, "no hay ningun mueble Aqui")
-  }
+//   override method usarse(chef){
+//     game.say(restaurante, "no hay ningun mueble Aqui")
+//   }
 
-}
+// }
 
 
-/*
-  HAY PROBLEMAS OCN EL HORNO Y LA LOGICA ACTUAL DE AGARRAR/SOLTAR INGREDIENTE, LO QUE HACE COMPLEJO USAR UN HORNO QUE ACEPTE MÁS DE UN INGREDIENTE YA QUE COMPLICA TODA LA FORMA EN LA QUE EL CHEF INTERACTUA CON TODOS
-
-  EJ: el chef le manda un interactuar que todos los muebles pueden entender si es un caso en el que se agarra o suelta menos el horno.
-  el horno se queda en que siempre se va a agarrar la pizza que esta en el horno aunque su capacidad sea de más de una o sino siempre vas a tener que llenar el horno por completo para poder sacar la primer pizza que pusiste
-*/
 class Horno inherits Mueble{
   var property temperatura = 0
-
-  override method maxCapacidad(){
-    return 2
-  }
-
-  //estaria bueno agregar un metodo de subir de nivel le sube la capacidad maxima al horno y además descuenta plata de la caja
 
   override method accionRecibir(chef){
     super(chef)
@@ -134,11 +118,11 @@ class Mesada inherits Mueble{
   override method accionRecibir(chef){
     const ingrediente = chef.bandeja()
     if(self.tienePiza()){ //si la mesada tiene una pizza entonces el ingrediente se agrega a la lista de la masa
-      self.primerIngrediente().recibirIngrediente(ingrediente)
+      contenido.recibirIngrediente(ingrediente)
     } else { 
       super(chef) //sino, el ingrediente se agrega arriba del mueble y listo, se tiene que ver ahí la imagen
     }  
-    ingrediente.serDejadoAqui(self.position())
+    ingrediente.serDejadoAqui(self.position()) //REVISAR SI ESTO SIRVE DE ALGO
   }
 
 }
@@ -156,10 +140,6 @@ class Tacho inherits Mueble{
 class Dispencer inherits Mueble{}
 
 class PilaIngrediente inherits Mueble {
-
-  override method maxCapacidad(){
-    return 0
-  }
 
   override method eliminarLoDado(){}
 

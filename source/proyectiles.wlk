@@ -109,7 +109,6 @@ class BolaDeFuego inherits Proyectil(danio=20) {
         super(dir)
     } 
 }
-
 object managerCrater {
 
     method explosionEnCon(pos,dmg) {
@@ -121,9 +120,7 @@ object managerCrater {
         game.addVisual(craterNuevo)
         craterNuevo.daniar(dmg)
     }
-
 }
-
 class Crater {
     var property image = "tanqueimpacto.png"
     const property position

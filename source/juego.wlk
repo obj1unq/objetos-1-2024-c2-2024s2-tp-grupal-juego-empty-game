@@ -53,6 +53,8 @@ object juego {
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
         game.onTick(1000, "timer", {timer.tick()})
         game.onTick(1000, "energia", {barraDeEnergia.recargarEnergia()})
+        // testeo spawneo zombies
+        game.onTick(3000, "generarZombiesRandom", {managerZombie.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
 
     }
 

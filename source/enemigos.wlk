@@ -18,30 +18,82 @@ object managerZombie {
         zombie.persecucion()
     }
 
+    method generarZombieAleatorio(posicion) {
+        const zombieNuevo = randomizadorZombies.randomizarZombie(posicion)
+        zombies.add(zombieNuevo)
+        game.addVisual(zombieNuevo)
+        zombieNuevo.persecucion()
+    }
+
     method posTieneZombie(pos) {
         return (zombies.any({zom => zom.position() == pos}))
     }
 }
 
 object generadorZombie {
-    method zombieTanque(posicion) {
-        return new ZombieTanque(position = posicion)
-    }
 
     method zombieComun(posicion) {
         return new ZombieComun(position = posicion)
-    }
-
-    method zombieThrower(posicion) {
-        return new ZombieThrower(position = posicion)
     }
 
     method zombiePerro(posicion) {
         return new ZombiePerro(position = posicion)
     }
     
+    method zombieThrower(posicion) {
+        return new ZombieThrower(position = posicion)
+    }
+        
+    method zombieTanque(posicion) {
+        return new ZombieTanque(position = posicion)
+    }
+
     method posicionInicial() {
         return game.at(game.width() -3, game.height() -3)
+    }
+}
+
+// testear probabilidad zombies(funciona, pero laguea una banda LPM jsjs)
+
+object randomizadorZombies {
+    var property posicionSpawn = game.at(0, 0)
+
+    method posicionAleatoria() {
+        const posicion = 1.randomUpTo(4)
+        return self.elegirPosicion(posicion)
+    }
+
+    method posicionesSpawneo() {
+        return [game.at(0, 0), game.at(0, game.width() - 1),
+            game.at(game.height() - 2 , 0), game.at(0, game.height() - 2)]
+    }
+
+    // arreglar pq el expectorador mira hacia abajo al disparar en position.x() = 0
+
+    method zombiesAGenerar(posicion) {
+        return [generadorZombie.zombieComun(posicion), generadorZombie.zombiePerro(posicion),
+                generadorZombie.zombieTanque(posicion), generadorZombie.zombieThrower(posicion)]
+    }
+
+    method elegirZombie(numero, posicion) {
+        return self.zombiesAGenerar(posicion).get(numero - 1)
+    }
+
+    method elegirPosicion(numero) {
+        return self.posicionesSpawneo().get(numero - 1)
+    }
+
+    method randomizarZombie(posicion) {
+        const probabilidad = 0.randomUpTo(100)
+        return self.probabilidadZombies(probabilidad, posicion)
+    }
+
+    method probabilidadZombies(numero, posicion) {
+        return 
+            if(numero < 50) self.elegirZombie(1, posicion)
+            else if(numero >= 50 and numero < 75) self.elegirZombie(2, posicion)
+            else if(numero >= 75 and numero < 87.5) self.elegirZombie(3, posicion)
+            else self.elegirZombie(4, posicion)
     }
 }
 
@@ -168,8 +220,6 @@ class Zombie {
 
 class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image = "zombie-comun-abajo.png"){ 
 
-    // Ataque -----------------------------------------
-
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
     }
@@ -184,7 +234,6 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image 
 }
 
 class ZombiePerro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perronio-abajo.png"){
-
 
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
@@ -312,13 +361,17 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 10, velocidad = 250, image 
 
     method animacionAtaque() {
         estado = 2
-        self.imagenHacia(abajo)
+        self.imagenHacia(self.direccionAtaque())
         game.schedule(600,{estado += 1})
-        game.schedule(650,{self.imagenHacia(abajo)})
+        game.schedule(650,{self.imagenHacia(self.direccionAtaque())})
         game.schedule(1200,{estado += 1})
-        game.schedule(1200,{self.imagenHacia(abajo)})
+        game.schedule(1200,{self.imagenHacia(self.direccionAtaque())})
         game.schedule(1250,{estado = 1})
-        game.schedule(1450,{self.imagenHacia(abajo)})
+        game.schedule(1450,{self.imagenHacia(self.direccionAtaque())})
+    }
+
+    method direccionAtaque() {
+        return if(position.x() == 0) arriba else abajo
     }
 
     // sonido -----------------------------------------

@@ -20,6 +20,7 @@ object personaje {
     method visualHealth(numero) {
         return pj.cura(numero)
     }
+    
     // -------------movimiento-------------------------------
     
     method mover(direccion) {

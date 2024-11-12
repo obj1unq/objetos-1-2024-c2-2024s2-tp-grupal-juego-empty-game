@@ -72,15 +72,6 @@ class Mueble {
 
 }
 
-// object muebleFantasma inherits Mueble{ //esto es para evitar el error de que no se encuentre ningun mueble en el find
-
-//   override method usarse(chef){
-//     game.say(restaurante, "no hay ningun mueble Aqui")
-//   }
-
-// }
-
-
 class Horno inherits Mueble{
   var property temperatura = 0
 
@@ -146,8 +137,6 @@ class PilaIngrediente inherits Mueble {
   }
 
   method nuevoIngrediente(chef)
-
-   method serSostenido(chef){} //ELIMINAR
 
 }
 

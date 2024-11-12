@@ -56,7 +56,7 @@ describe "mesada" {
     assert.that(mesada1.estaLibre())
   }
 
-  test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" { //ERROR AQUI A ARREGLAR
+  test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" { //ERROR AQUI A ARREGLAR -> incluye revisar los ingredientes
     // mesada1.recibirIngrediente(preparacion)
     remy.bandeja(preparacion)
     mesada1.usarse(remy)

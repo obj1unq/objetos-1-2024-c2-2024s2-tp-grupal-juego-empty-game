@@ -8,6 +8,8 @@ import objetosParaTests.*
 
 import wollok.game.*
 
+/*SE NECETIRA REHACER EL MAPA PARA ARREGLAR ESTO*/
+
 describe "chefs test" {
   test "remy puede moverse porque no hay ningun mueble en el medio y se mueve" {
     remy.mover(arriba)

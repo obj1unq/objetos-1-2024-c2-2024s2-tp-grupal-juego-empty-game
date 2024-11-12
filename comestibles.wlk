@@ -3,7 +3,7 @@ import chefs.*
 
 
 import wollok.game.*
-
+ /*TAMBIEN NECESITA UN RETOQUE*/
 
 class Ingrediente { 
     var property position = game.center()    

@@ -10,11 +10,11 @@ class Persona {
     var property orientacion = abajo //en donde está mirando
     var property position = game.at(0,0) //la posicion es placeholder por ahora
     var image = null //por default le ponemos una imagen a cada cliente y a cada chef
-    //const property ubicacion = restaurante preguntar si conviene más guardarlo en variable o tener referencia global
-    var property nombre = null //para los clientes sería tipo cliente
+    //const property ubicacion = restaurante -> preguntar si conviene más guardarlo en variable o tener referencia global
+    var property nombre = null //para los clientes sería tipo cliente, para el chef tenemos nombre jaja
 
     method mover(direccion) {
-      orientacion = direccion //es importante que primero cambie a donde mira y después se mueva o no
+      orientacion = direccion //es importante que primero cambie a donde mira y después se mueva (o no)
       const nuevaPosition = direccion.moverse(self.position())
 
       self.validarMoverseHacia(nuevaPosition)
@@ -78,9 +78,7 @@ class Chef inherits Persona {
 }
 
 object bandejaVacia {
-  // method esBandejaVacia(){ queda feo, esta mal preguntarle al objeto si es objeto
-  //   return true 
-  // }
+  
   method esVacio(){
     return true
   }

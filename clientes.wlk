@@ -4,6 +4,8 @@ import comestibles.*
 
 import wollok.game.*
 
+/*SE NECESITA UN RETOQUE MAS PROLIJO PARA LOS CLIENTES Y DARLES VERDADERAMETE UN COMPORTAMIENTO DIFERENTE*/
+
 class Cliente inherits Persona(position = game.at(0,7) /*o donde esté la puerta*/, image = ""){
     var property pedidoQueEspero = #{}
     var property emocion = neutral //las emocines podrían ser estados

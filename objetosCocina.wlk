@@ -28,7 +28,7 @@ class Mueble {
 
   method validarRecibir(chef){
     if(not self.tieneEspacio()){
-      self.error("no hay espacio para dejar algo aqui") 
+      chef.error("no hay espacio para dejar algo aqui")  //esta bien?
     }
   }
 
@@ -87,7 +87,12 @@ object muebleFantasma inherits Mueble{ //esto es para evitar el error de que no 
 }
 
 
+/*
+  HAY PROBLEMAS OCN EL HORNO Y LA LOGICA ACTUAL DE AGARRAR/SOLTAR INGREDIENTE, LO QUE HACE COMPLEJO USAR UN HORNO QUE ACEPTE MÁS DE UN INGREDIENTE YA QUE COMPLICA TODA LA FORMA EN LA QUE EL CHEF INTERACTUA CON TODOS
 
+  EJ: el chef le manda un interactuar que todos los muebles pueden entender si es un caso en el que se agarra o suelta menos el horno.
+  el horno se queda en que siempre se va a agarrar la pizza que esta en el horno aunque su capacidad sea de más de una o sino siempre vas a tener que llenar el horno por completo para poder sacar la primer pizza que pusiste
+*/
 class Horno inherits Mueble{
   var property temperatura = 0
 

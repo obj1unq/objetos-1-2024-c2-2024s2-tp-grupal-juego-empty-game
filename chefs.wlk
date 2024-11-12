@@ -56,6 +56,14 @@ class Chef inherits Persona {
         mueble.usarse(self)
     }
 
+    method soltar(){
+      bandeja = bandejaVacia //la bandeja representa el no tener nada, es un objeto vacio
+    }
+
+    method recibir(ingrediente) {
+      bandeja = ingrediente
+    }
+
 //probar:
   method preguntarPedido() {
     self.validarPreguntarPedido()

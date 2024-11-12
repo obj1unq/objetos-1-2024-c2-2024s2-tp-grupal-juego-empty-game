@@ -7,6 +7,7 @@ import proyectiles.*
 
 object managerZombie {
     const property zombies = #{}
+    var contador = 0
 
     method quitarZ(zombie) {
         zombies.remove(zombie)
@@ -16,6 +17,16 @@ object managerZombie {
         zombies.add(zombie)
         game.addVisual(zombie)
         zombie.persecucion()
+    }
+
+    method activarODesactivarGeneracionAleatoria() {
+        if(contador.even()) {
+            contador += 1
+            game.onTick(3000, "generarZombiesRandom", {self.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
+        } else {
+            contador += 1
+            game.removeTickEvent("generarZombiesRandom")
+        }
     }
 
     method generarZombieAleatorio(posicion) {
@@ -64,8 +75,8 @@ object randomizadorZombies {
     }
 
     method posicionesSpawneo() {
-        return [game.at(0, 0), game.at(0, game.width() - 1),
-            game.at(game.height() - 2 , 0), game.at(0, game.height() - 2)]
+        return [game.at(0, 0), game.at(game.width() - 1, 0),
+            game.at(game.width() - 1, game.height() - 2), game.at(0, game.height() - 2)]
     }
 
     // arreglar pq el expectorador mira hacia abajo al disparar en position.x() = 0

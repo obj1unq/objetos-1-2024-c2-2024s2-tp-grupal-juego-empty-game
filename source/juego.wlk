@@ -44,17 +44,14 @@ object juego {
 
         // para testear las clases vamos a colocar teclas para hacer aparecer cada una
         // mas adelante sus spawns van a estar decididos por otros eventos y no estas teclas
-        keyboard.z().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieComun(generadorZombie.posicionInicial()))})
-        keyboard.x().onPressDo({managerZombie.spawnearZ(generadorZombie.zombiePerro(generadorZombie.posicionInicial()))})
-        keyboard.c().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieTanque(generadorZombie.posicionInicial()))})
-        keyboard.v().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieThrower(generadorZombie.posicionInicial()))})
+        keyboard.z().onPressDo({managerZombie.activarODesactivarGeneracionAleatoria()})
         keyboard.b().onPressDo({managerItems.spawnearCura(1)})
         keyboard.n().onPressDo({managerItems.spawnearOro(1)})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
         game.onTick(1000, "timer", {timer.tick()})
         game.onTick(1000, "energia", {barraDeEnergia.recargarEnergia()})
         // testeo spawneo zombies
-        game.onTick(3000, "generarZombiesRandom", {managerZombie.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
+    
 
     }
 

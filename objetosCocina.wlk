@@ -13,7 +13,7 @@ class Mueble {
   var property maxCapacidad = 1
 
   method usarse(chef){ //para con 1 solo boton "interactuar" sea algo general y el mueble ve como se arregla en la interaccion
-    if(not self.tieneAlgo()){ //si no tiene nada encima asume que el chef intenta dejar algo
+    if(not chef.tengoBandejaVacia()){ //si el cheff tiene algo en su bandeja asume que tiene que recibir algo
       self.validarRecibir(chef)
       self.accionRecibir(chef)
     } else { //sino asume que el chef intenta agarrar algo 

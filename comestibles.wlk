@@ -10,7 +10,7 @@ class Ingrediente {
     var property image = null 
     var property precio = null
 
-   method esBandejaVacia(){
+   method esVacio(){
     return false
    }
 

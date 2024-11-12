@@ -6,39 +6,93 @@ import chefs.*
 
 import wollok.game.*
 
+class Mueble {
+  const property position = game.center() 
+  const image = "" 
+  var contenido = [] //bandejaVacia es un objeto que representa el no tener nada
+  var property maxCapacidad = 1
 
-class Horno {
-  const property position = game.at(4, 4)
-  var image = "oven_0.png" //ponerle una imagen base normal
-  var property temperatura = 0
-  var property contenido = [] 
-  
-  method recibir(pizza) {
-      self.validarRecibirPizza()
-      self.contenido().add(pizza)      
-  }
-
-  method validarRecibirPizza() {
-    if(not self.hayEspacioEnHorno()){ //podría cambiarse la capacidad del horno si es por nivel o puntos y ahí se le pone en variable.
-      self.error("ya hay cosas calentandose")
+  method usarse(chef){ //para con 1 solo boton "interactuar" sea algo general y el mueble ve como se arregla en la interaccion
+    if(not self.tieneAlgo()){ //si no tiene nada encima asume que el chef intenta dejar algo
+      self.validarRecibir(chef)
+      self.accionRecibir(chef)
+    } else { //sino asume que el chef intenta agarrar algo 
+      self.validarDar(chef)
+      self.accionDar(chef)
     }
   }
 
-  method hayEspacioEnHorno(){
-    return contenido.isEmpty() || contenido.size() < 2
-  }
-
-  method hayAlMenos1Pizza() {
+  method tieneAlgo() {
     return not contenido.isEmpty()
   }
 
-  method sacaDelHorno(chef) {
-    chef.recibirIngrediente(self.primeraPizzaEnHorno())
-    contenido.remove(self.primeraPizzaEnHorno())
+  method validarRecibir(chef){
+    if(not self.tieneEspacio()){
+      game.say(chef, "no hay espacio para dejar algo aqui") //el error que dice el chef
+      self.error("no hay espacio en el mueble") //no se si dejar vacio o no aca
+    }
   }
 
-  method primeraPizzaEnHorno() {
+  method tieneEspacio() { //template method para ver si tiene espacio
+    return contenido.size() + 1 <= maxCapacidad 
+  }
+
+  method validarDar(chef){
+    if(not chef.tengoBandejaVacia()){ //lo mismo que recibir acá
+      game.say(chef, "no puedo agarrar algo si tengo las manos llenas")
+      self.error("el chef no puede agarrar lo que hay en el mueble")
+    }
+  }
+
+  method accionRecibir(chef){
+    contenido.add(chef.bandeja())
+  }
+
+  method accionDar(chef){
+    chef.recibir(self.objetoADar(chef))
+   self.eliminarLoDado() 
+  }
+
+  method objetoADar(chef){
+    return self.primerIngrediente()
+  }
+
+   method eliminarLoDado(){ //template method para las factories
+    contenido.remove(self.primerIngrediente())
+   }
+
+  method contenido(){
+    return contenido
+  }
+
+  method estaLibre(){
+    return contenido.esVacio() || self.tienePiza() //buscar mejor nombre para el mensaje de "esVacio"?
+  }
+
+    method tienePiza(){
+    return self.primerIngrediente().aceptaIngredientesEncima()
+  }
+  
+  method primerIngrediente(){
     return contenido.head()
+  }
+
+}
+
+
+
+class Horno inherits Mueble{
+  var property temperatura = 0
+
+  override method maxCapacidad(){
+    return 2
+  }
+
+  //estaria bueno agregar un metodo de subir de nivel le sube la capacidad maxima al horno y además descuenta plata de la caja
+
+  override method accionRecibir(chef){
+    super(chef)
+    self.cocinar()
   }
 
   method cocinar() { 
@@ -58,132 +112,106 @@ class Horno {
   }
 
   method simularFuego() {
-    if(image == "ovenFuego1.png") {
-            image = "ovenFuego2.png"
-          } else 
-            image = "ovenFuego1.png" 
-  }
-
-}
-
-class Mueble {
-  const property position = game.center()
-  const property image = ""
-  
-
-  method esMuebleDeCocina(){
-    return false
-  }
-
-  method esParaProcesar(){
-    return false
-  }
-
-  method estaLibre(){
-    return false
-  }
-
-  method esPilaDeIngredientes(){
-    return false
-  }
-
-  method esTacho() {
-    return false
+    //esto sería mejor que hagamos que aparezca dibujos de humo arriba del horno y ya está
   }
 
 }
 
 class Mesada inherits Mueble{
-  var property cosasEncima = bandejaVacia
 
-  override method esMuebleDeCocina() {
-    return true 
-  }
-
-  override method esParaProcesar(){
-    return true
-  }
-
-  override method estaLibre(){
-    return cosasEncima.esBandejaVacia() || self.tieneUnaPiza()
+  override method accionRecibir(chef){
+    const ingrediente = chef.bandeja()
+    if(self.tienePiza()){ //si la mesada tiene una pizza entonces el ingrediente se agrega a la lista de la masa
+      self.primerIngrediente().recibirIngrediente(ingrediente)
+    } else { 
+      super(chef) //sino, el ingrediente se agrega arriba del mueble y listo, se tiene que ver ahí la imagen
+    }  
+    ingrediente.serDejadoAqui(self.position())
   }
 
-  method tieneUnaPiza(){
-    return cosasEncima.aceptaIngredientesEncima()
-  }
-  method recibirIngrediente(ingrediente) {
-    if(self.tieneUnaPiza()){
-      cosasEncima.recibirIngrediente(ingrediente)
-      ingrediente.serDejadoAqui(cosasEncima.position())
-    } else{
-      cosasEncima = ingrediente
-      ingrediente.serDejadoAqui(self.position())
-    }
-  }
-
-  method entregarIngredienteEncima(){
-    //cosasEncima.remove(self.cosaEncima())
-    cosasEncima = bandejaVacia
-  }
 }
 
 class Tacho inherits Mueble{
 
-  override method esTacho() {
-    return true
-  }
-  method recibirBasura(chef) {
-    //o mandarle un mensaje al chef de que si tiro la basura entonces cambie su imagen
-    chef.image(self.chefBandejaVacia(chef))
+  override method accionRecibir(chef){
+    //mandarle un mensaje al chef de que si tiro la basura entonces cambie su imagen?
     chef.bandeja(bandejaVacia) 
-  }
-
-  method chefBandejaVacia(chef) {
-    return chef.nombre() + "_bandejaVacia.png" //se necesita esa imagen
+    //remove visual acá?
   }
 
 }
 
-class Dispencer inherits Mueble{
-  override method esMuebleDeCocina(){
-    return false
-  }
-
-  override method esParaProcesar(){
-    return false
-  }
-
-  override method estaLibre() {
-    return false
-  }
-
-  override method esPilaDeIngredientes(){
-    return false
-  }
-}
+class Dispencer inherits Mueble{}
 
 class PilaIngrediente inherits Mueble {
 
-   override method esMuebleDeCocina() = true
-
-   override method esPilaDeIngredientes() = true
-
-}
-
-object estacionTomate  inherits PilaIngrediente{
-
-  override method position() = game.at(3, 5)
-
-  override method image() = "tomate_inicial.png"
-
-  method recogerIngrediente(chef){
-
-    
+  override method maxCapacidad(){
+    return 0
   }
 
+  override method eliminarLoDado(){}
+
+  override method objetoADar(chef){
+    return self.nuevoIngrediente(chef)
+  }
+
+  method nuevoIngrediente(chef)
+
+   method serSostenido(chef){} //ELIMINAR
 
 }
 
-/*
-las pilas de ingredientes deberian ir en muebles e instanciar un nuevo ingrediente cada vez que se precion x en frente de ellas.
-*/
+object estacionTomate  inherits PilaIngrediente(image = "tomate_inicial.png", position = game.at(2, 2)){
+
+  override method nuevoIngrediente(chef){
+    return new Tomate(position= chef.position())
+  }
+
+}
+
+object estacionMasa inherits PilaIngrediente(image = "masa_inicial.png", position = game.at(4,2)){
+
+    override method nuevoIngrediente(chef){
+      return new Masa(position= chef.position())
+    }
+
+}
+
+object estacionQueso inherits PilaIngrediente(image = "queso_inicial.png", position = game.at(6,2)) {
+
+  override method nuevoIngrediente(chef){
+    return new Queso(position = chef.position())
+  }
+
+}
+
+object estacionAceituna inherits PilaIngrediente(image = "aceituna_factory.png", position = game.at(9,5)) {
+
+    override method nuevoIngrediente(chef){
+      return new Aceituna(position = chef.position())
+    }
+  }
+
+object estacionHongo inherits PilaIngrediente(image = "hongo_factory.png", position = game.at(9,7)){
+
+  override method nuevoIngrediente(chef){
+    return new Hongo(position=chef.position())
+  }
+
+}
+
+object estacionHuevo inherits PilaIngrediente(image = "huevos_factory.png", position = game.at(9,3)){
+
+  override method nuevoIngrediente(chef){
+    return new Huevo(position=chef.position())
+  }
+
+}
+
+object estacionAtun inherits PilaIngrediente(image = "atun_factory.png", position = game.at(9,1)) {
+
+  override method nuevoIngrediente(chef){
+    return new Atun(position = chef.position())
+  }
+
+}

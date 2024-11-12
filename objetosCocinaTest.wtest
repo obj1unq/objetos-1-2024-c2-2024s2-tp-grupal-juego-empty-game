@@ -1,3 +1,4 @@
+import chefs.*
 import restauranteTest.*
 import objetosParaTests.*
 
@@ -5,44 +6,67 @@ import wollok.game.*
 
 describe "horno" {
   test "el horno recibe pizzas porque tiene espacio y devuelve las pizzas en orden" {
-    horno.recibir(preparacion)
-    assert.that(horno.hayAlMenos1Pizza())
-    horno.recibir(preparacion2)
-    assert.notThat(horno.hayEspacioEnHorno())
-    assert.equals(preparacion, horno.primeraPizzaEnHorno())
+    // horno.recibir(preparacion)
+    horno.usarse(remy)
+    // assert.that(horno.hayAlMenos1Pizza())
+    assert.that(horno.tieneAlgo())
+    // horno.recibir(preparacion2)
+    horno.usarse(remy)
+    // assert.notThat(horno.hayEspacioEnHorno())
+    assert.notThat(horno.hayEspacio())
+    // assert.equals(preparacion, horno.primeraPizzaEnHorno())
+    assert.equals(preparacion, horno.primeraPizza())
   }
 
   test "el horno recibe pizzas hasta su maximo espacio" {
-    horno2.recibir(preparacion)
-    assert.that(horno2.hayAlMenos1Pizza())
-    horno2.recibir(preparacion2)
-    assert.notThat(horno2.hayEspacioEnHorno())
-    
-    assert.throwsException({ horno2.recibir(masa) })
+    assert.equals(2, horno2.maxCapacidad())
+    // horno2.recibir(preparacion)
+    horno2.usarse(remy)
+    // assert.that(horno2.hayAlMenos1Pizza())
+    assert.that(horno.tieneAlgo())
+    // horno2.recibir(preparacion2)
+    horno2.usarse(remy)
+    // assert.notThat(horno2.hayEspacioEnHorno())
+    assert.notThat(horno2.hayEspacio())
+    // assert.throwsException({ horno2.recibir(masa) })
+    assert.throwsException({ horno2.usarse(remy) })
   }
 }
 
 describe "mesada" {
   test "mesada vacia recibe un ingredinte y luego lo entrega" {
-    mesada1.recibirIngrediente(tomate)
-    assert.equals(tomate, mesada1.cosasEncima())
+    // mesada1.recibirIngrediente(tomate)
+    mesada1.usarse(remy)
+    // assert.equals(tomate, mesada1.cosasEncima())
+    assert.equals(tomate, mesada1.contenido())
 
-    mesada1.entregarIngredienteEncima()
+    // mesada1.entregarIngredienteEncima()
+    mesada1.usarse(remy)
+
+    // assert.that(mesada1.estaLibre())
     assert.that(mesada1.estaLibre())
   }
 
   test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" {
-    mesada1.recibirIngrediente(preparacion)
-    assert.equals(preparacion, mesada1.cosasEncima())
+    // mesada1.recibirIngrediente(preparacion)
+    mesada1.usarse(Chef)
+    // assert.equals(preparacion, mesada1.cosasEncima())
+    assert.equals(preparacion, mesada1.contenido())
+    // mesada1.recibirIngrediente(tomate)
+    mesada1.usarse(Chef)
 
-    mesada1.recibirIngrediente(tomate)
+    // assert.equals(preparacion, mesada1.cosasEncima())
+    assert.equals(preparacion, mesada1.contenido())
+    // assert.that(mesada1.tieneUnaPiza())
+    assert.that(mesada1.tienePizza())
+    // assert.that(preparacion.tieneIngredientes())
+    assert.that(preparacion.tieneIngredientes()) //FIJARSE QUE ES ESTO
 
-    assert.equals(preparacion, mesada1.cosasEncima())
-    assert.that(mesada1.tieneUnaPiza())
-    assert.that(preparacion.tieneIngredientes())
-
-    mesada1.entregarIngredienteEncima()
+    // mesada1.entregarIngredienteEncima()
+    mesada1.usarse(remy)
+    // assert.that(mesada1.estaLibre())
     assert.that(mesada1.estaLibre())
+    // assert.that(preparacion.tieneIngredientes())
     assert.that(preparacion.tieneIngredientes())
   }
 }

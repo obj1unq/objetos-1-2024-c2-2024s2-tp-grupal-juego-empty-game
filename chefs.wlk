@@ -158,6 +158,9 @@ object bandejaVacia {
   method esBandejaVacia(){
     return true 
   }
+  method esVacio(){
+    return true
+  }
   method aceptaIngredientesEncima(){ //tal vez cambiar el nombre porque no tiene mucho sentido para la bandeja
     return false
   }

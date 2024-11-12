@@ -17,6 +17,7 @@ object juego {
         game.addVisual(puntosDeVida)
         game.addVisual(cargador)
         game.addVisual(oroObtenido)
+        game.addVisual(barraDeEnergia)
         
     }
 
@@ -51,6 +52,8 @@ object juego {
         keyboard.n().onPressDo({managerItems.spawnearOro1()})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
         game.onTick(1000, "timer", {timer.tick()})
+        game.onTick(2000, "energia", {barraDeEnergia.recargarEnergia()})
+
     }
 
     method sonido() {

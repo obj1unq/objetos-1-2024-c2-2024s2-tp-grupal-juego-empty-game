@@ -44,6 +44,7 @@ class Mueble {
 
   method accionRecibir(chef){
     contenido.add(chef.bandeja())
+    chef.soltar() //esto en el chef hace que tenga una bandeja vacia otra vez
   }
 
   method accionDar(chef){

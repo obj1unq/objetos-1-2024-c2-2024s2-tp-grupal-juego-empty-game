@@ -56,28 +56,28 @@ describe "mesada" {
     assert.that(mesada1.estaLibre())
   }
 
-  test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" { //ERROR AQUI A ARREGLAR -> incluye revisar los ingredientes
-    // mesada1.recibirIngrediente(preparacion)
+  test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" { 
+    
     remy.bandeja(preparacion)
     mesada1.usarse(remy)
-    // assert.equals(preparacion, mesada1.cosasEncima())
+    
     assert.equals(preparacion, mesada1.contenido())
-    // mesada1.recibirIngrediente(tomate)
+    
     remy.bandeja(tomate)
     mesada1.usarse(remy)
 
-    // assert.equals(preparacion, mesada1.cosasEncima())
+    
     assert.equals(preparacion, mesada1.contenido())
-    // assert.that(mesada1.tieneUnaPiza())
-    assert.that(mesada1.tienePizza())
-    // assert.that(preparacion.tieneIngredientes())
-    assert.that(preparacion.tieneIngredientes()) //FIJARSE QUE ES ESTO
+    
+    assert.that(mesada1.tienePiza())
+    
+    assert.that(preparacion.tieneIngredientes()) 
 
-    // mesada1.entregarIngredienteEncima()
+    
     mesada1.usarse(remy)
-    // assert.that(mesada1.estaLibre())
+    
     assert.that(mesada1.estaLibre())
-    // assert.that(preparacion.tieneIngredientes())
+    
     assert.that(preparacion.tieneIngredientes())
   }
   test "remy va a la canaste de tomates  y toma uno en su bandeja"{ //ACA HAY UNA FALLA QUE NI SALTA EL ERROR; VER 

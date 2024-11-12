@@ -18,6 +18,12 @@ class Ingrediente {
      return false
    }
 
+   method recibirIngrediente(ingrediente){}
+
+   method tieneIngredientes(){
+    return false
+   }
+
     method serSostenido(chef) {
         game.removeVisual(self)
         position = chef.position()
@@ -38,13 +44,26 @@ class Ingrediente {
         }
     }
 
-    method id()
+    method id() //esto cambiarlo por la id
 }
 
 
 class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
-    const property ingredientes = #{} //aunque lo haga el chef la masa tiene que saber que tiene dentro.
-    var property estado = cruda
+    const property ingredientes = [] //aunque lo haga el chef la masa tiene que saber que tiene dentro.
+    var property estado = cruda //pasar a siguiente lo entiende cada estado -> polimorfismo
+
+    override method aceptaIngredientesEncima(){
+      return true
+    }
+
+    override method recibirIngrediente(ingrediente){
+        ingredientes.add(ingrediente)
+        precio = precio + ingrediente.precio()
+    }
+
+    override method tieneIngredientes() {
+      return not ingredientes.isEmpty()
+    }
 
     //override method serProcesado(){} 
 
@@ -54,11 +73,6 @@ class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
 
     override method imagenIngredienteFinal(){
         return "masa_final.png" //imagen de masa amazada
-    }
-
-
-    override method aceptaIngredientesEncima(){
-      return true
     }
 
     method serCocinada(){
@@ -72,15 +86,6 @@ class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
     } else {
             estado = quemada
         }
-    }
-
-    method recibirIngrediente(ingrediente){
-        ingredientes.add(ingrediente)
-        precio = precio + ingrediente.precio()
-    }
-
-    method tieneIngredientes() {
-      return not ingredientes.isEmpty()
     }
 
     override method id(){

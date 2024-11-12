@@ -4,6 +4,8 @@ import comestibles.*
 import objetosCocina.*
 import posiciones.*
 import objetosParaTests.*
+import wollok.game.*
+
 
 object dimension {
 
@@ -48,7 +50,7 @@ object imagen {
         game.addVisual(new Atun(position = game.at(9,1)))
     }
 
-    method horno(){
+    method hornoImage(){
         game.addVisual(new Horno(position = game.at(3,9)))
         game.addVisual(new Horno(position = game.at(5,9)))
     }

@@ -56,7 +56,7 @@ describe "mesada" {
     assert.that(mesada1.estaLibre())
   }
 
-  test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" {
+  test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" { //ERROR AQUI A ARREGLAR
     // mesada1.recibirIngrediente(preparacion)
     remy.bandeja(preparacion)
     mesada1.usarse(remy)
@@ -80,7 +80,7 @@ describe "mesada" {
     // assert.that(preparacion.tieneIngredientes())
     assert.that(preparacion.tieneIngredientes())
   }
-  test "remy va a la canaste de tomates  y toma uno en su bandeja"{
+  test "remy va a la canaste de tomates  y toma uno en su bandeja"{ //ACA HAY UNA FALLA QUE NI SALTA EL ERROR; VER 
    
    remy.position(game.at(0,2))
    remy.mover(derecha)

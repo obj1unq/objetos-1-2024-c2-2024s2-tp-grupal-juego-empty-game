@@ -3,7 +3,7 @@ import restaurante.*
 import objetosParaTests.*
 
 import wollok.game.*
-
+/*los tests siguen andando pero hay que agregarle más cosas y segun los tipos probar más cosas*/
 describe "cliente normal" {
   test "cliente normal hace un pedidom, esto hace que tengo un pedido en mente ahora y no sea una lista vacia como por default su pedido deceado" {
     cliente1.avanzarAHacerPedido()

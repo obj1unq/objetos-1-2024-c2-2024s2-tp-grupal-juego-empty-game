@@ -4,6 +4,8 @@ import comestibles.*
 import objetosCocina.*
 import posiciones.*
 import objetosParaTests.*
+import wollok.game.*
+
 
 object dimension {
 
@@ -12,8 +14,8 @@ object dimension {
 
 
     method tamanioMapa() {
-    game.height(ancho)
-    game.width(largo)
+    game.height(largo)
+    game.width(ancho)
     }
 }
 
@@ -25,19 +27,16 @@ object teclas{
     keyboard.down().onPressDo({remy.mover(abajo)})
     keyboard.right().onPressDo({remy.mover(derecha)})
     keyboard.left().onPressDo({remy.mover(izquierda)})
-    //keyboard.e().onPressDo({remy.recogerIngrediente()})
-    //keyboard.q().onPressDo({remy.depositarIngrediente()})
     }
 
     method accion(){
-    keyboard.e().onPressDo({remy.recogerIngrediente()})
-    keyboard.q().onPressDo({remy.soltarIngrediente()})
+    keyboard.q().onPressDo({remy.interactuar()})
     }
 }
 
-object imagen {
+object imagenes {
 
-    method ingredientes(){
+    method ingredientesImg(){
         game.addVisual(estacionTomate)
         //game.addVisual(new Tomate(position = game.at(4,0)))
         game.addVisual(new Masa(position = game.at(6,0)))
@@ -48,12 +47,12 @@ object imagen {
         game.addVisual(new Atun(position = game.at(9,1)))
     }
 
-    method horno(){
+    method hornoImg(){
         game.addVisual(new Horno(position = game.at(3,9)))
         game.addVisual(new Horno(position = game.at(5,9)))
     }
 
-    method chef(){
+    method chefImg(){
         game.addVisual(remy)
     }
 }

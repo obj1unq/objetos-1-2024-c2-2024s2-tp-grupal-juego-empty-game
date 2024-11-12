@@ -7,7 +7,7 @@ import clientes.*
 
 import wollok.game.*
 
-//temporal hasta tener todo en el lugar que se debe
+//temporal hasta tener todo en el lugar que se debe -> ir cambiando las cosas como se deben para probar en clienteTest
 
 /*
 mapa tests:

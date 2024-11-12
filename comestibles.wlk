@@ -95,6 +95,7 @@ class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
     }
 
 }
+ /*hay que cambiar que la masa misma sepa cual es su siguiente estado de coccion y que la masa mista te actualice la imagen por ejemplo cruda sabe que al ser cocinada va a pasar a dorada*/
 
 object cruda {
     method actualizarImagen(pizza){

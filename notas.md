@@ -23,6 +23,7 @@
 
     -CLIENTES:
         *imagenes para los diferentes tipos de clientes
+        *agregarle comportamientos unicos a cada tipo de cliente-> polimorfismo, que se diferencien 
 
     -CAJA:
         *hacer la caja

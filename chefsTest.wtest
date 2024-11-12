@@ -8,7 +8,7 @@ import objetosParaTests.*
 
 import wollok.game.*
 
-/*SE NECETIRA REHACER EL MAPA PARA ARREGLAR ESTO*/
+/*SE NECETIRA REHACER EL MAPA PARA ARREGLAR ESTO -> basicamente hacer muebles de donde agarrar el ingrediente en vez de tener el ingrediente en el piso ya que eso esta mal ahora*/
 
 describe "chefs test" {
   test "remy puede moverse porque no hay ningun mueble en el medio y se mueve" {

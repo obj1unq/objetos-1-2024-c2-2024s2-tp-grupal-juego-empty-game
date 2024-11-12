@@ -21,7 +21,7 @@ describe "horno" {
     
   }
 
-  test "ocurre un fallo porque el horno no puede recibir más de 1 pizza" {
+  test "ocurre un fallo porque el horno no puede recibir más de 1 pizza" { 
     remy.bandeja(preparacion)
     horno.usarse(remy)
     
@@ -29,7 +29,11 @@ describe "horno" {
     
     assert.that(remy.tengoBandejaVacia())
 
-    remy.bandeja(preparacion)
+    remy.bandeja(tomate)
+    assert.notThat(remy.tengoBandejaVacia())
+
+    assert.that(horno.tieneAlgo())
+
     assert.throwsException({ horno.usarse(remy) })
   }
 
@@ -42,25 +46,25 @@ describe "horno" {
 
 describe "mesada" {
   test "mesada vacia recibe un ingredinte y luego lo entrega" {
-    // mesada1.recibirIngrediente(tomate)
+    remy.bandeja(tomate)
     mesada1.usarse(remy)
-    // assert.equals(tomate, mesada1.cosasEncima())
+    
     assert.equals(tomate, mesada1.contenido())
 
-    // mesada1.entregarIngredienteEncima()
     mesada1.usarse(remy)
 
-    // assert.that(mesada1.estaLibre())
     assert.that(mesada1.estaLibre())
   }
 
   test "mesada recibe una preparacion y los ingredientes que van hacia la mesada se agregan a la preparacion en vez de a la mesada y modifican la preparacion" {
     // mesada1.recibirIngrediente(preparacion)
-    mesada1.usarse(Chef)
+    remy.bandeja(preparacion)
+    mesada1.usarse(remy)
     // assert.equals(preparacion, mesada1.cosasEncima())
     assert.equals(preparacion, mesada1.contenido())
     // mesada1.recibirIngrediente(tomate)
-    mesada1.usarse(Chef)
+    remy.bandeja(tomate)
+    mesada1.usarse(remy)
 
     // assert.equals(preparacion, mesada1.cosasEncima())
     assert.equals(preparacion, mesada1.contenido())

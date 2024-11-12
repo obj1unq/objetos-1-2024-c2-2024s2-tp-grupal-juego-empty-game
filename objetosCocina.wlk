@@ -12,8 +12,8 @@ class Mueble {
   var contenido = bandejaVacia //es un objeto que representa el no tener nada
   //var property maxCapacidad = 1
 
-  method usarse(chef){ //para con 1 solo boton "interactuar" sea algo general y el mueble ve como se arregla en la interaccion
-    if(not chef.tengoBandejaVacia()){ //si el cheff tiene algo en su bandeja asume que tiene que recibir algo
+  method usarse(chef){ //para que con 1 solo boton "interactuar" sea algo general y el mueble ve como se arregla en la interaccion
+    if(not chef.tengoBandejaVacia()){ //si el chef tiene algo en su bandeja asume que tiene que recibir algo
       self.validarRecibir(chef)
       self.accionRecibir(chef)
     } else { //sino, cuando el chef no tiene nada en la bandeja asume que el chef intenta agarrar algo 
@@ -22,19 +22,23 @@ class Mueble {
     }
   }
 
-  method tieneAlgo() {
-    return not contenido.esVacio()
-  }
-
   method validarRecibir(chef){
-    if(self.tieneAlgo()){ //si tiene algo ya no puede recibir lo que tiene el chef
+    if(not self.condicionRecibir()){ //template method ya que en todos los muebles se le puede agregar ingredientes a la pizza menos en el horno, en el horno ya no se puede interactuar más con la piza por lo que lo unicop que acepta recibir es una pizza
       self.error("no hay espacio para dejar algo aqui")  //esta bien o mejor que lo diga el mueble?
       //chef
     }
   }
 
-  method validarDar(chef){ //not chef.tengoBandejaVacia() ya se cumple en la rama del if de usarse
-    if(not self.tieneAlgo()){ //si el chef no tiene espacio no puede agarrar lo del mueble, tambien tiene que haber algo para dar
+  method condicionRecibir(){ //para poder recibir es que no tiene nada encima o si tiene una pizza ya que estas aceptan ingredientes encima
+    return not self.tieneAlgo() || self.tienePiza()
+  }
+
+  method tieneAlgo() { //que tiene algo significa que tiene cualquier cosa
+     return not contenido.esVacio()  //esto es que no tiene nada = falso
+  }
+
+  method validarDar(chef){ //que el chef tenga espacio ya se cumple en la rama del if de usarse
+    if(not self.tieneAlgo()){ //aca se fija si hay algo para dar
       self.error("no puedo agarrar algo si tengo las manos llenas o si no hay nada que agarrar")
       //chef
     }
@@ -47,23 +51,19 @@ class Mueble {
 
   method accionDar(chef){
     chef.recibir(self.objetoADar(chef))
-    self.eliminarLoDado() 
+    self.eliminarLoDado() //que ahora el mueble tiene de nuevo una bandeja vacia = nada
   }
 
-  method objetoADar(chef){
+  method objetoADar(chef){ //es diferente para las factories
     return contenido
   }
 
-   method eliminarLoDado(){ //template method para las factories -> mo hace nada eso ya que no tiene "contenido"
+   method eliminarLoDado(){ //template method para las factories -> no hace nada eso ya que no tiene "contenido"
     contenido = bandejaVacia
    }
 
   method contenido(){
     return contenido
-  }
-
-  method estaLibre(){
-    return not self.tieneAlgo() || self.tienePiza() //buscar mejor nombre para el mensaje de "esVacio"?
   }
 
     method tienePiza(){
@@ -87,6 +87,10 @@ class Horno inherits Mueble{
   override method accionRecibir(chef){
     super(chef)
     self.cocinar()
+  }
+
+  override method condicionRecibir(){ //para poder recibir el horno solo tiene que estar completamente vacio
+    return not self.tieneAlgo()
   }
 
   method cocinar() { 
@@ -128,12 +132,10 @@ class Tacho inherits Mueble{
   override method accionRecibir(chef){
     //mandarle un mensaje al chef de que si tiro la basura entonces cambie su imagen?
     chef.bandeja(bandejaVacia) 
-    //remove visual acá?
+    //remove visual acá? -> deja de existir, se elimina lo dado
   }
 
 }
-
-class Dispencer inherits Mueble{}
 
 class PilaIngrediente inherits Mueble {
 
@@ -203,3 +205,5 @@ object estacionAtun inherits PilaIngrediente(image = "atun_factory.png", positio
   }
 
 }
+
+class Dispencer inherits Mueble{} //hacer => opcional, para el final

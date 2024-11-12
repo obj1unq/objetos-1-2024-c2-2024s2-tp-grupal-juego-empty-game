@@ -7,17 +7,18 @@ import objetosCocina.*
 import wollok.game.*
 
 describe "horno" {
-  test "el horno recibe pizzas porque tiene espacio y devuelve las pizzas en orden" { //aca hay problemas con el agarrar y soltar si todavía hay espacio y teniendo más de un objeto en el horno es dificil elegir si quiere poner la segunda pizza o sacar la primera
-    // horno.recibir(preparacion)
+  test "el horno recibe pizzas porque esta libre y luego devuelve la pizza porque el chef tiene las manos vacias" { 
+    remy.bandeja(preparacion)
     horno.usarse(remy)
-    // assert.that(horno.hayAlMenos1Pizza())
+    
     assert.that(horno.tieneAlgo())
-    // horno.recibir(preparacion2)
-    //horno.usarse(remy)
-    // assert.notThat(horno.hayEspacioEnHorno())
-    //assert.that(horno.tieneEspacio())
-    // assert.equals(preparacion, horno.primeraPizzaEnHorno())
-    //assert.equals(preparacion, horno.primerIngrediente())
+    
+    assert.that(remy.tengoBandejaVacia())
+    horno.usarse(remy)
+    
+    assert.notThat(horno.tieneAlgo())
+    assert.notThat(remy.tengoBandejaVacia())
+    
   }
 
   test "el horno recibe pizzas hasta su maximo espacio" {

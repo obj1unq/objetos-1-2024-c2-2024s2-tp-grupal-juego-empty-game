@@ -67,10 +67,6 @@ class Mueble {
     method tienePiza(){
     return contenido.aceptaIngredientesEncima()
   }
-  
-  // method primerIngrediente(){ al final no es necesario esto por ahora
-  //   return contenido.head()
-  // }
 
 }
 
@@ -92,9 +88,7 @@ class Horno inherits Mueble{
   }
 
   method cocinar() { 
-    game.onTick(2500, self, {
-                                contenido.forEach({pizza => pizza.serCocinada()})  
-                            })
+    game.onTick(2500, self, {contenido.serCocinada()})
     game.onTick(2500, self, {self.subirNivelDeHorno()})
   } 
 

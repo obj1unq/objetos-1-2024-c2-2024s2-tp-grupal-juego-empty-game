@@ -9,49 +9,71 @@ object managerItems {
         return (game.at(0.randomUpTo(game.width() - 1), 0.randomUpTo(game.height() - 2)))
     }
 
-    method spawnearCura1() {
-        const nuevaCura1 = new Cura1(position=self.posicionRandom())
-        const nuevaCura2 = new Cura2(position=self.posicionRandom())
-        const nuevaCura3 = new Cura3(position=self.posicionRandom())
-        game.addVisual(nuevaCura1)
-        game.addVisual(nuevaCura2)
-        game.addVisual(nuevaCura3)
+    method spawnearCura(numero) {
+        const nuevaCura = managerCuras.cura(numero, self.posicionRandom())
+        game.addVisual(nuevaCura)
         //drops.add(nuevaCura)
     }
 
-    method spawnearOro1() {
-        const oro1Nuevo = new Oro1(position=self.posicionRandom())
-        game.addVisual(oro1Nuevo)
-        //drops.add(oro1Nuevo)
+    method spawnearOro(numero) {
+        const oroNuevo = managerMonedas.monedas(numero, self.posicionRandom())
+        game.addVisual(oroNuevo)
+        //drops.add(oroNuevo)
     }
 
     method spawnearMunicionRandom() {
-        const nuevaMunicion = new Balas(position=self.posicionRandom())
+        const nuevaMunicion = new Balas(position = self.posicionRandom())
         game.addVisual(nuevaMunicion)
-        //drops.add(oro1Nuevo)
+        //drops.add(nuevaMunicion)
     }
 
     method spawnearMunicionEn(posicion) {
         const nuevaMunicion = new Balas(position = posicion)
         game.addVisual(nuevaMunicion)
-        //drops.add(oro1Nuevo)
+        //drops.add(nuevaMunicion)
     }
 }
 
 //---------------------------------Drops---------------------------------------
 
 class Drop {
-    var property position = null
-    var property image = null
+    var property position
+    var property image
 
     method traspasable() {
         return true
     }
 }
 
+object managerCuras {
+    const vida = [20, 40, 80]
+
+    method cura(numero, position) {
+        return new Cura(image = personaje.visualHealth(numero)
+                , vidaDada = self.vida(numero), position = position)
+    }
+
+    method vida(numero) {
+        return vida.get(numero - 1)
+    }
+}
+
+object managerMonedas {
+    const oro = [10, 30, 50]
+    
+    method monedas(numero, position) {
+        return new Oro(image = "oro" + numero + ".png",
+                valor = self.oro(numero), position = position)
+    }
+
+    method oro(numero) {
+        return oro.get(numero - 1)
+    }
+}
+
 //---------------------------------Curas---------------------------------------
-class Cura1 inherits Drop(image = personaje.visualHealth(1)){
-    const vidaDada = 20
+class Cura inherits Drop {
+    const vidaDada
 
     method colisionPj() {
         personaje.curarse(vidaDada)
@@ -60,31 +82,21 @@ class Cura1 inherits Drop(image = personaje.visualHealth(1)){
     }
 }
 
-class Cura2 inherits Drop(image = personaje.visualHealth(2)){
-    const vidaDada = 40
+//---------------------------------Monedas---------------------------------------
+
+class Oro inherits Drop()  {
+    const valor
 
     method colisionPj() {
-        personaje.curarse(vidaDada)
+        personaje.obtenerOro(valor)
         game.removeVisual(self)
         //managerItems.drops().remove(self)
     }
 }
 
-class Cura3 inherits Drop(image = personaje.visualHealth(3)){
-    const vidaDada = 80
-
-    method colisionPj() {
-        personaje.curarse(vidaDada)
-        game.removeVisual(self)
-        //managerItems.drops().remove(self)
-    }
-}
 //---------------------------------Municion---------------------------------------
 
-//object balas {
-class Balas inherits Drop(image=personaje.visualAmmo()){
-    //var property position = game.at(8,1)
-    //var property image = personaje.visualAmmo()
+class Balas inherits Drop(image = personaje.visualAmmo()){
 
     method colisionPj() {
         cargador.recargar(6)
@@ -92,37 +104,6 @@ class Balas inherits Drop(image=personaje.visualAmmo()){
     }
 }
 
-//---------------------------------Monedas---------------------------------------
-
-class Oro1 inherits Drop(image="oro1.png")  {
-    const valor = 10
-
-    method colisionPj() {
-        personaje.obtenerOro(valor)
-        game.removeVisual(self)
-        //managerItems.drops().remove(self)
-    }
-}
-
-class Oro2 inherits Drop(image="oro2.png") {
-    const valor = 30
-
-    method colisionPj() {
-        personaje.obtenerOro(valor)
-        game.removeVisual(self)
-        //managerItems.drops().remove(self)
-    }  
-}
-
-class Oro3 inherits Drop(image="oro3.png") {
-    const valor = 50
-
-    method colisionPj() {
-        personaje.obtenerOro(valor)
-        game.removeVisual(self)
-        //managerItems.drops().remove(self)
-    }
-}
 
 //---------------------------------Colisiones---------------------------------------
 

@@ -48,11 +48,11 @@ object juego {
         keyboard.x().onPressDo({managerZombie.spawnearZ(generadorZombie.zombiePerro(generadorZombie.posicionInicial()))})
         keyboard.c().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieTanque(generadorZombie.posicionInicial()))})
         keyboard.v().onPressDo({managerZombie.spawnearZ(generadorZombie.zombieThrower(generadorZombie.posicionInicial()))})
-        keyboard.b().onPressDo({managerItems.spawnearCura1()})
-        keyboard.n().onPressDo({managerItems.spawnearOro1()})
+        keyboard.b().onPressDo({managerItems.spawnearCura(1)})
+        keyboard.n().onPressDo({managerItems.spawnearOro(1)})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
         game.onTick(1000, "timer", {timer.tick()})
-        game.onTick(2000, "energia", {barraDeEnergia.recargarEnergia()})
+        game.onTick(1000, "energia", {barraDeEnergia.recargarEnergia()})
 
     }
 

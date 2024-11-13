@@ -78,7 +78,7 @@ class Mueble {
 
 object muebleFantasma { //no es un mueble en realidad, como la bandeja representa ser nada -> no se que tan bien estaría igual, creo que si tendría que ser un mueble
   method usarse(chef){
-    game.say(restaurante, "no hay nada aqui") //
+    //game.say(chef, "no hay nada aqui") //se pone a buscar un visual de chef en vez de aceptar el parametro de cheff y no esta bueno hardcodear a remy ahí, no se que hacer asi que queda vacio que no pasa nada
   }
   method position(){
     return game.at(50,50)

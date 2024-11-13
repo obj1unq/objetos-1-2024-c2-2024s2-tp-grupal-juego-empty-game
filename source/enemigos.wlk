@@ -231,7 +231,7 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, image = "zombie-comun-ab
     }
 }
 
-class ZombiePerro inherits Zombie(vida = 50, dmg = 20, image = "perronio-abajo.png",velocidad=1){
+class ZombiePerro inherits Zombie(vida = 75, dmg = 20, image = "perronio-abajo.png",velocidad=1){
 
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()

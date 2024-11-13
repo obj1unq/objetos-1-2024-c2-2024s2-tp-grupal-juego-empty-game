@@ -50,7 +50,7 @@ class Proyectil {
     }
 }
 
-class Bala inherits Proyectil(danio=10) {
+class Bala inherits Proyectil(danio=25) {
 
 
     method nuevoViaje(dir) { 
@@ -72,10 +72,10 @@ class Bala inherits Proyectil(danio=10) {
     }
 }
 
-class BolaDeFuego inherits Proyectil(danio=20) {
+class BolaDeFuego inherits Proyectil(danio=35) {
 
     method nuevoViaje(dir) { 
-        game.onTick(150, self.nombreEvento() , {self.disparoHacia(dir)})
+        game.onTick(220, self.nombreEvento() , {self.disparoHacia(dir)})
     }
 
     method imagenEnNumDir(num,direccion) {

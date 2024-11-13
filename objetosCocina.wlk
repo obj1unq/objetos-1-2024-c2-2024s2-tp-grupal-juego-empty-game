@@ -84,7 +84,7 @@ object muebleFantasma { //no es un mueble en realidad, como la bandeja represent
     return game.at(50,50)
   }
   method image(){
-    return "" //imagen de nada, tener un png transparente tal vez? -> esta bien tener el mueble fantasma igual?
+    return "mueble_fantasma.png" //imagen de nada, tener un png transparente tal vez? -> esta bien tener el mueble fantasma igual?
   }
 }
 

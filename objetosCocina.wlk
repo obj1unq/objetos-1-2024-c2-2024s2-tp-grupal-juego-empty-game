@@ -83,6 +83,9 @@ object muebleFantasma { //no es un mueble en realidad, como la bandeja represent
   method position(){
     return game.at(0,0)
   }
+  method image(){
+    return "" //imagen de nada, tener un png transparente tal vez? -> esta bien tener el mueble fantasma igual?
+  }
 }
 
 class Horno inherits Mueble{ //ahora el horno recibe todo tipo de cosas que le quieras meter

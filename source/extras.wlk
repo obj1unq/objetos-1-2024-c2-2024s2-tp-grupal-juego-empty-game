@@ -9,8 +9,13 @@ object managerItems {
         drops.remove(item)
     }
 
+    method revisarPorItems(pos) {
+        const itemAhi = drops.filter({d => d.position() == pos})
+        itemAhi.forEach({d => d.colisionPj()})
+    }
+
     method posicionRandom() {
-        return (game.at(0.randomUpTo(game.width() - 1), 0.randomUpTo(game.height() - 2)))
+        return (game.at(0.randomUpTo(game.width() - 1).round(), 0.randomUpTo(game.height() - 2).round()))
     }
 
     method spawnearCura(numero) {

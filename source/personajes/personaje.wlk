@@ -28,7 +28,7 @@ object personaje {
         self.validarMover(direccion)
 	    position = direccion.siguientePosicion(position)
         self.image(pj.imagenNormal(direccion))
-        self.revisarPorItems()
+        managerItems.revisarPorItems(position)
 	}
 
     method validarMover(direccion) {
@@ -78,12 +78,6 @@ object personaje {
     }
 
     // -------------Prueba de curarse-------------------------------
-
-    method revisarPorItems() {
-        const itemAhi = managerItems.drops().filter({d => d.position() == position})
-        itemAhi.forEach({d => d.colisionPj()})
-    }
-
 
 	method curarse(cura){
         game.sound("cura-sonido.mp3").play()

@@ -63,15 +63,7 @@ class Bala inherits Proyectil(danio=10) {
 
     override method disparoHacia(direccion) {
         self.validarViajeProyectil(direccion)
-        self.animacionBala(direccion)
-    }
-
-    method animacionBala(direccion) {
-        self.image(self.imagenEnNumDir(2, direccion))
-        game.schedule(20,{self.imagenEnNumDir(3, direccion)})
-        game.schedule(40,{self.imagenEnNumDir(4, direccion)})
-        game.schedule(60,{self.mover(direccion)})
-        game.schedule(80,{self.imagenEnNumDir(1, direccion)})
+        self.mover(direccion)
     }
 
     override method impacto(dir) {

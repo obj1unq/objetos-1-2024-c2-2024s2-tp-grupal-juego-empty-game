@@ -20,21 +20,21 @@ object noel inherits Personaje() {
 //-----------ataque-movimiento--------------------------------
 
     override method disparar(direccion,posDada) {
-        const balaNueva = new Bala(image="bala-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
+        const balaNueva = new Bala(image="bala-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
         game.addVisual(balaNueva)
         balaNueva.nuevoViaje(direccion)
     }
 
     override method imagenInicial(){
-        return "noelnuevo-normal-arriba.png"
+        return "noel-normal-arriba.png"
     }
    
     override method imagenAtaque(direccion) {
-        return "noelnuevo-ataque-" + direccion.toString() + ".png"
+        return "noel-ataque-" + direccion.toString() + ".png"
     }
 
     override method imagenNormal(direccion) {
-        return "noelnuevo-normal-" + direccion.toString() + ".png"
+        return "noel-normal-" + direccion.toString() + ".png"
     }
 
     method especial(){}

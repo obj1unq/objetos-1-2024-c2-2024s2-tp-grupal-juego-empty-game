@@ -27,17 +27,13 @@ class Persona {
       self.error("no me puedo mover ahí")
     }
   }
-  // tuve que comentar este metodo  y ponerlo como property  para que no coque el setter con la img 
-  //method image(_image){
-   // image = _image
-  //}
 
   method nuevaImagen(){
     image = orientacion.imagen(nombre)
     // hay que hacer los place holder del chef con bandeja
   }
 
-    method dondeEstoyApuntando() { 
+    method dondeApunta() { 
     return orientacion.moverse(self.position())
   }
 
@@ -53,7 +49,7 @@ class Chef inherits Persona {
 
    method interactuar() {
       
-        const mueble = restaurante.muebleAqui(self.dondeEstoyApuntando())
+        const mueble = restaurante.muebleAqui(self.dondeApunta())
         mueble.usarse(self)
     }
 
@@ -71,11 +67,11 @@ class Chef inherits Persona {
 //probar:
   method preguntarPedido() {
     self.validarPreguntarPedido()
-    restaurante.clienteAqui(self.dondeEstoyApuntando()).decirPedido()
+    restaurante.clienteAqui(self.dondeApunta()).decirPedido()
   }
 
   method validarPreguntarPedido(){
-    if(not restaurante.hayClienteAqui(self.dondeEstoyApuntando())){
+    if(not restaurante.hayClienteAqui(self.dondeApunta())){
       self.error("no hay ningun cliente aqui")
     }
   }
@@ -87,7 +83,7 @@ object bandejaVacia {
     return true
   }
   method aceptaIngredientesEncima(){ //tal vez cambiar el nombre porque no tiene mucho sentido para la bandeja
-  //es más que anda para que tenga polimorfismo con los ingredientes
+  //es más que nada para que tenga polimorfismo con los ingredientes
     return false
   }
 }

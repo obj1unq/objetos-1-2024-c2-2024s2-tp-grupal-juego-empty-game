@@ -13,6 +13,8 @@ class Personaje {
     var property visualAmmo = self.municionImagen()
     var property oro = 0
 
+    var property puedeDisparar = true
+
     method imagenInicial()
     method imagenNormal(dir)
     method imagenAtaque(dir)
@@ -60,7 +62,8 @@ class Personaje {
         self.image(self.imagenNormal(direccion))
         cargador.validarAtaque(direccion)
         self.animacionAtaque(direccion)
-        self.disparar(direccion,position)                                               
+        self.disparar(direccion,position)
+        self.cadenciaArma()                                               
     }
     method animacionAtaque(direccion) {                                                       
         self.image(self.imagenAtaque(direccion))
@@ -68,6 +71,14 @@ class Personaje {
         self.sonidoAtaque()
     }
 
+    method cadenciaArma(){
+        puedeDisparar = false
+        game.schedule(self.cadencia(), {puedeDisparar = true})
+    }
+
+    method cadencia(){
+        return 500
+    }
     // -------------items-------------------------------
 
     method herir(cantidad) {

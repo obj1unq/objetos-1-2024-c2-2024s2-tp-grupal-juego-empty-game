@@ -7,6 +7,10 @@ import personajes.personaje.*
 
 object dangalf inherits Personaje() {
 
+
+    override method cadencia(){
+        return 300
+    }
 //-------------items------------------------------------------
 
     override method cura(numero){

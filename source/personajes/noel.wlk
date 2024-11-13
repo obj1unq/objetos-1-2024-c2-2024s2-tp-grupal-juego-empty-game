@@ -7,6 +7,9 @@ import proyectiles.*
 
 object noel inherits Personaje() {
 
+    var property armaEquipada = escopeta
+
+    override method cadencia(){ return armaEquipada.cadencia()}
 //-------------items------------------------------------------
 
     override method cura(numero){
@@ -20,9 +23,14 @@ object noel inherits Personaje() {
 //-----------ataque-movimiento--------------------------------
 
     override method disparar(direccion,posDada) {
-        const balaNueva = new Bala(image="bala-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
-        game.addVisual(balaNueva)
-        balaNueva.nuevoViaje(direccion)
+        if(self.esPistola(armaEquipada))
+            {const balaNueva = new Bala(image="bala-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
+            game.addVisual(balaNueva)
+            balaNueva.nuevoViaje(direccion)}
+        else
+            {const balaNueva = new BalaEscopeta(image="balaEscopeta-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
+            game.addVisual(balaNueva)
+            balaNueva.nuevoViaje(direccion)}
     }
 
     override method imagenInicial(){
@@ -58,7 +66,38 @@ object noel inherits Personaje() {
     }
 
     method sonidoRecarga(){
+        armaEquipada.sonidoDeRecarga()
+    }
+
+//---------------------arma--------------------------
+
+    method esPistola(arma){
+        return arma == pistola
+    }
+}
+
+object pistola {
+
+    method cadencia(){
+        return 500
+    }
+
+    method sonidoDeRecarga(){
+        game.sound("arma-recarga.mp3").play()
+    }
+
+}
+
+object escopeta {
+
+    method cadencia(){
+        return 1000
+    }
+
+    method sonidoDeRecarga(){
         game.sound("pistola-recarga.mp3").play()
     }
 
 }
+
+

@@ -11,7 +11,7 @@ object timer {
     var minutos  = 0
 
     method position() {
-        return game.at(8, game.height() - 1 )
+        return game.at(11, game.height() - 1 )
     }
 
     method text() {
@@ -98,6 +98,7 @@ object puntosDeVida {
 object cargador {
     var property  municion = 12 
     var property position = game.at(4, 14)
+    var property estaDisparando = false
 
     method image(){
         return juego.jugador().hudMunicion() + municion.toString() + ".png"
@@ -110,12 +111,23 @@ object cargador {
     }
 
     method validarAtaque(dir){
+        self.validarSiEstaDisparando()
+        self.validarSiHayBalas(dir)
+    }
+
+    method validarSiHayBalas(dir){
         if (municion == 0){
             juego.jugador().sinMunicion(dir)
             self.error("")
         }
         else {self.quitarMunicion(1)}
     }
+
+    method validarSiEstaDisparando(){
+        if (not juego.jugador().puedeDisparar()){self.error("")
+        }
+    }
+
 
     method quitarMunicion(cantidad) {
         municion -= cantidad

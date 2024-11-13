@@ -72,6 +72,29 @@ class Bala inherits Proyectil(danio=25) {
     }
 }
 
+
+class BalaEscopeta inherits Proyectil(danio= 75) {
+
+
+    method nuevoViaje(dir) { 
+        game.onTick(120, self.nombreEvento() , {self.disparoHacia(dir)})
+    }
+
+    method imagenEnNumDir(num,direccion) {
+       return "balaEscopeta-" + num.toString() + "-" + direccion.toString() + ".png"
+    }
+
+    override method disparoHacia(direccion) {
+        self.validarViajeProyectil(direccion)
+        self.mover(direccion)
+    }
+
+    override method impacto(dir) {
+        self.image("balaEscopetaPrueba-impacto-" + dir.toString() + ".png")
+        super(dir)
+    }
+}
+
 class BolaDeFuego inherits Proyectil(danio=35) {
 
     method nuevoViaje(dir) { 

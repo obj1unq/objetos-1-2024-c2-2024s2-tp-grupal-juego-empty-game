@@ -81,7 +81,7 @@ object muebleFantasma { //no es un mueble en realidad, como la bandeja represent
     game.say(self, "no hay nada aqui")
   }
   method position(){
-    return game.at(0,0)
+    return game.at(50,50)
   }
   method image(){
     return "" //imagen de nada, tener un png transparente tal vez? -> esta bien tener el mueble fantasma igual?

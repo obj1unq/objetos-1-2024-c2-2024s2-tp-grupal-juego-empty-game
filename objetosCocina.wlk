@@ -80,6 +80,9 @@ object muebleFantasma { //no es un mueble en realidad, como la bandeja represent
   method usarse(chef){
     game.say(self, "no hay nada aqui")
   }
+  method position(){
+    return game.at(0,0)
+  }
 }
 
 class Horno inherits Mueble{ //ahora el horno recibe todo tipo de cosas que le quieras meter

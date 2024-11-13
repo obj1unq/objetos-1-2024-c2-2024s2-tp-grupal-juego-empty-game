@@ -46,7 +46,7 @@ object imagenes {
         game.addVisual(estacionHongo)
     }
 
-    method hornoImg(){
+    method hornoImg(){ //hornos
         game.addVisual(horno)
         game.addVisual(horno2)
     }
@@ -55,10 +55,12 @@ object imagenes {
         game.addVisual(remy)
     }
 
-    method mesadaImg(){
+    method mesadaImg(){ //mesadas
 
         game.addVisual(mesada)
         game.addVisual(mesada2)
+        game.addVisual(muebleFantasma)
     }
+
 }
     

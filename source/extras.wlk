@@ -3,7 +3,11 @@ import wollok.game.*
 import personajes.personaje.*
 
 object managerItems {
-    //const property drops = #{}
+    const property drops = #{}
+
+    method quitarItem(item) {
+        drops.remove(item)
+    }
 
     method posicionRandom() {
         return (game.at(0.randomUpTo(game.width() - 1), 0.randomUpTo(game.height() - 2)))
@@ -12,25 +16,25 @@ object managerItems {
     method spawnearCura(numero) {
         const nuevaCura = managerCuras.cura(numero, self.posicionRandom())
         game.addVisual(nuevaCura)
-        //drops.add(nuevaCura)
+        drops.add(nuevaCura)
     }
 
     method spawnearOro(numero) {
         const oroNuevo = managerMonedas.monedas(numero, self.posicionRandom())
         game.addVisual(oroNuevo)
-        //drops.add(oroNuevo)
+        drops.add(oroNuevo)
     }
 
     method spawnearMunicionRandom() {
         const nuevaMunicion = new Balas(position = self.posicionRandom())
         game.addVisual(nuevaMunicion)
-        //drops.add(nuevaMunicion)
+        drops.add(nuevaMunicion)
     }
 
     method spawnearMunicionEn(posicion) {
         const nuevaMunicion = new Balas(position = posicion)
         game.addVisual(nuevaMunicion)
-        //drops.add(nuevaMunicion)
+        drops.add(nuevaMunicion)
     }
 }
 
@@ -78,7 +82,7 @@ class Cura inherits Drop {
     method colisionPj() {
         personaje.curarse(vidaDada)
         game.removeVisual(self)
-        //managerItems.drops().remove(self)
+        managerItems.quitarItem(self)
     }
 }
 
@@ -90,7 +94,7 @@ class Oro inherits Drop()  {
     method colisionPj() {
         personaje.obtenerOro(valor)
         game.removeVisual(self)
-        //managerItems.drops().remove(self)
+        managerItems.quitarItem(self)
     }
 }
 
@@ -101,6 +105,7 @@ class Balas inherits Drop(image = personaje.visualAmmo()){
     method colisionPj() {
         cargador.recargar(6)
         game.removeVisual(self)
+        managerItems.quitarItem(self)
     }
 }
 

@@ -8,6 +8,10 @@ import proyectiles.*
 object managerZombie {
     const property zombies = #{}
 
+    method agregarZ(zombie) {
+        zombies.add(zombie)
+    }
+
     method quitarZ(zombie) {
         zombies.remove(zombie)
     }
@@ -15,7 +19,6 @@ object managerZombie {
     method spawnearZ(zombie) {
         zombies.add(zombie)
         game.addVisual(zombie)
-        zombie.persecucion()
     }
 
     method generarZombieAleatorio(posicion) {
@@ -102,25 +105,18 @@ class Zombie {
     var property position
     var property vida
     const property dmg
-    const property velocidad
+    var contadorMovimiento = 1
+    const velocidad
 
     method agro() {
         return personaje
     }
 
-    method colisionPj() {}
-
-    method nombreEvento() {
-        return "evento" + self.identity()
-    }
 
     method traspasable() {
         return false
     }
 
-    method persecucion() {
-        game.onTick(velocidad, self.nombreEvento(), {self.perseguirAPersonaje()})
-    }
 
     method herir(danio) {
         vida = 0.max(vida - danio)
@@ -148,10 +144,12 @@ class Zombie {
         if (self.agroEstaPegado()) {
             self.atacarAgro()
         }
-        else {
+        else if (contadorMovimiento == velocidad) {
             self.imagenHacia(self.dirDeTransicionA(self.sigPosFavorable()))
             position = self.sigPosFavorable()
+            contadorMovimiento = 1
         }
+        else {contadorMovimiento += 1}
     }
 
     method agroEstaPegado() {
@@ -174,7 +172,7 @@ class Zombie {
     }
 
     method sigPosFavorable() {
-        const disponibles = tablero.alrededoresDe(position).filter({pos => not(managerZombie.posTieneZombie(pos))})
+        const disponibles = tablero.verticalesDe(position).filter({pos => not(managerZombie.posTieneZombie(pos))})
         return disponibles.min({pos => pos.distance(self.agro().position())})
     }
 
@@ -212,13 +210,12 @@ class Zombie {
     method morir() {
         self.sonidoMuerte()
         game.removeVisual(self)
-        game.removeTickEvent(self.nombreEvento())
         managerZombie.quitarZ(self)
         managerItems.spawnearMunicionEn(self.position())
     }
 }
 
-class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image = "zombie-comun-abajo.png"){ 
+class ZombieComun inherits Zombie(vida = 100, dmg = 10, image = "zombie-comun-abajo.png", velocidad=2){ 
 
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
@@ -233,7 +230,7 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, velocidad = 1000, image 
     }
 }
 
-class ZombiePerro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image = "perronio-abajo.png"){
+class ZombiePerro inherits Zombie(vida = 50, dmg = 20, image = "perronio-abajo.png",velocidad=1){
 
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
@@ -248,7 +245,7 @@ class ZombiePerro inherits Zombie(vida = 50, dmg = 20,  velocidad = 700, image =
     }
 }
 
-class ZombieTanque inherits Zombie(vida = 300, dmg = 50, velocidad = 1500, image = "tanque-1-abajo.png") {
+class ZombieTanque inherits Zombie(vida = 300, dmg = 50, image = "tanque-1-abajo.png", velocidad=3) {
     
     var estado = 1
     var ultimaDir = abajo
@@ -259,10 +256,10 @@ class ZombieTanque inherits Zombie(vida = 300, dmg = 50, velocidad = 1500, image
 
     override method atacarAgro() {
         ultimaDir = self.dirAgroPegado()
-        game.removeTickEvent(self.nombreEvento())
+        managerZombie.quitarZ(self)
         self.animacionAtaque() 
         game.schedule(1250,{managerCrater.explosionEnCon(position,dmg)}) 
-        game.schedule(1500,{self.persecucion()})
+        game.schedule(1500,{managerZombie.agregarZ(self)})
     }
 
     method animacionAtaque() {
@@ -302,7 +299,7 @@ class ZombieTanque inherits Zombie(vida = 300, dmg = 50, velocidad = 1500, image
     }
 }
 
-class ZombieThrower inherits Zombie(vida = 20, dmg = 10, velocidad = 250, image = "expectorador-1-abajo.png"){  
+class ZombieThrower inherits Zombie(vida = 20, dmg = 10, image = "expectorador-1-abajo.png",velocidad=2){  
     var contador = 0
     var estado = 1
     var positionAtaque = game.at(0, 0)
@@ -353,10 +350,10 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 10, velocidad = 250, image 
 
     // ataque ------------------------------
     override method atacarAgro() {
-        game.removeTickEvent(self.nombreEvento())
+        managerZombie.quitarZ(self)
         self.animacionAtaque()
         game.schedule(1250,{managerAcido.acidoEnCon(positionAtaque, dmg)})
-        game.schedule(1500,{self.persecucion()})    
+        game.schedule(1500,{managerZombie.agregarZ(self)})    
     }
 
     method animacionAtaque() {

@@ -31,8 +31,6 @@ object timer {
 
     }
 
-    method colisionPj() {}
-
     method impactoProyectil(danio) {}
 
     method traspasable() {
@@ -46,7 +44,6 @@ object barra{
     var property position = game.at(0, 16)
 
     method impactoProyectil(danio) {}
-    method colisionPj() {}
     //game.addVisual("black.png")
 
     method traspasable() {
@@ -63,8 +60,6 @@ object puntosDeVida {
     method actualizar(){
         self.image("barravida-" + personaje.vida() + ".png")
     }
-
-    method colisionPj() {}
 
     method impactoProyectil(danio) {}
 
@@ -101,8 +96,6 @@ object cargador {
     method quitarMunicion(cantidad) {
         municion -= cantidad
     }
-    
-    method colisionPj() {}
 
     method impactoProyectil(danio) {}
 
@@ -122,8 +115,6 @@ object oroObtenido {
     method text() {
         return personaje.oro().toString()
     }
-
-    method colisionPj() {}
 
     method textColor() {
         return "ffff00"
@@ -166,7 +157,5 @@ object barraDeEnergia {
         energia = (energia + 1).min(10)
         self.image("energia-"+ energia.toString() + ".png") 
     }
-    
-    method colisionPj() {}
 
 }

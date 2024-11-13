@@ -28,8 +28,6 @@ class Proyectil {
         return zombie.position() == direccion.siguientePosicion(position) or zombie.position() == position
     }
 
-    method colisionPj() {} // por si las dudas -_-
-
     method impacto(dir) {
         game.removeTickEvent(self.nombreEvento())
         game.schedule(100,{game.removeVisual(self)})
@@ -125,8 +123,6 @@ class Crater {
     var property image = "tanqueimpacto.png"
     const property position
 
-    method colisionPj() {}
-
     method daniar(dmg) {
         const colisiones = managerZombie.zombies().filter({z => z.position() == position})
         if (personaje.position() == position) {
@@ -152,8 +148,6 @@ object managerAcido {
 class Acido {
     var property image = "arbusto.png"
     const property position
-    
-    method colisionPj() {}
 
     method daniar(dmg) {
         game.onTick(500, self.identidad(), {self.colisiones().forEach({c => c.herir(dmg)})})

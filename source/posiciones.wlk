@@ -28,6 +28,11 @@ object tablero {
       position.y().between(0, game.height() - 2) 
   }
 
+  method verticalesDe(pos) {
+      return #{abajo.siguientePosicion(pos), arriba.siguientePosicion(pos),
+            izquierda.siguientePosicion(pos), derecha.siguientePosicion(pos)}
+  }
+
   method alrededoresDe(position) {
         return #{abajo.siguientePosicion(position), arriba.siguientePosicion(position),
             izquierda.siguientePosicion(position), derecha.siguientePosicion(position),

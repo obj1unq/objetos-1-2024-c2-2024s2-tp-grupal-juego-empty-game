@@ -28,6 +28,7 @@ object personaje {
         self.validarMover(direccion)
 	    position = direccion.siguientePosicion(position)
         self.image(pj.imagenNormal(direccion))
+        self.revisarPorItems()
 	}
 
     method validarMover(direccion) {
@@ -78,11 +79,18 @@ object personaje {
 
     // -------------Prueba de curarse-------------------------------
 
+    method revisarPorItems() {
+        const itemAhi = managerItems.drops().filter({d => d.position() == position})
+        itemAhi.forEach({d => d.colisionPj()})
+    }
+
+
 	method curarse(cura){
         game.sound("cura-sonido.mp3").play()
         vida = 100.min(vida + cura) 
         puntosDeVida.actualizar()
     }
+
 
     method herir(cantidad) {
         vida = 0.max(vida - cantidad)
@@ -94,6 +102,7 @@ object personaje {
         game.sound("oro-sonido.mp3").play()
         oro += valor
     }
+
 
 // -------------energia-------------------------------
 

@@ -13,8 +13,6 @@ program desvariados {
 
     juego.tablero()
 
-    juego.colisiones()
-
     juego.visuals()
 
     juego.movimiento()
@@ -22,6 +20,8 @@ program desvariados {
     juego.ataque()
 
     juego.sonido()
+
+    juego.persecucion()
 
     //juego.pausa() (arreglar)
 

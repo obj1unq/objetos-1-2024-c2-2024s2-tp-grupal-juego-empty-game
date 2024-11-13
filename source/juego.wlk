@@ -68,10 +68,8 @@ object juego {
         game.schedule(003, { sonidoFondo.play()} )
     }
 
-
-
-    method colisiones() {
-        game.onCollideDo(personaje, {objeto => objeto.colisionPj()})
+    method persecucion() {
+        game.onTick(650,"persecucionGame",{managerZombie.zombies().forEach({z => z.perseguirAPersonaje()})})
     }
 
 /*

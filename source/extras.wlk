@@ -1,6 +1,7 @@
 import hud.*
 import wollok.game.*
 import personajes.personaje.*
+import juego.*
 
 object managerItems {
     const property drops = #{}
@@ -58,7 +59,7 @@ object managerCuras {
     const vida = [20, 40, 80]
 
     method cura(numero, position) {
-        return new Cura(image = personaje.visualHealth(numero)
+        return new Cura(image = juego.jugador().visualHealth(numero)
                 , vidaDada = self.vida(numero), position = position)
     }
 
@@ -85,7 +86,7 @@ class Cura inherits Drop {
     const vidaDada
 
     method colisionPj() {
-        personaje.curarse(vidaDada)
+        puntosDeVida.curarse(vidaDada)
         game.removeVisual(self)
         managerItems.quitarItem(self)
     }
@@ -97,7 +98,7 @@ class Oro inherits Drop()  {
     const valor
 
     method colisionPj() {
-        personaje.obtenerOro(valor)
+        juego.jugador().obtenerOro(valor)
         game.removeVisual(self)
         managerItems.quitarItem(self)
     }
@@ -105,7 +106,7 @@ class Oro inherits Drop()  {
 
 //---------------------------------Municion---------------------------------------
 
-class Balas inherits Drop(image = personaje.visualAmmo()){
+class Balas inherits Drop(image = juego.jugador().visualAmmo()){
 
     method colisionPj() {
         cargador.recargar(6)

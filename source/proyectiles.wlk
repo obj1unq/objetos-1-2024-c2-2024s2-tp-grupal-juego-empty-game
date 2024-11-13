@@ -1,5 +1,6 @@
 import personajes.personaje.*
 import wollok.game.*
+import juego.*
 import posiciones.*
 import enemigos.*
 
@@ -109,6 +110,10 @@ class BolaDeFuego inherits Proyectil(danio=20) {
 }
 object managerCrater {
 
+    method jugador() {
+        return juego.jugador()
+    }
+
     method explosionEnCon(pos,dmg) {
         tablero.alrededoresDe(pos).forEach({pos => self.aparecerCraterEn(pos,dmg)})
     }
@@ -116,17 +121,17 @@ object managerCrater {
     method aparecerCraterEn(pos,dmg) {
         const craterNuevo = new Crater(position=pos)
         game.addVisual(craterNuevo)
-        craterNuevo.daniar(dmg)
+        craterNuevo.daniar(dmg,self.jugador())
     }
 }
 class Crater {
     var property image = "tanqueimpacto.png"
     const property position
 
-    method daniar(dmg) {
+    method daniar(dmg,jugador) {
         const colisiones = managerZombie.zombies().filter({z => z.position() == position})
-        if (personaje.position() == position) {
-            colisiones.add(personaje)
+        if (jugador.position() == position) {
+            colisiones.add(jugador)
         }
         colisiones.forEach({c => c.herir(dmg)})
         game.schedule(2000,{game.removeVisual(self)})
@@ -138,10 +143,14 @@ class Crater {
 }
 
 object managerAcido {
+    method jugador() {
+        return juego.jugador()
+    }
+    
     method acidoEnCon(pos, dmg) {
         const acidoNuevo = new Acido(position = pos)
         game.addVisual(acidoNuevo)
-        acidoNuevo.daniar(dmg)
+        acidoNuevo.daniar(dmg,self.jugador())
     }
 }
 
@@ -149,16 +158,16 @@ class Acido {
     var property image = "arbusto.png"
     const property position
 
-    method daniar(dmg) {
-        game.onTick(500, self.identidad(), {self.colisiones().forEach({c => c.herir(dmg)})})
+    method daniar(dmg,jugador) {
+        game.onTick(500, self.identidad(), {self.colisiones(jugador).forEach({c => c.herir(dmg)})})
         game.schedule(3550, {game.removeTickEvent(self.identidad())})
         game.schedule(4000,{game.removeVisual(self)})
     }
 
-    method colisiones() {
+    method colisiones(jugador) {
         const colisiones = managerZombie.zombies().filter({z => z.position() == position})
-        if (personaje.position() == position) {
-            colisiones.add(personaje)
+        if (jugador.position() == position) {
+            colisiones.add(jugador)
         }
         return colisiones
     }

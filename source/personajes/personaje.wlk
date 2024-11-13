@@ -5,20 +5,27 @@ import hud.*
 import noel.*
 import dangalf.*
 
-object personaje { 
+class Personaje { 
     //Imagen y posicion
-    var property pj = noel
-    var property image = pj.imagenInicial()
+    var property image = self.imagenInicial()
     var property position = game.at(5,5)
     //Estadisticas
-    var property vida = 100 //que sea un manager de vida aparte
-    var property visualAmmo = pj.municionImagen()
+    var property visualAmmo = self.municionImagen()
     var property oro = 0
+
+    method imagenInicial()
+    method imagenNormal(dir)
+    method imagenAtaque(dir)
+    method sonidoAtaque()
+    method disparar(dir,pos)
+    method municionImagen()
+    method cura(num)
+
 
     //var property zombiesAsesinados = 0   - A implementar
 
     method visualHealth(numero) {
-        return pj.cura(numero)
+        return self.cura(numero)
     }
     
     // -------------movimiento-------------------------------
@@ -27,7 +34,7 @@ object personaje {
         barraDeEnergia.validarEnergia()
         self.validarMover(direccion)
 	    position = direccion.siguientePosicion(position)
-        self.image(pj.imagenNormal(direccion))
+        self.image(self.imagenNormal(direccion))
         managerItems.revisarPorItems(position)
 	}
 
@@ -50,53 +57,27 @@ object personaje {
     // -------------ataque-------------------------------
     
     method ataque(direccion) { 
-        self.image(pj.imagenNormal(direccion))
+        self.image(self.imagenNormal(direccion))
         cargador.validarAtaque(direccion)
         self.animacionAtaque(direccion)
-        pj.disparar(direccion,position)                                               
+        self.disparar(direccion,position)                                               
     }
     method animacionAtaque(direccion) {                                                       
-        self.image(pj.imagenAtaque(direccion))
-        game.schedule(200,{self.image(pj.imagenNormal(direccion))})
-        pj.sonidoAtaque()
-    }
-    // -------------muerte-------------------------------
-
-    method revisarMorir() {
-        if (vida == 0) {
-            self.muerte()
-        }
+        self.image(self.imagenAtaque(direccion))
+        game.schedule(200,{self.image(self.imagenNormal(direccion))})
+        self.sonidoAtaque()
     }
 
-    method muerte() {
-        pj.sonidoMuerte()
-        // game.sound("muerte-musica.mp3").play()
-        // game.say(self, "morí reyes")
-        game.allVisuals().forEach({visual => game.removeVisual(visual)})
-        // game.boardGround("pantalla-muerte.jpg")
-        game.schedule(1000, {game.stop()})
-    }
-
-    // -------------Prueba de curarse-------------------------------
-
-	method curarse(cura){
-        game.sound("cura-sonido.mp3").play()
-        vida = 100.min(vida + cura) 
-        puntosDeVida.actualizar()
-    }
-
+    // -------------items-------------------------------
 
     method herir(cantidad) {
-        vida = 0.max(vida - cantidad)
-        puntosDeVida.actualizar()
-        self.revisarMorir()
+        puntosDeVida.herir(cantidad)
     }
 
     method obtenerOro(valor) {
         game.sound("oro-sonido.mp3").play()
         oro += valor
     }
-
 
 // -------------energia-------------------------------
 

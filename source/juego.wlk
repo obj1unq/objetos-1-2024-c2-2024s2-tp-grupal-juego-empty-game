@@ -1,38 +1,50 @@
 import wollok.game.*
 import personajes.personaje.*
+import personajes.noel.*
+import personajes.dangalf.*
 import enemigos.*
 import extras.*
 import posiciones.*
 import sonidos.*
 import hud.*
 
+object menu {
+    /*
+    var property image =
+    var property position = game.at 
+    */
+}
 
 object juego {
 
-    method visuals() {
+    var property jugador = noel
+
+    method hud() {
+
         game.addVisual(municionActual)
         game.addVisual(barra)
         game.addVisual(timer)
-        game.addVisual(personaje)
         game.addVisual(puntosDeVida)
         game.addVisual(cargador)
         game.addVisual(oroObtenido)
         game.addVisual(barraDeEnergia)
-        
+        barraDeEnergia.iniciarCicloEnergia()
+        game.addVisual(jugador)
+
     }
 
     method ataque() {
-        keyboard.left().onPressDo({personaje.ataque(izquierda)})
-        keyboard.right().onPressDo({personaje.ataque(derecha)})
-        keyboard.up().onPressDo({personaje.ataque(arriba)})
-        keyboard.down().onPressDo({personaje.ataque(abajo)})
+        keyboard.left().onPressDo({jugador.ataque(izquierda)})
+        keyboard.right().onPressDo({jugador.ataque(derecha)})
+        keyboard.up().onPressDo({jugador.ataque(arriba)})
+        keyboard.down().onPressDo({jugador.ataque(abajo)})
     }
 
     method movimiento() {
-        keyboard.w().onPressDo({personaje.mover(arriba)})
-	    keyboard.a().onPressDo({personaje.mover(izquierda)})
-	    keyboard.s().onPressDo({personaje.mover(abajo)})
-	    keyboard.d().onPressDo({personaje.mover(derecha)})
+        keyboard.w().onPressDo({jugador.mover(arriba)})
+	    keyboard.a().onPressDo({jugador.mover(izquierda)})
+	    keyboard.s().onPressDo({jugador.mover(abajo)})
+	    keyboard.d().onPressDo({jugador.mover(derecha)})
     }
 
     method tablero() {
@@ -52,7 +64,8 @@ object juego {
         keyboard.n().onPressDo({managerItems.spawnearOro(1)})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
         game.onTick(1000, "timer", {timer.tick()})
-        game.onTick(1000, "energia", {barraDeEnergia.recargarEnergia()})
+        
+
         // testeo spawneo zombies
         //game.onTick(3000, "generarZombiesRandom", {managerZombie.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
 
@@ -69,7 +82,7 @@ object juego {
     }
 
     method persecucion() {
-        game.onTick(650,"persecucionGame",{managerZombie.zombies().forEach({z => z.perseguirAPersonaje()})})
+        game.onTick(650,"persecucionGame",{managerZombie.zombies().forEach({z => z.perseguirAJugador()})})
     }
 
 /*

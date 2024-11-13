@@ -1,32 +1,45 @@
+import personaje.*
 import wollok.game.*
 import posiciones.*
 import extras.*
 import hud.*
 import proyectiles.*
 
-object noel {
+object noel inherits Personaje() {
 
-    method disparar(direccion,posDada) {
+//-------------items------------------------------------------
+
+    override method cura(numero){
+        return "cura" + numero + "-noel.png"
+    }
+
+     override method municionImagen(){
+        return "balas.png"
+    }
+
+//-----------ataque-movimiento--------------------------------
+
+    override method disparar(direccion,posDada) {
         const balaNueva = new Bala(image="bala-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
         game.addVisual(balaNueva)
         balaNueva.nuevoViaje(direccion)
     }
 
-    method imagenInicial(){
+    override method imagenInicial(){
         return "noelnuevo-normal-arriba.png"
     }
-
-    method imagenAtaque(direccion) {
+   
+    override method imagenAtaque(direccion) {
         return "noelnuevo-ataque-" + direccion.toString() + ".png"
     }
 
-    method imagenNormal(direccion) {
+    override method imagenNormal(direccion) {
         return "noelnuevo-normal-" + direccion.toString() + ".png"
     }
 
     method especial(){}
 
-    method sonidoAtaque(){
+    override method sonidoAtaque(){
         game.sound("tiro1.mp3").play()
     }
 
@@ -34,13 +47,12 @@ object noel {
         game.sound("noel-muerte-sonido.mp3").play()
     }
 
+//------------hud-------------------------------------------
+
     method hudMunicion(){
         return "balas-"
     }
 
-    method municionImagen(){
-        return "balas.png"
-    }
     method sinMunicion(dir){
         game.sound("sin-balas.mp3").play()
     }
@@ -49,7 +61,4 @@ object noel {
         game.sound("pistola-recarga.mp3").play()
     }
 
-    method cura(numero){
-        return "cura" + numero + "-noel.png"
-    }
 }

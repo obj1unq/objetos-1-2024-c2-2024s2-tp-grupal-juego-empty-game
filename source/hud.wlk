@@ -1,7 +1,9 @@
 import wollok.game.*
 import personajes.personaje.*
+import juego.*
 
 //---------------------------------Timer---------------------------------------
+
 
 object timer {
 
@@ -28,7 +30,6 @@ object timer {
             segundos = 0
             segundos += 1
         }
-
     }
 
     method impactoProyectil(danio) {}
@@ -44,7 +45,6 @@ object barra{
     var property position = game.at(0, 16)
 
     method impactoProyectil(danio) {}
-    //game.addVisual("black.png")
 
     method traspasable() {
         return false
@@ -53,12 +53,37 @@ object barra{
 //----------------------------------BARRA DE VIDA-----------------------------
 
 object puntosDeVida {
-
+    var vida = 100
     var property image =  "barravida-100.png"
     var property position = game.at(0, 16)
 
+    method curarse(cura){
+        game.sound("cura-sonido.mp3").play()
+        vida = 100.min(vida + cura) 
+        self.actualizar()
+    }
+
+    method herir(cant) {
+        vida = 0.max(vida - cant)
+        self.actualizar()
+        self.revisarMorir()
+    }
+
+    method revisarMorir() {
+        if (vida == 0) {
+            self.muerte()
+        }
+    }
+
+    method muerte() {
+        juego.jugador().sonidoMuerte()
+        game.clear()
+        // pantalla muerte
+        game.schedule(1000, {game.stop()})
+    }
+
     method actualizar(){
-        self.image("barravida-" + personaje.vida() + ".png")
+        self.image("barravida-" + vida.toString() + ".png")
     }
 
     method impactoProyectil(danio) {}
@@ -72,22 +97,21 @@ object puntosDeVida {
 
 object cargador {
     var property  municion = 12 
-    const property duenio = personaje.pj()
     var property position = game.at(4, 16)
 
     method image(){
-        return duenio.hudMunicion() + municion.toString() + ".png"
+        return juego.jugador().hudMunicion() + municion.toString() + ".png"
     }
     
     method recargar(balas){
-        duenio.sonidoRecarga()
+        juego.jugador().sonidoRecarga()
         municion += balas
         municion = municion.min(12) 
     }
 
     method validarAtaque(dir){
         if (municion == 0){
-            duenio.sinMunicion(dir)
+            juego.jugador().sinMunicion(dir)
             self.error("")
         }
         else {self.quitarMunicion(1)}
@@ -113,7 +137,7 @@ object oroObtenido {
     }
 
     method text() {
-        return personaje.oro().toString()
+        return juego.jugador().oro().toString()
     }
 
     method textColor() {
@@ -133,9 +157,12 @@ object oroObtenido {
 
 object barraDeEnergia {
 
+    method iniciarCicloEnergia() {
+        game.onTick(1000, "energia", {self.recargarEnergia()})
+    }
+
     var property image =  "energia-"+ energia.toString() + ".png"
     var property energia = 10
-    const property duenio = personaje
 
     method position() {
             return game.at(12, 16)

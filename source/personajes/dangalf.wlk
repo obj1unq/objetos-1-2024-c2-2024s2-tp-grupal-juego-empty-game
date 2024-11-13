@@ -3,30 +3,43 @@ import wollok.game.*
 import posiciones.*
 import extras.*
 import hud.*
+import personajes.personaje.*
 
-object dangalf {
+object dangalf inherits Personaje() {
 
-    method disparar(direccion, posDada) {
+//-------------items------------------------------------------
+
+    override method cura(numero){
+        return "cura" + numero + "-mago.png"
+    }
+
+    override method municionImagen(){
+        return "potion.png"
+    }
+
+//-----------ataque-movimiento--------------------------------
+
+    override method disparar(direccion, posDada) {
         const bolaNueva = new BolaDeFuego(image="bola-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
         game.addVisual(bolaNueva)
         bolaNueva.nuevoViaje(direccion)
     }
 
-    method imagenInicial(){
+    override method imagenInicial(){
         return "dangalf-normal-arriba.png"
     }
 
-    method imagenAtaque(dir) {
+    override method imagenAtaque(dir) {
         return "dangalf-ataque-" + dir.toString() + ".png"
     }
 
-    method imagenNormal(dir) {
+    override method imagenNormal(dir) {
         return "dangalf-normal-" + dir.toString() + ".png"
     }
 
     method especial(){}
 
-    method sonidoAtaque(){
+    override method sonidoAtaque(){
         game.sound("magia1.mp3").play()
     }
 
@@ -34,13 +47,12 @@ object dangalf {
         game.sound("wizard-death.mp3").play()
     }
 
+//------------hud-------------------------------------------
+
     method hudMunicion(){
         return "mana-"
     }
     
-    method municionImagen(){
-        return "potion.png"
-    }
     method sinMunicion(dir){
         game.sound("mago-sin-municion.mp3").play()
     }
@@ -49,7 +61,4 @@ object dangalf {
         game.sound("mana.mp3").play()
     }
 
-    method cura(numero){
-        return "cura" + numero + "-mago.png"
-    }
 }

@@ -1,5 +1,6 @@
 import extras.*
 import wollok.game.*
+import juego.*
 import posiciones.*
 import personajes.personaje.*
 import sonidos.*
@@ -109,7 +110,7 @@ class Zombie {
     const velocidad
 
     method agro() {
-        return personaje
+        return juego.jugador()
     }
 
 
@@ -140,7 +141,7 @@ class Zombie {
 
     // Persecucion -------------------------------------
 
-    method perseguirAPersonaje() {
+    method perseguirAJugador() {
         if (self.agroEstaPegado()) {
             self.atacarAgro()
         }
@@ -304,7 +305,7 @@ class ZombieThrower inherits Zombie(vida = 20, dmg = 10, image = "expectorador-1
     var estado = 1
     var positionAtaque = game.at(0, 0)
 
-    override method perseguirAPersonaje() {
+    override method perseguirAJugador() {
         if(!self.agroEstaAbajo() and !self.estaAlFinalIzquierdo() and contador.even()) {
             self.moverse(izquierda)
         } else if(!self.agroEstaAbajo() and !self.estaAlFinalDerecho() and !contador.even()) {

@@ -98,8 +98,8 @@ class Horno inherits Mueble{ //ahora el horno recibe todo tipo de cosas que le q
   // }
 
   method cocinar() { 
-    game.onTick(2500, self, {contenido.serCocinada()})
-    game.onTick(2500, self, {self.subirNivelDeHorno()})
+    game.onTick(2500, "cocinarContenido", {contenido.serCocinada()})
+    game.onTick(2500, "subirle temperatura", {self.subirNivelDeHorno()})
   } 
 
   method subirNivelDeHorno(){

@@ -49,8 +49,8 @@ object juego {
 
     method tablero() {
         game.title("desvariados") 
-        game.width(17)
-        game.height(17)
+        game.width(20)
+        game.height(15)
         game.cellSize(45)
         game.ground("pisonuevo-stage1.png")
 

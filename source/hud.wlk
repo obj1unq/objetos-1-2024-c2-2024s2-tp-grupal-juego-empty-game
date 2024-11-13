@@ -42,7 +42,7 @@ object timer {
 //----------------------------------------------HUD-----------------------------
 object barra{
     var property image =  "blacklong.png"
-    var property position = game.at(0, 16)
+    var property position = game.at(0, 14)
 
     method impactoProyectil(danio) {}
 
@@ -55,7 +55,7 @@ object barra{
 object puntosDeVida {
     var vida = 100
     var property image =  "barravida-100.png"
-    var property position = game.at(0, 16)
+    var property position = game.at(0, 14)
 
     method curarse(cura){
         game.sound("cura-sonido.mp3").play()
@@ -97,7 +97,7 @@ object puntosDeVida {
 
 object cargador {
     var property  municion = 12 
-    var property position = game.at(4, 16)
+    var property position = game.at(4, 14)
 
     method image(){
         return juego.jugador().hudMunicion() + municion.toString() + ".png"
@@ -165,7 +165,7 @@ object barraDeEnergia {
     var property energia = 10
 
     method position() {
-            return game.at(12, 16)
+            return game.at(12, 14)
     }
     
     method validarEnergia(){

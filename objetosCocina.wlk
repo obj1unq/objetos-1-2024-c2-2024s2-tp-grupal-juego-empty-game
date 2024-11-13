@@ -78,7 +78,13 @@ class Mueble {
 
 object muebleFantasma { //no es un mueble en realidad, como la bandeja representa ser nada -> no se que tan bien estaría igual, creo que si tendría que ser un mueble
   method usarse(chef){
-    game.say(self, "no hay nada aqui")
+    //game.say(chef, "no hay nada aqui") //se pone a buscar un visual de chef en vez de aceptar el parametro de cheff y no esta bueno hardcodear a remy ahí, no se que hacer asi que queda vacio que no pasa nada
+  }
+  method position(){
+    return game.at(50,50)
+  }
+  method image(){
+    return "mueble_fantasma.png" //imagen de nada, tener un png transparente tal vez? -> esta bien tener el mueble fantasma igual?
   }
 }
 
@@ -98,8 +104,8 @@ class Horno inherits Mueble{ //ahora el horno recibe todo tipo de cosas que le q
   // }
 
   method cocinar() { 
-    game.onTick(2500, self, {contenido.serCocinada()})
-    game.onTick(2500, self, {self.subirNivelDeHorno()})
+    game.onTick(2500, "cocinarContenido", {contenido.serCocinada()})
+    game.onTick(2500, "subirle temperatura", {self.subirNivelDeHorno()})
   } 
 
   method subirNivelDeHorno(){

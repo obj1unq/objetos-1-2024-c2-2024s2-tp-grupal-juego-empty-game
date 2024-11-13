@@ -22,15 +22,12 @@ class Cliente inherits Persona(position = game.at(0,7) /*o donde esté la puerta
     }
 
     method generarPedido() {
-      const ingredientePrincipal = self.ingredientePrincipalRandom()
-
-      pedidoQueEspero = [ingredienteTomate, ingredienteQueso] + [ingredientePrincipal]
+      pedidoQueEspero = [ingredienteTomate, ingredienteQueso] + [self.ingredientePrincipalRandom()]
 
     }
 
     method ingredientePrincipalRandom() {
-      const ingredientesAElegir = [ingredienteAceituna, ingredienteQueso, ingredienteAtun, ingredienteHongo].randomized()
-      return ingredientesAElegir.head()
+      return [ingredienteAceituna, ingredienteQueso, ingredienteAtun, ingredienteHongo].anyOne()
     }
 
     method recibirPedido(pedido) {

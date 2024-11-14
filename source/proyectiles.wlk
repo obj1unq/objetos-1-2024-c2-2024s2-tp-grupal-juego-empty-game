@@ -57,10 +57,6 @@ class Bala inherits Proyectil(danio=25) {
         game.onTick(120, self.nombreEvento() , {self.disparoHacia(dir)})
     }
 
-    method imagenEnNumDir(num,direccion) {
-       return "bala-" + num.toString() + "-" + direccion.toString() + ".png"
-    }
-
     override method disparoHacia(direccion) {
         self.validarViajeProyectil(direccion)
         self.mover(direccion)
@@ -78,21 +74,9 @@ class BolaDeFuego inherits Proyectil(danio=35) {
         game.onTick(220, self.nombreEvento() , {self.disparoHacia(dir)})
     }
 
-    method imagenEnNumDir(num,direccion) {
-        return "bola-" + num.toString() + "-" + direccion.toString() + ".png"
-    }
-
     override method disparoHacia(direccion) {
         self.validarViajeProyectil(direccion)
-        self.animacionBola(direccion)
-    }
-
-    method animacionBola(direccion) {
-        self.image(self.imagenEnNumDir(2, direccion))
-        game.schedule(20,{self.imagenEnNumDir(3, direccion)})
-        game.schedule(50,{self.imagenEnNumDir(4, direccion)})
-        game.schedule(80,{self.mover(direccion)})
-        game.schedule(100,{self.imagenEnNumDir(1, direccion)})
+        self.mover(direccion)
     }
 
     override method impacto(dir) {
@@ -102,9 +86,6 @@ class BolaDeFuego inherits Proyectil(danio=35) {
 }
 object managerCrater {
 
-    method jugador() {
-        return juego.jugador()
-    }
 
     method explosionEnCon(pos,dmg) {
         tablero.alrededoresDe(pos).forEach({pos => self.aparecerCraterEn(pos,dmg)})
@@ -113,17 +94,17 @@ object managerCrater {
     method aparecerCraterEn(pos,dmg) {
         const craterNuevo = new Crater(position=pos)
         game.addVisual(craterNuevo)
-        craterNuevo.daniar(dmg,self.jugador())
+        craterNuevo.daniar(dmg)
     }
 }
 class Crater {
     var property image = "tanqueimpacto.png"
     const property position
 
-    method daniar(dmg,jugador) {
+    method daniar(dmg) {
         const colisiones = managerZombie.zombies().filter({z => z.position() == position})
-        if (jugador.position() == position) {
-            colisiones.add(jugador)
+        if (juego.jugador().position() == position) {
+            colisiones.add(juego.jugador())
         }
         colisiones.forEach({c => c.herir(dmg)})
         game.schedule(2000,{game.removeVisual(self)})
@@ -135,14 +116,11 @@ class Crater {
 }
 
 object managerAcido {
-    method jugador() {
-        return juego.jugador()
-    }
     
     method acidoEnCon(pos, dmg) {
         const acidoNuevo = new Acido(position = pos)
         game.addVisual(acidoNuevo)
-        acidoNuevo.daniar(dmg,self.jugador())
+        acidoNuevo.daniar(dmg)
     }
 }
 
@@ -150,16 +128,16 @@ class Acido {
     var property image = "arbusto.png"
     const property position
 
-    method daniar(dmg,jugador) {
-        game.onTick(500, self.identidad(), {self.colisiones(jugador).forEach({c => c.herir(dmg)})})
+    method daniar(dmg) {
+        game.onTick(500, self.identidad(), {self.colisiones().forEach({c => c.herir(dmg)})})
         game.schedule(3550, {game.removeTickEvent(self.identidad())})
         game.schedule(4000,{game.removeVisual(self)})
     }
 
-    method colisiones(jugador) {
+    method colisiones() {
         const colisiones = managerZombie.zombies().filter({z => z.position() == position})
-        if (jugador.position() == position) {
-            colisiones.add(jugador)
+        if (juego.jugador().position() == position) {
+            colisiones.add(juego.jugador())
         }
         return colisiones
     }

@@ -20,7 +20,7 @@ object dangalf inherits Personaje() {
 //-----------ataque-movimiento--------------------------------
 
     override method disparar(direccion, posDada) {
-        const bolaNueva = new BolaDeFuego(image="bola-1-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
+        const bolaNueva = new BolaDeFuego(image="bola-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
         game.addVisual(bolaNueva)
         bolaNueva.nuevoViaje(direccion)
     }

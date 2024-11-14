@@ -55,10 +55,13 @@ class Mueble {
   method accionRecibir(chef){
     contenido = chef.bandeja()
     chef.soltar() //esto en el chef hace que tenga una bandeja vacia otra vez
+    contenido.serDejadoAqui(position) //esto en el horno debería cambiar y no verse el ingediente encima del horno
   }
 
   method accionDar(chef){
-    chef.recibir(self.objetoADar(chef))
+    const ingrediente = self.objetoADar(chef)
+    chef.recibir(ingrediente)
+    ingrediente.serSostenido(chef)
     self.eliminarLoDado() //que ahora el mueble tiene de nuevo una bandeja vacia = nada
   }
 
@@ -96,6 +99,7 @@ class Horno inherits Mueble{ //ahora el horno recibe todo tipo de cosas que le q
 
   override method accionRecibir(chef){
     super(chef)
+    //game.removeVisual(contenido)
     self.cocinar()
   }
   override  method puedeRecibir(){ //para poder recibir el horno solo tiene que estar completamente vacio
@@ -139,7 +143,6 @@ class Mesada inherits Mueble{
     } else { 
       super(chef) //sino, el ingrediente se agrega arriba del mueble y listo, se tiene que ver ahí la imagen
     }  
-    ingrediente.serDejadoAqui(self.position()) //REVISAR SI ESTO SIRVE DE ALGO
   }
 
   override method image() {

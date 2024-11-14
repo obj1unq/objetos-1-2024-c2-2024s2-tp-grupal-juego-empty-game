@@ -5,16 +5,18 @@ import chefs.*
 import wollok.game.*
  /*TAMBIEN NECESITA UN RETOQUE*/
 
+ //hay cierto parecido en el procesar ingrediente con las imagenes -> después entender ese algoritmo y simplificarlo tal vez con un objeto estado que solo cambie la palabra, no se me ocurre como por ahora
+
 class Ingrediente { 
     var property position = game.center()    
     var property image = null 
     var property precio = null
-    var fueProcesado = false
+    var sostenido = false
 
     method tipoIngrediente()
 
-    method puedeIntegrarse(){
-        return true
+    method sostenido(){
+        return sostenido
     }
 
    method esVacio(){
@@ -27,35 +29,27 @@ class Ingrediente {
 
    method recibirIngrediente(ingrediente){}
 
-//    method tieneIngredientes(){ //esto podría eliminarse porque es solo para la masa
-//     return false
-//    }
+   method tieneIngredientes(){
+    return false
+   }
 
     method serSostenido(chef) {
-        game.removeVisual(self)
-        position = chef.position() //ESTO CAMBIARLO
+        //game.removeVisual(self)
+        sostenido = true
     }
 
     method serDejadoAqui(nuevaPosition){
-        //game.addVisual(nuevaPosition)
         position = nuevaPosition
+       // game.addVisual(self) 
+        sostenido = false
     }
 
     method imagenIngredienteInicial() 
 
-    //ingrediente inicial y final tal vez podrían ser una constante y se declara en cada clase
-
     method imagenIngredienteFinal()
 
     method serProcesado(){
-        if(self.image() == self.imagenIngredienteInicial()){
-            image = self.imagenIngredienteFinal()
-        }
-        fueProcesado = true
-    }
-
-    method fueProcesado(){
-        return fueProcesado
+        image = self.imagenIngredienteFinal()
     }
 }
 
@@ -68,16 +62,12 @@ class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
       return true
     }
 
-    override method puedeIntegrarse(){
-        return false
-    }
-
     override method recibirIngrediente(ingrediente){
         ingredientes.add(ingrediente)
         precio = precio + ingrediente.precio()
     }
 
-    method tieneIngredientes() {
+    override method tieneIngredientes() {
       return not ingredientes.isEmpty()
     }
 
@@ -168,6 +158,11 @@ class Tomate inherits Ingrediente( image = "tomate_inicial.png", precio = 200) {
       override method tipoIngrediente(){
         return ingredienteTomate
     }
+
+    // override method serProcesado(){
+    //     super()
+    //     tipoIngrediente = ingredienteSalsa
+    // }
 }
 
 class Aceituna inherits Ingrediente( image = "aceituna_factory.png", precio = 200) {

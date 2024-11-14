@@ -2,15 +2,12 @@ import proyectiles.*
 import wollok.game.*
 import posiciones.*
 import extras.*
+import armas.*
 import hud.*
 import personajes.personaje.*
 
-object dangalf inherits Personaje() {
+object dangalf inherits Personaje(arma=manosMagicas) {
 
-
-    override method cadencia(){
-        return 300
-    }
 //-------------items------------------------------------------
 
     override method cura(numero){
@@ -23,11 +20,7 @@ object dangalf inherits Personaje() {
 
 //-----------ataque-movimiento--------------------------------
 
-    override method disparar(direccion, posDada) {
-        const bolaNueva = new BolaDeFuego(image="bola-" + direccion.toString() + ".png", position=direccion.siguientePosicion(posDada))
-        game.addVisual(bolaNueva)
-        bolaNueva.nuevoViaje(direccion)
-    }
+    
 
     override method imagenInicial(){
         return "dangalf-normal-arriba.png"
@@ -57,7 +50,7 @@ object dangalf inherits Personaje() {
         return "mana-"
     }
     
-    method sinMunicion(dir){
+    override method sinMunicion(){
         game.sound("mago-sin-municion.mp3").play()
     }
 

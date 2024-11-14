@@ -12,17 +12,15 @@ class Personaje {
     //Estadisticas
     var property visualAmmo = self.municionImagen()
     var property oro = 0
-
-    var property puedeDisparar = true
+    var property arma 
 
     method imagenInicial()
     method imagenNormal(dir)
     method imagenAtaque(dir)
     method sonidoAtaque()
-    method disparar(dir,pos)
     method municionImagen()
     method cura(num)
-
+    method sinMunicion()
 
     //var property zombiesAsesinados = 0   - A implementar
 
@@ -60,25 +58,16 @@ class Personaje {
     
     method ataque(direccion) { 
         self.image(self.imagenNormal(direccion))
-        cargador.validarAtaque(direccion)
-        self.animacionAtaque(direccion)
-        self.disparar(direccion,position)
-        self.cadenciaArma()                                               
+        cargador.validarAtaque()
+        arma.gatillar(direccion,position)                                             
     }
+    
     method animacionAtaque(direccion) {                                                       
         self.image(self.imagenAtaque(direccion))
         game.schedule(200,{self.image(self.imagenNormal(direccion))})
         self.sonidoAtaque()
     }
 
-    method cadenciaArma(){
-        puedeDisparar = false
-        game.schedule(self.cadencia(), {puedeDisparar = true})
-    }
-
-    method cadencia(){
-        return 500
-    }
     // -------------items-------------------------------
 
     method herir(cantidad) {

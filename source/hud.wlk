@@ -98,7 +98,6 @@ object puntosDeVida {
 object cargador {
     var property  municion = 12 
     var property position = game.at(4, 14)
-    var property estaDisparando = false
 
     method image(){
         return juego.jugador().hudMunicion() + municion.toString() + ".png"
@@ -110,24 +109,12 @@ object cargador {
         municion = municion.min(12) 
     }
 
-    method validarAtaque(dir){
-        self.validarSiEstaDisparando()
-        self.validarSiHayBalas(dir)
-    }
-
-    method validarSiHayBalas(dir){
+    method validarAtaque(){
         if (municion == 0){
-            juego.jugador().sinMunicion(dir)
-            self.error("")
-        }
-        else {self.quitarMunicion(1)}
-    }
-
-    method validarSiEstaDisparando(){
-        if (not juego.jugador().puedeDisparar()){self.error("")
+            juego.jugador().sinMunicion()
+            self.error("no hay balas xd")
         }
     }
-
 
     method quitarMunicion(cantidad) {
         municion -= cantidad

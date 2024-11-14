@@ -12,6 +12,7 @@ class Ingrediente {
     var property image = null 
     var property precio = null
     var sostenido = false
+    var procesado = false
 
     method tipoIngrediente()
 
@@ -50,6 +51,15 @@ class Ingrediente {
 
     method serProcesado(){
         image = self.imagenIngredienteFinal()
+        procesado = true
+    }
+
+    method fueProcesado() {
+        return procesado
+    }
+
+    method puedeIntegrarse(){
+        return true
     }
 }
 
@@ -60,6 +70,10 @@ class Masa inherits Ingrediente( image = "masa_inicial.png", precio = 100 ) {
 
     override method aceptaIngredientesEncima(){
       return true
+    }
+
+    override method puedeIntegrarse(){
+        return false
     }
 
     override method recibirIngrediente(ingrediente){

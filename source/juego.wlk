@@ -17,7 +17,7 @@ object menu {
 
 object juego {
 
-    var property jugador = noel
+    var property jugador = dangalf
 
     method hud() {
 

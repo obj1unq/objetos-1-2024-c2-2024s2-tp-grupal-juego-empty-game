@@ -23,15 +23,15 @@ object dangalf inherits Personaje(arma=manosMagicas) {
     
 
     override method imagenInicial(){
-        return "dangalf-normal-arriba.png"
+        return "dangalfnuevo-normal-arriba.png"
     }
 
     override method imagenAtaque(dir) {
-        return "dangalf-ataque-" + dir.toString() + ".png"
+        return "dangalfnuevo-ataque-" + dir.toString() + ".png"
     }
 
     override method imagenNormal(dir) {
-        return "dangalf-normal-" + dir.toString() + ".png"
+        return "dangalfnuevo-normal-" + dir.toString() + ".png"
     }
 
     method especial(){}

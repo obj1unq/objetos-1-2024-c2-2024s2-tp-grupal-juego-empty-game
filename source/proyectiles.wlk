@@ -91,7 +91,7 @@ class BalaEscopeta inherits Proyectil(danio= 75) {
     }
 }
 
-class BolaDeFuego inherits Proyectil(danio=35) {
+class BolaDeFuego inherits Proyectil(danio=40) {
 
     method nuevoViaje(dir) { 
         game.onTick(220, self.nombreEvento() , {self.disparoHacia(dir)})

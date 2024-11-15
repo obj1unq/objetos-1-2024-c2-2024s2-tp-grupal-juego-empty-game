@@ -41,8 +41,11 @@ class Enemigo {
 
     //capaz se podría llamar hacerTurno(), porque algunas subclases de enemigo tienen habilidades curativas!
     method atacar() { 
-        self.realizarAtaqueNormalOHabilidad() //esto se encarga del ataque/habilidad y de sumar +1 a acumuladorDeTurnos
-        combate.cambiarTurnoA(objetivoADestruir)
+        
+        //self.animacion(animacionCombate)
+        game.schedule(800, {self.realizarAtaqueNormalOHabilidad()}) //esto se encarga del ataque/habilidad y de sumar +1 a acumuladorDeTurnos
+        game.schedule(810, {combate.cambiarTurnoA(objetivoADestruir)})
+        //game.schedule(800, {self.animacion(animacionEstatica)})
     }
     
     method recibirDanho(cantidad){
@@ -66,17 +69,63 @@ class Enemigo {
 
     method image() 
     method reaccionarAMovimiento() 
-    //method danhoAtaque()
-    //method habilidad()
     method utilizarHabilidad()
+
+    //animacion 
+    var property animacion = animacionEstatica
+    var property frame = 0
+
+    method maxFrameEstatica() {
+        return 4
+    }
+
+    method cambiarAnimacion() {
+        animacion.cambiarAnimacion(self)
+    }
       
+}
+
+class Animacion {
+    method maxFrame(enemigo)
+
+    method cambiarAnimacion(enemigo) {
+        const newFrame = (enemigo.frame() + 1) % self.maxFrame(enemigo)
+        enemigo.frame(newFrame)
+    }
+
+}
+
+object animacionEstatica inherits Animacion {
+    override method maxFrame(enemigo) {
+        return enemigo.maxFrameEstatica()
+    }
+
+    method tipo() {
+        return ""
+    }
+
+}
+
+object animacionCombate inherits Animacion {
+    override method maxFrame(enemigo) {
+        return 4
+    }
+
+    method tipo(){
+        return "ataque"
+    }
+
 }
 
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
     
-   override  method image() { 
-		return "ojoVolador-32Bits.png"
+   override method image() { 
+		return "ojoVolador-" + animacion.tipo() + frame + "32Bits.png"
 	}
+
+    override method maxFrameEstatica() {
+        return 8
+    }
 
     //MOVIMIENTO
 
@@ -129,7 +178,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
     const vision
 
     override method image() {
-        return "esqueleto3-32Bits.png" //En realidad es de 64x64
+        return "esqueleto-" + animacion.tipo() + frame + "32Bits.png" //En realidad es de 64x64
     }
 
     //MOVIMIENTO (en realidad, no se mueve, pero es lo que hace en vez de moverse)
@@ -140,18 +189,11 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
     }
 
     method revisarSiHayObjetivo() {
-        //self.validarEncontrar() ESTO CAUSABA BUG AL TENER 2 ESQUELETOS. No queda otra más que sacarlo
         if(self.hayObjetivoEnVision() && self.position()!=objetivoADestruir.position()) { //esto para que no se choque con el self.combate() de colisiono()
             position = objetivoADestruir.position()
             self.combate()
         }
     }
-
-    //method validarEncontrar() {
-    //    if (!self.hayObjetivoEnVision()) {
-    //        self.error("")
-    //    }
-    //}
 
     method hayObjetivoEnVision() {
         return vision.hayObjetoEnX(self.position(), objetivoADestruir.position()) &&
@@ -191,7 +233,7 @@ object visionIzquierda {
 class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
        
     override method image() {
-        return "goblinEscudo-32Bits.png" 
+        return "goblin-" + animacion.tipo() + frame +  "32Bits.png" 
     }
 
     //MOVIMIENTO (en realidad, no se mueve)

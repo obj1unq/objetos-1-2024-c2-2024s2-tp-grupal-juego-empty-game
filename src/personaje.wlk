@@ -9,7 +9,7 @@ import pelea.*
 import mapa.*
 
 object personaje {
-	var  position = game.at(7,2)
+	var  position = game.at(14,2)
     var property salud = 300
 	var cantVidas = 3
 	var cantPociones = 3
@@ -105,7 +105,7 @@ object personaje {
 	}
 
     method validarCombate() {
-        if(!estaEnCombate && !esTurno){
+        if(!estaEnCombate || !esTurno){
             self.error("No puedo ejecutar una habilidad ahora")
         }
     }
@@ -130,9 +130,9 @@ object personaje {
 		//position = game.at(27, 19) //si muere lo manda arriba a la izq 
 		//salud = 0
 		//self.error("Perdi!")
-		gestorDeFondo.image("fondoFin.png")
 		mapa.limpiar()
-		game.stop()
+		gestorDeFondo.image("fondoFin.png")
+		game.schedule(500, {game.stop()})
 	  }
 	}
 

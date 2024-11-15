@@ -31,6 +31,12 @@ object dungeon {
         return enemigos.any({enemigo => enemigo.position() == celda})
     }
 
+    //animacion enemigos
+
+    method animacion(){
+        enemigos.forEach({enemigo => enemigo.cambiarAnimacion()})
+    }
+
 }
 
 object gestorDeFondo {

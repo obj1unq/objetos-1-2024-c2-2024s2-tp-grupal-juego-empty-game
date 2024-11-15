@@ -51,7 +51,11 @@ object juego {
         game.onTick(1000, "timer", {timer.tick()})
         game.onTick(1000, "energia", {barraDeEnergia.recargarEnergia()})
         // testeo spawneo zombies
+<<<<<<< HEAD
     
+=======
+        //game.onTick(3000, "generarZombiesRandom", {managerZombie.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
+>>>>>>> 2b4b3f811e7717e5d95ee49b4bfa8c018d62d1e8
 
     }
 

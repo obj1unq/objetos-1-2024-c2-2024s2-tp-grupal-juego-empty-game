@@ -2,38 +2,6 @@ import hud.*
 import wollok.game.*
 import personajes.personaje.*
 
-object managerItems {
-    //const property drops = #{}
-
-    method posicionRandom() {
-        return (game.at(0.randomUpTo(game.width() - 1), 0.randomUpTo(game.height() - 2)))
-    }
-
-    method spawnearCura(numero) {
-        const nuevaCura = managerCuras.cura(numero, self.posicionRandom())
-        game.addVisual(nuevaCura)
-        //drops.add(nuevaCura)
-    }
-
-    method spawnearOro(numero) {
-        const oroNuevo = managerMonedas.monedas(numero, self.posicionRandom())
-        game.addVisual(oroNuevo)
-        //drops.add(oroNuevo)
-    }
-
-    method spawnearMunicionRandom() {
-        const nuevaMunicion = new Balas(position = self.posicionRandom())
-        game.addVisual(nuevaMunicion)
-        //drops.add(nuevaMunicion)
-    }
-
-    method spawnearMunicionEn(posicion) {
-        const nuevaMunicion = new Balas(position = posicion)
-        game.addVisual(nuevaMunicion)
-        //drops.add(nuevaMunicion)
-    }
-}
-
 //---------------------------------Drops---------------------------------------
 
 class Drop {
@@ -42,32 +10,6 @@ class Drop {
 
     method traspasable() {
         return true
-    }
-}
-
-object managerCuras {
-    const vida = [20, 40, 80]
-
-    method cura(numero, position) {
-        return new Cura(image = personaje.visualHealth(numero)
-                , vidaDada = self.vida(numero), position = position)
-    }
-
-    method vida(numero) {
-        return vida.get(numero - 1)
-    }
-}
-
-object managerMonedas {
-    const oro = [10, 30, 50]
-    
-    method monedas(numero, position) {
-        return new Oro(image = "oro" + numero + ".png",
-                valor = self.oro(numero), position = position)
-    }
-
-    method oro(numero) {
-        return oro.get(numero - 1)
     }
 }
 

@@ -17,6 +17,11 @@ object personaje {
 
     //var property zombiesAsesinados = 0   - A implementar
 
+    method resetearVisual() {
+        game.removeVisual(self)
+        game.addVisual(self)
+    }
+
     method visualHealth(numero) {
         return pj.cura(numero)
     }

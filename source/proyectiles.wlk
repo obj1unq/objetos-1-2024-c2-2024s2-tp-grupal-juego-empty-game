@@ -2,6 +2,7 @@ import personajes.personaje.*
 import wollok.game.*
 import posiciones.*
 import enemigos.*
+import managers.*
 
 class Proyectil {
 
@@ -51,7 +52,7 @@ class Proyectil {
     }
 }
 
-class Bala inherits Proyectil(danio=10) {
+class Bala inherits Proyectil(danio = 20) {
 
 
     method nuevoViaje(dir) { 
@@ -81,7 +82,7 @@ class Bala inherits Proyectil(danio=10) {
     }
 }
 
-class BolaDeFuego inherits Proyectil(danio=20) {
+class BolaDeFuego inherits Proyectil(danio = 30) {
 
     method nuevoViaje(dir) { 
         game.onTick(150, self.nombreEvento() , {self.disparoHacia(dir)})
@@ -109,18 +110,7 @@ class BolaDeFuego inherits Proyectil(danio=20) {
         super(dir)
     } 
 }
-object managerCrater {
 
-    method explosionEnCon(pos,dmg) {
-        tablero.alrededoresDe(pos).forEach({pos => self.aparecerCraterEn(pos,dmg)})
-    }
-
-    method aparecerCraterEn(pos,dmg) {
-        const craterNuevo = new Crater(position=pos)
-        game.addVisual(craterNuevo)
-        craterNuevo.daniar(dmg)
-    }
-}
 class Crater {
     var property image = "tanqueimpacto.png"
     const property position
@@ -141,16 +131,8 @@ class Crater {
     }
 }
 
-object managerAcido {
-    method acidoEnCon(pos, dmg) {
-        const acidoNuevo = new Acido(position = pos)
-        game.addVisual(acidoNuevo)
-        acidoNuevo.daniar(dmg)
-    }
-}
-
 class Acido {
-    var property image = "arbusto.png"
+    var property image = "arbusto.png" // imagen -_-
     const property position
     
     method colisionPj() {}

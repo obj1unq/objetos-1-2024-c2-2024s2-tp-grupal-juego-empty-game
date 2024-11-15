@@ -4,42 +4,7 @@ import posiciones.*
 import personajes.personaje.*
 import sonidos.*
 import proyectiles.*
-
-object managerZombie {
-    const property zombies = #{}
-    var contador = 0
-
-    method quitarZ(zombie) {
-        zombies.remove(zombie)
-    }
-
-    method spawnearZ(zombie) {
-        zombies.add(zombie)
-        game.addVisual(zombie)
-        zombie.persecucion()
-    }
-
-    method activarODesactivarGeneracionAleatoria() {
-        if(contador.even()) {
-            contador += 1
-            game.onTick(3000, "generarZombiesRandom", {self.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
-        } else {
-            contador += 1
-            game.removeTickEvent("generarZombiesRandom")
-        }
-    }
-
-    method generarZombieAleatorio(posicion) {
-        const zombieNuevo = randomizadorZombies.randomizarZombie(posicion)
-        zombies.add(zombieNuevo)
-        game.addVisual(zombieNuevo)
-        zombieNuevo.persecucion()
-    }
-
-    method posTieneZombie(pos) {
-        return (zombies.any({zom => zom.position() == pos}))
-    }
-}
+import managers.*
 
 object generadorZombie {
 
@@ -226,6 +191,13 @@ class Zombie {
         game.removeTickEvent(self.nombreEvento())
         managerZombie.quitarZ(self)
         managerItems.spawnearMunicionEn(self.position())
+    }
+
+    method resetearVisual() {
+        game.removeTickEvent(self.nombreEvento())
+        game.removeVisual(self)
+        game.addVisual(self)
+        self.persecucion()
     }
 }
 

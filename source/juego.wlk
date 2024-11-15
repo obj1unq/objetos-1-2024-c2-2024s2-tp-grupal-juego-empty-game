@@ -5,6 +5,7 @@ import extras.*
 import posiciones.*
 import sonidos.*
 import hud.*
+import managers.*
 
 
 object juego {
@@ -13,7 +14,7 @@ object juego {
         game.addVisual(municionActual)
         game.addVisual(barra)
         game.addVisual(timer)
-        game.addVisual(personaje)
+        managerVisual.agregarVisual(personaje)
         game.addVisual(puntosDeVida)
         game.addVisual(cargador)
         game.addVisual(oroObtenido)
@@ -42,20 +43,16 @@ object juego {
         game.cellSize(45)
         game.ground("pisonuevo-stage1.png")
 
-        // para testear las clases vamos a colocar teclas para hacer aparecer cada una
-        // mas adelante sus spawns van a estar decididos por otros eventos y no estas teclas
+
         keyboard.z().onPressDo({managerZombie.activarODesactivarGeneracionAleatoria()})
         keyboard.b().onPressDo({managerItems.spawnearCura(1)})
         keyboard.n().onPressDo({managerItems.spawnearOro(1)})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
         game.onTick(1000, "timer", {timer.tick()})
-        game.onTick(1000, "energia", {barraDeEnergia.recargarEnergia()})
-        // testeo spawneo zombies
-<<<<<<< HEAD
-    
-=======
+        game.onTick(500, "energia", {barraDeEnergia.recargarEnergia()})
+
         //game.onTick(3000, "generarZombiesRandom", {managerZombie.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
->>>>>>> 2b4b3f811e7717e5d95ee49b4bfa8c018d62d1e8
+
 
     }
 

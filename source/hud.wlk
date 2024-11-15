@@ -163,7 +163,7 @@ object barraDeEnergia {
     }
 
     method recargarEnergia(){
-        energia = (energia + 1).min(10)
+        energia = 10.min(energia + 1)
         self.image("energia-"+ energia.toString() + ".png") 
     }
     

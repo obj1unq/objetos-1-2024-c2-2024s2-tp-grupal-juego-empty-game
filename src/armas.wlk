@@ -120,24 +120,27 @@ object mano { //objeto especial
 
 object fabricaDeEspada {
 
-    method nuevaArma() {
-        return new Espada(durabilidad = 90.randomUpTo(120).round())
+    method agregarNuevaArma() {
+        const arma = new Espada(durabilidad = 90.randomUpTo(120).round())
+        game.addVisual(arma)
     }
 
 }
 
 object fabricaDeArcoYFlecha {
 
-    method nuevaArma() {
-        return new ArcoYFlecha(durabilidad = 120.randomUpTo(150).round())
+    method agregarNuevaArma() {
+        const arma = new ArcoYFlecha(durabilidad = 120.randomUpTo(150).round())
+        game.addVisual(arma)
     }
 
 }
 
 object fabricaDeMartilloDeGuerra {
 
-    method nuevaArma() {
-        return new MartilloDeGuerra(durabilidad = 60.randomUpTo(90).round())
+    method agregarNuevaArma() {
+        const arma = new MartilloDeGuerra(durabilidad = 60.randomUpTo(90).round())
+        game.addVisual(arma)
     }
 
 }

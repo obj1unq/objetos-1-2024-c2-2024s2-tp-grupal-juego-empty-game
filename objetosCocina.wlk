@@ -8,7 +8,7 @@ import wollok.game.*
 
 class Mueble {
   const property position = game.center() 
-  const property image = "" 
+  const image = "" 
   var contenido = bandejaVacia //es un objeto que representa el no tener nada
 
   method usarse(chef){ //para que con 1 solo boton "interactuar" sea algo general y el mueble ve como se arregla en la interaccion
@@ -22,13 +22,12 @@ class Mueble {
   }
 
   method validarRecibir(chef){
-    if(not self.puedeRecibir()){ //template method ya que en todos los muebles se le puede agregar ingredientes a la pizza menos en el horno, en el horno ya no se puede interactuar más con la piza por lo que lo unicop que acepta recibir es una pizza
-      self.error("no hay espacio para dejar algo aqui")  //esta bien o mejor que lo diga el mueble?
-      //chef
+    if(not self.puedeRecibir(chef.bandeja())){ //template method ya que no todos aceptan todo
+      self.error("no hay espacio para dejar algo aqui") 
     }
   }
 
-  method puedeRecibir(){
+  method puedeRecibir(cosa){
     return self.estaLibre()
   }
 
@@ -36,12 +35,12 @@ class Mueble {
     return not self.tieneIngrediente() || self.tienePiza()
   }
 
-  method tieneAlgo() { //que tiene algo significa que tiene cualquier cosa -> podría ser un tiene ingrediente
-     return not contenido.esVacio()  //esto es que no tiene nada 
+  method tienePiza(){
+    return self.esPizza(contenido) 
   }
 
-  method tienePiza(){
-    return contenido.integraIngredintes() 
+  method esPizza(cosa){
+    return cosa.integraIngredintes() 
   }
 
   method tieneIngrediente(){
@@ -51,8 +50,11 @@ class Mueble {
   method validarDar(chef){ //que el chef tenga espacio ya se cumple en la rama del if de usarse
     if(not self.tieneAlgo()){ //aca se fija si hay algo para dar
       self.error("no puedo agarrar algo si tengo las manos llenas o si no hay nada que agarrar")
-      //chef
     }
+  }
+
+  method tieneAlgo() { //que tiene algo significa que tiene cualquier cosa -> podría ser un tiene ingrediente
+     return not contenido.esVacio()  //esto es que no tiene nada 
   }
 
   method accionRecibir(chef){
@@ -61,9 +63,14 @@ class Mueble {
     contenido.serDejadoAqui(position) //esto en el horno debería cambiar y no verse el ingediente encima del horno, tampoco en el tacho de basura
   }
 
+  method comoRecibir(content, lugar){
+    //este podría ser el template method para cómo se muestra el recibir -> el horno no se ve y en el tacho tampoco, en los demás si
+    //es para las imagenes basicamente
+  }
+
   method accionDar(chef){
     const ingrediente = self.objetoADar(chef)
-    chef.recibir(ingrediente) //tal vez se podría delegar al chef que le diga al ingrediente que debe ser sostenido por el
+    chef.recibir(ingrediente) //tal vez se podría delegar al chef que le diga al ingrediente que debe ser sostenido por el ?
     ingrediente.serSostenido(chef)
     self.eliminarLoDado() //que ahora el mueble tiene de nuevo una bandeja vacia = nada
   }
@@ -88,21 +95,23 @@ class Mueble {
    method validarProcesarIngrediente(){
     if(not self.tieneIngrediente()){
       self.error("no hay ingrediente que procesar")
-      //chef
     }
    }
 
 }
 
-class Horno inherits Mueble{ //ahora el horno recibe todo tipo de cosas que le quieras meter -> habrá que hacer una imagen para los ingrediente de "quemado" que puede ser la misma para todos o cambiar que el horno solo reciba pizzas
+class Horno inherits Mueble(image = "oven_0.png") {
   var property temperatura = 0
 
+  override method procesarIngredientes(){} //el horno no procesa ingredientes, solo cocina pero no pasa nada
+  
   override method accionRecibir(chef){
     super(chef)
     self.cocinar()
   }
-  override  method puedeRecibir(){ //para poder recibir el horno solo tiene que estar completamente vacio
-    return not self.tieneAlgo()
+
+  override  method puedeRecibir(cosa){ //para poder recibir el horno solo tiene que estar completamente vacio y solo acepta pizzas
+    return not self.tieneAlgo() and self.esPizza(cosa)
   }
 
   method cocinar() { 
@@ -123,13 +132,9 @@ class Horno inherits Mueble{ //ahora el horno recibe todo tipo de cosas que le q
     //esto sería mejor que hagamos que aparezca dibujos de humo arriba del horno y ya está
   }
 
-  override method image() {
-    return "oven_0.png"
-    }
-
 }
 
-class Mesada inherits Mueble{
+class Mesada inherits Mueble(image ="mesada_ph.png") {
 
   override method accionRecibir(chef){
     const ingrediente = chef.bandeja()
@@ -140,22 +145,23 @@ class Mesada inherits Mueble{
     }  
   }
 
-  override method image() {
-    return  "mesada_ph.png"
-    }
-
 }
 
-class Tacho inherits Mueble{
+class Tacho inherits Mueble(image = ""){
+
+  override method procesarIngredientes(){} //el tacho no procesa ingredientes
 
   override method accionRecibir(chef){
     chef.bandeja(bandejaVacia) 
     //remove visual acá? -> deja de existir, se elimina lo dado
   }
 
+  //el tacho nunca le da nada al chef pq siempre va a aparecer como que no puede dar nada ya que su contenido siempre va a dar vacio porque nunca recibe algo
+
 }
 
 class PilaIngrediente inherits Mueble {
+
 
   override method usarse(chef){
     self.accionDar(chef)
@@ -167,7 +173,7 @@ class PilaIngrediente inherits Mueble {
     return self.nuevoIngrediente(chef)
   }
 
-  override method puedeRecibir() { //no recive nada a diferencia de otros muebles, solo da
+  override method puedeRecibir(cosa) { //no recive nada a diferencia de otros muebles, solo da
     return false
   }
 
@@ -178,7 +184,7 @@ class PilaIngrediente inherits Mueble {
 object estacionTomate  inherits PilaIngrediente(image = "tomate_inicial.png", position = game.at(0, 5)){
 
   override method nuevoIngrediente(chef){
-    return new Tomate(position= chef.position()) //debería aparecer dentro de la bandeja del chef
+    return new Tomate(position= chef.position()) //debería aparecer dentro de la bandeja del chef -> esta bien pasarle la position asi?
   }
 
 

@@ -26,7 +26,7 @@ class Ingrediente {
      return false
    }
 
-    method sostenido(){
+    method estaSostenido(){
         return sostenido
     }
 

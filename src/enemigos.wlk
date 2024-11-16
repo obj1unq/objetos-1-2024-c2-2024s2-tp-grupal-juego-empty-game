@@ -42,10 +42,13 @@ class Enemigo {
     //capaz se podría llamar hacerTurno(), porque algunas subclases de enemigo tienen habilidades curativas!
     method atacar() { 
         
+        //frame = 0
         //self.animacion(animacionCombate)
         game.schedule(800, {self.realizarAtaqueNormalOHabilidad()}) //esto se encarga del ataque/habilidad y de sumar +1 a acumuladorDeTurnos
         game.schedule(810, {combate.cambiarTurnoA(objetivoADestruir)})
+        //game.schedule(800, {frame = 0})
         //game.schedule(800, {self.animacion(animacionEstatica)})
+
     }
     
     method recibirDanho(cantidad){

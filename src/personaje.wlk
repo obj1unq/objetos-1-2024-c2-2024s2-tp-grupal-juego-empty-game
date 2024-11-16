@@ -7,6 +7,7 @@ import armas.*
 import randomizer.*
 import pelea.*
 import mapa.*
+import animaciones.*
 
 object personaje {
 	var  position = game.at(14,2)

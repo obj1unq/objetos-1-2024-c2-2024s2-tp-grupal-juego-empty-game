@@ -22,6 +22,9 @@ program rpgPorTurnos {
 	game.addVisual(salud)
 	game.addVisual(vidas)
 	game.addVisual(pociones)
+	
+	//PERSONAJE
+	game.addVisual(personaje)
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
 	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(23,15), 150, 20)
@@ -35,8 +38,7 @@ program rpgPorTurnos {
 
 	fabricaDePocion.agregarNuevaPocion()
 
-	//PERSONAJE
-	game.addVisual(personaje)
+	
 	
 	//TECLAS MOVIMIENTO
 	keyboard.w().onPressDo({personaje.mover(arriba)})
@@ -52,7 +54,7 @@ program rpgPorTurnos {
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
 
 	//ANIMACION
-	game.onTick(200, "animacion estatica", {dungeon.animacion()})
+	game.onTick(200, "animacion", {dungeon.animacion()})
 
 	//PAREDES entiendo que de momento no estamos usando esto, ¿no? Lo usaríamos si hay elementos imposibles de traspasar como una mesa
 	//borde.cargar()

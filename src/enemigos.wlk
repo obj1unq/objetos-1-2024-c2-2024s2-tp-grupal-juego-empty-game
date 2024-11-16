@@ -4,6 +4,7 @@ import posiciones.*
 import pelea.*
 import extras.*
 import mapa.*
+import animaciones.*
 
 class Enemigo {
     const danhoBase 
@@ -29,26 +30,25 @@ class Enemigo {
         combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
         combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
 
-        position = position.right(1)    //se posiciona una celda a la derecha del personaje
+        position = position.left(1)    //se posiciona una celda a la derecha del personaje
         game.say(self, "Ah! Pelea!")    // Avisa . Despues se va a quitar
 
         combate.cambiarTurnoA(self) //Empieza el combate
     }
       
     method atacarPre() {
-      self.atacar()
+      self.hacerTurno()
     }
 
-    //capaz se podría llamar hacerTurno(), porque algunas subclases de enemigo tienen habilidades curativas!
-    method atacar() { 
+    method hacerTurno() { 
         
-        //frame = 0
-        //self.animacion(animacionCombate)
+        self.frame(0)
+        self.animacion(animacionCombate)
+        game.schedule(800, {self.frame(0)})
+        game.schedule(800, {self.animacion(animacionEstatica)})
         game.schedule(800, {self.realizarAtaqueNormalOHabilidad()}) //esto se encarga del ataque/habilidad y de sumar +1 a acumuladorDeTurnos
         game.schedule(810, {combate.cambiarTurnoA(objetivoADestruir)})
-        //game.schedule(800, {frame = 0})
-        //game.schedule(800, {self.animacion(animacionEstatica)})
-
+        
     }
     
     method recibirDanho(cantidad){
@@ -86,38 +86,6 @@ class Enemigo {
         animacion.cambiarAnimacion(self)
     }
       
-}
-
-class Animacion {
-    method maxFrame(enemigo)
-
-    method cambiarAnimacion(enemigo) {
-        const newFrame = (enemigo.frame() + 1) % self.maxFrame(enemigo)
-        enemigo.frame(newFrame)
-    }
-
-}
-
-object animacionEstatica inherits Animacion {
-    override method maxFrame(enemigo) {
-        return enemigo.maxFrameEstatica()
-    }
-
-    method tipo() {
-        return ""
-    }
-
-}
-
-object animacionCombate inherits Animacion {
-    override method maxFrame(enemigo) {
-        return 4
-    }
-
-    method tipo(){
-        return "ataque"
-    }
-
 }
 
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {

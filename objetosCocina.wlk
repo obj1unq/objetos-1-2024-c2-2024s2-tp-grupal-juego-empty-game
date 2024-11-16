@@ -22,7 +22,7 @@ class Mueble {
   }
 
   method validarRecibir(chef){
-    if(not self.puedeRecibir(chef.contenido())){ //template method ya que no todos aceptan todo
+    if(not self.puedeRecibir(chef.bandeja())){ //template method ya que no todos aceptan todo
       self.error("no hay espacio para dejar algo aqui") 
     }
   }

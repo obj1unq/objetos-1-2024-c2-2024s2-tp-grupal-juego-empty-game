@@ -65,17 +65,10 @@ object direcciones {
     const property principales = #{arriba, abajo, izquierda, derecha}
 }
 
+class Randomizer {
+    method position()
 
-object randomizer {
-		
-	method position() {
-		return 	game.at( 
-					(0 .. game.width() - 1 ).anyOne(),
-					(0..  game.height() - 1).anyOne()
-		) 
-	}
-	
-	method emptyPosition() {
+    method emptyPosition() {
 		const position = self.position()
 		if(game.getObjectsIn(position).isEmpty()) {
 			return position	
@@ -84,7 +77,27 @@ object randomizer {
 			return self.emptyPosition()
 		}
 	}
+}
+object randomizer inherits Randomizer {
+		
+	override method position() {
+		return 	game.at( 
+					(0 .. game.width() - 1 ).anyOne(),
+					(0..  game.height() - 1).anyOne()
+		) 
+	}
+	
+	
+	
+}
 
-	
-	
+object randomizerLimitado inherits Randomizer{
+		
+	override method position() {
+		return 	game.at( 
+					(0 .. game.width() - 1 ).anyOne(),
+					(0..  game.height() - 16).anyOne()
+		) 
+	}
+
 }

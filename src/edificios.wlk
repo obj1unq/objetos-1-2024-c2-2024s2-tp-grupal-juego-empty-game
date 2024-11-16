@@ -5,13 +5,18 @@ import objetos.*
 
 
 object castillo {
-    const property position = game.at(1,0)
+    var property position = game.at(1,0)
     var property oroEnReserva = 40
     var property piedrasEnReserva = 2
     var property huevosEnReserva = 0
 
+    method inicializar() {
+        position = game.at(1,0)
+        game.addVisual(self)
+    }
+
     method image(){
-        return "castillo.png"
+        return "castilloaliado.png"
     }
 
     method guardarOro(cantidad) {
@@ -45,11 +50,3 @@ object castillo {
     }
 }
 
-class Casa {
-
-    var property position
-
-    method curarUnidad(){
-        mapa.aliadosEn(self.position())
-    }
-}

@@ -23,6 +23,10 @@ class Oro inherits Objeto {
         super()
     }
 
+    method solido() {
+        return false
+    }
+
 } 
 
 object constructorOros {
@@ -49,6 +53,10 @@ class Piedra inherits Objeto {
     override method recogerObjeto() {
         castillo.guardarPiedra(cantidad)
         super()
+    }
+
+    method solido() {
+        return false
     }
 }
 
@@ -79,6 +87,10 @@ class Huevo inherits Objeto {
         castillo.guardarHuevo(cantidad)
         super()
     }
+
+    method solido() {
+        return false
+    }
 }
 
 object constructorHuevos {
@@ -97,3 +109,42 @@ object constructorHuevos {
         }
     }
 }
+
+class Muro {
+
+    const property position
+
+    method image() {
+        return "muronew.png"
+    }
+
+    method solido() {
+		return true
+	}
+
+}
+
+class CasaMedieval {
+    const property position
+
+    method image() {
+        return "casamedievalnew.png"
+    }
+
+    method solido() {
+		return true
+	}
+}
+
+object castilloEnemigo {
+    var property position = game.center()
+
+    method image() {
+        return "castilloenemigo.png"
+    }
+
+    method solido() {
+        return false
+    }
+}
+

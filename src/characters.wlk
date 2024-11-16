@@ -42,20 +42,44 @@ class Personaje {
 
     }
 
+    method hayEnemigosAlAlcance() {
+        return not self.enemigosAlAlcance().isEmpty()
+    }
+
     method definirEnemigoEn(posicion){
         return mapa.enemigos().filter({enemigo => enemigo.position()== posicion})
     }
 
 
     method mover(posicion) {
+        self.validarMoverPersonaje(posicion)
         position = posicion
         self.efectoMover()
         self.recogerObjeto(posicion)
+        self.pasaAlSiguienteNivelSiSePuede(posicion)
+    }
+
+    method validarMoverPersonaje(posicion) {
+        mapa.validarSiHayAlgunPersonaje(posicion)
+        mapa.validarMoverACastilloEnemigo(posicion)
+    }
+
+    method pasaAlSiguienteNivelSiSePuede(posicion) {
+        if (mapa.estaElCastilloEnemigoAca(posicion)) {
+            mapa.siguienteNivel()  
+        }
     }
 
     method recogerObjeto(posicion) {
         if(mapa.hayObjetoEn(posicion)) {
+            self.validarSiPuedeRecogerObjeto()
             mapa.objetoEn(posicion).recogerObjeto()
+        }
+    }
+
+    method validarSiPuedeRecogerObjeto() {
+        return if (self.hayEnemigosAlAlcance()) {
+            self.error("Primero derrota a los enemigos cercanos a tu alcance, sino no puedo recoger el objeto!")
         }
     }
 
@@ -78,7 +102,7 @@ class Personaje {
         self.validarAtaque()
         enemigo.recibirDano()
         enemigo.morirSiCorresponde()
-        // self.efectoAtacar()
+        self.efectoAtacar()
     }
 
     method validarAtaque(){
@@ -108,6 +132,11 @@ class Personaje {
 
     method efectosEnRecursosSpawn() {
         castillo.oroEnReserva(castillo.oroEnReserva() - self.valor())
+    }
+
+    method inicializarEnNivel() {
+        position = randomizerLimitado.position()
+        game.addVisual(self)
     }
 
 }

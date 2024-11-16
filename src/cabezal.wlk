@@ -13,6 +13,12 @@ object cabezal {
   var property modoCabezal = cabezalNormal
   var property seleccionActualEnemiga = null
 
+  method inicializar() {
+    position = game.origin()
+    modoCabezal = cabezalNormal
+    game.addVisual(self)
+  }
+
   method image(){
     return modoCabezal.image()
   }
@@ -20,8 +26,13 @@ object cabezal {
 
   method mover(direccion) {
     const siguiente = direccion.siguiente(position) 
-    mapa.validarSiEstaDentro(siguiente)
+    self.validarMoverCabezal(siguiente)
     position = siguiente
+  }
+
+  method validarMoverCabezal(posicion) {
+    mapa.validarSiEstaDentro(posicion)
+    mapa.validarSiHayObjetoSolido(posicion)
   }
 
 

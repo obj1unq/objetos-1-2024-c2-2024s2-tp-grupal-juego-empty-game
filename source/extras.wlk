@@ -4,7 +4,22 @@ import personajes.personaje.*
 import juego.*
 
 object managerItems {
-    const property drops = #{}
+    const drops = ["cura", "oro", "municion", ""]
+    const dropsRandomizados = drops.randomize()
+
+    method generarDrop(num, posicion) {
+        if (dropsRandomizados.first() == "cura") {
+            self.spawnearCura(num, posicion)
+        } else if (dropsRandomizados.first() == "oro") {
+            self.spawnearOro(num , posicion)
+        } else if (dropsRandomizados.first() == "municion") {
+            self.spawnearMunicionEn(posicion)
+        } else {}
+    }
+
+    method generarDropRandom(num, posicion){
+        self.generarDrop(num, self.posicionRandom())
+    }
 
     method quitarItem(item) {
         drops.remove(item)
@@ -19,14 +34,14 @@ object managerItems {
         return (game.at(0.randomUpTo(game.width() - 1).round(), 0.randomUpTo(game.height() - 2).round()))
     }
 
-    method spawnearCura(numero) {
-        const nuevaCura = managerCuras.cura(numero, self.posicionRandom())
+    method spawnearCura(numero, posicion) {
+        const nuevaCura = managerCuras.cura(numero, posicion)
         game.addVisual(nuevaCura)
         drops.add(nuevaCura)
     }
 
-    method spawnearOro(numero) {
-        const oroNuevo = managerMonedas.monedas(numero, self.posicionRandom())
+    method spawnearOro(numero, posicion) {
+        const oroNuevo = managerMonedas.monedas(numero, posicion)
         game.addVisual(oroNuevo)
         drops.add(oroNuevo)
     }

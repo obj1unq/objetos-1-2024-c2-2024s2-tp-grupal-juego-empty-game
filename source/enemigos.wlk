@@ -210,11 +210,12 @@ class Zombie {
     method imagenMovimiento()
 
     method morir() {
-        nivelManager.incrementarEnemigos() //-- niveles
         self.sonidoMuerte()
         game.removeVisual(self)
         managerZombie.quitarZ(self)
-        managerItems.spawnearMunicionEn(self.position())
+        nivelManager.incrementarEnemigos() //-- niveles
+        managerItems.generarDrop(self.position())
+        //managerItems.spawnearMunicionEn(self.position())
     }
 }
 

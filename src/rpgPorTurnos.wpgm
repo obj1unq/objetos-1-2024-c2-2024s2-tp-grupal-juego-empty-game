@@ -27,12 +27,13 @@ program rpgPorTurnos {
 	game.addVisual(personaje)
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
-	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(23,15), 150, 20)
-	fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15,14), 95, 43)
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 35, visionDerecha) 
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 35, visionIzquierda) 
+	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(26,7), 150, 20)
+	fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15,14), 95, 37)
+	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, visionDerecha) 
+	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda) 
+	//¿el que más vida tiene es el que más daño causa? ¿no es too much?
 	
-    randomizer.agregarArmaRandom()
+  randomizer.agregarArmaRandom()
 	randomizer.agregarArmaRandom()
 
 	fabricaDePocion.agregarNuevaPocion()

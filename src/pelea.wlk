@@ -56,17 +56,18 @@ object barraEstadoPeleas {
     var property enemigo = null
     var property heroe = personaje
 
-    method text() = "ARRIBA para atacar - ABAJO para curarse"
-    method textColor() = paleta.gris()
+    method image() {
+        return "barraBase.png"
+    }
 
-    method position() = game.at(heroe.position().x(), heroe.position().y() + 4)
+    method position() = game.at(heroe.position().x() - 2, heroe.position().y() + 4)
 
     // aparece todo lo que tiene que mostrar la barra de estado
     method aparecerJuntoADemasBarras() {
             game.addVisual(self)
             game.addVisual(saludPersonaje)
             game.addVisual(saludEnemigo)
-            game.addVisual(ataque)
+            game.addVisual(durabilidad)
             //game.addVisual(turnoTest)
     }
 
@@ -75,34 +76,34 @@ object barraEstadoPeleas {
         game.removeVisual(self)
         game.removeVisual(saludPersonaje)
         game.removeVisual(saludEnemigo)
-        game.removeVisual(ataque)
+        game.removeVisual(durabilidad)
         //game.removeVisual(turnoTest)
     }
 
 }
 
-object saludPersonaje{
+object saludPersonaje {
 
-    method text() = "salud: " + personaje.salud().toString()
-        method textColor() = paleta.rojo()
+    method text() = " ❤️ PJ: " + barraEstadoPeleas.heroe().salud().toString()
+    method textColor() = paleta.rojo()
 
-    method position() = barraEstadoPeleas.position().down(1).left(2)
+    method position() = saludEnemigo.position().right(2)
 
 }
 
 object saludEnemigo {
 
-    method text() = " salud enemigo: " + barraEstadoPeleas.enemigo().salud().toString()
+    method text() = "❤️ EN: " + barraEstadoPeleas.enemigo().salud().toString() + "   "
     method textColor() = paleta.azul()
 
-    method position() = saludPersonaje.position().right(3)
+    method position() =  barraEstadoPeleas.position().down(1).right(1)
 
 }
 
-object ataque{
+object durabilidad {
 
-    method position() = saludPersonaje.position().down(1).right(2)
-    method text() = "Durabilidad (" +personaje.armaActual().toString() + "): " + personaje.armaActual().durabilidad().toString() //+ "\n Nivel: " + personaje.armaActual().nivel().toString()
+    method position() = barraEstadoPeleas.position().down(2).right(2)
+    method text() = "❤️ " + personaje.armaActual().emojiParaInfoCombate() + ": " + personaje.armaActual().durabilidad().toString()
     method textColor() = paleta.rojo()
 
 }

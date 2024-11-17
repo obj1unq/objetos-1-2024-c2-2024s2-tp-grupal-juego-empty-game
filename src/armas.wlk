@@ -41,6 +41,7 @@ class Arma {
     method danho()
     method image() 
     method imagenParaPersonaje()
+    method emojiParaInfoCombate()
     method habilidadEspecial()
 
     // Para test
@@ -66,6 +67,10 @@ class Espada inherits Arma {
         return self.danho() * 2 //golpe critico RASGUÑO MORTALLLLL
     }
 
+    override method emojiParaInfoCombate() {
+        return "🗡"
+    }
+
 }
 
 class ArcoYFlecha inherits Arma {
@@ -84,6 +89,11 @@ class ArcoYFlecha inherits Arma {
     override method habilidadEspecial() { //de momento, no está siendo usada en el juego
         return //veneno
     }
+
+    override method emojiParaInfoCombate() {
+        return "🏹"
+    }
+
 }
 
 class MartilloDeGuerra inherits Arma {
@@ -104,6 +114,10 @@ class MartilloDeGuerra inherits Arma {
         return //pierde turno enemigo
     }
 
+    override method emojiParaInfoCombate() {
+        return "🪓"
+    }
+
 }
 
 object mano { //objeto especial
@@ -116,9 +130,14 @@ object mano { //objeto especial
     
     method realizarActualizacionDeArmas() { } //necesario para que funcione el polimorfismo (todas las armas deben entenderlo)
 
+    method emojiParaInfoCombate() {
+        return "🤜"
+    }
+    
     method imagenParaPersonaje() {
         return ""
     }
+    
 }
 
 //FÁBRICAS (su única función es devolverme en nuevo objeto de la subclase de Arma a la que están ligadas. nos permiten crear armas random)

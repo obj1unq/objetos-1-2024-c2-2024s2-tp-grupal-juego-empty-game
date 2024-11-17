@@ -31,7 +31,6 @@ class Enemigo {
         combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
 
         position = position.left(1)    //se posiciona una celda a la derecha del personaje
-        game.say(self, "Ah! Pelea!")    // Avisa . Despues se va a quitar
 
         combate.cambiarTurnoA(self) //Empieza el combate
     }
@@ -45,21 +44,12 @@ class Enemigo {
         self.frame(0)
         self.animacion(animacionCombate)
         game.schedule(800, {self.frame(0)})
-        game.schedule(800, {self.animacion(animacionEstatica)})
+        game.schedule(805, {self.animacion(animacionEstatica)})
         game.schedule(800, {self.realizarAtaqueNormalOHabilidad()}) //esto se encarga del ataque/habilidad y de sumar +1 a acumuladorDeTurnos
         game.schedule(810, {combate.cambiarTurnoA(objetivoADestruir)})
         
     }
     
-    method recibirDanho(cantidad){
-        salud -= cantidad
-    }
-
-    method morir() {
-        game.removeVisual(self)
-        dungeon.enemigos().remove(self)
-    }
-
     method realizarAtaqueNormalOHabilidad() { 
         if(acumuladorDeTurnos < turnoRequeridoParaHabilidad) {
             acumuladorDeTurnos += 1
@@ -69,6 +59,19 @@ class Enemigo {
             self.utilizarHabilidad()
         }
     }
+    
+    method recibirDanho(cantidad){
+        salud -= cantidad
+    }
+
+    method morir() {
+        self.frame(0)
+        self.animacion(animacionMuerte)
+        game.schedule(800, {game.removeVisual(self)})
+        game.schedule(800, {dungeon.enemigos().remove(self)})
+    }
+
+    
 
     method image() 
     method reaccionarAMovimiento() 
@@ -89,6 +92,8 @@ class Enemigo {
 }
 
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
+
+    //ANIMACION Y VISUAL
     
    override method image() { 
 		return "ojoVolador-" + animacion.tipo() + frame + "32Bits.png"
@@ -146,7 +151,10 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
 }
 
 class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
+
     const vision
+
+    //VISUAL Y ANIMACION
 
     override method image() {
         return "esqueleto-" + animacion.tipo() + frame + "32Bits.png" //En realidad es de 64x64
@@ -183,7 +191,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
 
 }
 
-/////////objetos visión/////////////
+                /////////OBJETOS VISION DE ESQUELETO/////////////
 
 object visionDerecha {
 
@@ -202,6 +210,8 @@ object visionIzquierda {
 }
 
 class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
+
+    //VISUAL Y ANIMACION
        
     override method image() {
         return "goblin-" + animacion.tipo() + frame +  "32Bits.png" 
@@ -221,10 +231,6 @@ class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
     }
 
 }
-
-//FACTORIES DE ENEMIGOS
-//Tener en cuenta que, de momento, el método que tienen es para crear un enemigo en base a parámetros y no con atributos random.
-//para randomizar, si quisiéramos hacerlo, lo haríamos como hicimos en las factories de armas
 
 object fabricaDeOjoVolador {
 

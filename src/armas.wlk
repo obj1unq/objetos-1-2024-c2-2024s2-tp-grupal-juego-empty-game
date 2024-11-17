@@ -21,6 +21,7 @@ class Arma {
     // El pj colsiona con el arma y la mete en la bolsa()
     method colisiono(personaje){
         personaje.equiparArma(self)
+        game.removeVisual(self)
     }
 
     method realizarActualizacionDeArmas() {

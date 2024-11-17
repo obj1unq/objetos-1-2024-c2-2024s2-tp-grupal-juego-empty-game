@@ -14,6 +14,8 @@ object personaje {
     var property salud = 300
 	var cantVidas = 3
 	var cantPociones = 3
+	const cantArmasPermitidas = 3
+	const cantPocionesPermitidas = 3
 	const property bolsa = []
 	var estaEnCombate = false
 	var property armaActual = mano //porque empieza con bolsa vacía
@@ -48,11 +50,17 @@ object personaje {
 
 	/// ARMA    
     method equiparArma(armaNueva){
+		self.validarEquiparArma()
     	bolsa.add(armaNueva) // mete el arma en la bolsa (atrás)
         self.armaActual(bolsa.head()) // Su arma actual es la primera de la bolsa (si no tenía ninguna, será la nueva)
-		game.removeVisual(armaNueva)
     }
     
+	method validarEquiparArma() {
+	  if(bolsa.size() >= cantArmasPermitidas){ // para no hardcodear el numero que queremos que sea el max y para que en el futuro se pueda cambiar
+		self.error("Ya tengo " + cantArmasPermitidas +" armas!")
+	  }
+	}
+
     method armaActual(arma){
         armaActual = arma
     }
@@ -127,15 +135,24 @@ object personaje {
 	}
 
 	method validarVida() {
+  
 	  if (cantVidas <= 0) {
 		mapa.limpiar()
 		gestorDeFondo.image("fondoFin.png")
 		game.schedule(500, {game.stop()})
 	  }
+    
 	}
 
 	method agregarPocion() {
-		cantPociones = (cantPociones+1).min(3) //estaría bueno informarle al jugador de que, como ya alcanzó el limite de 3, no se le suma otra poción
+		self.validarAgregarPocion() // valida si ya tiene 3 en el inventario y no la agarra.
+		cantPociones += 1 
+	}
+
+	method validarAgregarPocion() {
+	  if(cantPociones>=cantPocionesPermitidas){
+		self.error("Ya tengo " + cantPocionesPermitidas +" pociones!")
+	  }
 	}
 
 	method curarse() {

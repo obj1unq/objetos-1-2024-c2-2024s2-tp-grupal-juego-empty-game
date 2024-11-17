@@ -79,7 +79,10 @@ class Personaje {
         oro += valor
     }
 
-// -------------energia-------------------------------
+    // -------------niveles-------------------------------
 
+    method configurarNivel(nivel){
+        
+    }
 }
 

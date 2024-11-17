@@ -5,6 +5,7 @@ import posiciones.*
 import personajes.personaje.*
 import sonidos.*
 import proyectiles.*
+import niveles.*
 
 object managerZombie {
     const property zombies = #{}
@@ -209,6 +210,7 @@ class Zombie {
     method imagenMovimiento()
 
     method morir() {
+        nivelManager.incrementarEnemigos() //-- niveles
         self.sonidoMuerte()
         game.removeVisual(self)
         managerZombie.quitarZ(self)

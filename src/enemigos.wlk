@@ -30,7 +30,7 @@ class Enemigo {
         combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
         combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
 
-        position = position.left(1)    //se posiciona una celda a la derecha del personaje
+        position = position.left(2)    //se posiciona una celda a la izquierda del personaje
 
         combate.cambiarTurnoA(self) //Empieza el combate
     }
@@ -43,10 +43,10 @@ class Enemigo {
         
         self.frame(0)
         self.animacion(animacionCombate)
-        game.schedule(800, {self.frame(0)})
-        game.schedule(805, {self.animacion(animacionEstatica)})
-        game.schedule(800, {self.realizarAtaqueNormalOHabilidad()}) //esto se encarga del ataque/habilidad y de sumar +1 a acumuladorDeTurnos
-        game.schedule(810, {combate.cambiarTurnoA(objetivoADestruir)})
+        game.schedule(1600, {self.frame(0)})
+        game.schedule(1605, {self.animacion(animacionEstatica)})
+        game.schedule(1600, {self.realizarAtaqueNormalOHabilidad()}) //esto se encarga del ataque/habilidad y de sumar +1 a acumuladorDeTurnos
+        game.schedule(1610, {combate.cambiarTurnoA(objetivoADestruir)})
         
     }
     
@@ -71,18 +71,21 @@ class Enemigo {
         game.schedule(800, {dungeon.enemigos().remove(self)})
     }
 
-    
-
     method image() 
     method reaccionarAMovimiento() 
     method utilizarHabilidad()
 
-    //animacion 
+    //ANIMACION
+     
     var property animacion = animacionEstatica
     var property frame = 0
 
     method maxFrameEstatica() {
         return 4
+    }
+
+    method maxFrameCombate() {
+        return 8
     }
 
     method cambiarAnimacion() {

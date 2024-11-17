@@ -44,14 +44,15 @@ program rpgPorTurnos {
 	keyboard.a().onPressDo({personaje.mover(izquierda)})
     
     //TECLAS COMBATE
-    keyboard.up().onPressDo({ personaje.atacar()})
+    keyboard.up().onPressDo({ personaje.hacerTurno()})
 	keyboard.down().onPressDo({ personaje.curarse()})
 
 	//COLISIÓN
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})
 
 	//ANIMACION
-	game.onTick(200, "animacion", {dungeon.animacion()})
+	game.onTick(200, "animacion", {dungeon.animacionEnemigos()})
+	game.onTick(200, "animacion", {personaje.cambiarAnimacion()})
 
 	game.start()
 }

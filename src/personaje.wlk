@@ -24,28 +24,33 @@ object personaje {
 		return position
 	}
 
-	method image() { 
-		return "personaje" + self.imagenSegunEstado() + "-32Bits.png"
-	}
-
-	method imagenSegunEstado() {
-		if(self.estaSinArma()) {
-			return ""
-		} else {
-			return self.armaActual().imagenParaPersonaje()
-		}
-	}
-
-	method estaSinArma() {
-		return bolsa.size()==0
-	}
-
 	method cantVidas() {
 		return cantVidas
 	}
 
 	method cantPociones() {
 		return cantPociones
+	}
+
+	//ANIMACIONES
+
+	var property animacion = animacionEstatica
+	var property frame = 0
+
+	method image() { 
+		return "personaje" + animacion.tipoPersonaje() + frame + "-32Bits.png"
+	}
+
+	method cambiarAnimacion() {
+		animacion.cambiarAnimacion(self)
+	}
+
+	method maxFrameEstatica() {
+		return 8
+	}
+
+	method maxFrameCombate() {
+		return 4
 	}
 
 	/// ARMA    
@@ -97,12 +102,30 @@ object personaje {
         esTurno = true //esto da luz verde a que el usuario pueda ejecutar una habilidad (lo que no se puede hacer si no estás en combate)
     }
 
-	method atacar() {
+	method hacerTurno() {
         self.validarCombate() // para que no le pegue a x enemigo cuando no esta peleando
+		self.frame(0)
+		self.animacion(animacionCombate)
+		game.schedule(800, {self.frame(0)})
+		game.schedule(805, {self.animacion(animacionEstatica)})
+		game.schedule(800, {self.realizarAtaque()})
+		game.schedule(810, {combate.cambiarTurnoA(enemigoCombatiendo)}) //como ya terminó el turno del pj, se cambia el turno al enemigo
+	}
+
+	method validarCombate() {
+        if(!estaEnCombate || !esTurno || animacion!=animacionEstatica){
+            self.error("No puedo ejecutar una habilidad ahora")
+        }
+    }
+
+	method realizarAtaque() {
 		enemigoCombatiendo.recibirDanho(armaActual.danho()) 
 		armaActual.realizarActualizacionDeArmas()
         esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
-		combate.cambiarTurnoA(enemigoCombatiendo)   //como ya terminó el turno del pj, se cambia el turno al enemigo
+	}
+
+	method recibirDanho(cantidad) {
+		salud -= cantidad
 	}
 
 	method actualizarArmaActual() { //esto se ejecuta solamente cuando se descarta el arma actual
@@ -111,16 +134,6 @@ object personaje {
 		} else {
 			armaActual = mano
 		}
-	}
-
-    method validarCombate() {
-        if(!estaEnCombate || !esTurno){
-            self.error("No puedo ejecutar una habilidad ahora")
-        }
-    }
-
-	method recibirDanho(cantidad) {
-		salud -= cantidad
 	}
 	
 	method morir() {

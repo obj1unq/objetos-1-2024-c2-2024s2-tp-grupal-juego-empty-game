@@ -22,17 +22,28 @@ object nivelManager {
         }
     }
     
-        method cambiarNivel() {
-        game.sound("nivel-up.mp3").play()
-        // Cambiar configuración del juego según el nivel
+    method cambiarNivel() {
+        self.reiniciarTablero() 
+        game.sound().stop()
         juego.configurarNivel(nivelActual)
+        
+        
     }
+
+    method reiniciarTablero() {
+        const todosLosVisuales = game.getVisuals() 
+        todosLosVisuales.forEach({obj => game.removeVisual(obj)})
+
+        managerZombie.zombies().clear() 
+    }
+
+
 }
 
 
 niveles de mapas de referencia pepita
 
-object mapa {
+class Nivel {
 
     const tablero = 
     [[_,_,_,_,_,_,_,_,_,_,_,_,_],

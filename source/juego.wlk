@@ -85,6 +85,12 @@ object juego {
         game.onTick(650,"persecucionGame",{managerZombie.zombies().forEach({z => z.perseguirAJugador()})})
     }
 
+        // -------------niveles-------------------------------
+
+    method configurarNivel(nivel){
+        
+    }
+
 /*
     method pausa() {
         keyboard.space().onPressDo({self.pausarTodo()})

@@ -79,10 +79,6 @@ class Personaje {
         oro += valor
     }
 
-    // -------------niveles-------------------------------
 
-    method configurarNivel(nivel){
-        
-    }
 }
 

@@ -39,4 +39,8 @@ object tablero {
             abajo.siguientePosicion(izquierda.siguientePosicion(position)), abajo.siguientePosicion(derecha.siguientePosicion(position)),
             arriba.siguientePosicion(izquierda.siguientePosicion(position)), arriba.siguientePosicion(derecha.siguientePosicion(position))}
     }
+
+  method posicionRandom() {
+        return (game.at(0.randomUpTo(game.width() - 1).round(), 0.randomUpTo(game.height() - 2).round()))
+    }
 }

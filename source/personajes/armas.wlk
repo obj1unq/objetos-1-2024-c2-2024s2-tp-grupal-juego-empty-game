@@ -25,6 +25,8 @@ class Arma {
         estado = estadoEsperar
         game.schedule(cadencia, {estado = estadoAtacar})
     }
+
+    method hudMunicion()
 }
 
 
@@ -35,6 +37,10 @@ object pistola inherits Arma(cadencia=500) {
         const balaNueva = new Bala(image="bala-" + dir.toString() + ".png", position=dir.siguientePosicion(pos))
         game.addVisual(balaNueva)
         balaNueva.nuevoViaje(dir)
+    }
+
+    override method hudMunicion(){
+        return "balas-"
     }
 
 }
@@ -48,6 +54,9 @@ object escopeta inherits Arma(cadencia=800) {
         balaNueva.nuevoViaje(dir)
     }
 
+    override method hudMunicion(){
+        return "cartuchos-"
+    }
 }
 
 object manosMagicas inherits Arma(cadencia=800) {
@@ -59,6 +68,9 @@ object manosMagicas inherits Arma(cadencia=800) {
         bolaNueva.nuevoViaje(dir)
     }
 
+    override method hudMunicion(){
+        return "mana-"
+    }
 }
 
 object estadoAtacar {

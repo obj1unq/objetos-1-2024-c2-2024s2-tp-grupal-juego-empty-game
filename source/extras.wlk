@@ -2,23 +2,33 @@ import hud.*
 import wollok.game.*
 import personajes.personaje.*
 import juego.*
+import posiciones.*
 
 object managerItems {
-    const drops = ["cura", "oro", "municion", ""]
-    const dropsRandomizados = drops.randomize()
+    
+    const property drops = #{}  
+    
+    // Oro = 25% / Municion = 40% / Vida = 20% / Nada = 15% 
+    method generarDrop(posicion) {
+        const numero = 0.randomUpTo(100).round()
 
-    method generarDrop(num, posicion) {
-        if (dropsRandomizados.first() == "cura") {
-            self.spawnearCura(num, posicion)
-        } else if (dropsRandomizados.first() == "oro") {
-            self.spawnearOro(num , posicion)
-        } else if (dropsRandomizados.first() == "municion") {
+        self.validarDropsEnPantalla()
+        if (numero <= 25) { 
+            self.spawnearOro(0.randomUpTo(3).round().max(1), posicion)
+        } else if (numero > 25 and numero <= 65) {
             self.spawnearMunicionEn(posicion)
-        } else {}
+        } else if (numero > 65 and numero <= 85) {
+            self.spawnearCura(0.randomUpTo(3).round().max(1) , posicion)
+        } 
     }
 
-    method generarDropRandom(num, posicion){
-        self.generarDrop(num, self.posicionRandom())
+    method validarDropsEnPantalla(){
+        if (drops.size() > 2){self.error("")}
+    }
+
+
+    method generarDropRandom(){
+        self.generarDrop(tablero.posicionRandom())
     }
 
     method quitarItem(item) {
@@ -28,10 +38,6 @@ object managerItems {
     method revisarPorItems(pos) {
         const itemAhi = drops.filter({d => d.position() == pos})
         itemAhi.forEach({d => d.colisionPj()})
-    }
-
-    method posicionRandom() {
-        return (game.at(0.randomUpTo(game.width() - 1).round(), 0.randomUpTo(game.height() - 2).round()))
     }
 
     method spawnearCura(numero, posicion) {
@@ -47,7 +53,7 @@ object managerItems {
     }
 
     method spawnearMunicionRandom() {
-        const nuevaMunicion = new Balas(position = self.posicionRandom())
+        const nuevaMunicion = new Balas(position = tablero.posicionRandom())
         game.addVisual(nuevaMunicion)
         drops.add(nuevaMunicion)
     }

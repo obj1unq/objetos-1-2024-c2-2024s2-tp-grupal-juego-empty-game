@@ -44,11 +44,7 @@ object noel inherits Personaje(arma=pistola) {
 
 //------------hud-------------------------------------------
 
-    method hudMunicion(){
-        return "balas-"
-    }
-
-    override method sinMunicion(){
+        override method sinMunicion(){
         game.sound("sin-balas.mp3").play()
     }
 

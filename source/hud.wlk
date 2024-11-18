@@ -100,7 +100,7 @@ object cargador {
     var property position = game.at(4, 14)
 
     method image(){
-        return juego.jugador().hudMunicion() + municion.toString() + ".png"
+        return juego.jugador().arma().hudMunicion() + municion.toString() + ".png"
     }
     
     method recargar(balas){

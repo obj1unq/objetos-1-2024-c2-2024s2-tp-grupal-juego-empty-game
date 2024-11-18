@@ -214,7 +214,7 @@ class Zombie {
         game.removeVisual(self)
         managerZombie.quitarZ(self)
         nivelManager.incrementarEnemigos() //-- niveles
-        managerItems.generarDrop(self.position())
+        managerItems.generarDrop(position)
         //managerItems.spawnearMunicionEn(self.position())
     }
 }

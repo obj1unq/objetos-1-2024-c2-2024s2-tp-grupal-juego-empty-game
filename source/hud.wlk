@@ -156,10 +156,6 @@ object oroObtenido {
 
 object barraDeEnergia {
 
-    method iniciarCicloEnergia() {
-        game.onTick(1000, "energia", {self.recargarEnergia()})
-    }
-
     var property image =  "energia-"+ energia.toString() + ".png"
     var property energia = 10
 

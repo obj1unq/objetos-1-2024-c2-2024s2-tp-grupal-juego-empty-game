@@ -64,12 +64,18 @@ object juego {
         keyboard.b().onPressDo({managerItems.spawnearCura(0.randomUpTo(3).round().max(1),tablero.posicionRandom())})
         keyboard.n().onPressDo({managerItems.spawnearOro(0.randomUpTo(3).round().max(1),tablero.posicionRandom())})
         keyboard.m().onPressDo({managerItems.spawnearMunicionRandom()})
-        game.onTick(1000, "timer", {timer.tick()})
-        game.onTick(15000, "drops", {managerItems.generarDropRandom()})
+        game.onTick(1000, "hud", {self.actualizarHud()})
+        //game.onTick(15000, "drops", {managerItems.generarDropRandom()})
 
         // testeo spawneo zombies
         //game.onTick(3000, "generarZombiesRandom", {managerZombie.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
 
+        
+    }
+
+    method actualizarHud(){
+        barraDeEnergia.recargarEnergia()
+        timer.tick()
     }
 
     method sonido() {

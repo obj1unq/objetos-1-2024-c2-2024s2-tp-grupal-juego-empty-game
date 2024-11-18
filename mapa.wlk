@@ -9,8 +9,8 @@ import wollok.game.*
 
 object dimension {
 
-    const ancho = 10
-    const largo = 10
+    const ancho = 10//120
+    const largo = 10//60
 
 
     method tamanioMapa() {
@@ -35,6 +35,10 @@ object teclas{
 }
 
 object imagenes {
+
+    method restauranteIng(){
+        game.boardGround("restaurante.png")
+    }
 
     method ingredientesImg(){
         game.addVisual(estacionTomate)

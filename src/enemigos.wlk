@@ -26,13 +26,11 @@ class Enemigo {
         self.combate() 
     }
     
-    method combate() {
-        combate.entidadAtacando(self)   //Hace saber al combate que él(enemigo/self) será quien empieza
-        combate.iniciarCombate()    //prepara toda el hud del combate y la info necesaria
+    method combate() { //cambio de nombre a iniciarCombate? porque con el sustantivo parece de consulta
 
         position = position.left(2)    //se posiciona una celda a la izquierda del personaje
+        combate.iniciarCombate(self)    //prepara el combate, la info necesaria y le hace saber que él(enemigo/self) será quien empieza
 
-        combate.cambiarTurnoA(self) //Empieza el combate
     }
       
     method atacarPre() {
@@ -62,7 +60,7 @@ class Enemigo {
     }
     
     method recibirDanho(cantidad){
-        salud -= cantidad
+        salud = (salud - cantidad).max(0)
     }
 
     method morir() {

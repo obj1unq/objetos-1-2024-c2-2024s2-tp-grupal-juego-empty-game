@@ -37,7 +37,7 @@ program juego {
 	keyboard.s().onPressDo({cabezal.cancelar()})
 	keyboard.t().onPressDo({turno.pasarABatalla()})
 	keyboard.r().onPressDo({turno.terminarTurno()})
-	//keyboard.e().onPressDo({cabezal.seleccionarEnemigo()})
+	keyboard.space().onPressDo({mapa.stats()})
 	//keyboard.k().onPressDo({cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())})
 
 

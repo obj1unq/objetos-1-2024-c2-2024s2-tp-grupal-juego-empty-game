@@ -13,6 +13,7 @@ object castillo {
     method inicializar() {
         position = game.at(1,0)
         game.addVisual(self)
+        mapa.agregarEdificio(self)
     }
 
     method image(){
@@ -47,6 +48,10 @@ object castillo {
         } else if (not (oroEnReserva >= unidad.valor()) || not unidad.condicionParaSpawn()) {  // Con que no cumpla una condicion ya entra al error
             self.error ("No dispones de los recursos suficientes para spawnear la unidad!")
         }
+    }
+
+    method stats() {
+      game.say(self, "Oro: " + oroEnReserva + ", Pieda: " + piedrasEnReserva + ", Huevos: " + huevosEnReserva)
     }
 }
 

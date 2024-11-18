@@ -5,24 +5,16 @@ import map.*
 import objetos.*
 import edificios.*
 
-
-
 object cabezal {
+
   var property seleccionActualAliada = null
   var property position = game.origin()
   var property modoCabezal = cabezalNormal
   var property seleccionActualEnemiga = null
 
-  method inicializar() {
-    position = game.origin()
-    modoCabezal = cabezalNormal
-    game.addVisual(self)
-  }
-
   method image(){
     return modoCabezal.image()
   }
-
 
   method mover(direccion) {
     const siguiente = direccion.siguiente(position) 
@@ -34,7 +26,6 @@ object cabezal {
     mapa.validarSiEstaDentro(posicion)
     mapa.validarSiHayObjetoSolido(posicion)
   }
-
 
   method cancelar() {
     modoCabezal = cabezalNormal
@@ -76,6 +67,21 @@ object cabezal {
   
 }
 
+object cabezalNormal {
+
+  method image() {
+    return "cabezal.png"
+  }
+
+  //SELECCIONAR
+  method accionar() {
+    mapa.validarSeleccionAliada(cabezal.position())
+    cabezal.setAliado(cabezal.obtenerPjAliado())
+    cabezal.setModo(cabezalSeleccion)
+  }
+
+}
+
 object cabezalSeleccion {
   
   method image() {
@@ -96,9 +102,11 @@ object cabezalSeleccion {
     cabezal.setAliado(null)
     cabezal.setEnemigo(null) 
   }
+
 }
 
 object cabezalBatalla {
+
   method image() {
       return "cabezal_batalla.png"
   }
@@ -110,28 +118,12 @@ object cabezalBatalla {
     cabezal.setModo(cabezalAtaque)
   }
 
-  
-
   method verificarEnemigos() {
     if (cabezal.seleccionActualAliada.enemigosAlAlcance().size() < 1) {
       self.error("No hay nadie para atacar!")
     }      
   }
-}
 
-object cabezalNormal {
-  method image() {
-    return "cabezal.png"
-  }
-
-  //SELECCIONAR
-  method accionar() {
-    mapa.validarSeleccionAliada(cabezal.position())
-    cabezal.setAliado(cabezal.obtenerPjAliado())
-    cabezal.setModo(cabezalSeleccion)
-  }
-
-  
 }
 
 object cabezalAtaque {
@@ -145,7 +137,6 @@ object cabezalAtaque {
     cabezal.setEnemigo(cabezal.obtenerPjEnemigo())
     cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())
   }
-
 
 }
 

@@ -22,6 +22,7 @@ program rpgPorTurnos {
 	game.addVisual(salud)
 	game.addVisual(vidas)
 	game.addVisual(pociones)
+	game.addVisual(barraFuerza)
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
 	randomizer.agregarArmaRandom()
@@ -46,8 +47,9 @@ program rpgPorTurnos {
 	keyboard.a().onPressDo({personaje.mover(izquierda)})
     
     //TECLAS COMBATE
-    keyboard.up().onPressDo({ personaje.hacerTurnoAtaqueComun()})
-	keyboard.down().onPressDo({ personaje.hacerTurnoPocion()})
+    keyboard.up().onPressDo({personaje.hacerTurnoAtaqueComun()})
+	keyboard.down().onPressDo({personaje.hacerTurnoPocion()})
+	keyboard.right().onPressDo({personaje.hacerTurnoHabilidadEspecial()})
 
 	//COLISIÓN
     game.onCollideDo(personaje, {cosa => cosa.colisiono(personaje)})

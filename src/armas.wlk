@@ -2,20 +2,22 @@ import randomizer.*
 import paleta.*
 import personaje.*
 import mapa.*
+import pelea.*
+import enemigos.*
 
 
 class Arma {
-    var property estaEquipada = false
     const property position = randomizer.posicionRandomDeArma()
     const nivel = 1.randomUpTo(3).round() 
     var durabilidad  
+    const portador = personaje
+
+    method objetivo() {
+        return portador.enemigoCombatiendo()
+    }
 
     method durabilidad() {
       return durabilidad
-    }
-
-    method serEquipada() {
-      self.estaEquipada(true) 
     }
 
     // El pj colsiona con el arma y la mete en la bolsa()
@@ -42,7 +44,11 @@ class Arma {
     method image() 
     method imagenParaPersonaje()
     method emojiParaInfoCombate()
-    method habilidadEspecial()
+    method imagenHabilidadEspecialParaBarra()
+
+    method ejecutarHabilidadEspecial() {
+        portador.gastarFuerzaAcumulada()
+    }
 
     // Para test
     method text(){ return "Dur: " + self.durabilidad().toString() + "\nLvl: " + nivel.toString()}
@@ -63,17 +69,23 @@ class Espada inherits Arma {
         return "ConEspada"
     }
 
-    override method habilidadEspecial() { //de momento, no está siendo usada en el juego
-        return self.danho() * 2 //golpe critico RASGUÑO MORTALLLLL
+    override method emojiParaInfoCombate() {
+        return "🗡 (espada)"
     }
 
-    override method emojiParaInfoCombate() {
-        return "🗡"
+    override method ejecutarHabilidadEspecial() { //ATURDIMIENTO
+        super()
+        self.objetivo().recibirDanho(self.danho()) 
+        self.objetivo().estaAturdido(true)
+    }
+
+    override method imagenHabilidadEspecialParaBarra() {
+        return "Aturdimiento"
     }
 
 }
 
-class ArcoYFlecha inherits Arma {
+class Lanza inherits Arma {
 
     override method danho() {
         return 20 + nivel * 3
@@ -86,17 +98,22 @@ class ArcoYFlecha inherits Arma {
         return "ConLanza"
     }
 
-    override method habilidadEspecial() { //de momento, no está siendo usada en el juego
-        return //veneno
+    override method emojiParaInfoCombate() {
+        return "𐃆 (lanza)"
     }
 
-    override method emojiParaInfoCombate() {
-        return "🏹"
+    override method ejecutarHabilidadEspecial() { //EMBESTIDA
+        super()
+        self.objetivo().recibirDanho(self.danho()*3) 
+    }
+
+    override method imagenHabilidadEspecialParaBarra() {
+        return "Embestida"
     }
 
 }
 
-class MartilloDeGuerra inherits Arma {
+class Maza inherits Arma {
 
     override method danho() {
         return 80 + nivel * 3
@@ -110,17 +127,28 @@ class MartilloDeGuerra inherits Arma {
         return "ConMaza"
     }
 
-    override method habilidadEspecial() { //de momento, no está siendo usada en el juego
-        return //pierde turno enemigo
+    override method emojiParaInfoCombate() {
+        return "🪓 (maza)"
     }
 
-    override method emojiParaInfoCombate() {
-        return "🪓"
+    override method ejecutarHabilidadEspecial() { //ENVENENAMIENTO
+        super()
+        self.objetivo().recibirDanho(self.danho()) 
+        self.objetivo().cantidadDeVeneno(3)
+    }
+
+    override method imagenHabilidadEspecialParaBarra() {
+        return "Envenenamiento"
     }
 
 }
 
 object mano { //objeto especial
+    const portador = personaje
+
+    method objetivo() {
+        return portador.enemigoCombatiendo()
+    }
 
     method danho() {
         return 5
@@ -130,12 +158,21 @@ object mano { //objeto especial
     
     method realizarActualizacionDeArmas() { } //necesario para que funcione el polimorfismo (todas las armas deben entenderlo)
 
-    method emojiParaInfoCombate() {
-        return "🤜"
-    }
-    
     method imagenParaPersonaje() {
         return ""
+    }
+
+    method emojiParaInfoCombate() {
+        return "🤜 (mano)"
+    }
+
+    method ejecutarHabilidadEspecial() { //PUÑETAZO
+        portador.gastarFuerzaAcumulada()
+        self.objetivo().recibirDanho(self.danho()*7) //35 de daño
+    }
+
+    method imagenHabilidadEspecialParaBarra() {
+        return "Puñetazo"
     }
     
 }
@@ -154,7 +191,7 @@ object fabricaDeEspada {
 object fabricaDeArcoYFlecha {
 
     method agregarNuevaArma() {
-        const arma = new ArcoYFlecha(durabilidad = 120.randomUpTo(150).round())
+        const arma = new Lanza(durabilidad = 120.randomUpTo(150).round())
         game.addVisual(arma)
     }
 
@@ -163,7 +200,7 @@ object fabricaDeArcoYFlecha {
 object fabricaDeMartilloDeGuerra {
 
     method agregarNuevaArma() {
-        const arma = new MartilloDeGuerra(durabilidad = 60.randomUpTo(90).round())
+        const arma = new Maza(durabilidad = 60.randomUpTo(90).round())
         game.addVisual(arma)
     }
 

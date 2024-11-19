@@ -14,11 +14,13 @@ object personaje {
     var property salud = 150
 	var cantVidas = 3
 	var cantPociones = 3
-	const cantArmasPermitidas = 3
 	const cantPocionesPermitidas = 3
+	var fuerzaAcumulada = 5
+	const cantArmasPermitidas = 3
 	const property bolsa = []
 	var property armaActual = mano //porque empieza con bolsa vacía
-
+	const property estaAturdido = false //siempre será falso. se necesita la constante para condicional en el método de hacer turno en pelea 
+										//(el que si puede variar es el de los enemigos)
 	method position() {
 		return position
 	}
@@ -29,6 +31,10 @@ object personaje {
 
 	method cantPociones() {
 		return cantPociones
+	}
+
+	method fuerzaAcumulada() {
+		return fuerzaAcumulada
 	}
 
 	//ANIMACIONES
@@ -93,7 +99,7 @@ object personaje {
 		}
 	}
 
-	//COMBATE/PELEA (y habilidades, ya sean ataque, curación, etc)
+	//COMBATE / PELEA (y habilidades, ya sean ataque común, curación con poción o habilidad especial)
     var property enemigoCombatiendo = null //el enemigo con quien está en combate
 	var esTurno = false //si es su turno en un combate
 
@@ -128,6 +134,7 @@ object personaje {
 		armaActual.realizarActualizacionDeArmas()
         esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
 		barraEstadoPeleas.image("barraPersonajeAtaqueComun.png")
+		self.sumarFuerzaAcumulada()
 	}
 
 	method recibirDanho(cantidad) {
@@ -140,30 +147,6 @@ object personaje {
 		} else {
 			armaActual = mano
 		}
-	}
-	
-	method morir() {
-		self.frame(0)
-		self.animacion(animacionMuerte)
-		game.schedule(1000, {self.animacion(animacionEstatica)})
-		game.schedule(1000, {self.frame(0)})
-		self.perderVida() // pierde una vida
-		game.schedule(998, {self.validarVida()}) // valida si está muerto (no tiene más vidas)
-		game.schedule(1001, {position = game.at(14,2)})
-		game.schedule(1001, {self.salud(150)})
-	}
-
-	method perderVida() { //se pierde una vida cuando la salud del pj llega a 0
-	  cantVidas -= 1
-	}
-
-	method validarVida() {  
-	  if (cantVidas <= 0) {
-		mapa.limpiar()
-		gestorDeFondo.image("fondoFin.png")
-		game.schedule(500, {game.stop()})
-	  }
-    
 	}
 
 	//////////////////////////////////////////////
@@ -197,6 +180,7 @@ object personaje {
 		cantPociones -= 1
 		esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
 		barraEstadoPeleas.image("barraPersonajePocionSalud.png")
+		self.sumarFuerzaAcumulada()
 	}
 	
 	method aumentarSalud(saludSumada) {
@@ -205,11 +189,78 @@ object personaje {
 
 	method validarPociones() {
 		if(cantPociones<=0) {
-			self.error("No se puede realizar una curación sin pociones de vida")
+			self.error("No me puedo curar sin pociones de vida")
 		}
 	}
 
 	//////////////////////////////////////////////
+
+	////////////FUERZA / HABILIDADES ESPECIALES///////////////
+
+	method sumarFuerzaAcumulada() {
+		fuerzaAcumulada = (fuerzaAcumulada + 1).min(5)
+	}
+
+	method gastarFuerzaAcumulada() {
+		fuerzaAcumulada = 0
+	}
+
+	//modificar
+	method hacerTurnoHabilidadEspecial() {
+		self.validarHacerTurno() // para que no use hab especial cuando no está peleando / no es su turno / ya se encuentra haciendo turno
+		self.validarFuerzaAcumulada()
+		self.frame(0)
+		self.animacion(animacionCombate) //esta no va ¿QUÉ ANIMACIÓN SE VA A USAR PARA CUANDO TOMA POCIÓN? ¿NINGUNA?
+		game.schedule(800, {self.frame(0)})
+		game.schedule(805, {self.animacion(animacionEstatica)})
+		game.schedule(800, {self.realizarHabilidadEspecial()})
+		game.schedule(810, {combate.cambiarTurnoA(enemigoCombatiendo)})   //como ya terminó el turno del pj, se cambia el turno al enemigo
+	}
+
+	method validarFuerzaAcumulada() {
+		if(fuerzaAcumulada < 5) {
+			self.error("No tengo la suficiente fuerza acumulada")
+		}
+	}
+
+	method realizarHabilidadEspecial() {
+		armaActual.ejecutarHabilidadEspecial()
+		armaActual.realizarActualizacionDeArmas()
+        esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
+		barraEstadoPeleas.image("barraPersonajeHabilidadEspecial" + armaActual.imagenHabilidadEspecialParaBarra() + ".png")
+	}
+
+	//////////////////////////////////////////////////////////
+
+	//MUERTE
+
+	method morir() {
+		self.perderVida() // pierde una vida
+		self.revivirOFinalizarPartida() // revisa si el pj está muerto (no tiene más vidas) o no y actua en consecuencia
+	}
+
+	method perderVida() { //se pierde una vida cuando la salud del pj llega a 0
+	  cantVidas -= 1
+	}
+
+	method revivirOFinalizarPartida() {
+  
+	  if (cantVidas <= 0) {
+    self.frame(0)
+		self.animacion(animacionMuerte)
+		game.schedule(1000, {mapa.limpiar()})
+		game.schedule(1005, {gestorDeFondo.image("fondoFin.png")})
+		game.schedule(1020, {game.stop()})
+	  } else {
+		self.frame(0)
+		self.animacion(animacionMuerte)
+		game.schedule(1000, {self.frame(0)})
+    game.schedule(1005, {self.animacion(animacionEstatica)})
+    game.schedule(1010, {position = game.at(14,2)})
+		game.schedule(1010, {self.salud(300)})
+	  }
+    
+	}
 
 }
 

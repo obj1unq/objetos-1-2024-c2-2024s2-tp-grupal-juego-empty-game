@@ -45,8 +45,6 @@ object dangalf inherits Personaje(arma=manosMagicas) {
     }
 
 //------------hud-------------------------------------------
-
-    
     
     override method sinMunicion(){
         game.sound("mago-sin-municion.mp3").play()

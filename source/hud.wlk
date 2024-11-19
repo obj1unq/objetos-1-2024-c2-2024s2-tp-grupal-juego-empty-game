@@ -1,3 +1,4 @@
+import extras.*
 import wollok.game.*
 import personajes.personaje.*
 import juego.*
@@ -32,23 +33,12 @@ object timer {
         }
     }
 
-    method impactoProyectil(danio) {}
-
-    method traspasable() {
-        return true
-    }
-
 }
 //----------------------------------------------HUD-----------------------------
 object barra{
     var property image =  "blacklong.png"
     var property position = game.at(0, 14)
 
-    method impactoProyectil(danio) {}
-
-    method traspasable() {
-        return false
-    }
 }
 //----------------------------------BARRA DE VIDA-----------------------------
 
@@ -85,12 +75,6 @@ object puntosDeVida {
     method actualizar(){
         self.image("barravida-" + vida.toString() + ".png")
     }
-
-    method impactoProyectil(danio) {}
-
-    method traspasable() {
-        return false
-    }
 }
 
 //----------------------------------------------MUNICION-----------------------------
@@ -118,12 +102,7 @@ object cargador {
 
     method quitarMunicion(cantidad) {
         municion -= cantidad
-    }
-
-    method impactoProyectil(danio) {}
-
-    method traspasable() {
-        return false
+        managerItems.posiblesBalas(municion)
     }
 }
 
@@ -145,9 +124,6 @@ object oroObtenido {
 
     method impactoProyectil(danio) {}
 
-    method traspasable() {
-        return false
-    }
 }
 
 

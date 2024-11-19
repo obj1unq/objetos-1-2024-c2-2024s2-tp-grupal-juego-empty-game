@@ -1,3 +1,4 @@
+import enemigos.*
 import wollok.game.*
 import posiciones.*
 import extras.*
@@ -41,17 +42,13 @@ class Personaje {
     method validarMover(direccion) {
 		const siguiente = direccion.siguientePosicion(position)
 		tablero.validarDentro(siguiente)
-        self.validarTraspasables(siguiente)
+        self.validarNoHayEnemigos(siguiente)
 	}
 
-    method validarTraspasables(posicion) {
-        if(!self.hayTraspasables(posicion)) {
+    method validarNoHayEnemigos(posicion) {
+        if(managerZombie.posTieneZombie(posicion)) {
             self.error("")
         }
-    }
-
-    method hayTraspasables(posicion) {
-        return game.getObjectsIn(posicion).all({o => o.traspasable()})
     }
 
     // -------------ataque-------------------------------

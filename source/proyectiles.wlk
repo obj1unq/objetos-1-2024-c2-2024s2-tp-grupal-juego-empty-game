@@ -45,9 +45,6 @@ class Proyectil {
         }
     }
 
-    method traspasable() {
-        return true
-    }
 }
 
 class Bala inherits Proyectil(danio=25) {
@@ -133,9 +130,6 @@ class Crater {
         game.schedule(2000,{game.removeVisual(self)})
     }
 
-    method traspasable() {
-        return true
-    }
 }
 
 object managerAcido {
@@ -169,7 +163,4 @@ class Acido {
         return self.identity().toString()
     }
 
-    method traspasable() {
-        return true
-    }
 }

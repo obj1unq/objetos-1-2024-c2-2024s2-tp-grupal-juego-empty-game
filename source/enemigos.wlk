@@ -114,12 +114,6 @@ class Zombie {
         return juego.jugador()
     }
 
-
-    method traspasable() {
-        return false
-    }
-
-
     method herir(danio) {
         vida = 0.max(vida - danio)
         self.sonidoHerida()

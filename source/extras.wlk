@@ -26,7 +26,6 @@ object managerItems {
         if (drops.size() > 2){self.error("")}
     }
 
-
     method generarDropRandom(){
         self.generarDrop(tablero.posicionRandom())
     }
@@ -63,6 +62,19 @@ object managerItems {
         game.addVisual(nuevaMunicion)
         drops.add(nuevaMunicion)
     }
+
+    method posiblesBalas(municion) {
+        if(municion==0) {
+            game.schedule(6000,{self.siNoHayBalasSoltarle()})
+        }
+    }
+
+    method siNoHayBalasSoltarle() {
+        const balasEnTablero = drops.filter({d => d.className() == Balas})
+        if (balasEnTablero.isEmpty()) {
+            self.spawnearMunicionRandom()
+        }
+    }
 }
 
 //---------------------------------Drops---------------------------------------
@@ -70,10 +82,6 @@ object managerItems {
 class Drop {
     var property position
     var property image
-
-    method traspasable() {
-        return true
-    }
 }
 
 object managerCuras {
@@ -143,10 +151,6 @@ object muro  {
 
     var property position = game.at(8,8)
     var property image = "madera.png"
-
-    method traspasable() {
-        return false
-    }
 }
 
 object municionActual {

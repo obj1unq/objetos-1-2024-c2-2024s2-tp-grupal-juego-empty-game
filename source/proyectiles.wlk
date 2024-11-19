@@ -160,3 +160,6 @@ class Acido {
     }
 }
 
+class Especial inherits Proyectil {
+  
+}

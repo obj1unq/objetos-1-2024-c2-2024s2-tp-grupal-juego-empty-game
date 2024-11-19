@@ -14,6 +14,8 @@ object personaje {
     var property vida = 100 //que sea un manager de vida aparte
     var property visualAmmo = pj.municionImagen()
     var property oro = 0
+    var property derrotados = 0
+    const property derrotadosParaEspecial = 2 // 2 Para probar, yo creo que debe ser 6
 
     //var property zombiesAsesinados = 0   - A implementar
 
@@ -98,6 +100,27 @@ object personaje {
     method obtenerOro(valor) {
         game.sound("oro-sonido.mp3").play()
         oro += valor
+    }
+
+    // -------------especial-------------------------------
+    method especialListo() {
+      return 0 == derrotados % derrotadosParaEspecial
+    }
+
+    method zombieDerrotado() {
+      derrotados += 1
+    }
+
+    method especial() {
+        self.image(pj.imagenNormal())
+        cargador.validarEspecial()
+        self.animacionEspecial()
+        pj.dispararEspecial()
+    }
+    method animacionEspecial() {                                                       
+        self.image(pj.imagenAtaqueEspecial())
+        game.schedule(200,{self.image(pj.imagenNormal())})
+        pj.sonidoEspecial()
     }
 
 // -------------energia-------------------------------

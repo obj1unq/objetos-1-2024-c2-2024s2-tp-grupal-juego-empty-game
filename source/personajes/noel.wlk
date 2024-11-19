@@ -6,7 +6,7 @@ import hud.*
 import armas.*
 import proyectiles.*
 
-object noel inherits Personaje(arma=pistola) {
+object noel inherits Personaje(arma=escopeta) {
 
 //-------------items------------------------------------------
 

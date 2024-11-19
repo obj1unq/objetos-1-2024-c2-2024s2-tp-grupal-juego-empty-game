@@ -28,6 +28,8 @@ class Arma {
 
     method hudMunicion()
     method sonidoRecarga()
+    method municion()
+    method municionMaxima()
 }
 
 
@@ -47,6 +49,14 @@ object pistola inherits Arma(cadencia=500) {
     override method sonidoRecarga() {
         game.sound("pistola-recarga.mp3").play() 
     }
+
+    override method municion(){
+        return 12
+    }
+
+    override method municionMaxima(){
+        return 12
+    }
 }
 
 object escopeta inherits Arma(cadencia=800) {
@@ -59,11 +69,19 @@ object escopeta inherits Arma(cadencia=800) {
     }
 
     override method hudMunicion(){
-        return "cartuchos-"
+        return "cartucho-"
     }
 
     override method sonidoRecarga() {
         game.sound("pistola-recarga.mp3").play() 
+    }
+
+    override method municion(){
+        return 6
+    }
+
+    override method municionMaxima(){
+        return 6
     }
 }
 
@@ -82,6 +100,14 @@ object manosMagicas inherits Arma(cadencia=800) {
 
     override method sonidoRecarga(){
         game.sound("mana.mp3").play()
+    }
+
+    override method municion(){
+        return 12 
+    }
+
+    override method municionMaxima(){
+        return 12
     }
 }
 

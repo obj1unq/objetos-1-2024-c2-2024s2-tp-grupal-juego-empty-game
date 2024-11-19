@@ -80,7 +80,7 @@ object puntosDeVida {
 //----------------------------------------------MUNICION-----------------------------
 
 object cargador {
-    var property  municion = 12 
+    var property  municion = juego.jugador().arma().municion() 
     var property position = game.at(4, 14)
 
     method image(){
@@ -90,7 +90,7 @@ object cargador {
     method recargar(balas){
         juego.jugador().sonidoRecarga()
         municion += balas
-        municion = municion.min(12) 
+        municion = municion.min(juego.jugador().arma().municionMaxima()) 
     }
 
     method validarAtaque(){

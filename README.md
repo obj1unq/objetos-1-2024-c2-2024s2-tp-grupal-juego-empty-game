@@ -13,9 +13,10 @@
 
 ## Reglas de Juego / Instrucciones
 
- - Para moverse, pulse las teclas W, A, S y D
- - Para atacar cuando está en combate, pulse la tecla "up arrow" (flecha hacia arriba)
- - Para curarse cuando está en combate y tiene una poción, pulse la tecla "down arrow" (flecha hacia abajo)
+ - Para moverse por el tablero, pulse las teclas W, A, S y D.
+ - Para atacar cuando está en combate, pulse la tecla "up arrow" (flecha hacia arriba).
+ - Para curarse cuando está en combate y tiene una poción, pulse la tecla "down arrow" (flecha hacia abajo).
+ - Para ejecutar una habilidad especial cuando está en combate y tiene fuerza acumulada suficiente, pulse la tecla "right arrow" (flecha hacia la derecha).
 
 
 ## Otros

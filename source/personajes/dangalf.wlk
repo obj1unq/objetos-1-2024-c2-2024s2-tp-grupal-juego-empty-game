@@ -53,7 +53,7 @@ object dangalf inherits Personaje(arma=manosMagicas) {
     }
 
     method sonidoRecarga(){
-        game.sound("mana.mp3").play()
+        arma.sonidoRecarga()
     }
 
 }

@@ -112,7 +112,7 @@ object cargador {
     method validarAtaque(){
         if (municion == 0){
             juego.jugador().sinMunicion()
-            self.error("no hay balas xd")
+            self.error("")
         }
     }
 

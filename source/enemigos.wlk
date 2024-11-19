@@ -219,7 +219,7 @@ class Zombie {
     }
 }
 
-class ZombieComun inherits Zombie(vida = 100, dmg = 10, image = "zombie-comun-abajo.png", velocidad=2){ 
+class ZombieComun inherits Zombie(vida = 100, dmg = 10, image = "zombieComun-abajo.png", velocidad=2){ 
 
     override method sonidoHerida(){
         game.sound("zombie-1.mp3").play()
@@ -230,7 +230,7 @@ class ZombieComun inherits Zombie(vida = 100, dmg = 10, image = "zombie-comun-ab
     }
 
     override method imagenMovimiento() {
-        return "zombie-comun-"
+        return "zombieComun-"
     }
 }
 
@@ -249,7 +249,7 @@ class ZombiePerro inherits Zombie(vida = 75, dmg = 20, image = "perronio-abajo.p
     }
 }
 
-class ZombieTanque inherits Zombie(vida = 300, dmg = 50, image = "tanque-1-abajo.png", velocidad=3) {
+class ZombieTanque inherits Zombie(vida = 300, dmg = 50, image = "tanqueN-1-abajo.png", velocidad=3) {
     
     var estado = 1
     var ultimaDir = abajo
@@ -299,7 +299,7 @@ class ZombieTanque inherits Zombie(vida = 300, dmg = 50, image = "tanque-1-abajo
     // imagen -----------------------------------------
 
     override method imagenMovimiento() {
-        return "tanque-" + estado.toString() + "-"
+        return "tanqueN-" + estado.toString() + "-"
     }
 }
 

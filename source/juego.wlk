@@ -17,7 +17,7 @@ object menu {
 
 object juego {
 
-    var property jugador = dangalf
+    var property jugador = noel
 
     method hud() {
 
@@ -28,7 +28,6 @@ object juego {
         game.addVisual(cargador)
         game.addVisual(oroObtenido)
         game.addVisual(barraDeEnergia)
-        barraDeEnergia.iniciarCicloEnergia()
         game.addVisual(jugador)
 
     }

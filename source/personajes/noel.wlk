@@ -49,7 +49,7 @@ object noel inherits Personaje(arma=pistola) {
     }
 
     method sonidoRecarga(){
-        arma.sonidoDeRecarga()
+        arma.sonidoRecarga()
     }
 
 //---------------------arma--------------------------

@@ -87,6 +87,10 @@ class Enemigo {
         return 8
     }
 
+    method maxFrameMuerte() {
+        return 4
+    }
+
     method cambiarAnimacion() {
         animacion.cambiarAnimacion(self)
     }

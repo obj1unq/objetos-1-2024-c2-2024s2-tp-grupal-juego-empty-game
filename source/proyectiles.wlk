@@ -160,6 +160,6 @@ class Acido {
     }
 }
 
-class Especial inherits Proyectil {
-  
+class Especial inherits BolaDeFuego(danio = 100) {
+    
 }

@@ -15,9 +15,7 @@ object personaje {
     var property visualAmmo = pj.municionImagen()
     var property oro = 0
     var property derrotados = 0
-    const property necesariosParaEspecial = 2 // 2 Para probar, yo creo que debe ser 6
-
-    //var property zombiesAsesinados = 0   - A implementar
+    const property necesariosParaEspecial = 2 // 2 Para probar
 
     method resetearVisual() {
         game.removeVisual(self)
@@ -104,20 +102,20 @@ object personaje {
 
     // -------------especial-------------------------------
     
-
     method zombieDerrotado() {
       derrotados += 1
     }
 
     method especial() {
-        self.image(pj.imagenNormal(abajo))
-        especial.validarEspecial()
-        self.animacionEspecial()
-        pj.dispararEspecial()
+        self.image(pj.imagenNormal(abajo)) // Estaba hecho
+        especial.validarEspecial() // Listo
+        self.animacionEspecial() // Listo
+        pj.dispararEspecial() //Falta agregar
     }
+    
     method animacionEspecial() {                                                       
         self.image(pj.imagenAtaqueEspecial()) //Falta agregar
-        game.schedule(200,{self.image(pj.imagenNormal(abajo))})
+        game.schedule(200,{self.image(pj.imagenNormal(abajo))}) // Estaba hecho
         pj.sonidoEspecial() //Falta agregar
     }
 

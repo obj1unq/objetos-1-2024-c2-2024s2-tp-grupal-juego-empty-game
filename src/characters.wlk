@@ -29,7 +29,7 @@ class Personaje {
 
     method efectoAtacar(){
         atacoEsteTurno = true
-        cabezal.setModo(cabezalBatalla)
+        cabezal.setModo(cabezalNormal)
     }
 
 
@@ -101,10 +101,32 @@ class Personaje {
 
     method atacar(enemigo) {
         self.validarAtaque()
-        enemigo.recibirDano()
-        enemigo.morirSiCorresponde()
+        self.batalla(enemigo)
         self.efectoAtacar()
     }
+
+    method batalla(enemigo) {
+
+
+        if(self.leGanaAEnemigo(enemigo)) { 
+            enemigo.morir()
+        } else {
+            self.morir()
+        }
+    }
+
+    // Preguntar si es necesario dividir en metodos o se puede dejar asi
+    method leGanaAEnemigo(enemigo) {
+        const ataqueAliado = (self.ataqueBase() - enemigo.defensaBase()).max(0) // Para que no pueda ser negativo el valor
+        const ataqueEnemigo = (enemigo.ataqueBase() - self.defensaBase()).max(0)
+    
+        const totalPoder = ataqueAliado + ataqueEnemigo
+        const probabilidad = if (totalPoder > 0) (ataqueAliado * 100) / totalPoder else 50
+        const numRandom = 0.randomUpTo(100).round()
+
+        return numRandom < probabilidad
+    }
+
 
     method validarAtaque(){
         if (atacoEsteTurno){
@@ -112,16 +134,8 @@ class Personaje {
         }
     }
 
-    method recibirDano() {
-        vidaActual -= (cabezal.seleccionActualAliada().ataqueBase() - cabezal.seleccionActualEnemiga().defensaBase())
-    }
-    method morirSiCorresponde() {
-        if (vidaActual < 1){
-            self.morir()
-        }
-    }
     method morir() {
-        mapa.quitarEnemigo(self)
+        mapa.quitar(self)
         game.removeVisual(self)
         cabezal.modoCabezal(cabezalNormal)
     }
@@ -136,7 +150,7 @@ class Personaje {
     }
 
     method inicializarEnNivel() {
-        position = randomizerLimitado.position()
+        position = randomizerLimitado.emptyPosition()
         game.addVisual(self)
     }
 

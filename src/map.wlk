@@ -51,8 +51,16 @@ object mapa {
         return enemigos.isEmpty()
     }
 
-    method quitarEnemigo(enemigo) {
-        enemigos.remove(enemigo)
+    method quitar(personaje) {
+        if (self.esUnEnemigo(personaje)) {
+            enemigos.remove(personaje)
+        } else {
+            aliados.remove(personaje)
+        }
+    }
+
+    method esUnEnemigo(personaje) {
+        return enemigos.contains(personaje)
     }
 
     method agregarAliado(aliado){

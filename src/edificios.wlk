@@ -50,7 +50,7 @@ object castillo {
     }
 
     method stats() {
-      game.say(self, "Oro: " + oroEnReserva + ", Pieda: " + piedrasEnReserva + ", Huevos: " + huevosEnReserva)
+      game.say(self, "Oro: " + oroEnReserva + ", Piedra: " + piedrasEnReserva + ", Huevos: " + huevosEnReserva)
     }
 }
 

@@ -13,7 +13,6 @@ object castillo {
     method inicializar() {
         position = game.at(1,0)
         game.addVisual(self)
-        mapa.agregarEdificio(self)
     }
 
     method image(){

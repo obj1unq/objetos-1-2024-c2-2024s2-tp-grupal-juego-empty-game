@@ -12,7 +12,7 @@ class Personaje {
     const property vidaBase
     var property vidaActual = vidaBase
     const property valor 
-    const movimientos
+    const property movimientos
 
     var property team
 

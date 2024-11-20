@@ -9,7 +9,6 @@ object mapa {
     const property aliados = #{}
     const property enemigos = #{}
     const property objetos = #{}
-    const property edificios = #{}
     var property nivelActual = nivel1 
 
     method validarSiEstaDentro(posicion) {
@@ -128,14 +127,11 @@ object mapa {
         nivelActual.inicializar()
     }
 
-    method agregarEdificio(edificio) {
-      edificios.add(edificio)
-    }
 
     method stats() {
         aliados.forEach( {aliado => aliado.stats() } )
         enemigos.forEach( {enemigo => enemigo.stats() } )
-        edificios.forEach( {edificio => edificio.stats() } )
+        castillo.stats()
     }
 
 }
@@ -154,6 +150,7 @@ class Nivel {
 	    constructorPiedras.instanciarPiedra(3)
 	    constructorHuevos.instanciarHuevos(1)
         castillo.inicializar()
+        cabezal.inicializar()
         mapa.inicializarAliadosVivos()
     }
 

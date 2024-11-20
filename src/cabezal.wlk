@@ -16,6 +16,11 @@ object cabezal {
     return modoCabezal.image()
   }
 
+  method inicializar() {
+    position = game.origin()
+    modoCabezal = cabezalNormal
+    game.addVisual(self)
+  }
   method mover(direccion) {
     const siguiente = direccion.siguiente(position) 
     self.validarMoverCabezal(siguiente)

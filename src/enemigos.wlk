@@ -22,13 +22,15 @@ class Enemigo {
         return salud
     }
 
+    //COMBATE
+
     method colisiono(personaje) {
-        self.combate() 
+        self.iniciarCombate() 
     }
     
-    method combate() { //cambio de nombre a iniciarCombate? porque con el sustantivo parece de consulta
+    method iniciarCombate() { 
 
-        position = position.left(2)    //se posiciona una celda a la izquierda del personaje
+        position = position.left(2)    //se posiciona dos celdas a la izquierda del personaje
         combate.iniciarCombate(self)    //prepara el combate, la info necesaria y le hace saber que él(enemigo/self) será quien empieza
 
     }
@@ -70,14 +72,21 @@ class Enemigo {
         game.schedule(800, {dungeon.sacarEnemigo(self)})
     }
 
-    method image() 
-    method reaccionarAMovimiento() 
+   
+    //MOVIMIENTO
+
+    method reaccionarAMovimiento() {
+        
+    } 
+
     method utilizarHabilidad()
 
     //ANIMACION
      
     var property animacion = animacionEstatica
     var property frame = 0
+
+    method image()
 
     method maxFrameEstatica() {
         return 4
@@ -95,6 +104,50 @@ class Enemigo {
         animacion.cambiarAnimacion(self)
     }
       
+}
+
+class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {
+
+    const danhoBase 
+    var position
+    var salud
+    const objetivoADestruir = personaje
+    var acumuladorDeTurnos = 0
+    const turnoRequeridoParaHabilidad
+
+    var contadorMuertes = 0
+    
+    
+    override method morir() {
+        self.validarFase()
+        self.frame(0)
+        self.animacion(animacionMuerte)
+        game.schedule(800, {game.removeVisual(self)})
+        game.schedule(900, {self.muerte()})
+    }
+
+    method validarFase() {
+        if(contadorMuertes == 1) {
+            self.pasarFaseDos()
+        } else
+    }
+
+    method muerte() {
+        mapa.limpiar()
+        gestorDeFondo.image("fondoVictoria.png")
+        game.stop()
+    }
+
+    override method image() {
+        return "jefe-" + animacion.tipo() + frame + "32Bits.png"
+    }
+
+     
+    override method utilizarHabilidad() { //
+
+    }
+
+
 }
 
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
@@ -176,7 +229,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
     method revisarSiHayObjetivo() {
         if(self.hayObjetivoEnVision() && self.position()!=objetivoADestruir.position()) { //esto para que no se choque con el self.combate() de colisiono()
             position = objetivoADestruir.position()
-            self.combate()
+            self.iniciarCombate()
         }
     }
 
@@ -222,10 +275,6 @@ class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
     override method image() {
         return "goblin-" + animacion.tipo() + frame +  "32Bits.png" 
     }
-
-    //MOVIMIENTO (en realidad, no se mueve)
-
-    override method reaccionarAMovimiento() { }
 
     // COMBATE/PELEA
 

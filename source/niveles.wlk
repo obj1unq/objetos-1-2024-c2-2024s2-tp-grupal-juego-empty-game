@@ -40,6 +40,9 @@ object nivelManager {
 
 }
 
+//Idea: Entre cada nivel aparece la tienda para poder mejorar el Arma/Salud/Energia
+//El primer nivel debe ser una pantalla donde presete el juego
+//Luego una pantalla donde este el menu y se seleccione el personaje
 
 niveles de mapas de referencia pepita
 

@@ -7,7 +7,7 @@ import dangalf.*
 
 object personaje { 
     //Imagen y posicion
-    var property pj = noel
+    var property pj = dangalf
     var property image = pj.imagenInicial()
     var property position = game.at(5,5)
     //Estadisticas
@@ -107,16 +107,20 @@ object personaje {
     }
 
     method especial() {
-        self.image(pj.imagenNormal(abajo)) // Estaba hecho
-        especial.validarEspecial() // Listo
-        self.animacionEspecial() // Listo
-        pj.dispararEspecial() //Falta agregar
+       // self.image(pj.imagenNormal(abajo)) // Estaba hecho
+       // especial.validarEspecial() // Listo
+       // self.animacionEspecial() // Listo
+       // pj.dispararEspecial() //Falta agregar
+       self.ataque(arriba)
+       self.ataque(abajo)
+       self.ataque(izquierda)
+       self.ataque(derecha)
     }
     
     method animacionEspecial() {                                                       
-        self.image(pj.imagenAtaqueEspecial()) //Falta agregar
+        self.image(pj.imagenAtaque(arriba)) //Falta agregar una imagen especial
         game.schedule(200,{self.image(pj.imagenNormal(abajo))}) // Estaba hecho
-        pj.sonidoEspecial() //Falta agregar
+        pj.sonidoAtaque() //Falta agregar sonido especial
     }
 
 // -------------energia-------------------------------

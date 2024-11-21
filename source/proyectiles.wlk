@@ -160,6 +160,6 @@ class Acido {
     }
 }
 
-class Especial inherits BolaDeFuego(danio = 100) {
-    
+class Especial inherits BolaDeFuego(danio = 100, position = arriba) {
+    // necesita la posición
 }

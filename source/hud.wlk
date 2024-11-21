@@ -180,6 +180,7 @@ object especial {
   method validarEspecial() = if (not self.especialListo()) self.error("")
 
   method especialListo() {
-      return 0 == duenio.derrotados() % duenio.necesariosParaEspecial()
+      //return 0 == duenio.derrotados() % duenio.necesariosParaEspecial()
+      return true
     }
 }

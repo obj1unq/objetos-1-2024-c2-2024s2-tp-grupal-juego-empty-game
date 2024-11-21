@@ -12,15 +12,6 @@ object noel {
         balaNueva.nuevoViaje(direccion)
     }
 
-    method dispararEspecial() {
-      const rayo = new Especial(image="rayoGrande.png")
-        game.addVisual(rayo)
-        rayo.nuevoViaje(arriba)
-        rayo.nuevoViaje(abajo)
-        rayo.nuevoViaje(izquierda)
-        rayo.nuevoViaje(derecha)
-    }
-
     method imagenInicial(){
         return "noelnuevo-normal-arriba.png"
     }

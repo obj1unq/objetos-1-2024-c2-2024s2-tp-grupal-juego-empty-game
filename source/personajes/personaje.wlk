@@ -107,20 +107,25 @@ object personaje {
     }
 
     method especial() {
-       // self.image(pj.imagenNormal(abajo)) // Estaba hecho
-       // especial.validarEspecial() // Listo
-       // self.animacionEspecial() // Listo
-       // pj.dispararEspecial() //Falta agregar
-       self.ataque(arriba)
-       self.ataque(abajo)
-       self.ataque(izquierda)
-       self.ataque(derecha)
+      self.especial(derecha)
+      self.especial(abajo)
+      self.especial(izquierda)
+      self.especial(arriba)
+    }
+
+    method especial(direccion) {
+        self.image(pj.imagenNormal(direccion))
+        especial.validarEspecial(direccion)
+        self.animacionEspecial(direccion)
+        self.derrotados(0)
+        pj.dispararEspecial(direccion, position)
     }
     
-    method animacionEspecial() {                                                       
-        self.image(pj.imagenAtaque(arriba)) //Falta agregar una imagen especial
-        game.schedule(200,{self.image(pj.imagenNormal(abajo))}) // Estaba hecho
-        pj.sonidoAtaque() //Falta agregar sonido especial
+    method animacionEspecial(direccion) {       
+        //Falta agregar una imagenenes y sonidos del especial                                               
+        self.image(pj.imagenAtaque(direccion))
+        game.schedule(200,{self.image(pj.imagenNormal(direccion))})
+        pj.sonidoAtaque()
     }
 
 // -------------energia-------------------------------

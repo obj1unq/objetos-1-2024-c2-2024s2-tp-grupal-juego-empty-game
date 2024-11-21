@@ -177,10 +177,9 @@ object barraDeEnergia {
 object especial {
   const duenio = personaje
 
-  method validarEspecial() = if (not self.especialListo()) self.error("")
+  method validarEspecial(direccion) = if (not self.especialListo(direccion)) self.error("")
 
-  method especialListo() {
-      //return 0 == duenio.derrotados() % duenio.necesariosParaEspecial()
-      return true
+  method especialListo(direccion) {
+      return 0 == duenio.necesariosParaEspecial() % duenio.derrotados()
     }
 }

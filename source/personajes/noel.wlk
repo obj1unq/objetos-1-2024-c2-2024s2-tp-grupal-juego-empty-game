@@ -6,7 +6,19 @@ import hud.*
 import armas.*
 import proyectiles.*
 
-object noel inherits Personaje(arma=escopeta) {
+object noel inherits Personaje(arma=pistola) {
+
+    var property ultimaDir = derecha
+
+    override method mover(dir) {
+        super(dir)
+        ultimaDir = dir
+    }
+
+    override method ataque(dir) {
+        super(dir)
+        ultimaDir = dir
+    }
 
 //-------------items------------------------------------------
 
@@ -62,6 +74,17 @@ object noel inherits Personaje(arma=escopeta) {
         arma = pistola
     }
 
+//-------------------especial------------------------
+
+
+    override method lanzarEspecial() {
+        const baston = new Baston(position=self.ultimaDir().siguientePosicion(position))
+        game.addVisual(baston)
+        baston.nuevoViaje(ultimaDir)
+    }
+
 }
+
+
 
 

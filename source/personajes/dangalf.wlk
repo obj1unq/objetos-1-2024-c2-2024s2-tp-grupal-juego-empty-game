@@ -54,4 +54,19 @@ object dangalf inherits Personaje(arma=manosMagicas) {
         arma.sonidoRecarga()
     }
 
+//-----------especial---------------------------------------
+
+    override method lanzarEspecial() {
+        self.dispararEspecialHacia(abajo)
+        self.dispararEspecialHacia(arriba)
+        self.dispararEspecialHacia(derecha)
+        self.dispararEspecialHacia(izquierda)
+    }
+
+    method dispararEspecialHacia(direccion) {
+        const rayo = new BolaEnergia(position=direccion.siguientePosicion(position))
+        game.addVisual(rayo)
+        rayo.nuevoViaje(direccion)
+    }
+
 }

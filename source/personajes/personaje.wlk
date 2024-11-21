@@ -13,7 +13,9 @@ class Personaje {
     //Estadisticas
     var property visualAmmo = self.municionImagen()
     var property oro = 0
+    //Propiedades   
     var property arma 
+    
 
     method imagenInicial()
     method imagenNormal(dir)
@@ -22,8 +24,8 @@ class Personaje {
     method municionImagen()
     method cura(num)
     method sinMunicion()
+    method lanzarEspecial() 
 
-    //var property zombiesAsesinados = 0   - A implementar
 
     method visualHealth(numero) {
         return self.cura(numero)
@@ -55,7 +57,7 @@ class Personaje {
     
     method ataque(direccion) { 
         self.image(self.imagenNormal(direccion))
-        cargador.validarAtaque()
+        arma.validarAtaque()
         arma.gatillar(direccion,position)                                             
     }
     
@@ -76,6 +78,7 @@ class Personaje {
         oro += valor
     }
 
+    
 
 }
 

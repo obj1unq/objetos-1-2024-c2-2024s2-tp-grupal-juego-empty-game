@@ -17,7 +17,7 @@ object menu {
 
 object juego {
 
-    var property jugador = noel
+    var property jugador = dangalf
 
     method hud() {
 
@@ -25,7 +25,7 @@ object juego {
         game.addVisual(barra)
         game.addVisual(timer)
         game.addVisual(puntosDeVida)
-        game.addVisual(cargador)
+        game.addVisual(hudBalas)
         game.addVisual(oroObtenido)
         game.addVisual(barraDeEnergia)
         game.addVisual(jugador)
@@ -37,6 +37,8 @@ object juego {
         keyboard.right().onPressDo({jugador.ataque(derecha)})
         keyboard.up().onPressDo({jugador.ataque(arriba)})
         keyboard.down().onPressDo({jugador.ataque(abajo)})
+        // Especial
+        keyboard.space().onPressDo({especial.tirarEspecial()})
     }
 
     method movimiento() {

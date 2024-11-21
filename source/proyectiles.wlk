@@ -9,6 +9,7 @@ class Proyectil {
     var property danio
     var property image
     var property position
+    const velocidadViaje
 
     method mover(direccion) {
 	    position = direccion.siguientePosicion(position)
@@ -18,7 +19,10 @@ class Proyectil {
         return "evento" + self.identity()
     }
 
-    method disparoHacia(direccion)
+    method disparoHacia(direccion) {
+        self.validarViajeProyectil(direccion)
+        self.mover(direccion)
+    }
 
     method sigueOHayZombie(direccion) {
         const zombiesHacia = managerZombie.zombies().filter({zombie => self.sigueOEsta(direccion, zombie)}) // reotcasr
@@ -45,19 +49,14 @@ class Proyectil {
         }
     }
 
+    method nuevoViaje(dir) { 
+        game.onTick(velocidadViaje, self.nombreEvento() , {self.disparoHacia(dir)})
+    }
+
 }
 
-class Bala inherits Proyectil(danio=25) {
 
-
-    method nuevoViaje(dir) { 
-        game.onTick(120, self.nombreEvento() , {self.disparoHacia(dir)})
-    }
-
-    override method disparoHacia(direccion) {
-        self.validarViajeProyectil(direccion)
-        self.mover(direccion)
-    }
+class Bala inherits Proyectil(danio=25, velocidadViaje=120) {
 
     override method impacto(dir) {
         self.image("bala-impacto-" + dir.toString() + ".png")
@@ -66,21 +65,7 @@ class Bala inherits Proyectil(danio=25) {
 }
 
 
-class BalaEscopeta inherits Proyectil(danio= 75) {
-
-
-    method nuevoViaje(dir) { 
-        game.onTick(120, self.nombreEvento() , {self.disparoHacia(dir)})
-    }
-
-    method imagenEnNumDir(num,direccion) {
-       return "balaEscopeta-" + num.toString() + "-" + direccion.toString() + ".png"
-    }
-
-    override method disparoHacia(direccion) {
-        self.validarViajeProyectil(direccion)
-        self.mover(direccion)
-    }
+class BalaEscopeta inherits Proyectil(danio= 75,velocidadViaje=180) {
 
     override method impacto(dir) {
         self.image("balaEscopetaPrueba-impacto-" + dir.toString() + ".png")
@@ -88,24 +73,17 @@ class BalaEscopeta inherits Proyectil(danio= 75) {
     }
 }
 
-class BolaDeFuego inherits Proyectil(danio=40) {
 
-    method nuevoViaje(dir) { 
-        game.onTick(220, self.nombreEvento() , {self.disparoHacia(dir)})
-    }
-
-    override method disparoHacia(direccion) {
-        self.validarViajeProyectil(direccion)
-        self.mover(direccion)
-    }
+class BolaDeFuego inherits Proyectil(danio=40, velocidadViaje=220) {
 
     override method impacto(dir) {
         self.image("bola-impacto-" + dir.toString() + ".png")
         super(dir)
     } 
 }
-object managerCrater {
 
+
+object managerCrater {
 
     method explosionEnCon(pos,dmg) {
         tablero.alrededoresDe(pos).forEach({pos => self.aparecerCraterEn(pos,dmg)})
@@ -117,6 +95,8 @@ object managerCrater {
         craterNuevo.daniar(dmg)
     }
 }
+
+
 class Crater {
     var property image = "tanqueimpacto.png"
     const property position
@@ -132,6 +112,7 @@ class Crater {
 
 }
 
+
 object managerAcido {
     
     method acidoEnCon(pos, dmg) {
@@ -141,7 +122,9 @@ object managerAcido {
     }
 }
 
+
 class Acido {
+    
     var property image = "arbusto.png"
     const property position
 
@@ -162,5 +145,29 @@ class Acido {
     method identidad() {
         return self.identity().toString()
     }
+
+}
+
+
+class BolaEnergia inherits Proyectil(danio = 100, image="rayoGrande.png",velocidadViaje=150) {
+
+    override method disparoHacia(direccion) {
+        self.validarViajeProyectil(direccion)
+        self.avanzarEspecial(direccion)
+    }
+
+    method avanzarEspecial(direccion) {
+        game.schedule(80,{self.mover(direccion)})
+    }
+
+    override method impacto(dir) {
+        // cambiar por un impacto de rayo
+        self.image("bola-impacto-" + dir.toString() + ".png")
+        super(dir)
+    } 
+}
+
+
+class Baston inherits Proyectil(danio = 100, image= "hacerla.png", velocidadViaje=170) {
 
 }

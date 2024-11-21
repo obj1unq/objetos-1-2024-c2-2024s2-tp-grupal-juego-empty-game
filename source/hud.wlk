@@ -79,31 +79,18 @@ object puntosDeVida {
 
 //----------------------------------------------MUNICION-----------------------------
 
-object cargador {
-    var property  municion = juego.jugador().arma().municion() 
+object hudBalas {
     var property position = game.at(4, 14)
 
+    method balas() {
+        return juego.jugador().arma().municion()
+    }
+
     method image(){
-        return juego.jugador().arma().hudMunicion() + municion.toString() + ".png"
+        return juego.jugador().arma().hudMunicion() + juego.jugador().arma().cargador() + ".png"
     }
     
-    method recargar(balas){
-        juego.jugador().sonidoRecarga()
-        municion += balas
-        municion = municion.min(juego.jugador().arma().municionMaxima()) 
-    }
-
-    method validarAtaque(){
-        if (municion == 0){
-            juego.jugador().sinMunicion()
-            self.error("")
-        }
-    }
-
-    method quitarMunicion(cantidad) {
-        municion -= cantidad
-        managerItems.posiblesBalas(municion)
-    }
+    
 }
 
 
@@ -156,4 +143,25 @@ object barraDeEnergia {
         self.image("energia-"+ energia.toString() + ".png") 
     }
 
+}
+
+object especial {
+
+    var property zombiesAsesinados = 0 
+
+    method tirarEspecial() {
+        self.validarEspecial()
+        self.zombiesAsesinados(0)
+        juego.jugador().lanzarEspecial()
+    }
+
+    method murioZombie() {
+        zombiesAsesinados += 1
+    }
+
+    method validarEspecial() {
+        if (zombiesAsesinados < 6) self.error("")
+    } 
+
+  
 }

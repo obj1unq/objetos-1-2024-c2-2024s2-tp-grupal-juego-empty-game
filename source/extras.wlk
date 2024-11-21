@@ -7,7 +7,12 @@ import posiciones.*
 object managerItems {
     
     const property drops = #{}  
-    
+    var balasEnTablero = 0
+
+    method restarBalasDeTablero() {
+        balasEnTablero -= 1
+    }
+
     // Oro = 25% / Municion = 40% / Vida = 20% / Nada = 15% 
     method generarDrop(posicion) {
         const numero = 0.randomUpTo(100).round()
@@ -16,7 +21,7 @@ object managerItems {
         if (numero <= 25) { 
             self.spawnearOro(0.randomUpTo(3).round().max(1), posicion)
         } else if (numero > 25 and numero <= 65) {
-            self.spawnearMunicionEn(posicion)
+            self.spawnearMunicion(posicion)
         } else if (numero > 65 and numero <= 85) {
             self.spawnearCura(0.randomUpTo(3).round().max(1) , posicion)
         } 
@@ -57,7 +62,8 @@ object managerItems {
         drops.add(nuevaMunicion)
     }
 
-    method spawnearMunicionEn(posicion) {
+    method spawnearMunicion(posicion) {
+        balasEnTablero += 1
         const nuevaMunicion = new Balas(position = posicion)
         game.addVisual(nuevaMunicion)
         drops.add(nuevaMunicion)
@@ -70,8 +76,7 @@ object managerItems {
     }
 
     method siNoHayBalasSoltarle() {
-        const balasEnTablero = drops.filter({d => d.className() == Balas})
-        if (balasEnTablero.isEmpty()) {
+        if (balasEnTablero == 0) {
             self.spawnearMunicionRandom()
         }
     }
@@ -138,9 +143,10 @@ class Oro inherits Drop()  {
 class Balas inherits Drop(image = juego.jugador().visualAmmo()){
 
     method colisionPj() {
-        cargador.recargar(6)
+        juego.jugador().arma().recargar(6)
         game.removeVisual(self)
         managerItems.quitarItem(self)
+        managerItems.restarBalasDeTablero()
     }
 }
 
@@ -157,7 +163,7 @@ object municionActual {
 
     method position() {return game.at(6, game.height() - 1 )}
 
-    method text() {return cargador.municion().toString()}
+    method text() {return juego.jugador().arma().cargador().toString()}
 
     method colisionPj() {}
 

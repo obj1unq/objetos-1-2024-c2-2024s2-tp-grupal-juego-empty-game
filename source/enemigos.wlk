@@ -6,6 +6,7 @@ import personajes.personaje.*
 import sonidos.*
 import proyectiles.*
 import niveles.*
+import hud.*
 
 object managerZombie {
     const property zombies = #{}
@@ -16,6 +17,7 @@ object managerZombie {
 
     method quitarZ(zombie) {
         zombies.remove(zombie)
+        especial.murioZombie()
     }
 
     method spawnearZ(zombie) {

@@ -12,7 +12,6 @@ class Personaje {
     const property vidaBase
     var property vidaActual = vidaBase
     const property valor 
-    const property movimientos
 
     var property team
 
@@ -118,7 +117,7 @@ class Personaje {
     // Preguntar si es necesario dividir en metodos o se puede dejar asi
     method leGanaAEnemigo(enemigo) {
         const ataqueAliado = (self.ataqueBase() - enemigo.defensaBase()).max(0) // Para que no pueda ser negativo el valor
-        const ataqueEnemigo = (enemigo.ataqueBase() - self.defensaBase()).max(0)
+        const ataqueEnemigo = (enemigo.ataqueBase() - self.defensaBase()).max(0)  
     
         const totalPoder = ataqueAliado + ataqueEnemigo
         const probabilidad = if (totalPoder > 0) (ataqueAliado * 100) / totalPoder else 50
@@ -160,7 +159,7 @@ class Personaje {
 
 }
 
-class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 20, valor = 30, movimientos = 5) {
+class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 5, vidaBase = 20, valor = 20) {
 
     const property inventario = #{}
 
@@ -173,7 +172,7 @@ class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 2, vidaBase = 
 }
 
 
-class Mago inherits Personaje(ataqueBase = 2, defensaBase = 1, vidaBase = 12, valor = 5, movimientos = 3) {
+class Mago inherits Personaje(ataqueBase = 5, defensaBase = 2, vidaBase = 12, valor = 11) {
 
 
     method image() {
@@ -184,7 +183,7 @@ class Mago inherits Personaje(ataqueBase = 2, defensaBase = 1, vidaBase = 12, va
 }
 
 
-class Soldado inherits Personaje(ataqueBase = 4, defensaBase = 2, vidaBase = 15, valor = 15, movimientos = 4) {
+class Soldado inherits Personaje(ataqueBase = 6, defensaBase = 4, vidaBase = 15, valor = 15) {
 
     method image(){
         return "soldado-" + team.estado() +".png"
@@ -193,7 +192,7 @@ class Soldado inherits Personaje(ataqueBase = 4, defensaBase = 2, vidaBase = 15,
 
 }
 
-class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 10, valor = 8, movimientos = 3) {
+class Arquero inherits Personaje (ataqueBase = 4, defensaBase = 2, vidaBase = 10, valor = 11) {
     
     method image(){
         return "arquero-" + team.estado() +".png"
@@ -207,7 +206,7 @@ class Arquero inherits Personaje (ataqueBase = 5, defensaBase = 1, vidaBase = 10
 
 }
 
-class Golem inherits Personaje(ataqueBase = 5, defensaBase = 5, vidaBase = 30, valor = 45, movimientos = 2) {
+class Golem inherits Personaje(ataqueBase = 4, defensaBase = 10, vidaBase = 30, valor = 35) {
     
     method image(){
         return "golem-" + team.estado() + ".png"
@@ -224,7 +223,7 @@ class Golem inherits Personaje(ataqueBase = 5, defensaBase = 5, vidaBase = 30, v
 
 }
 
-class Dragon inherits Personaje (ataqueBase = 10, defensaBase = 3, vidaBase = 20, valor = 35, movimientos = 2) {
+class Dragon inherits Personaje (ataqueBase = 9, defensaBase = 4, vidaBase = 20, valor = 30) {
 
     method image(){
         return "dragon-"+ team.estado() + ".png"

@@ -154,9 +154,8 @@ class Nivel {
 
     method inicializar() {
         self.dibujar()
-        constructorOros.instanciarOros(4)
-	    constructorPiedras.instanciarPiedra(3)
-	    constructorHuevos.instanciarHuevos(1)
+        constructorOros.instanciarOros(2)
+	    constructorPiedras.instanciarPiedra(1)
         castillo.inicializar()
         cabezal.inicializar()
         mapa.inicializarAliadosVivos()
@@ -189,18 +188,18 @@ class Nivel {
 
 object nivel1 inherits Nivel {
     const property tablero = 
-    [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,ce],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
+    [[_,_,_,_,_,_,_,o,se,p,_,_,_,_,_,_,_,_,_,ce],
+     [_,_,_,_,_,_,_,_,p,_,_,_,_,_,_,_,_,_,_,_],     
      [_,c,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],     
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,me],     
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,h],     
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,ae],     
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [m,m,m,m,m,m,_,_,_,_,_,_,_,_,_,m,m,m,m,m],
+     [m,m,m,m,m,m,_,_,ae,_,_,_,_,_,_,m,m,m,m,m],
      [_,_,_,_,_,m,m,m,_,_,_,_,_,_,_,m,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,m,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,ae,o,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
@@ -208,7 +207,7 @@ object nivel1 inherits Nivel {
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
      [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]         
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,o,coe,o,_,_,_,_]         
     ].reverse()
 
     override method siguiente() {
@@ -307,5 +306,77 @@ object ce {
         castilloEnemigo.position(position)
         game.addVisual(castilloEnemigo)
         
+    }
+}
+
+object h {
+    method dibujarEn(position) {
+        const huevo = new Huevo(position = position)
+        game.addVisual(huevo)
+        mapa.agregarObjeto(huevo)
+    }
+}
+
+object p {
+    method dibujarEn(position) {
+        const piedra = new Piedra(position = position)
+        game.addVisual(piedra)
+        mapa.agregarObjeto(piedra)
+    }
+}
+
+object o {
+    method dibujarEn(position) {
+        const oro = new Oro(position = position)
+        game.addVisual(oro)
+        mapa.agregarObjeto(oro)
+    }
+}
+
+object coe {
+    method dibujarEn(position) {
+        const comandanteEnemigo = new Comandante(team = enemigo, position = position)
+        game.addVisual(comandanteEnemigo)
+        mapa.agregarEnemigo(comandanteEnemigo)
+    }
+}
+
+object me {
+    method dibujarEn(position) {
+        const magoEnemigo = new Mago(team = enemigo, position = position)
+        game.addVisual(magoEnemigo)
+        mapa.agregarEnemigo(magoEnemigo)
+    }
+}
+
+object se {
+    method dibujarEn(position) {
+        const soldadoEnemigo = new Soldado(team = enemigo, position = position)
+        game.addVisual(soldadoEnemigo)
+        mapa.agregarEnemigo(soldadoEnemigo)
+    }
+}
+
+object ae {
+    method dibujarEn(position) {
+        const arqueroEnemigo = new Arquero(team = enemigo, position = position)
+        game.addVisual(arqueroEnemigo)
+        mapa.agregarEnemigo(arqueroEnemigo)
+    }
+}
+
+object ge {
+    method dibujarEn(position) {
+        const golemEnemigo = new Golem(team = enemigo, position = position)
+        game.addVisual(golemEnemigo)
+        mapa.agregarEnemigo(golemEnemigo)
+    }
+}
+
+object de {
+    method dibujarEn(position) {
+        const dragonEnemigo = new Dragon(team = enemigo, position = position)
+        game.addVisual(dragonEnemigo)
+        mapa.agregarEnemigo(dragonEnemigo)
     }
 }

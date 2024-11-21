@@ -16,11 +16,6 @@ program juego {
 	game.ground("pasto.png")
 	mapa.nivelActual().inicializar()
 
-	//  VISUALES
-
-	const enemigoTest = new Comandante (team=enemigo, position = game.at(4,4))
-	mapa.agregarEnemigo(enemigoTest)
-	game.addVisual(enemigoTest)
 
     // CABEZAL
     keyboard.left().onPressDo({cabezal.mover(izquierda)})

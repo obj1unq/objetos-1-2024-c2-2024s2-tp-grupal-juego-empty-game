@@ -16,7 +16,7 @@ class Objeto {
 }
 class Oro inherits Objeto {
     const property image = "pepitaDeOro.png"
-    const property cantidad = 40 
+    const property cantidad = 20 
   
     override method recogerObjeto() {
         castillo.guardarOro(cantidad)
@@ -69,9 +69,9 @@ object constructorPiedras {
 
     method instanciarPiedra(cantidad) {
         if (cantidad > 0) {
-            const oro = self.construirPiedra(randomizer.emptyPosition())
-            game.addVisual(oro)
-            mapa.agregarObjeto(oro)
+            const piedra = self.construirPiedra(randomizer.emptyPosition())
+            game.addVisual(piedra)
+            mapa.agregarObjeto(piedra)
             self.instanciarPiedra(cantidad - 1)
         }
     }
@@ -90,23 +90,6 @@ class Huevo inherits Objeto {
 
     method solido() {
         return false
-    }
-}
-
-object constructorHuevos {
-
-    method construirHuevo(position) {
-        return new Huevo(position = position)
-    }
-
-
-    method instanciarHuevos(cantidad) {
-        if (cantidad > 0) {
-            const oro = self.construirHuevo(randomizer.emptyPosition())
-            game.addVisual(oro)
-            mapa.agregarObjeto(oro)
-            self.instanciarHuevos(cantidad - 1)
-        }
     }
 }
 

@@ -1,12 +1,14 @@
 import restaurante.*
 import chefs.*
 import comestibles.*
+import factoryIngredientes.*
 import objetosCocina.*
 import posiciones.*
 import objetosParaTests.*
+
 import wollok.game.*
 
-
+//revisar al final::
 object dimension {
 
     const ancho = 10//120

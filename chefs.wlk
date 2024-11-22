@@ -7,8 +7,13 @@ import wollok.game.*
 class Chef inherits Persona(ubicacion = restaurante) {
     var property bandeja = bandejaVacia
 
-     method tengoBandejaVacia() {
+  method tengoBandejaVacia() {
     return bandeja.esVacio()
+  }
+
+  //para eliminar 
+  method llevoAlgo(){
+    return not self.tengoBandejaVacia()
   }
 
    method interactuar() {

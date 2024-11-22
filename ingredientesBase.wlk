@@ -3,15 +3,10 @@ import personaBase.*
 import wollok.game.*
 
 class Ingrediente { 
-
-    //var property position = 
     var property image = null 
     const imgProcesadoFinal = null
     var procesado = false
-    var estadoPosition = game.center()
-//todo:
-    //tener el estado que conozca al chef que lo sostenga
-    // var quienLoSostiene = managerSostenerIngrediente
+    var estadoPosition = null //game.center()
 
     method precio()
 
@@ -24,19 +19,19 @@ class Ingrediente {
    method integraIngredintes() { 
      return false
    }
-//todo:
+
     method fueProcesado() {
         return procesado
     }
-//todo:
+//REVISAR: anda -> refactor muebles
     method serSostenido(chef) {
         estadoPosition = new Sostenido(queLoSostiene = chef)
     }
-//todo:
+//REVISAR: anda -> refactor muebles
     method serDejadoAqui(nuevaPosition){
         estadoPosition = new Apoyado(queLoSostiene = nuevaPosition)
     }
-
+//REVISAR: anda -> refactor muebles
     method position(){
         return estadoPosition.position()
     }
@@ -47,26 +42,19 @@ class Ingrediente {
     }
 
 }
-
-class EstadoPositionIngrediente {
+//REVISAR: anda -> refactor muebles
+class Apoyado {
     const queLoSostiene = null
     
     method position(){
         return queLoSostiene
     }
 }
-
-class Sostenido inherits EstadoPositionIngrediente{
+//REVISAR: anda -> refactor muebles
+class Sostenido inherits Apoyado{
     override method position() {
-        //return super().dondeApunta()
-        return queLoSostiene.adelante()
+        return super().dondeApunta()
     }
-}
-
-class Apoyado inherits EstadoPositionIngrediente{
-    // override method position() {
-    //     return queLoSostiene
-    // }
 }
 
 

@@ -1,25 +1,62 @@
 import mueblesBase.*
 import personaBase.*
 import comestibles.*
+import ingredientesBase.*
 
 import wollok.game.*
 
+class Mesada inherits MuebleParaCocinar(image ="mesada_ph.png") {
 
-class Horno inherits Mueble(image = "oven_0.png") {
+  override method cumpleCondicionRecibir(chef){ //o esta vacio o tiene una pizza
+    return super(chef) || self.tengoPiza()
+  }
+
+  override method recibir(chef){
+    if(self.tengoPiza()){
+      contenido.recibirIngrediente(chef.bandeja())
+      chef.soltar()
+    } else {
+      super(chef)
+    }
+  }
+
+  override method procesarIngredientes(){
+    self.validarProcesar()
+    contenido.serProcesado()
+  }
+
+  method validarProcesar(){
+    if(not self.tieneIngrediente()){
+      self.error("no hay ingrediente que procesar")
+    }
+  }
+
+  method tieneIngrediente(){
+    return not self.estoyLibre() and not self.tengoPiza() //si tiene algo y no es una pizza es un ingrediente
+  }
+}
+
+class Horno inherits MuebleParaCocinar(image = "oven_0.png") {
   var property temperatura = 0
 
-  override method procesarIngredientes(){} //el horno no procesa ingredientes, solo cocina pero no pasa nada
-  
-  override method accionRecibir(chef){
-    super(chef)
+  override method cumpleCondicionRecibir(chef){
+    return super(chef) and self.esPiza(chef.bandeja()) //así solo acepta recibir pizzas
+  }
+
+  override method mensajeErrorRecibir(){
+    return "no puedo recibir algo que no sea una pizza y el horno tiene que estar vacio para recibir"
+  }
+
+  override method accionDeRecibir(){
     self.cocinar()
   }
 
-  override  method puedeRecibir(cosa){ //para poder recibir el horno solo tiene que estar completamente vacio y solo acepta pizzas
-    return not self.tieneAlgo() and self.esPizza(cosa)
+  override method dar(chef){
+    super(chef)
+    temperatura = 0
   }
 
-  method cocinar() { 
+   method cocinar() { 
     game.onTick(2500, "cocinarContenido", {contenido.serCocinada()})
     game.onTick(2500, "subirle temperatura", {self.subirNivelDeHorno()})
   } 
@@ -36,32 +73,18 @@ class Horno inherits Mueble(image = "oven_0.png") {
   method simularFuego() {
     //esto sería mejor que hagamos que aparezca dibujos de humo arriba del horno y ya está
   }
-
 }
 
-class Mesada inherits Mueble(image ="mesada_ph.png") {
+class Tacho inherits Mueble(image = "") {
 
-  override method accionRecibir(chef){
-    const ingrediente = chef.bandeja()
-    if(self.tienePiza()){ //si la mesada tiene una pizza entonces el ingrediente se agrega a la lista de la masa
-      contenido.recibirIngrediente(ingrediente)
-    } else { 
-      super(chef) //sino, el ingrediente se agrega arriba del mueble y listo, se tiene que ver ahí la imagen
-    }  
+  override method usarse(chef){
+     game.removeVisual(chef.bandeja())
+     chef.soltar()
   }
-
 }
 
-class Tacho inherits Mueble(image = ""){
+class MuebleSeparador inherits Mueble(image = ""){
+  override method usarse(chef){}
+} 
 
-  override method procesarIngredientes(){} //el tacho no procesa ingredientes
-
-  override method accionRecibir(chef){
-    chef.bandeja(bandejaVacia) 
-    //remove visual acá? -> deja de existir, se elimina lo dado
-  }
-
-  //el tacho nunca le da nada al chef pq siempre va a aparecer como que no puede dar nada ya que su contenido siempre va a dar vacio porque nunca recibe algo
-
-}
 

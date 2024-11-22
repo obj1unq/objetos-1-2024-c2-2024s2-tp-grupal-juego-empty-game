@@ -106,7 +106,7 @@ class Personaje {
 
     method batalla(enemigo) {
 
-
+    
         if(self.leGanaAEnemigo(enemigo)) { 
             enemigo.morir()
         } else {
@@ -116,12 +116,9 @@ class Personaje {
 
     // Preguntar si es necesario dividir en metodos o se puede dejar asi
     method leGanaAEnemigo(enemigo) {
-        const ataqueAliado = (self.ataqueBase() - enemigo.defensaBase()).max(0) // Para que no pueda ser negativo el valor
-        const ataqueEnemigo = (enemigo.ataqueBase() - self.defensaBase()).max(0)  
-    
-        const totalPoder = ataqueAliado + ataqueEnemigo
-        const probabilidad = if (totalPoder > 0) (ataqueAliado * 100) / totalPoder else 50
-        const numRandom = 0.randomUpTo(100).round()
+
+        const probabilidad = self.ataqueBase() / (self.ataqueBase() + enemigo.defensaBase())
+        const numRandom = 0.randomUpTo(1)
 
         return numRandom < probabilidad
     }

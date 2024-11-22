@@ -1,0 +1,32 @@
+import wollok.game.*
+import personajes.personaje.*
+import enemigos.*
+import extras.*
+import posiciones.*
+import sonidos.*
+import juego.*
+import proyectiles.*
+import hud.*
+
+
+program desvariados {
+
+    //juego.menu()
+    // y todo lo de abajo se ejecutaria despues de accionar en el menu
+
+    juego.tablero()
+
+    juego.hud()
+
+    juego.movimiento()
+
+    juego.ataque()
+
+    juego.sonido()
+
+    juego.persecucion()
+
+    //juego.pausa() (arreglar)
+
+    game.start()
+}

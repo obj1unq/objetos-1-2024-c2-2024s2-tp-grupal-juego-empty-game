@@ -7,6 +7,7 @@ import extras.*
 import posiciones.*
 import sonidos.*
 import hud.*
+import tienda.*
 
 object menu {
     /*
@@ -21,6 +22,7 @@ object juego {
 
     method hud() {
 
+        
         game.addVisual(municionActual)
         game.addVisual(barra)
         game.addVisual(timer)
@@ -29,6 +31,7 @@ object juego {
         game.addVisual(oroObtenido)
         game.addVisual(barraDeEnergia)
         game.addVisual(jugador)
+        game.addVisual(tienda)
 
     }
 
@@ -71,6 +74,10 @@ object juego {
         // testeo spawneo zombies
         //game.onTick(3000, "generarZombiesRandom", {managerZombie.generarZombieAleatorio(randomizadorZombies.posicionAleatoria())})
 
+        //Tienda
+        keyboard.j().onPressDo({tienda.mejorarVida()})
+        //keyboard.k().onPressDo({tienda.mejorarArma()})
+        keyboard.l().onPressDo({tienda.mejorarEnergia()})
         
     }
 

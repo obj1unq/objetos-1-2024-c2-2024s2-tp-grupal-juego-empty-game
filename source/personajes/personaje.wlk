@@ -5,6 +5,7 @@ import extras.*
 import hud.*
 import noel.*
 import dangalf.*
+import tienda.*
 
 class Personaje { 
     //Imagen y posicion
@@ -12,7 +13,7 @@ class Personaje {
     var property position = game.at(5,5)
     //Estadisticas
     var property visualAmmo = self.municionImagen()
-    var property oro = 0
+    var property oro = 10000
     //Propiedades   
     var property arma 
     
@@ -78,7 +79,9 @@ class Personaje {
         oro += valor
     }
 
-    
+    method restarOro(valor){
+        oro = (oro-valor).max(0)
+    }
 
 }
 

@@ -8,8 +8,9 @@ object turno {
     }
 
     method terminarTurno() {
-        mapa.aliados().forEach({aliado => aliado.recargarMovimiento()})
-        mapa.aliados().forEach({aliado => aliado.recargarAtaque()})
+        mapa.nivelActual().gastarTurno()
+        cabezal.recargarMovimiento()
+        cabezal.recargarAtaque()
     }
   
 }

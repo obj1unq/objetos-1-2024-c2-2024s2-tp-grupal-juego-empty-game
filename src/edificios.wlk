@@ -5,7 +5,7 @@ import objetos.*
 
 
 object castillo {
-    var property position = game.at(1,0)
+    var property position = game.at(1,5)
     var property oroEnReserva = 40
     var property piedrasEnReserva = 2
     var property huevosEnReserva = 0

@@ -4,6 +4,7 @@ import direcciones.*
 import map.*
 import objetos.*
 import edificios.*
+import turno.*
 
 object cabezal {
 
@@ -11,9 +12,29 @@ object cabezal {
   var property position = game.origin()
   var property modoCabezal = cabezalNormal
   var property seleccionActualEnemiga = null
+  var property yaMoviEnElTurno = false
+  var property atacoEsteTurno = false
+
 
   method image(){
     return modoCabezal.image()
+  }
+
+  method efectoAtacar(){
+    atacoEsteTurno = true
+    self.setModo(cabezalNormal)
+  }
+
+  method recargarAtaque(){
+    atacoEsteTurno = false
+  }
+
+  method efectoMover() {
+    yaMoviEnElTurno = true
+  }
+  
+  method recargarMovimiento() {
+    yaMoviEnElTurno = false
   }
 
   method inicializar() {
@@ -80,10 +101,17 @@ object cabezalNormal {
 
   //SELECCIONAR
   method accionar() {
+    self.verificarMovimiento()
     mapa.validarSeleccionAliada(cabezal.position())
     cabezal.setAliado(cabezal.obtenerPjAliado())
     cabezal.setModo(cabezalSeleccion)
   }
+
+  method verificarMovimiento() {
+    if (cabezal.yaMoviEnElTurno()) {
+      self.error("Ya moviste una tropa en este turno!")
+      }
+    }
 
 }
 
@@ -95,11 +123,10 @@ object cabezalSeleccion {
 
   //MOVER
   method accionar() {
-    cabezal.seleccionActualAliada().verificarMovimiento()
     cabezal.seleccionActualAliada().mover(cabezal.position())
     cabezal.seleccionActualAliada().enemigosAlAlcance()
     cabezal.setAliado(null)
-    cabezal.setModo(cabezalNormal)
+    cabezal.setModo(cabezalBatalla)
   }
 
   method cancelar() {
@@ -118,16 +145,11 @@ object cabezalBatalla {
 
   //SELECCIONAR ENEMIGO
   method accionar() {
-    mapa.validarSeleccionAliada(cabezal.position()) // 
+    mapa.validarSeleccionAliada(cabezal.position()) 
     cabezal.setAliado(cabezal.obtenerPjAliado())
     cabezal.setModo(cabezalAtaque)
   }
 
-  method verificarEnemigos() {
-    if (cabezal.seleccionActualAliada.enemigosAlAlcance().size() < 1) {
-      self.error("No hay nadie para atacar!")
-    }      
-  }
 
 }
 
@@ -141,6 +163,7 @@ object cabezalAtaque {
     mapa.validarSeleccionEnemiga(cabezal.position())
     cabezal.setEnemigo(cabezal.obtenerPjEnemigo())
     cabezal.seleccionActualAliada().atacar(cabezal.seleccionActualEnemiga())
+    turno.terminarTurno() 
   }
 
 }

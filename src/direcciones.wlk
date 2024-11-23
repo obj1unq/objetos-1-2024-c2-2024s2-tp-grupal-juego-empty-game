@@ -82,7 +82,7 @@ object randomizer inherits Randomizer {
 		
 	override method position() {
 		return 	game.at( 
-					(0 .. game.width() - 1 ).anyOne(),
+					(0 .. game.width() - 11 ).anyOne(),
 					(0..  game.height() - 1).anyOne()
 		) 
 	}
@@ -95,7 +95,7 @@ object randomizerLimitado inherits Randomizer{
 		
 	override method position() {
 		return 	game.at( 
-					(0 .. game.width() - 1 ).anyOne(),
+					(0 .. game.width() - 11 ).anyOne(),
 					(0..  game.height() - 16).anyOne()
 		) 
 	}

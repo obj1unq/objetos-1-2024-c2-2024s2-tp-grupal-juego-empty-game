@@ -18,18 +18,6 @@ class Personaje {
     var property position = game.at(0,0) //me pedia inicializarlo, pero spawnean en el castillo.
 
 
-    var property fueMovido = false
-    var property atacoEsteTurno = false
-
-    method efectoMover() {
-        fueMovido = true
-    }
-    
-
-    method efectoAtacar(){
-        atacoEsteTurno = true
-        cabezal.setModo(cabezalNormal)
-    }
 
 
     method enemigosAlAlcance() {
@@ -54,7 +42,7 @@ class Personaje {
     method mover(posicion) {
         self.validarMoverPersonaje(posicion)
         position = posicion
-        self.efectoMover()
+        cabezal.efectoMover()
         self.recogerObjeto(posicion)
         self.pasaAlSiguienteNivelSiSePuede(posicion)
     }
@@ -82,26 +70,33 @@ class Personaje {
             self.error("Primero derrota a los enemigos cercanos a tu alcance, sino no puedo recoger el objeto!")
         }
     }
-
     
-    method verificarMovimiento() {
-        if (fueMovido) {
-            self.error("Ya me movi este turno")
+
+    method atacar(enemigo) {
+        self.validarSiPuedeAtacar(enemigo)
+        self.batalla(enemigo)
+        cabezal.efectoAtacar()
+    }
+    
+    method validarSiPuedeAtacar(enemigo) {
+        self.validarSiHayEnemigosAlAlcance()
+        self.validarSiEsUnEnemigoAlAlcance(enemigo)
+    }
+
+    method validarSiHayEnemigosAlAlcance() {
+        return if (not self.hayEnemigosAlAlcance()) {
+            self.error("No tengo enemigos al alcance para atacar!")
         }
     }
 
-    method recargarMovimiento() {
-      fueMovido = false
+    method validarSiEsUnEnemigoAlAlcance(enemigo) {
+        return if (not self.esUnEnemigoAlAlcance(enemigo)) {
+            self.error("El enemigo que intentas atacar no esta a tu alcance!")
+        }
     }
 
-    method recargarAtaque(){
-        atacoEsteTurno = false
-    }
-
-    method atacar(enemigo) {
-        self.validarAtaque()
-        self.batalla(enemigo)
-        self.efectoAtacar()
+    method esUnEnemigoAlAlcance(enemigo) {
+        return self.enemigosAlAlcance().contains(enemigo)
     }
 
     method batalla(enemigo) {
@@ -124,11 +119,7 @@ class Personaje {
     }
 
 
-    method validarAtaque(){
-        if (atacoEsteTurno){
-            self.error("Ya ataque este turno")
-        }
-    }
+    
 
     method morir() {
         mapa.quitar(self)
@@ -151,7 +142,7 @@ class Personaje {
     }
 
     method stats() {
-      game.say(self, "Ataque: " + ataqueBase + ", Vida: " + vidaBase + ", Defensa: " + defensaBase + "Puede mover: " + not fueMovido)
+      game.say(self, "Ataque: " + ataqueBase + ", Vida: " + vidaBase + ", Defensa: " + defensaBase + ", Puede mover: " + not cabezal.yaMoviEnElTurno())
     }
 
 }
@@ -162,7 +153,7 @@ class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 5, vidaBase = 
 
 
     method image(){
-        return "comandante-" + team.estado() + ".png"
+        return "co-" + team.estado() + ".png"
     }
 
 
@@ -173,7 +164,7 @@ class Mago inherits Personaje(ataqueBase = 5, defensaBase = 2, vidaBase = 12, va
 
 
     method image() {
-        return "mage-" + team.estado()+".png"
+        return "mg-" + team.estado()+".png"
     }
   
 
@@ -183,7 +174,7 @@ class Mago inherits Personaje(ataqueBase = 5, defensaBase = 2, vidaBase = 12, va
 class Soldado inherits Personaje(ataqueBase = 6, defensaBase = 4, vidaBase = 15, valor = 15) {
 
     method image(){
-        return "soldado-" + team.estado() +".png"
+        return "so-" + team.estado() +".png"
     }
 
 
@@ -192,7 +183,7 @@ class Soldado inherits Personaje(ataqueBase = 6, defensaBase = 4, vidaBase = 15,
 class Arquero inherits Personaje (ataqueBase = 4, defensaBase = 2, vidaBase = 10, valor = 11) {
     
     method image(){
-        return "arquero-" + team.estado() +".png"
+        return "ar-" + team.estado() +".png"
     }
 
     override method enemigosAlAlcance(){
@@ -206,7 +197,7 @@ class Arquero inherits Personaje (ataqueBase = 4, defensaBase = 2, vidaBase = 10
 class Golem inherits Personaje(ataqueBase = 4, defensaBase = 10, vidaBase = 30, valor = 35) {
     
     method image(){
-        return "golem-" + team.estado() + ".png"
+        return "go-" + team.estado() + ".png"
     }
 
     override method condicionParaSpawn() {
@@ -223,7 +214,7 @@ class Golem inherits Personaje(ataqueBase = 4, defensaBase = 10, vidaBase = 30, 
 class Dragon inherits Personaje (ataqueBase = 9, defensaBase = 4, vidaBase = 20, valor = 30) {
 
     method image(){
-        return "dragon-"+ team.estado() + ".png"
+        return "dr-"+ team.estado() + ".png"
     }
 
     override method condicionParaSpawn() {

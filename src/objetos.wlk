@@ -47,7 +47,7 @@ object constructorOros {
 }
 
 class Piedra inherits Objeto {
-    const property image = "piedra.png"
+    const property image = "pi.png"
     const property cantidad = 1
   
     override method recogerObjeto() {

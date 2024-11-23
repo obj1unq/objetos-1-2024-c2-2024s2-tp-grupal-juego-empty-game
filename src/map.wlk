@@ -145,7 +145,20 @@ object mapa {
 
 }
 
+object hud{
+    var property position = null
 
+    
+    method image(){
+        return "estadisticas.png"
+    }
+
+    method inicializar() {
+        position = game.at(15, 0)
+        game.addVisual(self)
+    }
+
+}
 
 class Nivel {
 
@@ -162,6 +175,7 @@ class Nivel {
         castillo.inicializar()
         cabezal.inicializar()
         mapa.inicializarAliadosVivos()
+        hud.inicializar()
     }
 
 

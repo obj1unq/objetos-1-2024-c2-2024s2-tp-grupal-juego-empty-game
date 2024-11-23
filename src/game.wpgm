@@ -13,7 +13,7 @@ program juego {
 	//  CONFIG	
 	game.title("FantasyWorld")
     game.cellSize(50)
-	game.boardGround("fond.png")
+	game.ground("pasto.png")
 	mapa.nivelActual().inicializar()
 	
 	

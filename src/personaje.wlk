@@ -18,6 +18,7 @@ object personaje {
 	const cantPocionesPermitidas = 3
 	const property bolsa = []
 	var property armaActual = mano //porque empieza con bolsa vacía
+	var property turnosAturdido = 0
 
 	method position() {
 		return position

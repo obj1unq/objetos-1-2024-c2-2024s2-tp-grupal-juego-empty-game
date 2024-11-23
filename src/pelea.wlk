@@ -26,26 +26,6 @@ object combate {
         self.entidadAtacaOTerminaCombate() //acá se valida si el que ahora tiene el turno sigue con vida y, si es así, este realiza su ataque
     }
 
-    /* implementado así, causaba bug donde, dps de matar enemigo, el segundo enemigo al que te enfrentabas golpeaba 2 veces
-    también causaba que las animaciones de muerte de los enemigos se cortaran antes porque tiraba self.error antes de que
-    estas se pudieran ejecutar en su totalidad
-    method entidadAtaca() {  
-        self.revisarFinDeCombate()      
-        //game.schedule(800, {self.validarCombate()}) //
-        self.validarCombate()
-        //game.schedule(805, {entidadAtacando.atacarPre()}) //
-        entidadAtacando.atacarPre()
-    }
-
-    method revisarFinDeCombate() {
-        if(entidadAtacando.salud() <= 0) {
-            hayCombate = false
-            barraEstadoPeleas.desaparecerJuntoADemasBarras()
-            entidadAtacando.morir() //ACÁ PARECE ESTAR EL ERROR. 
-        }
-    }
-    */
-
     method entidadAtacaOTerminaCombate() {  
         if(entidadAtacando.salud() <= 0) {
             hayCombate = false

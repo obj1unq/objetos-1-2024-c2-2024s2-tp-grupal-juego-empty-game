@@ -112,10 +112,25 @@ class Personaje {
     // Preguntar si es necesario dividir en metodos o se puede dejar asi
     method leGanaAEnemigo(enemigo) {
 
-        const probabilidad = self.ataqueBase() / (self.ataqueBase() + enemigo.defensaBase())
         const numRandom = 0.randomUpTo(1)
 
-        return numRandom < probabilidad
+        return numRandom < self.probabilidadDeBatalla(enemigo) 
+    }
+
+    method probabilidadDeBatalla(enemigo) {
+        return if (self.enemigoEstaARangoDos(enemigo) && not enemigo.esUnEnemigoAlAlcance(self)) {
+            self.probabilidad(enemigo) + 0.12
+        } else {
+            self.probabilidad(enemigo)
+        }
+    }
+
+    method enemigoEstaARangoDos(enemigo) {
+        return self.enemigosAlAlcance(direcciones.principales(), 2).contains(enemigo)
+    }
+
+    method probabilidad(enemigo) {
+        return self.ataqueBase() / (self.ataqueBase() + enemigo.defensaBase())
     }
 
 

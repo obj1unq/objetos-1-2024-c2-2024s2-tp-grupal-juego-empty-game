@@ -109,7 +109,7 @@ object cabezalNormal {
 
   method verificarMovimiento() {
     if (cabezal.yaMoviEnElTurno()) {
-      self.error("Ya moviste una tropa en este turno!")
+      cabezal.error("Ya moviste una tropa en este turno!")
       }
     }
 

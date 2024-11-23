@@ -80,3 +80,16 @@ object animacionMuerte inherits Animacion {
     }
 
 }
+
+//Solo para el Jefe
+object animacionHabilidad inherits Animacion {
+
+    override method maxFrame(entidad) {
+        return 4//numero aleatorio aun no se cuantas usa
+    }
+
+    method tipo() {
+        return "habilidad"
+    }
+
+}

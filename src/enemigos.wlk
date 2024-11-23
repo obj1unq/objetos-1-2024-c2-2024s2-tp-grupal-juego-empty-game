@@ -106,6 +106,7 @@ class Enemigo {
       
 }
 
+/////////////  JEFE FINAL ///////////////////////////
 
 class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el turno requerido sea 6 porque pensaba en una hab tocha
                                                               // y en la necesidad de tener que matarlo antes de esta
@@ -126,6 +127,16 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
         return  fase + animacion.tipo() + frame + "32Bits.png"
     }
 
+    override method utilizarHabilidad() {
+        self.frame(0)
+        self.animacion(animacionHabilidad)
+        game.schedule(800, {self.habilidadARealizar()})
+        game.schedule(805, {self.frame(0)})
+        game.schedule(805, {self.animacion(animacionEstatica)})
+    }
+
+    method habilidadARealizar()
+
 }
 
 //FASES DEL JEFE // DATOS DE PRUEBA
@@ -135,7 +146,7 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
 
 object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 300 ) {
 
-    override method utilizarHabilidad() { //bola de energia
+    override method habilidadARealizar() { //bola de energia
         objetivoADestruir.recibirDanho(150)
     }
 
@@ -147,15 +158,16 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
 
 object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500 ) {
 
-    override method utilizarHabilidad() { //Acá quiero que el personaje pierda dos turnos, pero como está implementándolo
+    override method habilidadARealizar() { //Acá quiero que el personaje pierda dos turnos, pero como está implementándolo
                                           //Franco en otra branch me espero :)
         
     }
 
     override method morir() {
-        self.frame(0)
-        self.animacion(animacionMuerte)
-        game.schedule(800, {game.removeVisual(self)})
+        // self.frame(0)
+        // self.animacion(animacionMuerte)
+        // game.schedule(800, {game.removeVisual(self)})
+        super()
         game.schedule(1010, {self.terminarJuego()})
     }
     
@@ -166,6 +178,8 @@ object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud 
         game.stop()
     }
 }
+
+/////////////  OJO VOLADOR ///////////////////////////
 
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
 
@@ -226,6 +240,8 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
 
 }
 
+/////////////  ESQUELETO ///////////////////////////
+
 class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
 
     const vision
@@ -284,6 +300,8 @@ object visionIzquierda {
     }
 
 }
+
+/////////////  GOBLIN ///////////////////////////
 
 class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
 

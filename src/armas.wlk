@@ -55,8 +55,8 @@ class ArmaEncontrable inherits Arma {
     }
 
     // Para test
-    method text(){ return "Dur: " + self.durabilidad().toString() + "\nLvl: " + nivel.toString()}
-    method textColor() = paleta.gris()
+    /* method text(){ return "Dur: " + self.durabilidad().toString() + "\nLvl: " + nivel.toString()}
+    method textColor() = paleta.gris() */
 }
 
 class Espada inherits ArmaEncontrable {

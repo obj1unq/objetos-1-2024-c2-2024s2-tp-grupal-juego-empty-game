@@ -86,7 +86,10 @@ object dungeon {
     method dibujar(){
     //OBJETOS CON LOS QUE NO SE INTERACTUA
 	game.addVisual(gestorDeFondo)
-	game.addVisual(listaDeObjetos)
+	game.addVisual(indicadorDeObjetos)
+	game.addVisual(primeraArma)
+	game.addVisual(segundaArma)
+	game.addVisual(terceraArma)
 	game.addVisual(salud)
 	game.addVisual(vidas)
 	game.addVisual(pociones)

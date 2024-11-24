@@ -37,9 +37,6 @@ program rpgPorTurnos {
 	//randomizer.agregarArmaRandom()
 	//randomizer.agregarArmaRandom()
 
-    //NIVEL
-    nivel1.dibujar()
-    game.addVisual(enemigosAsesinadosNivelActual)
 
 	//fabricaDePocion.agregarNuevaPocion()
 	

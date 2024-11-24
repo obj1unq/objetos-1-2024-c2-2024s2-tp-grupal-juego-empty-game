@@ -130,7 +130,7 @@ object g { // goblin
 
 object e{ //esqueleto
     method dibujarEn(position){
-        fabricaDeEsqueleto.agregarNuevoEnemigo(position, 200, 43,  visionDerecha)
+        fabricaDeEsqueleto.agregarNuevoEnemigo(position, 200, 43,  3)
     }
 }
 

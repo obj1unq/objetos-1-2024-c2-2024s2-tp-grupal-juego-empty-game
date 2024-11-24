@@ -1,23 +1,20 @@
-import restaurante.*
-import chefs.*
-import comestibles.*
 import factoryIngredientes.*
-import objetosCocina.*
 import posiciones.*
-import objetosParaTests.*
+import mapaObjetos.*
 
 import wollok.game.*
 
 //revisar al final::
 object dimension {
 
-    const ancho = 10//120
-    const largo = 10//60
+    const ancho = 135 //10
+    const largo = 75 //10 
 
 
     method tamanioMapa() {
-    game.height(largo)
-    game.width(ancho)
+        game.height(largo)
+        game.width(ancho)
+        game.cellSize(10)
     }
 }
 
@@ -33,39 +30,45 @@ object teclas{
 
     method accion(){
     keyboard.q().onPressDo({remy.interactuar()})
+    keyboard.w().onPressDo({remy.procesar()})
     }
 }
 
 object imagenes {
 
-    method restauranteIng(){
+    method restauranteImg(){
         game.boardGround("restaurante.png")
-    }
-
-    method ingredientesImg(){
-        game.addVisual(estacionTomate)
-        game.addVisual(estacionQueso)
-        game.addVisual(estacionMasa)
-        game.addVisual(estacionAceituna)
-        game.addVisual(estacionAtun)
-        game.addVisual(estacionHuevo)
-        game.addVisual(estacionHongo)
-    }
-
-    method hornoImg(){ //hornos
-        game.addVisual(horno)
-        game.addVisual(horno2)
     }
 
     method chefImg(){
         game.addVisual(remy)
     }
 
-    method mesadaImg(){ //mesadas
+    //separar mejor en mubles parte arriba y muebles parte abajo por el tema de sobreposicion de imagenes con el chef
 
-        game.addVisual(mesada)
+    method mueblesArribaImg(){
+        game.addVisual(estacionTomate)
+        game.addVisual(estacionMasa)
+        game.addVisual(mesada1)
         game.addVisual(mesada2)
+        game.addVisual(tacho)
+        game.addVisual(horno1)
+        game.addVisual(mesada3)
+        game.addVisual(horno2)
+        game.addVisual(estacionQueso)
+    }
+
+    method mueblesAbajoImg(){
+        game.addVisual(mesada4)
+        game.addVisual(mesada5)
+        game.addVisual(estacionAceituna)
+        game.addVisual(estacionHuevo)
+        game.addVisual(estacionHongo)
+        game.addVisual(mesada6)
+        game.addVisual(estacionAtun)
     }
 
 }
+
+object acciones{} //para los on tick de la factory de clientes?
     

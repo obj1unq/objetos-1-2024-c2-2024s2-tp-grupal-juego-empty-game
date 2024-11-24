@@ -1,52 +1,33 @@
-import restaurante.*
-import personaBase.*
-import posiciones.*
-import clientes.*
-import chefs.*
-import comestibles.*
-import ingredientesBase.*
-import factoryIngredientes.*
-import objetosCocina.*
-import mueblesBase.*
-import objetosParaTests.*
+import mapaObjetos.*
 import mapa.*
- 
-//TODO : revisar
+
 
 import wollok.game.*
 
+//LAS INTERACCIONES SI ANDAN SOLO QUE UNICO DETALLITO QUE SE PODRÍA CAMBIAR DESPUÉS SI PUEDO ES QUE EL MUEBLE SE TRABAJE CON UN AREA MÁS QUE CON UNA POSICION ESPECIICA PORQUE TENES QUE DARLE CLICK EN UN LUGAR MEDIO ESPECIFICO A LOS OBJETOS PARA INTERACTUAR
+
+//faltan las acciones que inicien los ontick y eso   -> para la creacion de clientes
 
 program wollocook {
     
    // tamaño mapa
     dimension.tamanioMapa()
-    
 
     //teclas
     teclas.movimiento()
     teclas.accion()
 
     //restaurante
-    imagenes.restauranteIng()
+    imagenes.restauranteImg()
+
+   //muebles de arriba
+    imagenes.mueblesArribaImg()
 
     //chef
     imagenes.chefImg()
 
-    //ingredientes
-   imagenes.ingredientesImg()
-
-   //muebles
-    //imagenes.muebles() -> todos los muebles
-
-
-
-
-
-    //horno
-   imagenes.hornoImg()
-   
-    //mesada
-    imagenes.mesadaImg()
+    //muebles de abajo
+    imagenes.mueblesAbajoImg()
 
     game.start()
 }

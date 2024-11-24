@@ -1,12 +1,14 @@
 import posiciones.*
 import clientes.*
+import mapaObjetos.*
+
 import wollok.game.*
-import restaurante.*
+
 
 object adminClientes {
     const factories = #{factoryNormal, factoryPaciente, factoryQuisquilloso}
     const hayCliente = false //solo puede haber 1 cliente a la vez
-    const ubicacion = restaurante
+    const ubicacion = restaurante1
 
     method iniciarClientes() {
         game.onTick(2000, "iniciar", {self.crearCliente()})
@@ -23,9 +25,6 @@ object adminClientes {
             game.addVisual(nuevoCliente)
             nuevoCliente.orientacion(izquierda)
             nuevoCliente.hacerPedido()
-
-            //nuevoCliente.generarPedido()
-            //nuevoCliente.esperarPedido()
         }
     }
 

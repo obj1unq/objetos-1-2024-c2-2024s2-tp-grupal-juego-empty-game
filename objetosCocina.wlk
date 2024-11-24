@@ -5,7 +5,7 @@ import ingredientesBase.*
 
 import wollok.game.*
 
-class Mesada inherits MuebleParaCocinar(image ="mesada_ph.png") {
+class Mesada inherits MuebleParaCocinar(image ="mesada_a.png") {
 
   override method cumpleCondicionRecibir(chef){ //o esta vacio o tiene una pizza
     return super(chef) || self.tengoPiza()
@@ -36,7 +36,7 @@ class Mesada inherits MuebleParaCocinar(image ="mesada_ph.png") {
   }
 }
 
-class Horno inherits MuebleParaCocinar(image = "oven_0.png") {
+class Horno inherits MuebleParaCocinar(image = "hornoParaPizza.png") {
   var property temperatura = 0
 
   override method cumpleCondicionRecibir(chef){
@@ -75,7 +75,7 @@ class Horno inherits MuebleParaCocinar(image = "oven_0.png") {
   }
 }
 
-class Tacho inherits Mueble(image = "") {
+class Tacho inherits Mueble(image = "tacho.png") {
 
   override method usarse(chef){
      game.removeVisual(chef.bandeja())

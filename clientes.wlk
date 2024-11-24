@@ -1,5 +1,4 @@
 import personaBase.*
-import restaurante.*
 import comestibles.*
 import objetosRecepcion.*
 import adminClientes.* 
@@ -7,7 +6,7 @@ import adminClientes.*
 import wollok.game.*
 
 
-class Cliente inherits Persona(ubicacion = restaurante, position = game.at(8,4)){ //la position esa es un placeholder -> la posicion en la que se inician debería ser en donde estaría la "puerta" -> para el gestor de clientes
+class Cliente inherits Persona(position = game.at(8,4)){ //la position esa es un placeholder -> la posicion en la que se inician debería ser en donde estaría la "puerta" -> para el gestor de clientes
     var pedidoQueEspero = []
     var emocion = neutral 
     var nivelDePaciencia = null //depende del tipo de cliente

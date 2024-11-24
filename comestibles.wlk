@@ -14,10 +14,34 @@ class Masa inherits Ingrediente( image = "maasa_inicial.png", imgProcesadoFinal 
       //true
     }
 
+    override method serSostenido(chef) {
+        super(chef)
+        self.llevarseIngredientesConsigo(chef)
+    }
+
     method recibirIngrediente(ingrediente){
         self.validarRecibirIngrediente(ingrediente)
         ingredientes.add(ingrediente)
-        ingrediente.serDejadoAqui(self.position())
+        ingrediente.serDejadoAqui(self.position()) 
+    }
+
+    method llevarseIngredientesConsigo(chef){
+         ingredientes.forEach({i => i.serSostenido(chef)})
+         //estadoPosition = new Sostenido(queLoSostiene = chef)
+    }
+
+    override method serDejadoAqui(nuevaPosition){
+        super(nuevaPosition)
+        self.dejarIngredientesConsigo(nuevaPosition)
+    }
+
+    method dejarIngredientesConsigo(nuevaPosition){
+        ingredientes.forEach({i => i.serDejadoAqui(nuevaPosition)})
+    }
+
+    override method eliminarConIngredientes(){
+        ingredientes.forEach({i => game.removeVisual(i)})
+        ingredientes.clear()
     }
 
     override method precio(){
@@ -143,7 +167,8 @@ class EstadosTomate{
     }
 
     method imgEstado(tomate){
-        return estadoImg
+        return tomate.image(estadoImg)
+        //estadoImg
     }
 
     method resultadoDeProcesamiento(tomate)

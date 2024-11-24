@@ -23,15 +23,15 @@ class Ingrediente {
     method fueProcesado() {
         return procesado
     }
-//REVISAR: anda -> refactor muebles
+
     method serSostenido(chef) {
         estadoPosition = new Sostenido(queLoSostiene = chef)
     }
-//REVISAR: anda -> refactor muebles
+
     method serDejadoAqui(nuevaPosition){
         estadoPosition = new Apoyado(queLoSostiene = nuevaPosition)
     }
-//REVISAR: anda -> refactor muebles
+
     method position(){
         return estadoPosition.position()
     }
@@ -41,8 +41,10 @@ class Ingrediente {
         procesado = true
     }
 
+    method eliminarConIngredientes(){}
+
 }
-//REVISAR: anda -> refactor muebles
+
 class Apoyado {
     const queLoSostiene = null
     
@@ -50,11 +52,12 @@ class Apoyado {
         return queLoSostiene
     }
 }
-//REVISAR: anda -> refactor muebles
+
 class Sostenido inherits Apoyado{
     override method position() {
         return super().dondeApunta()
     }
 }
+
 
 

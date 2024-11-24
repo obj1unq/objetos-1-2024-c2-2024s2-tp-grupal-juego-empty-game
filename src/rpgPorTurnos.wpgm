@@ -9,14 +9,20 @@ import armas.*
 import paredes.*
 import pelea.*
 import mapa.*
+import niveles.*
 
 program rpgPorTurnos {
-	game.title("RPG por turnos de nombre a confirmar")
-	game.height(25) 		
-	game.width(30) 			
-	game.cellSize(32)
 
-	//OBJETOS CON LOS QUE NO SE INTERACTUA
+	game.title("RPG por turnos de nombre a confirmar")
+
+	//game.height(25) 		
+	//game.width(30) 			
+	game.cellSize(32)
+    dungeon.dibujar()
+    nivel1.dibujar()
+
+/* se movio a dungeon 	
+//OBJETOS CON LOS QUE NO SE INTERACTUA
 	game.addVisual(gestorDeFondo)
 	game.addVisual(indicadorDeObjetos)
 	game.addVisual(primeraArma)
@@ -28,19 +34,24 @@ program rpgPorTurnos {
 	game.addVisual(barraFuerza)
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
-	randomizer.agregarArmaRandom()
-	randomizer.agregarArmaRandom()
+	//randomizer.agregarArmaRandom()
+	//randomizer.agregarArmaRandom()
 
-	fabricaDePocion.agregarNuevaPocion()
+    //NIVEL
+    nivel1.dibujar()
+    game.addVisual(enemigosAsesinadosNivelActual)
+
+	//fabricaDePocion.agregarNuevaPocion()
 	
 	//PERSONAJE
 	game.addVisual(personaje)
+    game.addVisual(puerta) */
 
 	//OBJETOS CON LOS QUE SE INTERACTUA
-	fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(26,7), 150, 40)
+	/* fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(26,7), 150, 40)
 	fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15,14), 95, 37)
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, 2) 
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, 2) 
+	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, visionDerecha) 
+	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda)  */
 	//¿el que más vida tiene es el que más daño causa? ¿no es too much?
 	
 	//TECLAS MOVIMIENTO
@@ -61,6 +72,8 @@ program rpgPorTurnos {
 	//ANIMACION
 	game.onTick(200, "animacion", {dungeon.animacionEnemigos()})
 	game.onTick(200, "animacion", {personaje.cambiarAnimacion()})
+
+
 
 	game.start()
 }

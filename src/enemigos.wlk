@@ -17,6 +17,7 @@ class Enemigo {
     var property cantidadDeVeneno = 0
     const danhoPorVeneno = 20
 
+
     method position() {
         return position
     }
@@ -58,12 +59,12 @@ class Enemigo {
     }
     
     method realizarAtaqueNormalOHabilidad() { 
-        if(acumuladorDeTurnos < turnoRequeridoParaHabilidad) {
+        if(acumuladorDeTurnos < turnoRequeridoParaHabilidad) { // habilidad basica
             acumuladorDeTurnos += 1
             objetivoADestruir.recibirDanho(danhoBase)
             barraEstadoPeleas.image("barraEnemigoAtaqueComun.png")
-        } else {
-            acumuladorDeTurnos = 0
+        } else {    //habilidad especial
+            acumuladorDeTurnos = 0  
             self.utilizarHabilidad()
         }
     }
@@ -80,6 +81,10 @@ class Enemigo {
     }
 
     method morir() {
+        personaje.sumarEnemigoAsesinado() // para pasar de nivel
+        
+        dungeon.abrirPuertaSiSePuede()
+
         self.frame(0)
         self.animacion(animacionMuerte)
         game.schedule(800, {game.removeVisual(self)})
@@ -117,7 +122,7 @@ class Enemigo {
       
 }
 
-class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 3) {
+class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 5) {
 
     //ANIMACION Y VISUAL
     

@@ -4,6 +4,7 @@ import randomizer.*
 import paleta.*
 import enemigos.*
 import mapa.*
+import niveles.*
 
 object dungeon {
 
@@ -11,6 +12,10 @@ object dungeon {
 
     method registrarEnemigo(enemigo) {
         enemigos.add(enemigo)
+    }
+
+    method removerEnemigos(){
+        enemigos.forEach( {e => enemigos.remove(e) } )
     }
 
     method validarDentro(posicion) {
@@ -40,6 +45,62 @@ object dungeon {
     method animacionEnemigos(){
         enemigos.forEach({enemigo => enemigo.cambiarAnimacion()})
     }
+    
+    //Pasar nivel
+    var nivelActual = niveles.get(nivelNum)
+    var nivelNum = 0
+    const niveles = [nivel1, nivel2, arenaJefe]
+
+
+
+    method abrirPuertaSiSePuede(){
+        if(personaje.enemigosAsesinados() >= nivelActual.enemigosSpawneados()){
+            puerta.abrirPuerta()
+            console.println("estaAbierta")
+        }
+    
+    }
+
+    method cerraPuerta(){
+        puerta.reiniciarPuerta()
+        console.println("estaCerrada")
+    }
+
+    method siguienteNivel(){ 
+        nivelNum = (nivelNum + 1 ) % 3
+    }
+
+    method pasarNivel(){
+        self.removerEnemigos()  //sin esto la lista de enemigos de la dungeon tiene enemigos dentro que se cargar invisibles si Quedan despues de pasar de nivel
+        console.println("nivel= " + nivelActual.toString())
+        nivelActual.pasarNivel()
+        nivelActual = niveles.get(nivelNum)
+        console.println("nivelSiguiente= " + nivelActual.toString())
+    }
+
+    method nivelActual(){
+        return nivelActual
+    }
+
+    //Dibujar
+    method dibujar(){
+    //OBJETOS CON LOS QUE NO SE INTERACTUA
+	game.addVisual(gestorDeFondo)
+	game.addVisual(listaDeObjetos)
+	game.addVisual(salud)
+	game.addVisual(vidas)
+	game.addVisual(pociones)
+	game.addVisual(barraFuerza)
+
+
+    game.addVisual(enemigosAsesinadosNivelActual)
+
+	
+	//PERSONAJE
+	game.addVisual(personaje)
+    game.addVisual(puerta)
+    }
+
 
 }
 
@@ -123,7 +184,7 @@ object terceraArma inherits VisualArmaDeBolsa(posBolsa=3) {
 ////////////////////////////////////////
 
 class Pocion {
-    const property position = randomizer.posicionRandomDePocion()
+    const property position //= randomizer.posicionRandomDePocion()
     const property image = "pocion-32Bits.png"
 
     // El personaje colisiona con la poción y su salud aumenta
@@ -136,8 +197,8 @@ class Pocion {
 
 object fabricaDePocion {
 
-    method agregarNuevaPocion() {
-        const pocion = new Pocion()
+    method agregarNuevaPocion(_position) {
+        const pocion = new Pocion(position = _position)
         game.addVisual(pocion)
     }
     

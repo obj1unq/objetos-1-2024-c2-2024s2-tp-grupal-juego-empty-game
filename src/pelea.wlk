@@ -117,3 +117,4 @@ object turnoTest {
     method text() = "Turno De: " + combate.entidadAtacando()
     method textColor() = paleta.rojo()
 }
+

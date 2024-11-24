@@ -8,6 +8,8 @@ import randomizer.*
 import pelea.*
 import mapa.*
 import animaciones.*
+import mapa.*
+import niveles.*
 
 object personaje {
 	var position = game.at(14,2)
@@ -169,6 +171,7 @@ object personaje {
 		salud = (salud - cantidad).max(0)
 	}
 
+
 	//method actualizarArmaActual() { //esto se ejecuta solamente cuando se descarta el arma actual
 	//	if(bolsa.size()>1) {
 	//		armaActual = bolsa.get(1) //pone la 2da de la bolsa como el arma actual (la 1ra es la que se va a descartar)
@@ -289,6 +292,34 @@ object personaje {
 	  }
     
 	}
+
+    //////////////////////////////////////////////////////////////
+
+    //NIVEL
+
+    var enemigosAsesinados = 0
+
+
+    method sumarEnemigoAsesinado(){
+        enemigosAsesinados = enemigosAsesinados + 1
+    }
+
+    method pasarNivel(){
+        console.println("Entró")
+        self.volverAPosicionSpawneos()
+        enemigosAsesinados = 0
+        game.schedule(200, {dungeon.pasarNivel()})
+    }
+
+    method enemigosAsesinados(){
+        return enemigosAsesinados
+    }
+
+    method volverAPosicionSpawneos() {
+        position = game.at(14,2)
+    }
+
+
 
 }
 

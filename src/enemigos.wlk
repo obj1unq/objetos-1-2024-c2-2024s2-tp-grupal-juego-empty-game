@@ -123,12 +123,7 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
     }
 
     override method utilizarHabilidad() {
-        self.frame(0)
-        self.animacion(animacionHabilidad)        
-        barraEstadoPeleas.image("barraEnemigoHabilidadGolpeMortal.png") // provisoriamente para siempre???
-        game.schedule(800, {self.habilidadARealizar()})
-        game.schedule(805, {self.frame(0)})
-        game.schedule(805, {self.animacion(animacionEstatica)})
+        self.habilidadARealizar()
     }
 
     method habilidadARealizar()
@@ -140,10 +135,11 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
 //Al Jefe en Fase 1 imagino que al hacer el mapa final, le haremos un clear() a la lista de enemigos de la dungeon
 //y la iniciaremos con el
 
-object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 10, fase = 1 ) {
+object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 5, fase = 1 ) {
 
     override method habilidadARealizar() { //bola de energia
         objetivoADestruir.recibirDanho(150)
+        barraEstadoPeleas.image("barraJefe1Habilidad.png")
     }
 
     override method morir() {
@@ -161,13 +157,14 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
 object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500, fase = 2 ) {
 
     override method habilidadARealizar() { //Acá quiero que el personaje pierda dos turnos
-        
+        barraEstadoPeleas.image("barraJefe2Habilidad.png")
+    }
+
+    override method maxFrameCombate() {
+        return 4
     }
 
     override method morir() {
-        // self.frame(0)
-        // self.animacion(animacionMuerte)
-        // game.schedule(800, {game.removeVisual(self)})
         super()
         game.schedule(1010, {self.terminarJuego()})
     }

@@ -173,7 +173,7 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
     }
 }
 
-object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500, fase = 2 ) {
+object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 5, fase = 2 ) {
 
     override method habilidadARealizar() { //Acá quiero que el personaje pierda dos turnos
         barraEstadoPeleas.image("barraJefe2Habilidad.png")
@@ -182,18 +182,13 @@ object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud 
     override method maxFrameCombate() {
         return 4
     }
-
-    override method morir() {
-        super()
-        game.schedule(1010, {self.terminarJuego()})
-    }
     
-    //esto aún no se usa porque no existe basicamente 
-    method terminarJuego() {
-        mapa.limpiar()
-        gestorDeFondo.image("fondoVictoria.png")
-        game.stop()
-    }
+    
+    // method terminarJuego() {
+    //     mapa.limpiar()
+    //     gestorDeFondo.image("fondoVictoria.png")
+    //     game.stop()
+    // }
 }
 
 /////////////  OJO VOLADOR ///////////////////////////

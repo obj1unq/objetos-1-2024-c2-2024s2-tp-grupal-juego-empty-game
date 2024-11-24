@@ -82,6 +82,7 @@ object nivel2 inherits Nivel(enemigosSpawneados = 1){
      override method pasarNivel() {
         //self.validarPasarNivel()
         super()
+        
         arenaJefe.dibujar()
     }
 }
@@ -118,7 +119,9 @@ object arenaJefe inherits Nivel(enemigosSpawneados = 1) {
     }
 
      override method pasarNivel() {
-        //Se termina el juego por ahora...
+        self.limpiarTablero()
+        mapa.limpiar()
+        gestorDeFondo.image("fondoVictoria.png")
         game.stop()
     }
 }

@@ -145,6 +145,7 @@ object a { //arma
 object j {//jefe
     method dibujarEn(position){
         jefeFase1.position(position)    
+        game.addVisual(jefeFase1)
     }
 }
 

@@ -75,7 +75,7 @@ object probabilidades {
     }
 
     method text() {
-        return "                Prbabilidad de victoria VS:"
+        return "                Probabilidad de victoria VS:"
     }
 
     method textColor() {

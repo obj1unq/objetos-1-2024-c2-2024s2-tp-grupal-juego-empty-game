@@ -279,7 +279,9 @@ class Dragon inherits Personaje (ataqueBase = 9, defensaBase = 4, vidaBase = 20,
     }
 
     override method playAtaque() {
-        game.sound("hitDragon.wav").play()
+        const sonido = game.sound("hitDragon.wav")
+        sonido.play()
+        sonido.volume(0.4)
     }
 
 }

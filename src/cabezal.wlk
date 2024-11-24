@@ -43,6 +43,7 @@ object cabezal {
     position = game.origin()
     modoCabezal = cabezalNormal
     game.addVisual(self)
+    self.recargarMovimiento()
   }
   method mover(direccion) {
     const siguiente = direccion.siguiente(position) 

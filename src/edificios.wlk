@@ -16,7 +16,7 @@ object castillo {
     }
 
     method image(){
-        return "castilloaliado.png"
+        return "castilloali.png"
     }
 
     method guardarOro(cantidad) {

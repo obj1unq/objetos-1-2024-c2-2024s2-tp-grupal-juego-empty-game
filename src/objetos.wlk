@@ -78,7 +78,7 @@ object constructorPiedras {
 }
 
 class Huevo inherits Objeto {
-    const property image = "huevoDragon.png"
+    const property image = "huevo.png"
     const property cantidad = 1
 
 
@@ -111,7 +111,7 @@ class CasaMedieval {
     const property position
 
     method image() {
-        return "casamedievalnew.png"
+        return "casam.png"
     }
 
     method solido() {
@@ -123,7 +123,7 @@ object castilloEnemigo {
     var property position = game.center()
 
     method image() {
-        return "castilloenemigo.png"
+        return "castilloenem.png"
     }
 
     method solido() {

@@ -108,7 +108,7 @@ class Personaje {
         }
     }
 
-    // Preguntar si es necesario dividir en metodos o se puede dejar asi
+
     method leGanaAEnemigo(enemigo) {
 
         const numRandom = 0.randomUpTo(1)
@@ -167,7 +167,7 @@ class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 5, vidaBase = 
 
 
     method image(){
-        return "co-" + team.estado() + ".png"
+        return "com-" + team.estado() + ".png"
     }
 
 

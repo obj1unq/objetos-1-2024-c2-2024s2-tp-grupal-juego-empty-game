@@ -305,7 +305,7 @@ object personaje {
     }
 
     method pasarNivel(){
-        console.println("Entró")
+        console.println("PJ entró a la puerta")
         self.volverAPosicionSpawneos()
         enemigosAsesinados = 0
         game.schedule(200, {dungeon.pasarNivel()})

@@ -70,6 +70,8 @@ class Nivel {
     
 
     method dibujar() {
+    console.println("Dibujando...")
+
         game.height(self.tablero().size())
         game.width(self.tablero().get(0).size())
 
@@ -80,12 +82,14 @@ class Nivel {
             })
         })
         
-        console.println("Dibujado")
+        console.println("Dibujado.")
        
     }
 
 
     method limpiarTablero() {
+        console.println("Limpiando...")
+
         game.height(self.tablero().size())
         game.width(self.tablero().get(0).size())
         

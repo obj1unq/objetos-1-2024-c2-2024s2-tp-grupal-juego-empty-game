@@ -72,10 +72,8 @@ object dungeon {
 
     method pasarNivel(){
         self.removerEnemigos()  //sin esto la lista de enemigos de la dungeon tiene enemigos dentro que se cargar invisibles si Quedan despues de pasar de nivel
-        console.println("nivel= " + nivelActual.toString())
         nivelActual.pasarNivel()
         nivelActual = niveles.get(nivelNum)
-        console.println("nivelSiguiente= " + nivelActual.toString())
     }
 
     method nivelActual(){

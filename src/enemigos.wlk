@@ -26,13 +26,15 @@ class Enemigo {
         return salud
     }
 
+    //COMBATE
+
     method colisiono(personaje) {
-        self.combate() 
+        self.iniciarCombate() 
     }
     
-    method combate() { //cambio de nombre a iniciarCombate? porque con el sustantivo parece de consulta
+    method iniciarCombate() { 
 
-        position = position.left(2)    //se posiciona una celda a la izquierda del personaje
+        position = position.left(2)    //se posiciona dos celdas a la izquierda del personaje
         combate.iniciarCombate(self)    //prepara el combate, la info necesaria y le hace saber que él(enemigo/self) será quien empieza
 
     }
@@ -95,14 +97,21 @@ class Enemigo {
         return cantidadDeVeneno > 0
     }
 
-    method image() 
-    method reaccionarAMovimiento() 
+   
+    //MOVIMIENTO
+
+    method reaccionarAMovimiento() {
+        
+    } 
+
     method utilizarHabilidad()
 
     //ANIMACION
      
     var property animacion = animacionEstatica
     var property frame = 0
+
+    method image()
 
     method maxFrameEstatica() {
         return 4
@@ -121,6 +130,78 @@ class Enemigo {
     }
       
 }
+
+/////////////  JEFE FINAL ///////////////////////////
+
+class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el turno requerido sea 6 porque pensaba en una hab tocha
+                                                              // y en la necesidad de tener que matarlo antes de esta
+
+    var fase 
+
+    method fase(_fase) {
+        fase = _fase
+    }
+
+    override method image() {
+        return  "jefe" + fase + animacion.tipo() + frame + "32Bits.png"
+    }
+
+    override method utilizarHabilidad() {
+        self.habilidadARealizar()
+    }
+
+    method habilidadARealizar()
+
+}
+
+//FASES DEL JEFE // DATOS DE PRUEBA
+
+//Al Jefe en Fase 1 imagino que al hacer el mapa final, le haremos un clear() a la lista de enemigos de la dungeon
+//y la iniciaremos con el
+
+object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 5, fase = 1 ) {
+
+    override method habilidadARealizar() { //bola de energia
+        objetivoADestruir.recibirDanho(150)
+        barraEstadoPeleas.image("barraJefe1Habilidad.png")
+    }
+
+    override method morir() {
+        super()
+        game.schedule(1500, {self.cambiarFase()})        
+    }
+    
+    method cambiarFase() {
+       // self.fase(jefeFase2)
+        game.addVisual(jefeFase2)
+        dungeon.registrarEnemigo(jefeFase2)
+    }
+}
+
+object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500, fase = 2 ) {
+
+    override method habilidadARealizar() { //Acá quiero que el personaje pierda dos turnos
+        barraEstadoPeleas.image("barraJefe2Habilidad.png")
+    }
+
+    override method maxFrameCombate() {
+        return 4
+    }
+
+    override method morir() {
+        super()
+        game.schedule(1010, {self.terminarJuego()})
+    }
+    
+    //esto aún no se usa porque no existe basicamente 
+    method terminarJuego() {
+        mapa.limpiar()
+        gestorDeFondo.image("fondoVictoria.png")
+        game.stop()
+    }
+}
+
+/////////////  OJO VOLADOR ///////////////////////////
 
 class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 5) {
 
@@ -181,6 +262,8 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 5) {
 
 }
 
+/////////////  ESQUELETO ///////////////////////////
+
 class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
 
     const rangoVision = 3
@@ -202,7 +285,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
     method revisarSiHayObjetivo() {
         if(self.hayObjetoEnVision() && self.position()!=objetivoADestruir.position()) { //esto para que no se choque con el self.combate() de colisiono()
             position = objetivoADestruir.position()
-            self.combate()
+            self.iniciarCombate()
         }
     }
 
@@ -223,6 +306,8 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
 
 }
 
+/////////////  GOBLIN ///////////////////////////
+
 class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
 
     //VISUAL Y ANIMACION
@@ -230,10 +315,6 @@ class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
     override method image() {
         return "goblin-" + animacion.tipo() + frame +  "32Bits.png" 
     }
-
-    //MOVIMIENTO (en realidad, no se mueve)
-
-    override method reaccionarAMovimiento() { }
 
     // COMBATE/PELEA
 

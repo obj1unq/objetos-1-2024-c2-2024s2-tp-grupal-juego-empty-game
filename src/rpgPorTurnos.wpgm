@@ -40,6 +40,9 @@ program rpgPorTurnos {
 
 	//fabricaDePocion.agregarNuevaPocion()
 	
+	//prueba jefe
+	dungeon.registrarEnemigo(jefeFase1)
+	game.addVisual(jefeFase1)
 	//PERSONAJE
 	game.addVisual(personaje)
     game.addVisual(puerta) */

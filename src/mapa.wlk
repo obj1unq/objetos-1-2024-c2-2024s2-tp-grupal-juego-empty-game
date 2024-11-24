@@ -110,7 +110,30 @@ class Nivel {
 
     } 
 
+object b { //barriles
 
+    method dibujarEn(position) {
+        fabricaDeBarriles.agregarNuevoBarril(position)
+    }
+}
+
+object m { //mesa
+    method dibujarEn(position) {
+        fabricaDeMesas.agregarNuevaMesa(position)
+    }
+}
+
+object c{ //cajas
+    method dibujarEn(position) {
+        fabricaDeCajas.agregarNuevaCaja(position)
+    }
+}
+
+object z { //puerta
+    method dibujarEn(position) {
+        puerta.position(position)
+    }
+}
 
 object a { //arma
     method dibujarEn(position){
@@ -166,12 +189,16 @@ object enemigosAsesinadosNivelActual {
 
 object puerta {
 
-    method position() =  game.at(15,19) 
+    var property position =  game.at(16,19) 
     var estado = puertaCerrada
 
     //Suponemos que la puerta esta abierta porque mato a todos los enemigos. Para probar
-    method text() = "Puerta"
-    method textColor() = paleta.rojo()
+    /*method text() = "Puerta"
+    method textColor() = paleta.rojo()*/
+
+    method image() {
+        return "puerta.png"
+    }
 
     method colisiono(personaje) {
         self.validarEntrar()

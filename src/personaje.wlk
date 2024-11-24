@@ -8,7 +8,6 @@ import randomizer.*
 import pelea.*
 import mapa.*
 import animaciones.*
-import mapa.*
 import niveles.*
 
 object personaje {

@@ -105,6 +105,7 @@ object dungeon {
 
 }
 
+
 object gestorDeFondo {
     var property image = "fondoNivel1.png"
 
@@ -203,6 +204,56 @@ object fabricaDePocion {
         game.addVisual(pocion)
     }
     
+}
+
+class ObjetoNoTraspasable  {
+    const property position
+    
+
+    method image()
+    method colisiono(personaje){}    
+}
+
+class Barril inherits ObjetoNoTraspasable {
+    override method image() {
+        return "barriles.png"
+    }
+}
+
+object fabricaDeBarriles {
+    method agregarNuevoBarril(_position) {
+        const barriles = new Barril(position = _position)
+        game.addVisual(barriles)
+    }
+
+}
+
+class Caja inherits ObjetoNoTraspasable {
+    override method image() {
+        return "cajas.png"
+    }
+}
+
+object fabricaDeCajas {
+    method agregarNuevaCaja(_position) {
+        const cajas = new Caja(position = _position)
+        game.addVisual(cajas)
+    }
+
+}
+
+class Mesa inherits ObjetoNoTraspasable {
+    override method image() {
+        return "mesa.png"
+    }
+}
+
+object fabricaDeMesas {
+    method agregarNuevaMesa(_position) {
+        const mesa = new Mesa(position = _position)
+        game.addVisual(mesa)
+    }
+
 }
 
 object salud {

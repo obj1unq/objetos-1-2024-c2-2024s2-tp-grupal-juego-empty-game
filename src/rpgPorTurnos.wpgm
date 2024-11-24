@@ -16,10 +16,10 @@ program rpgPorTurnos {
 	game.title("El Guardian")
 
 	game.cellSize(32)
-    dungeon.dibujar()
-    nivel1.dibujar()
+    // dungeon.dibujar()
+    // nivel1.dibujar()
 
-
+	game.addVisual(gestorDeFondo)
 	keyboard.enter().onPressDo({juego.empezar()})
 	
 	//TECLAS MOVIMIENTO

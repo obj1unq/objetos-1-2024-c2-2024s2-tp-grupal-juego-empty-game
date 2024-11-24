@@ -280,14 +280,14 @@ object personaje {
     self.frame(0)
 		self.animacion(animacionMuerte)
 		game.schedule(1000, {mapa.limpiar()})
-		game.schedule(1000, {gestorDeFondo.image("fondoFin.png")})
+		game.schedule(1000, {gestorDeFondo.image("fondoFin1.png")})
 		game.schedule(1050, {game.stop()})
 	  } else {
 		self.frame(0)
 		self.animacion(animacionMuerte)
 		game.schedule(1000, {self.frame(0)})
-    game.schedule(1005, {self.animacion(animacionEstatica)})
-    game.schedule(1010, {position = game.at(14,2)})
+    	game.schedule(1005, {self.animacion(animacionEstatica)})
+    	game.schedule(1010, {position = game.at(14,2)})
 		game.schedule(1010, {self.salud(300)})
 	  }
     

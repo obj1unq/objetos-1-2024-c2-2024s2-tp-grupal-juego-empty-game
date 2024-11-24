@@ -112,25 +112,20 @@ class Enemigo {
 class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el turno requerido sea 6 porque pensaba en una hab tocha
                                                               // y en la necesidad de tener que matarlo antes de esta
 
-    var fase = jefeFase1
+    var fase 
 
     method fase(_fase) {
         fase = _fase
     }
 
-    method cambiarFase() {
-        self.fase(jefeFase2)
-        game.addVisual(fase)
-        dungeon.registrarEnemigo(fase)
-    }
-
     override method image() {
-        return  fase + animacion.tipo() + frame + "32Bits.png"
+        return  "jefe" + fase + animacion.tipo() + frame + "32Bits.png"
     }
 
     override method utilizarHabilidad() {
         self.frame(0)
-        self.animacion(animacionHabilidad)
+        self.animacion(animacionHabilidad)        
+        barraEstadoPeleas.image("barraEnemigoHabilidadGolpeMortal.png") // provisoriamente para siempre???
         game.schedule(800, {self.habilidadARealizar()})
         game.schedule(805, {self.frame(0)})
         game.schedule(805, {self.animacion(animacionEstatica)})
@@ -145,7 +140,7 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
 //Al Jefe en Fase 1 imagino que al hacer el mapa final, le haremos un clear() a la lista de enemigos de la dungeon
 //y la iniciaremos con el
 
-object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 300 ) {
+object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 10, fase = 1 ) {
 
     override method habilidadARealizar() { //bola de energia
         objetivoADestruir.recibirDanho(150)
@@ -155,12 +150,17 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
         super()
         game.schedule(1500, {self.cambiarFase()})        
     }
+    
+    method cambiarFase() {
+       // self.fase(jefeFase2)
+        game.addVisual(jefeFase2)
+        dungeon.registrarEnemigo(jefeFase2)
+    }
 }
 
-object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500 ) {
+object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500, fase = 2 ) {
 
-    override method habilidadARealizar() { //Acá quiero que el personaje pierda dos turnos, pero como está implementándolo
-                                          //Franco en otra branch me espero :)
+    override method habilidadARealizar() { //Acá quiero que el personaje pierda dos turnos
         
     }
 

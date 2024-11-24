@@ -29,6 +29,9 @@ program rpgPorTurnos {
 
 	fabricaDePocion.agregarNuevaPocion()
 	
+	//prueba jefe
+	dungeon.registrarEnemigo(jefeFase1)
+	game.addVisual(jefeFase1)
 	//PERSONAJE
 	game.addVisual(personaje)
 
@@ -37,7 +40,7 @@ program rpgPorTurnos {
 	fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15,14), 95, 37)
 	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 25, visionDerecha) 
 	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 25, visionIzquierda) 
-	
+
 	
 	//TECLAS MOVIMIENTO
 	keyboard.w().onPressDo({personaje.mover(arriba)})

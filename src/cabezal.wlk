@@ -60,6 +60,7 @@ object cabezal {
     modoCabezal = cabezalNormal
     seleccionActualAliada = null
     seleccionActualEnemiga = null 
+    pjActual.removerPjActual()
   }
 
   method accionar() {
@@ -72,7 +73,27 @@ object cabezal {
 
   method setAliado(aliado) {
     seleccionActualAliada = aliado
+    self.actualizarHUD()
   }
+
+  method hayAliadoSeleccionado() {
+    return seleccionActualAliada != null
+  }
+
+  method actualizarHUD() {
+    pjActual.removerPjActual()
+    self.actualizarImagenEnHUD()
+    game.addVisual(pjActual)
+  }
+
+  method actualizarImagenEnHUD() {
+    if (self.hayAliadoSeleccionado()) {
+      pjActual.actualizarImage(seleccionActualAliada.image())
+    } else {
+      pjActual.actualizarImage(null)
+    }
+  }
+
 
   method setModo(modo) {
     modoCabezal = modo
@@ -108,7 +129,6 @@ object cabezalNormal {
     mapa.validarSeleccionAliada(cabezal.position())
     cabezal.setAliado(cabezal.obtenerPjAliado())
     cabezal.setModo(cabezalSeleccion)
-    self.actualizarHUD()
   }
 
   method verificarMovimiento() {
@@ -117,9 +137,6 @@ object cabezalNormal {
       }
     }
 
-  method actualizarHUD() {
-    pjActual.image(cabezal.seleccionActualAliada().image())
-  }
 }
 
 object cabezalSeleccion {
@@ -134,12 +151,13 @@ object cabezalSeleccion {
     cabezal.seleccionActualAliada().enemigosAlAlcance()
     cabezal.setAliado(null)
     cabezal.setModo(cabezalBatalla)
+    pjActual.removerPjActual()
   }
 
   method cancelar() {
     cabezal.setModo(cabezalNormal)
     cabezal.setAliado(null)
-    cabezal.setEnemigo(null) 
+    cabezal.setEnemigo(null)
   }
 
 }

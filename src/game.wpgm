@@ -20,7 +20,6 @@ program juego {
 	//HUD
 	game.addVisual(cantidadTurnos)
 	game.addVisual(textoReservas)
-	game.addVisual(pjActual)
 	game.addVisual(statsPjActual)
 	game.addVisual(probabilidades)
 	game.addVisual(probabilidadesDragonGolem)

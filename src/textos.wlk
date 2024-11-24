@@ -45,6 +45,14 @@ object pjActual {
     method position() {
         return game.at(18, 7)
     }
+
+    method actualizarImage(imagen) {
+        image = imagen
+    }
+
+    method removerPjActual() {
+        game.removeVisual(self)
+    }
 }
 
 object statsPjActual {
@@ -54,7 +62,7 @@ object statsPjActual {
     }
 
     method text() {
-        if (cabezal.seleccionActualAliada() != null) {
+        if (cabezal.hayAliadoSeleccionado()) {
             return "          Ataque: " + cabezal.seleccionActualAliada().ataqueBase().toString() + 
             "    Defensa: " + cabezal.seleccionActualAliada().defensaBase().toString()
         } else {
@@ -89,7 +97,7 @@ object probabilidadesDragonGolem {
     }
 
     method text() {
-        if (cabezal.seleccionActualAliada() != null) {
+        if (cabezal.hayAliadoSeleccionado()) {
             return "              Dragon: " + (cabezal.seleccionActualAliada().ataqueBase() / (cabezal.seleccionActualAliada().ataqueBase() + 4 )).truncate(2) +
                     "               Golem: "  + (cabezal.seleccionActualAliada().ataqueBase() / (cabezal.seleccionActualAliada().ataqueBase() + 10 )).truncate(2)
         } else {
@@ -109,7 +117,7 @@ object probabilidadesComandSol {
     }
 
     method text() {
-        if (cabezal.seleccionActualAliada() != null) {
+        if (cabezal.hayAliadoSeleccionado()) {
             return "                  Comandante: " + (cabezal.seleccionActualAliada().ataqueBase() / (cabezal.seleccionActualAliada().ataqueBase() + 5 )).truncate(2) +
                     "        Soldado: "  + (cabezal.seleccionActualAliada().ataqueBase() / (cabezal.seleccionActualAliada().ataqueBase() + 4 )).truncate(2)
         } else {
@@ -129,7 +137,7 @@ object probabilidadesArqMag {
     }
 
     method text() {
-        if (cabezal.seleccionActualAliada() != null) {
+        if (cabezal.hayAliadoSeleccionado()) {
             return "              Mago: " + (cabezal.seleccionActualAliada().ataqueBase() / (cabezal.seleccionActualAliada().ataqueBase() + 2 )).truncate(2) +
                     "               Arquero: "  + (cabezal.seleccionActualAliada().ataqueBase() / (cabezal.seleccionActualAliada().ataqueBase() + 2 )).truncate(2)
         } else {

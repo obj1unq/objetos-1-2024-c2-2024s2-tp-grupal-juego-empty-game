@@ -9,9 +9,14 @@ import niveles.*
 object dungeon {
 
     const property enemigos = []
+    const property objetosNoTraspasables = []
 
     method registrarEnemigo(enemigo) {
         enemigos.add(enemigo)
+    }
+
+    method registrarObjetoNoTraspasable(objeto) {
+        objetosNoTraspasables.add(objeto)
     }
 
     method removerEnemigos(){
@@ -26,6 +31,16 @@ object dungeon {
 
     method estaDentro(posicion) {
         return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
+    }
+
+    method validarObjetoEsTraspasable(posicion) {
+        if(self.hayObjetoNoTraspasable(posicion)) {
+            self.error("")
+        }
+    }
+
+    method hayObjetoNoTraspasable(posicion) {
+        return objetosNoTraspasables.any({objeto => objeto.position() == posicion})
     }
 
     method accionEnemigos() {
@@ -224,6 +239,7 @@ object fabricaDeBarriles {
     method agregarNuevoBarril(_position) {
         const barriles = new Barril(position = _position)
         game.addVisual(barriles)
+        dungeon.registrarObjetoNoTraspasable(barriles)
     }
 
 }
@@ -238,6 +254,7 @@ object fabricaDeCajas {
     method agregarNuevaCaja(_position) {
         const cajas = new Caja(position = _position)
         game.addVisual(cajas)
+        dungeon.registrarObjetoNoTraspasable(cajas)
     }
 
 }
@@ -252,6 +269,7 @@ object fabricaDeMesas {
     method agregarNuevaMesa(_position) {
         const mesa = new Mesa(position = _position)
         game.addVisual(mesa)
+        dungeon.registrarObjetoNoTraspasable(mesa)
     }
 
 }

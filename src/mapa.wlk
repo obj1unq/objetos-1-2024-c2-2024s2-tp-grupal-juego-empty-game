@@ -142,6 +142,12 @@ object a { //arma
     }
 }
 
+object j {//jefe
+    method dibujarEn(position){
+        jefeFase1.position(position)    
+    }
+}
+
 object o { // ojo
     method dibujarEn(position){
         fabricaDeOjoVolador.agregarNuevoEnemigo(position,150, 40)
@@ -197,7 +203,7 @@ object puerta {
     method textColor() = paleta.rojo()*/
 
     method image() {
-        return "puerta.png"
+        return "puertaNueva2.png"
     }
 
     method colisiono(personaje) {

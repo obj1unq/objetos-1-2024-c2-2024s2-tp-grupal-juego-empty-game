@@ -8,7 +8,7 @@ import animaciones.*
 
 class Enemigo {
     const danhoBase 
-    var position
+    var property position
     var salud
     const objetivoADestruir = personaje
     var acumuladorDeTurnos = 0
@@ -16,11 +16,6 @@ class Enemigo {
     var property estaAturdido = false
     var property cantidadDeVeneno = 0
     const danhoPorVeneno = 20
-
-
-    method position() {
-        return position
-    }
 
     method salud() {
         return salud

@@ -119,6 +119,7 @@ object personaje {
 	method validarMover(posicion) {
 		const siguiente = posicion.siguiente(self.position())
 		dungeon.validarDentro(siguiente)
+		dungeon.validarObjetoEsTraspasable(siguiente)
 		self.validarMoverPelea()
 	}
 

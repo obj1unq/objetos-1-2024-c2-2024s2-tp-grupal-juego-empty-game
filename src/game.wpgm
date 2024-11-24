@@ -9,7 +9,6 @@ import objetos.*
 import textos.*
 
 
-
 program juego {
 	//  CONFIG	
 	game.title("FantasyWorld")
@@ -18,8 +17,13 @@ program juego {
 	mapa.nivelActual().inicializar()
 
 
-
-    // CONTROLES
+	//SONIDO
+	const music = game.sound("background3.mp3")
+ 	music.shouldLoop(true)
+	music.volume(0.04)
+	game.schedule(500, { music.play()} )
+	
+    // CABEZAL
     keyboard.left().onPressDo({cabezal.mover(izquierda)})
     keyboard.right().onPressDo({cabezal.mover(derecha)})
     keyboard.up().onPressDo({cabezal.mover(arriba)})

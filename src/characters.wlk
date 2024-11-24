@@ -76,6 +76,7 @@ class Personaje {
         self.validarSiPuedeAtacar(enemigo)
         self.batalla(enemigo)
         cabezal.efectoAtacar()
+        self.playAtaque()
     }
     
     method validarSiPuedeAtacar(enemigo) {
@@ -159,6 +160,8 @@ class Personaje {
       game.say(self, "Ataque: " + ataqueBase + ", Vida: " + vidaBase + ", Defensa: " + defensaBase + ", Puede mover: " + not cabezal.yaMoviEnElTurno())
     }
 
+    method playSpawn()
+    method playAtaque()
 }
 
 class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 5, vidaBase = 20, valor = 20) {
@@ -170,7 +173,13 @@ class Comandante inherits Personaje(ataqueBase = 7, defensaBase = 5, vidaBase = 
         return "com-" + team.estado() + ".png"
     }
 
+    override method playSpawn(){
+        game.sound("spawnCom.mp3").play()
+    }
 
+    override method playAtaque() {
+        game.sound("hitCom.wav").play()
+    }
 }
 
 
@@ -181,7 +190,13 @@ class Mago inherits Personaje(ataqueBase = 5, defensaBase = 2, vidaBase = 12, va
         return "mg-" + team.estado()+".png"
     }
   
+    override method playSpawn(){
+        game.sound("spawnMag.mp3").play()
+    }
 
+    override method playAtaque() {
+        game.sound("hitMago.wav").play()
+    }
 }
 
 
@@ -191,7 +206,13 @@ class Soldado inherits Personaje(ataqueBase = 6, defensaBase = 4, vidaBase = 15,
         return "so-" + team.estado() +".png"
     }
 
+    override method playSpawn(){
+        game.sound("spawnSol.mp3").play()
+    }
 
+    override method playAtaque() {
+        game.sound("hitEspada.wav").play()
+    }
 }
 
 class Arquero inherits Personaje (ataqueBase = 4, defensaBase = 2, vidaBase = 10, valor = 11) {
@@ -202,6 +223,14 @@ class Arquero inherits Personaje (ataqueBase = 4, defensaBase = 2, vidaBase = 10
 
     override method enemigosAlAlcance(){
         return self.enemigosAlAlcance(direcciones.principales(), 2) + self.enemigosAlAlcance(direcciones.todas(), 1)
+    }
+
+    override method playSpawn(){
+        game.sound("spawnArq.mp3").play()
+    }
+
+    override method playAtaque() {
+        game.sound("hitFlecha.wav").play()
     }
 }
 
@@ -220,6 +249,14 @@ class Golem inherits Personaje(ataqueBase = 4, defensaBase = 10, vidaBase = 30, 
         castillo.piedrasEnReserva(castillo.piedrasEnReserva() - 3)
     }
 
+    override method playSpawn(){
+        game.sound("spawnGol.mp3").play()
+    }
+
+    override method playAtaque() {
+        game.sound("hitGolem.wav").play()
+    }
+
 }
 
 class Dragon inherits Personaje (ataqueBase = 9, defensaBase = 4, vidaBase = 20, valor = 30) {
@@ -235,6 +272,14 @@ class Dragon inherits Personaje (ataqueBase = 9, defensaBase = 4, vidaBase = 20,
     override method efectosEnRecursosSpawn() {
         super()
         castillo.huevosEnReserva(castillo.huevosEnReserva() - 1)
+    }
+
+    override method playSpawn(){
+        game.sound("spawnDrag.mp3").play()
+    }
+
+    override method playAtaque() {
+        game.sound("hitDragon.wav").play()
     }
 
 }

@@ -37,7 +37,7 @@ object castillo {
         game.addVisual(unidad)
         mapa.agregarAliado(unidad)
         unidad.efectosEnRecursosSpawn()
-
+        unidad.playSpawn()
     }
 
 

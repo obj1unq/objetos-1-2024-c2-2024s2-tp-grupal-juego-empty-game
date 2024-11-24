@@ -101,7 +101,6 @@ class Personaje {
 
     method batalla(enemigo) {
 
-    
         if(self.leGanaAEnemigo(enemigo)) { 
             enemigo.morir()
         } else {
@@ -204,9 +203,6 @@ class Arquero inherits Personaje (ataqueBase = 4, defensaBase = 2, vidaBase = 10
     override method enemigosAlAlcance(){
         return self.enemigosAlAlcance(direcciones.principales(), 2) + self.enemigosAlAlcance(direcciones.todas(), 1)
     }
-
-
-
 }
 
 class Golem inherits Personaje(ataqueBase = 4, defensaBase = 10, vidaBase = 30, valor = 35) {

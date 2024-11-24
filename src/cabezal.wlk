@@ -5,6 +5,8 @@ import map.*
 import objetos.*
 import edificios.*
 import turno.*
+import textos.*
+
 
 object cabezal {
 
@@ -14,7 +16,7 @@ object cabezal {
   var property seleccionActualEnemiga = null
   var property yaMoviEnElTurno = false
   var property atacoEsteTurno = false
-
+  
 
   method image(){
     return modoCabezal.image()
@@ -105,6 +107,7 @@ object cabezalNormal {
     mapa.validarSeleccionAliada(cabezal.position())
     cabezal.setAliado(cabezal.obtenerPjAliado())
     cabezal.setModo(cabezalSeleccion)
+    self.actualizarHUD()
   }
 
   method verificarMovimiento() {
@@ -113,6 +116,9 @@ object cabezalNormal {
       }
     }
 
+  method actualizarHUD() {
+    pjActual.image(cabezal.seleccionActualAliada().image())
+  }
 }
 
 object cabezalSeleccion {

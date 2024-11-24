@@ -6,6 +6,7 @@ import cabezal.*
 import direcciones.*
 import edificios.*
 import objetos.*
+import textos.*
 
 
 
@@ -15,8 +16,19 @@ program juego {
     game.cellSize(50)
 	game.ground("pasto.png")
 	mapa.nivelActual().inicializar()
-	
-	
+
+	//HUD
+	game.addVisual(cantidadTurnos)
+	game.addVisual(textoReservas)
+	game.addVisual(pjActual)
+	game.addVisual(statsPjActual)
+	game.addVisual(probabilidades)
+	game.addVisual(probabilidadesDragonGolem)
+	game.addVisual(probabilidadesComandSol)
+	game.addVisual(probabilidadesArqMag)
+	//game.addVisual(cantidadPiedra)
+	//game.addVisual(cantidadHuevos)
+
 
     // CABEZAL
     keyboard.left().onPressDo({cabezal.mover(izquierda)})

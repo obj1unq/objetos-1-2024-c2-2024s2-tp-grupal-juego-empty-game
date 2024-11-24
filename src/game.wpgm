@@ -9,9 +9,9 @@ import objetos.*
 import textos.*
 
 
-program juego {
+program EigOfEmpaiers {
 	//  CONFIG	
-	game.title("FantasyWorld")
+	game.title("Eig Of Empaiers")
     game.cellSize(50)
 	game.ground("pasto.png")
 	mapa.nivelActual().inicializar()

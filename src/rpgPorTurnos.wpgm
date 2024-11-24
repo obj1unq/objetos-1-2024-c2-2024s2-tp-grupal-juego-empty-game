@@ -15,44 +15,12 @@ program rpgPorTurnos {
 
 	game.title("El Guardian")
 
-	//game.height(25) 		
-	//game.width(30) 			
 	game.cellSize(32)
     dungeon.dibujar()
     nivel1.dibujar()
 
-/* se movio a dungeon 	
-//OBJETOS CON LOS QUE NO SE INTERACTUA
-	game.addVisual(gestorDeFondo)
-	game.addVisual(indicadorDeObjetos)
-	game.addVisual(primeraArma)
-	game.addVisual(segundaArma)
-	game.addVisual(terceraArma)
-	game.addVisual(salud)
-	game.addVisual(vidas)
-	game.addVisual(pociones)
-	game.addVisual(barraFuerza)
 
-	//OBJETOS CON LOS QUE SE INTERACTUA
-	//randomizer.agregarArmaRandom()
-	//randomizer.agregarArmaRandom()
-
-
-	//fabricaDePocion.agregarNuevaPocion()
-	
-	//prueba jefe
-	dungeon.registrarEnemigo(jefeFase1)
-	game.addVisual(jefeFase1)
-	//PERSONAJE
-	game.addVisual(personaje)
-    game.addVisual(puerta) */
-
-	//OBJETOS CON LOS QUE SE INTERACTUA
-	/* fabricaDeOjoVolador.agregarNuevoEnemigo(game.at(26,7), 150, 40)
-	fabricaDeGoblin.agregarNuevoEnemigoCon(game.at(15,14), 95, 37)
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, visionDerecha) 
-	fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(26,10), 200, 43, visionIzquierda)  */
-	//¿el que más vida tiene es el que más daño causa? ¿no es too much?
+	keyboard.enter().onPressDo({juego.empezar()})
 	
 	//TECLAS MOVIMIENTO
 	keyboard.w().onPressDo({personaje.mover(arriba)})

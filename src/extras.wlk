@@ -117,9 +117,12 @@ object dungeon {
     game.addVisual(puerta)
     }
 
-
 }
 
+object juego {
+    method empezar() {
+    }
+}
 
 object gestorDeFondo {
     var property image = "fondoNivel1.png"

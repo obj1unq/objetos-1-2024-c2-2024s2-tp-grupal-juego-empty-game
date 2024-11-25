@@ -35,9 +35,13 @@ class Enemigo {
     
     method iniciarCombate() { 
 
-        position = position.left(2)    //se posiciona dos celdas a la izquierda del personaje
+        position = position.left(self.distanciaAlPersonaje())    //se posiciona dos celdas a la izquierda del personaje
         combate.iniciarCombate(self)    //prepara el combate, la info necesaria y le hace saber que él(enemigo/self) será quien empieza
 
+    }
+
+    method distanciaAlPersonaje() {
+        return 2
     }
       
     method atacarPre() {
@@ -166,7 +170,7 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
 //Al Jefe en Fase 1 imagino que al hacer el mapa final, le haremos un clear() a la lista de enemigos de la dungeon
 //y la iniciaremos con el
 
-object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 5, fase = 1 ) {
+object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 300, fase = 1 ) {
 
     override method utilizarHabilidad() { //bola de energia
         objetivoADestruir.recibirDanho(150)
@@ -183,9 +187,13 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
         game.addVisual(jefeFase2)
         dungeon.registrarEnemigo(jefeFase2)
     }
+
+    override method distanciaAlPersonaje() {
+        return 3
+    }
 }
 
-object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 5, fase = 2 ) {
+object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500, fase = 2 ) {
 
     override method utilizarHabilidad() { //Acá quiero que el personaje pierda dos turnos
         objetivoADestruir.recibirDanho(danhoBase)
@@ -197,19 +205,9 @@ object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud 
         return 4
     }
 
-    //Como la finalización del juego se pasa al pasarNivel de la arenaJefe, el morir debería ser igual que el de cualquier otro enemigo.
-    //solo la animación. del fin de la partida ya se encarga ese otro método.
-    //override method morir() {  
-    //    super()
-    //    game.schedule(1500, {self.terminarJuego()})        
-    //}
-    
-    
-    // method terminarJuego() {
-    //     mapa.limpiar()
-    //     gestorDeFondo.image("fondoVictoria.png")
-    //     game.stop()
-    // }
+    override method distanciaAlPersonaje() {
+        return 6
+    }
 }
 
 /////////////  OJO VOLADOR ///////////////////////////

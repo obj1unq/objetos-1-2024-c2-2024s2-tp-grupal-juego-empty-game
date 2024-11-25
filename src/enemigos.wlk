@@ -29,9 +29,13 @@ class Enemigo {
     
     method iniciarCombate() { 
 
-        position = position.left(2)    //se posiciona dos celdas a la izquierda del personaje
+        position = position.left(self.distanciaAlPersonaje())    //se posiciona dos celdas a la izquierda del personaje
         combate.iniciarCombate(self)    //prepara el combate, la info necesaria y le hace saber que él(enemigo/self) será quien empieza
 
+    }
+
+    method distanciaAlPersonaje() {
+        return 2
     }
       
     method atacarPre() {
@@ -171,6 +175,10 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
         game.addVisual(jefeFase2)
         dungeon.registrarEnemigo(jefeFase2)
     }
+
+    override method distanciaAlPersonaje() {
+        return 3
+    }
 }
 
 object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 500, fase = 2 ) {
@@ -182,13 +190,10 @@ object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud 
     override method maxFrameCombate() {
         return 4
     }
-    
-    
-    // method terminarJuego() {
-    //     mapa.limpiar()
-    //     gestorDeFondo.image("fondoVictoria.png")
-    //     game.stop()
-    // }
+
+    override method distanciaAlPersonaje() {
+        return 6
+    }
 }
 
 /////////////  OJO VOLADOR ///////////////////////////

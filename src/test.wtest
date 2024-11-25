@@ -91,10 +91,11 @@ describe "Combate"{
         combate.cambiarTurnoA(goblin) //schedule
 
         assert.doesNotThrowException( {goblin.realizarAtaqueNormalOHabilidad() } )
-        assert.equals(270, personaje.salud())
+        assert.equals(70, personaje.salud())
     }
 
     test "Pj y enemigo ataque especial" {
+        // agregar metodo para poder cambiar nivel en armas. Para los tests
         espada.nivel(1)
         personaje.equiparArma(espada)
 
@@ -108,6 +109,7 @@ describe "Combate"{
 
 
         combate.cambiarTurnoA(goblin) //schedule
+        //agregar setter acumular de turnos a los enemigos. Para los test
         goblin.acumuladorDeTurnos(2)
         assert.doesNotThrowException( {goblin.realizarAtaqueNormalOHabilidad()} ) //puede hacer ataque especial
         
@@ -121,15 +123,15 @@ describe "Combate"{
     test "Pj se cura"{
         goblin.colisiono(personaje) //empieza combate
 
-        assert.equals(300, personaje.salud())
+        assert.equals(100, personaje.salud())
 
         goblin.utilizarHabilidad()
-        assert.equals(210, personaje.salud())
+        assert.equals(10, personaje.salud())
         combate.cambiarTurnoA(personaje)
 
         personaje.hacerTurnoPocion()
         personaje.usarPocionSalud() //esta en un schedule
-        assert.equals(360, personaje.salud())
+        assert.equals(160, personaje.salud())
 
     }
 

@@ -98,7 +98,7 @@ object dungeon {
     //Dibujar
     method dibujar(){
     //OBJETOS CON LOS QUE NO SE INTERACTUA
-	game.addVisual(gestorDeFondo)
+	//gestorDeFondo.image("fondoNivel1.png")
 	game.addVisual(indicadorDeObjetos)
 	game.addVisual(primeraArma)
 	game.addVisual(segundaArma)
@@ -121,16 +121,26 @@ object dungeon {
 
 object juego {
     method empezar() {
+        gestorDeFondo.image("fondoPrincipio2.png")
+        game.schedule(7000, {gestorDeFondo.image("fondoPrincipio3.png")})
+        game.schedule(10000, {self.cargar()})
+    }
+
+    method cargar() {
+        gestorDeFondo.image("fondoNivel1.png")
+        dungeon.dibujar()
+        nivel1.dibujar()
     }
 }
 
 object gestorDeFondo {
-    var property image = "fondoNivel1.png"
+    var property image = "fondoTitulo1.png"
 
     method position() {
         return game.at(0,0)
     }
 }
+
 /////////////listaDeObjetos/////////////
 
 object indicadorDeObjetos {

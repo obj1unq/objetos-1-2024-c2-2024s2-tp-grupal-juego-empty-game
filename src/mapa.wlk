@@ -55,6 +55,7 @@ class Nivel {
 
         console.println("Limpiado")
 
+        game.addVisual(gestorDeFondo)
         dungeon.dibujar()
 
     }

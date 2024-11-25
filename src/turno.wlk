@@ -13,6 +13,7 @@ object turno {
 
     method terminarTurno() {
         mapa.nivelActual().gastarTurno()
+        mapa.terminarJuego()
         cabezal.recargarMovimiento()
         cabezal.recargarAtaque()
         cabezal.cancelar()

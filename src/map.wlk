@@ -174,6 +174,17 @@ object mapa {
         game.say(cabezal, "Turnos restantes: " + nivelActual.turnosDelNivel())
     }
 
+    method terminarJuego() {
+        if ((self.noHayTropasNiRecursosParaSpawn()) || nivelActual.noHayMasTurnos()) {
+            game.addVisual(finDerrota)
+            game.stop()
+        }
+    }
+
+    method noHayTropasNiRecursosParaSpawn() {
+        return self.todosLosAliadosEstanVencidos() && castillo.oroEnReservaNoEsSuficiente()
+    }
+
 }
 
 object hud{
@@ -243,6 +254,10 @@ class Nivel {
 
     method gastarTurno() {
         turnosDelNivel -= 1
+    }
+
+    method noHayMasTurnos() {
+        return turnosDelNivel == 0
     }
 
 }

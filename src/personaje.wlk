@@ -255,7 +255,7 @@ object personaje {
 		self.validarHacerTurno() // para que no use hab especial cuando no está peleando / no es su turno / ya se encuentra haciendo turno
 		self.validarFuerzaAcumulada()
 		self.frame(0)
-		self.animacion(animacionCombate) //esta no va ¿QUÉ ANIMACIÓN SE VA A USAR PARA CUANDO TOMA POCIÓN? ¿NINGUNA?
+		self.animacion(animacionCombate)
 		game.schedule(800, {self.frame(0)})
 		game.schedule(805, {self.animacion(animacionEstatica)})
 		game.schedule(800, {self.realizarHabilidadEspecial()})
@@ -299,7 +299,7 @@ object personaje {
 		game.schedule(900, {game.sound("perdio2.wav").play()})
 		game.schedule(600, {dungeon.detenerMusicaAmbiente()}) //parece q el método stop (tmb pause) tarda en ejecutarse. hay que darle tiempo
 		game.schedule(1000, {dungeon.limpiarTablero()})
-		game.schedule(1005, {gestorDeFondo.image("fondoFin1.png")})
+		game.schedule(1010, {gestorDeFondo.image("fondoFin1.png")})
 		game.schedule(1050, {game.stop()})
 	  } else {
 		self.frame(0)

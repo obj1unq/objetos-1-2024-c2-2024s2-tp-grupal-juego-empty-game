@@ -299,8 +299,8 @@ object personaje {
 		game.schedule(900, {game.sound("perdio2.wav").play()})
 		game.schedule(600, {dungeon.detenerMusicaAmbiente()}) //parece q el método stop (tmb pause) tarda en ejecutarse. hay que darle tiempo
 		game.schedule(1000, {dungeon.limpiarTablero()})
-		game.schedule(1005, {gestorDeFondo.image("fondoFin1.png")})
-		game.schedule(1050, {game.stop()})
+		game.schedule(1100, {gestorDeFondo.image("fondoFin1.png")})
+		game.schedule(1150, {game.stop()})
 	  } else {
 		self.frame(0)
 		self.animacion(animacionMuerte)

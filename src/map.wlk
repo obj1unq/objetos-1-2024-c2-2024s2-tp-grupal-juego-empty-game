@@ -346,7 +346,38 @@ object nivel3 inherits Nivel(turnosDelNivel = 32) {
      ].reverse()
 
     override method siguiente() {
-        // Ver si queda vacio o el siguiente podria ser un nivel que muestre la pantalla final del juego y tire el game stop
+        mapa.nivelActual(pantallaFinal)
+    }
+}
+
+object pantallaFinal inherits Nivel (turnosDelNivel = 1) {
+    const property tablero = 
+    [[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],    
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],    
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],   
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],  
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], 
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+     [fv,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]
+     ].reverse()
+
+    override method inicializar() {
+        self.ejecutarFin()
+    }
+
+    method ejecutarFin() {
+        self.dibujar()
+        game.stop()
+    }
+
+
+    override method siguiente() { 
     }
 }
 
@@ -458,5 +489,12 @@ object in {
     method dibujarEn(position) {
         inicio.position(position)
         game.addVisual(inicio)
+    }
+}
+
+object fv {
+    method dibujarEn(position) {
+        finVictoria.position(position)
+        game.addVisual(finVictoria)
     }
 }

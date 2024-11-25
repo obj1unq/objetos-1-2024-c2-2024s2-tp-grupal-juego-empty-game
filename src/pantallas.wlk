@@ -15,9 +15,9 @@ object inicio inherits Pantalla {
     }
 }
 
-object fin inherits Pantalla {
+object finVictoria inherits Pantalla {
 
     method image() {
-        return "pantallaFinal.png"
+        return "pantallaVictoria.png"
     }
 }

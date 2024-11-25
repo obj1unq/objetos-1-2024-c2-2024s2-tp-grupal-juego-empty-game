@@ -98,7 +98,7 @@ object dungeon {
     //Dibujar
     method dibujar(){
     //OBJETOS CON LOS QUE NO SE INTERACTUA
-	gestorDeFondo.image("fondoNivel1.png")
+	//gestorDeFondo.image("fondoNivel1.png")
 	game.addVisual(indicadorDeObjetos)
 	game.addVisual(primeraArma)
 	game.addVisual(segundaArma)
@@ -127,11 +127,10 @@ object juego {
     }
 
     method cargar() {
+        gestorDeFondo.image("fondoNivel1.png")
         dungeon.dibujar()
         nivel1.dibujar()
     }
-
-
 }
 
 object gestorDeFondo {

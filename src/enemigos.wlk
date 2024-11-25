@@ -77,6 +77,7 @@ class Enemigo {
 
     method utilizarAtaqueNormal() {
         objetivoADestruir.recibirDanho(danhoBase)
+        self.sonidoAtaque()
         barraEstadoPeleas.image("barraEnemigoAtaqueComun.png")
     }
 
@@ -145,7 +146,8 @@ class Enemigo {
     method cambiarAnimacion() {
         animacion.cambiarAnimacion(self)
     }
-      
+    
+    method sonidoAtaque() 
 }
 
 /////////////  JEFE FINAL ///////////////////////////
@@ -189,6 +191,10 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
     override method distanciaAlPersonaje() {
         return 3
     }
+
+    override method sonidoAtaque() { // por ahora ninugno
+      
+    }
 }
 
 object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 450, fase = 2 ) {
@@ -205,6 +211,10 @@ object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud 
 
     override method distanciaAlPersonaje() {
         return 6
+    }
+
+    override method sonidoAtaque() { // por ahora ninugno
+      
     }
 }
 
@@ -268,6 +278,9 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 5) {
         game.sound("sanacion.mp3").play()
     }
 
+    override method sonidoAtaque() {
+      
+    }
 }
 
 /////////////  ESQUELETO ///////////////////////////
@@ -313,6 +326,9 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
         game.sound("sanacion.mp3").play()
     }
 
+    override method sonidoAtaque() {
+      game.sound("espadaEnemigo.mp3").play()
+    }
 }
 
 /////////////  GOBLIN ///////////////////////////
@@ -332,6 +348,10 @@ class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
     override method utilizarHabilidad() {
         objetivoADestruir.recibirDanho(danhoBase * 3)
         barraEstadoPeleas.image("barraEnemigoHabilidadGolpeMortal.png")
+    }
+
+    override method sonidoAtaque() {
+      game.sound("cuchilloEnemigo.mp3").play()
     }
 
 }

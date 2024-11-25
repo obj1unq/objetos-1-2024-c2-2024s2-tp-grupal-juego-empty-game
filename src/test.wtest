@@ -8,6 +8,7 @@ import paleta.*
 import armas.*
 import pelea.*
 import mapa.*
+import niveles.*
 
 /*
 describe "prueba de movimiento de enemigo1" {
@@ -57,4 +58,157 @@ describe "testeo de funcionalidades" {
     test "no puedo pergar pq no estoy en combate" {
       assert.throwsException({ personaje.hacerTurnoAtaqueComun() })
     }
+}
+
+describe "Combate"{
+        method initialize() {
+        game.width(30)
+        game.height(25)
+        game.addVisual(personaje) //pos = 14,2
+
+    }   
+
+    const goblin = new Goblin(position = game.at(15, 3), salud = 100, danhoBase = 30)
+
+    const espada = new Espada(position = game.at(0,0), durabilidad = 300)
+
+    test "empieza combate"{
+        assert.notThat(combate.hayCombate())
+        goblin.colisiono(personaje)
+        assert.that(combate.hayCombate())
+        assert.equals(goblin, personaje.enemigoCombatiendo())
+    }
+
+    test "Pj y enemigo ataque comun" {
+        goblin.colisiono(personaje)
+        //suponemos que el enemigo ataca...
+        combate.cambiarTurnoA(personaje)
+
+        assert.doesNotThrowException( {personaje.hacerTurnoAtaqueComun()})
+        personaje.realizarAtaqueComun() //schedule
+        assert.equals(95, goblin.salud())
+        
+        combate.cambiarTurnoA(goblin) //schedule
+
+        assert.doesNotThrowException( {goblin.realizarAtaqueNormalOHabilidad() } )
+        assert.equals(270, personaje.salud())
+    }
+
+    test "Pj y enemigo ataque especial" {
+        espada.nivel(1)
+        personaje.equiparArma(espada)
+
+        goblin.colisiono(personaje)
+        //suponemos que el enemigo ataca...
+        combate.cambiarTurnoA(personaje)
+
+       assert.doesNotThrowException( {personaje.hacerTurnoHabilidadEspecial() }) //puede hacer ataque especial
+        personaje.realizarHabilidadEspecial() //schedule
+        assert.equals(62, goblin.salud())
+
+
+        combate.cambiarTurnoA(goblin) //schedule
+        goblin.acumuladorDeTurnos(2)
+        assert.doesNotThrowException( {goblin.realizarAtaqueNormalOHabilidad()} ) //puede hacer ataque especial
+        
+        assert.equals(210, personaje.salud())
+    }
+
+    test "Pj no puede atacar porque no hay combate"{
+            assert.throwsException({ personaje.realizarAtaqueComun() })
+    }
+
+    test "Pj se cura"{
+        goblin.colisiono(personaje) //empieza combate
+
+        assert.equals(300, personaje.salud())
+
+        goblin.utilizarHabilidad()
+        assert.equals(210, personaje.salud())
+        combate.cambiarTurnoA(personaje)
+
+        personaje.hacerTurnoPocion()
+        personaje.usarPocionSalud() //esta en un schedule
+        assert.equals(360, personaje.salud())
+
+    }
+
+    test "enemigo muere"{
+        dungeon.registrarEnemigo(goblin)
+
+
+
+        assert.that( !dungeon.enemigos().isEmpty() )
+        goblin.colisiono(personaje)
+
+        espada.nivel(3)
+        personaje.equiparArma(espada)
+
+        personaje.realizarAtaqueComun()
+        personaje.realizarAtaqueComun()
+        personaje.realizarAtaqueComun()
+
+        assert.equals(0,  goblin.salud())
+
+        goblin.morir()
+        dungeon.sacarEnemigo(goblin) //esta en un schedule
+
+
+        assert.notThat( !dungeon.enemigos().isEmpty()  )
+
+    }
+}
+
+describe "mas ideas"{
+    test "crea un arma y esta en la posicion dada"{
+        const arma = new Lanza(position = game.at(20,3), durabilidad = 120.randomUpTo(150).round())
+        game.addVisual(arma)
+
+        assert.equals([arma], game.getObjectsIn(game.at(20,3)) ) 
+    }
+
+    test"crea enemigo y esta en la posicion dada" {
+        fabricaDeEsqueleto.agregarNuevoEnemigo(game.at(3,10), 200, 43, 3) 
+
+        assert.that( dungeon.hayEnemigoEn(game.at(3,10)) )
+        assert.notThat( dungeon.hayEnemigoEn(game.at(20,19)) )
+    }
+
+    test "agarra pocion" {
+        //suponemos que termino el combate y usó una pocionn...
+        personaje.usarPocionSalud()
+        assert.equals(2, personaje.cantPociones())
+
+        const poti = new Pocion(position = game.at(1,1))
+        game.addVisual(poti)
+
+        poti.colisiono(personaje)
+        assert.equals(3, personaje.cantPociones())
+
+    }
+
+    test"pasar Nivel"{
+        const goblin2 = new Goblin(position = game.at(1, 1), salud = 100, danhoBase = 30)
+        const ojo = new OjoVolador(position = game.at(2, 2), salud = 100, danhoBase = 30)
+
+
+        //el pj esta en el nivel 1
+        assert.equals(nivel1, dungeon.nivelActual())
+
+        //el pj mata a dos enemigos
+        goblin2.morir()
+        ojo.morir()
+        assert.equals(2, personaje.enemigosAsesinados())
+
+        //la puerta esta abierta, se puede pasar
+        assert.doesNotThrowException( {puerta.colisiono(personaje)} )
+
+
+        
+        assert.equals(game.at(14,2), personaje.position())
+        assert.equals(0, personaje.enemigosAsesinados())
+        dungeon.pasarNivel() //schedule
+        assert.equals(nivel2, dungeon.nivelActual())
+    }
+
 }

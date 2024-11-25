@@ -23,22 +23,7 @@ program EigOfEmpaiers {
 	music.volume(0.04)
 	game.schedule(500, { music.play()} )
 	
-    // CABEZAL
-    keyboard.left().onPressDo({cabezal.mover(izquierda)})
-    keyboard.right().onPressDo({cabezal.mover(derecha)})
-    keyboard.up().onPressDo({cabezal.mover(arriba)})
-    keyboard.down().onPressDo({cabezal.mover(abajo)})
-	keyboard.num1().onPressDo({castillo.spawn(new Comandante(team = aliado))})
-	keyboard.num2().onPressDo({castillo.spawn(new Soldado (team=aliado))})
-	keyboard.num3().onPressDo({castillo.spawn(new Arquero(team = aliado))})
-	keyboard.num4().onPressDo({castillo.spawn(new Mago (team = aliado))})
-	keyboard.num5().onPressDo({castillo.spawn(new Golem (team= aliado))})
-	keyboard.num6().onPressDo({castillo.spawn(new Dragon (team = aliado))})
-	keyboard.a().onPressDo({cabezal.accionar()})
-	keyboard.s().onPressDo({cabezal.cancelar()})
-	keyboard.t().onPressDo({turno.pasarABatalla()})
-	keyboard.r().onPressDo({turno.terminarTurno()})
-	keyboard.space().onPressDo({mapa.stats()})
+    
 
  	//  COMIENZA
 	game.start()

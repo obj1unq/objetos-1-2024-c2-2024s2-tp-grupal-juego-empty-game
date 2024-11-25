@@ -12,15 +12,13 @@ import niveles.*
 
 object personaje {
 	var position = game.at(14,2)
-    var property salud = 100
+    var property salud = 300
 	var cantVidas = 3
 	var cantPociones = 3
 	const cantPocionesPermitidas = 3
 	var fuerzaAcumulada = 5
 	const cantArmasPermitidas = 3
 	const property bolsa = []
-	//const property estaAturdido = false //siempre será falso. se necesita la constante para condicional en el método de hacer turno en pelea 
-										//(el que si puede variar es el de los enemigos)
 	var property turnosAturdido = 0
 	const property esEnemigo = false
 

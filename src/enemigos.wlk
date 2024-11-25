@@ -168,7 +168,7 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// Turno requerido
 //FASES DEL JEFE 
 
 
-object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 5, fase = 1 ) {
+object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 300, fase = 1 ) {
 
     override method utilizarHabilidad() { //bola de energia
         objetivoADestruir.recibirDanho(150)
@@ -191,7 +191,7 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
     }
 }
 
-object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 5, fase = 2 ) {
+object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 450, fase = 2 ) {
 
     override method utilizarHabilidad() { //Acá quiero que el personaje pierda dos turnos
         objetivoADestruir.recibirDanho(danhoBase)

@@ -7,7 +7,7 @@ import adminClientes.*
 import wollok.game.*
 
 
-class Cliente inherits Persona(position = game.at(86,15)){ 
+class Cliente inherits Persona(position = game.at(88,20)){ 
     var pedidoQueEspero = []
     var emocion = neutral 
     var nivelDePaciencia = null 
@@ -26,7 +26,7 @@ class Cliente inherits Persona(position = game.at(86,15)){
 
     method anunciarPedido() {
       game.say(self, self.pedidoAString())
-      game.onTick(5000, self, {game.say(self, self.pedidoAString())})
+      game.onTick(100, self, {game.say(self, self.pedidoAString())})
     }
 
     method pedidoAString() { 

@@ -33,7 +33,7 @@ program wollocook {
     //muebles en recepcion
     imagenes.mueblesRes()
 
-    adminCliente.crearCliente()
+    game.schedule(1000, {adminCliente.crearCliente()})
 
     game.start()
 }

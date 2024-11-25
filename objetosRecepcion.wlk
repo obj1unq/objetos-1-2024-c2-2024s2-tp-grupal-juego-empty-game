@@ -1,6 +1,7 @@
 import mueblesBase.*
 import mapaObjetos.*
 import wollok.game.*
+import personaBase.*
 
 object caja { 
   const property image = "caja.png"
@@ -50,6 +51,7 @@ class Mostrador inherits MuebleParaCocinar(image = "mueble_entrega.png") {
 
   method avisarACliente() {
     ubicacion.cliente().recibirPedido(contenido)
+    contenido = bandejaVacia
   }
 }
 

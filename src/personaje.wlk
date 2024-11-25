@@ -12,16 +12,26 @@ import niveles.*
 
 object personaje {
 	var position = game.at(14,2)
-    var property salud = 300
+    var property salud = 3000
 	var cantVidas = 3
 	var cantPociones = 3
 	const cantPocionesPermitidas = 3
 	var fuerzaAcumulada = 5
 	const cantArmasPermitidas = 3
 	const property bolsa = []
-	//var property armaActual = mano //esto se resolvió con POSTCÁLCULO
-	const property estaAturdido = false //siempre será falso. se necesita la constante para condicional en el método de hacer turno en pelea 
+	//const property estaAturdido = false //siempre será falso. se necesita la constante para condicional en el método de hacer turno en pelea 
 										//(el que si puede variar es el de los enemigos)
+	var property turnosAturdido = 0
+	const property esEnemigo = false
+
+	method estaAturdido() {
+		return turnosAturdido > 0
+	}
+
+	method sufrirAturdimiento() {
+		turnosAturdido -= 1
+	}
+
 	method position() {
 		return position
 	}
@@ -79,10 +89,6 @@ object personaje {
 		return bolsa.get(pos)
 	}
 
-    //method armaActual(arma){
-    //    armaActual = arma
-    //}
-
 	method cambiarArmaActual() {
 		self.validarTenenciaArmas()
 		const armaAMover = bolsa.head()
@@ -119,7 +125,7 @@ object personaje {
 	method validarMover(posicion) {
 		const siguiente = posicion.siguiente(self.position())
 		dungeon.validarDentro(siguiente)
-		dungeon.validarObjetoEsTraspasable(siguiente)
+		dungeon.validarNoHayObjetoNoTraspasable(siguiente)
 		self.validarMoverPelea()
 	}
 
@@ -277,7 +283,7 @@ object personaje {
 	method revivirOFinalizarPartida() {
   
 	  if (cantVidas <= 0) {
-    self.frame(0)
+    	self.frame(0)
 		self.animacion(animacionMuerte)
 		game.schedule(1000, {mapa.limpiar()})
 		game.schedule(1000, {gestorDeFondo.image("fondoFin.png")})
@@ -286,8 +292,8 @@ object personaje {
 		self.frame(0)
 		self.animacion(animacionMuerte)
 		game.schedule(1000, {self.frame(0)})
-    game.schedule(1005, {self.animacion(animacionEstatica)})
-    game.schedule(1010, {position = game.at(14,2)})
+    	game.schedule(1005, {self.animacion(animacionEstatica)})
+    	game.schedule(1010, {position = game.at(14,2)})
 		game.schedule(1010, {self.salud(300)})
 	  }
     

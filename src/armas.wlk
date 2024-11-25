@@ -6,8 +6,6 @@ import pelea.*
 import enemigos.*
 
 class Arma {
-    
-
       
     const portador = personaje
     var property durabilidad
@@ -80,7 +78,7 @@ class Espada inherits ArmaEncontrable {
     override method ejecutarHabilidadEspecial() { //ATURDIMIENTO
         super()
         self.objetivo().recibirDanho(self.danho()) 
-        self.objetivo().estaAturdido(true)
+        self.objetivo().turnosAturdido(1)
     }
 
     override method imagenHabilidadEspecialParaBarra() {
@@ -138,7 +136,7 @@ class Maza inherits ArmaEncontrable {
     override method ejecutarHabilidadEspecial() { //ENVENENAMIENTO
         super()
         self.objetivo().recibirDanho(self.danho()) 
-        self.objetivo().cantidadDeVeneno(3)
+        self.objetivo().turnosEnvenenado(3)
     }
 
     override method imagenHabilidadEspecialParaBarra() {

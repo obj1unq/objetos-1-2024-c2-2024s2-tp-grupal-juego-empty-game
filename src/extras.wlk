@@ -15,6 +15,10 @@ object dungeon {
         enemigos.add(enemigo)
     }
 
+    method sacarEnemigo(enemigo) {
+        enemigos.remove(enemigo)
+    }
+
     method registrarObjetoNoTraspasable(objeto) {
         objetosNoTraspasables.add(objeto)
     }
@@ -23,9 +27,13 @@ object dungeon {
         enemigos.forEach( {e => enemigos.remove(e) } )
     }
 
+    method accionEnemigos() {
+        enemigos.forEach({enemigo => enemigo.reaccionarAMovimiento()})
+    }
+
     method validarDentro(posicion) {
         if (!self.estaDentro(posicion)) {
-            self.error("") //entiendo que al no tener visual ni posición, este mensaje de error nunca se ve.
+            self.error("")
         }
     }
 
@@ -33,7 +41,7 @@ object dungeon {
         return posicion.x().between(2, game.width() - 3) && posicion.y().between(2, game.height() - 6) 
     }
 
-    method validarObjetoEsTraspasable(posicion) {
+    method validarNoHayObjetoNoTraspasable(posicion) {
         if(self.hayObjetoNoTraspasable(posicion)) {
             self.error("")
         }
@@ -43,16 +51,12 @@ object dungeon {
         return objetosNoTraspasables.any({objeto => objeto.position() == posicion})
     }
 
-    method accionEnemigos() {
-        enemigos.forEach({enemigo => enemigo.reaccionarAMovimiento()})
-    }
-
     method hayEnemigoEn(celda){
         return enemigos.any({enemigo => enemigo.position() == celda})
     }
 
-    method sacarEnemigo(enemigo) {
-        enemigos.remove(enemigo)
+    method hayAlgoEn(celda) {
+        return self.hayEnemigoEn(celda) || self.hayObjetoNoTraspasable(celda)
     }
 
     //animacion enemigos
@@ -62,11 +66,9 @@ object dungeon {
     }
     
     //Pasar nivel
-    var nivelActual = niveles.get(nivelNum)
+    var nivelActual = niveles.get(nivelNum) //se puede resolver con postcálculo, no?
     var nivelNum = 0
     const niveles = [nivel1, nivel2, arenaJefe]
-
-
 
     method abrirPuertaSiSePuede(){
         if(personaje.enemigosAsesinados() >= nivelActual.enemigosSpawneados()){
@@ -88,7 +90,7 @@ object dungeon {
     method pasarNivel(){
         self.removerEnemigos()  //sin esto la lista de enemigos de la dungeon tiene enemigos dentro que se cargar invisibles si Quedan despues de pasar de nivel
         nivelActual.pasarNivel()
-        nivelActual = niveles.get(nivelNum)
+        nivelActual = niveles.get(nivelNum) //si se resuelve con postcálculo, se evita esto
     }
 
     method nivelActual(){
@@ -117,7 +119,6 @@ object dungeon {
     game.addVisual(puerta)
     }
 
-
 }
 
 
@@ -128,7 +129,8 @@ object gestorDeFondo {
         return game.at(0,0)
     }
 }
-/////////////listaDeObjetos/////////////
+
+/////////////indicadorDeObjetos/////////////
 
 object indicadorDeObjetos {
 
@@ -198,7 +200,9 @@ object terceraArma inherits VisualArmaDeBolsa(posBolsa=3) {
 
 }
 
-////////////////////////////////////////
+/////////////indicadorDeObjetos/////////////
+
+/////////////poción////////////////////////
 
 class Pocion {
     const property position //= randomizer.posicionRandomDePocion()
@@ -220,6 +224,12 @@ object fabricaDePocion {
     }
     
 }
+
+
+/////////////poción////////////////////////
+
+
+/////////////objs no traspasable///////////
 
 class ObjetoNoTraspasable  {
     const property position
@@ -273,6 +283,10 @@ object fabricaDeMesas {
     }
 
 }
+
+/////////////objs no traspasable///////////
+
+///////barras de arriba con info///////////
 
 object salud {
     method position() { return game.at(1, game.height()-1) }
@@ -343,3 +357,5 @@ object barraFuerza {
         }
     }
 }
+
+///////barras de arriba con info///////////

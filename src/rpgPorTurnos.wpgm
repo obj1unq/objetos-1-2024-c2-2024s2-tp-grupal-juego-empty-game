@@ -6,14 +6,13 @@ import randomizer.*
 import posiciones.*
 import paleta.*
 import armas.*
-import paredes.*
 import pelea.*
 import mapa.*
 import niveles.*
 
 program rpgPorTurnos {
 
-	game.title("El Guardian")
+	game.title("El Guardián")
 
 	//game.height(25) 		
 	//game.width(30) 			

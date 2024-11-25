@@ -13,9 +13,15 @@ class Enemigo {
     const objetivoADestruir = personaje
     var acumuladorDeTurnos = 0
     const turnoRequeridoParaHabilidad
-    var property estaAturdido = false
-    var property cantidadDeVeneno = 0
+    var turnosEnvenenado = 0
     const danhoPorVeneno = 20
+    //var property estaAturdido = false
+    var property turnosAturdido = 0
+    const property esEnemigo = true
+
+    method turnosEnvenenado(_turnosEnvenenado) {
+        turnosEnvenenado = _turnosEnvenenado
+    }
 
     method salud() {
         return salud
@@ -58,20 +64,28 @@ class Enemigo {
     method realizarAtaqueNormalOHabilidad() { 
         if(acumuladorDeTurnos < turnoRequeridoParaHabilidad) { // habilidad basica
             acumuladorDeTurnos += 1
-            objetivoADestruir.recibirDanho(danhoBase)
-            barraEstadoPeleas.image("barraEnemigoAtaqueComun.png")
+            self.utilizarAtaqueNormal()
         } else {    //habilidad especial
             acumuladorDeTurnos = 0  
             self.utilizarHabilidad()
         }
     }
 
+    method utilizarAtaqueNormal() {
+        objetivoADestruir.recibirDanho(danhoBase)
+        barraEstadoPeleas.image("barraEnemigoAtaqueComun.png")
+    }
+
     method sufrirVenenoSiCorresponde() { //este es el caso donde, si hay daño por veneno, NO va a ser mortal
         if(self.estaEnvenenado()) {
             self.recibirDanho(danhoPorVeneno)
-            cantidadDeVeneno -= 1
+            turnosEnvenenado -= 1
         }
     }
+
+    method sufrirAturdimiento() {
+		turnosAturdido -= 1
+	}
     
     method recibirDanho(cantidad){
         salud = (salud - cantidad).max(0)
@@ -89,8 +103,12 @@ class Enemigo {
     }
 
     method estaEnvenenado() {
-        return cantidadDeVeneno > 0
+        return turnosEnvenenado > 0
     }
+
+    method estaAturdido() {
+		return turnosAturdido > 0
+	}
 
    
     //MOVIMIENTO
@@ -141,12 +159,6 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
         return  "jefe" + fase + animacion.tipo() + frame + "32Bits.png"
     }
 
-    override method utilizarHabilidad() {
-        self.habilidadARealizar()
-    }
-
-    method habilidadARealizar()
-
 }
 
 //FASES DEL JEFE // DATOS DE PRUEBA
@@ -156,14 +168,14 @@ class Jefe inherits Enemigo(turnoRequeridoParaHabilidad = 6) {// puse que el tur
 
 object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud = 5, fase = 1 ) {
 
-    override method habilidadARealizar() { //bola de energia
+    override method utilizarHabilidad() { //bola de energia
         objetivoADestruir.recibirDanho(150)
         barraEstadoPeleas.image("barraJefe1Habilidad.png")
     }
 
     override method morir() {
         super()
-        game.schedule(1500, {self.cambiarFase()})        
+        game.schedule(1000, {self.cambiarFase()})        
     }
     
     method cambiarFase() {
@@ -175,13 +187,22 @@ object jefeFase1 inherits Jefe(danhoBase = 40, position = game.at(11, 8), salud 
 
 object jefeFase2 inherits Jefe(danhoBase = 80, position = game.at(11, 8), salud = 5, fase = 2 ) {
 
-    override method habilidadARealizar() { //Acá quiero que el personaje pierda dos turnos
+    override method utilizarHabilidad() { //Acá quiero que el personaje pierda dos turnos
+        objetivoADestruir.recibirDanho(danhoBase)
+        objetivoADestruir.turnosAturdido(2)
         barraEstadoPeleas.image("barraJefe2Habilidad.png")
     }
 
     override method maxFrameCombate() {
         return 4
     }
+
+    //Como la finalización del juego se pasa al pasarNivel de la arenaJefe, el morir debería ser igual que el de cualquier otro enemigo.
+    //solo la animación. del fin de la partida ya se encarga ese otro método.
+    //override method morir() {  
+    //    super()
+    //    game.schedule(1500, {self.terminarJuego()})        
+    //}
     
     
     // method terminarJuego() {
@@ -236,7 +257,7 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 5) {
     }
 
     method moverseSiNoHayOtroA(posicionSiguiente) { //El ojo se mueve si no hay otro enemigo en la celda. Así se evitan choques entre ellos.
-        if(!dungeon.hayEnemigoEn(posicionSiguiente)) {
+        if(!dungeon.hayAlgoEn(posicionSiguiente)) {
             position = posicionSiguiente
         }
     }
@@ -316,6 +337,8 @@ class Goblin inherits Enemigo(turnoRequeridoParaHabilidad = 2) {
     }
 
 }
+
+/////////////  FACTORIES DE ENEMIGOS ////////////
 
 object fabricaDeOjoVolador {
 

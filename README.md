@@ -1,4 +1,4 @@
-# RPG por Turnos (aún sin nombre)
+# El Guardián
 
 ## Equipo de desarrollo
 

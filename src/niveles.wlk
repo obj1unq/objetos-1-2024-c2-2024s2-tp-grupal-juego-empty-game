@@ -6,7 +6,6 @@ import randomizer.*
 import posiciones.*
 import paleta.*
 import armas.*
-import paredes.*
 import pelea.*
 import mapa.*
 
@@ -82,7 +81,6 @@ object nivel2 inherits Nivel(enemigosSpawneados = 1){
      override method pasarNivel() {
         //self.validarPasarNivel()
         super()
-        
         arenaJefe.dibujar()
     }
 }
@@ -122,6 +120,6 @@ object arenaJefe inherits Nivel(enemigosSpawneados = 1) {
         self.limpiarTablero()
         mapa.limpiar()
         gestorDeFondo.image("fondoVictoria.png")
-        game.stop()
+        game.stop() //puede que requiera schedule de unos segundos o la imagen no alcanza a cargar
     }
 }

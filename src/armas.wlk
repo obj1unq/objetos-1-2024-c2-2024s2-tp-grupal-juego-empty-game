@@ -19,6 +19,8 @@ class Arma {
     method emojiParaInfoCombate
     method imagenHabilidadEspecialParaBarra()
     method realizarActualizacionDeArmas()
+    method sonidoDelArma()
+    method sonidoDelArmaEspecial()
     
     method ejecutarHabilidadEspecial() {
         portador.gastarFuerzaAcumulada()
@@ -85,6 +87,14 @@ class Espada inherits ArmaEncontrable {
         return "Aturdimiento"
     }
 
+    override method sonidoDelArma() {
+       game.sound("espada.mp3").play()
+    }
+    
+    override method sonidoDelArmaEspecial() {
+       game.sound("aturdimiento.mp3").play()
+    }
+
 }
 
 class Lanza inherits ArmaEncontrable {
@@ -111,6 +121,14 @@ class Lanza inherits ArmaEncontrable {
 
     override method imagenHabilidadEspecialParaBarra() {
         return "Embestida"
+    }
+
+    override method sonidoDelArma() {
+        game.sound("lanza.mp3").play()
+    }
+
+    override method sonidoDelArmaEspecial() {
+        game.sound("embestida.mp3").play()
     }
 
 }
@@ -143,6 +161,14 @@ class Maza inherits ArmaEncontrable {
         return "Envenenamiento"
     }
 
+    override method sonidoDelArma() {
+       game.sound("hacha.mp3").play()
+    }
+
+    override method sonidoDelArmaEspecial() {
+        game.sound("envenenamiento.mp3").play()
+    }
+
 }
 
 //objeto especial que representa al arma por default
@@ -171,6 +197,14 @@ object mano inherits Arma(durabilidad = "Infinita") {
     override method ejecutarHabilidadEspecial() { //PUÑETAZO 
         super()
         self.objetivo().recibirDanho(self.danho()*7) //35 de daño
+    }
+
+    override method sonidoDelArma() {
+       game.sound("puñetazo.mp3").play()
+    }
+
+    override method sonidoDelArmaEspecial() {
+      game.sound("puñetazoH.mp3").play()
     }
     
 }

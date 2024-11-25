@@ -267,6 +267,7 @@ class OjoVolador inherits Enemigo(turnoRequeridoParaHabilidad = 5) {
     override method utilizarHabilidad() {
         salud += danhoBase * 2.5
         barraEstadoPeleas.image("barraEnemigoHabilidadSanacion.png")
+        game.sound("sanacion.mp3").play()
     }
 
 }
@@ -311,6 +312,7 @@ class Esqueleto inherits Enemigo(turnoRequeridoParaHabilidad = 4) {
         salud += danhoBase * 1.5
         objetivoADestruir.recibirDanho(danhoBase * 1.5)
         barraEstadoPeleas.image("barraEnemigoHabilidadRoboDeSalud.png")
+        game.sound("sanacion.mp3").play()
     }
 
 }

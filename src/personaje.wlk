@@ -178,7 +178,7 @@ object personaje {
 
 	method recibirDanho(cantidad) {
 		if(cantidad < salud) { //si NO se muere (porque, al morir, ya hace otro sonido distinto)
-			game.sound("ouch.mp3").play() // esta cn el primer ocuh pq el otro no lo toma.
+			game.sound("ouch1.mp3").play() // esta cn el primer ocuh pq el otro no lo toma.
 		}
 		salud = (salud - cantidad).max(0)
 	}

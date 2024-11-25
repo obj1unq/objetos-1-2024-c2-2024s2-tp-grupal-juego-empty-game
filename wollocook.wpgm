@@ -29,5 +29,8 @@ program wollocook {
     //muebles de abajo
     imagenes.mueblesAbajoImg()
 
+    //muebles en recepcion
+    imagenes.mueblesRes()
+
     game.start()
 }

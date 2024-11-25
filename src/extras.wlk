@@ -122,8 +122,8 @@ object dungeon {
 object juego {
     method empezar() {
         gestorDeFondo.image("fondoPrincipio2.png")
-        game.schedule(3000, {gestorDeFondo.image("fondoPrincipio3.png")})
-        game.schedule(6000, {self.cargar()})
+        game.schedule(7000, {gestorDeFondo.image("fondoPrincipio3.png")})
+        game.schedule(10000, {self.cargar()})
     }
 
     method cargar() {
@@ -135,7 +135,7 @@ object juego {
 }
 
 object gestorDeFondo {
-    var property image = "fondoTitulo.png"
+    var property image = "fondoTitulo1.png"
 
     method position() {
         return game.at(0,0)

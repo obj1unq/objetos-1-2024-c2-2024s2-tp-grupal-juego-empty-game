@@ -81,7 +81,7 @@ object nivel2 inherits Nivel(enemigosSpawneados = 1){
      override method pasarNivel() {
         //self.validarPasarNivel()
         super()
-        
+        dungeon.registrarEnemigo(jefeFase1)
         arenaJefe.dibujar()
     }
 }

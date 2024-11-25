@@ -16,9 +16,9 @@ program rpgPorTurnos {
 	game.title("El Guardian")
 
 	game.cellSize(32)
-    // dungeon.dibujar()
-    // nivel1.dibujar()
-
+	game.height(25)
+	game.width(30)
+	
 	game.addVisual(gestorDeFondo)
 	keyboard.enter().onPressDo({juego.empezar()})
 	

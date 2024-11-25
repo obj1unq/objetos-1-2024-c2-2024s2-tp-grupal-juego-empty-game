@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+# WOLLOCOOK PIZERIA
 
 ## Equipo de desarrollo
 
@@ -9,15 +9,20 @@
 
 ## Capturas
 
-(agregar)
+![captura1](https://github.com/obj1unq/2024s2-tp-grupal-juego-2024s2-grupo7/blob/instrucciones/assets/Captura%20de%20pantalla%202024-11-25%20165652.png)
+![captura2](https://github.com/obj1unq/2024s2-tp-grupal-juego-2024s2-grupo7/blob/instrucciones/assets/Captura%20de%20pantalla%202024-11-24%20233005.png)
 
 ## Reglas de Juego / Instrucciones
 
-(Escribirlas)
+TECLAS:
+
+- ←/↑/→/↓ : moverse
+- Q : interactuar con los objetos
+- W : procesar ingredientes
 
 
 ## Otros
 
-- Curso/Facultad
-- Versión de wollok
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Objetos 1 || UNQ 
+- Versión de wollok : (no se)
+- Una vez terminado, no tenemos problemas en que el repositorio sea público

@@ -48,17 +48,21 @@ class Horno inherits MuebleParaCocinar(image = "hornoParaPizza.png") {
   }
 
   override method accionDeRecibir(){
+    game.removeVisual(contenido)
     self.cocinar()
   }
 
   override method dar(chef){
+    game.removeTickEvent("cocinarContenido")
+    game.removeTickEvent("subirleTemperatura")
+    game.addVisual(contenido)
     super(chef)
     temperatura = 0
   }
 
    method cocinar() { 
     game.onTick(2500, "cocinarContenido", {contenido.serCocinada()})
-    game.onTick(2500, "subirle temperatura", {self.subirNivelDeHorno()})
+    game.onTick(2500, "subirleTemperatura", {self.subirNivelDeHorno()})
   } 
 
   method subirNivelDeHorno(){

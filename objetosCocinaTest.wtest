@@ -4,8 +4,10 @@ import objetosParaTests.*
 
 import wollok.game.*
 
-describe "funcionalidad horno" {
+describe "funcionalidad horno" { 
   test "el horno recibe pizzas porque esta libre y luego devuelve la pizza porque el chef tiene las manos vacias" { 
+    game.addVisual(masa)
+    
     remy.bandeja(masa)
     masa.serProcesado()
     horno.usarse(remy)
@@ -19,8 +21,9 @@ describe "funcionalidad horno" {
      assert.notThat(remy.tengoBandejaVacia())
     
   }
-
   test "ocurre un fallo porque el horno no puede recibir más de 1 pizza" { 
+    game.addVisual(masa)
+
     remy.bandeja(masa)
     masa.serProcesado()
     horno.usarse(remy)

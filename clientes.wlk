@@ -81,7 +81,7 @@ class Cliente inherits Persona(position = game.at(86,25)){
 
     method reaccionBuena() {
       self.pagarPedido()
-      adminCliente.retirarCliente(self)
+      game.schedule(1000, {adminCliente.retirarCliente(self)})
     }
 
     method reaccionMala()
@@ -123,7 +123,7 @@ class ClienteNormal inherits Cliente(nivelDePaciencia = 40000, image = "image_cl
 
   override method irseSinNada() {
     super()
-    adminCliente.retirarCliente(self)
+    game.schedule(1000, {adminCliente.retirarCliente(self)})
   }
 }
 
@@ -152,7 +152,7 @@ class ClienteQuisquilloso inherits Cliente(nivelDePaciencia = 30000, image = "im
   override method reaccionMala(){
     emocion = enojado
     self.robar()
-    adminCliente.retirarCliente(self)
+    game.schedule(1000, {adminCliente.retirarCliente(self)})
   }
 
   method robar(){

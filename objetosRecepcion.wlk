@@ -1,5 +1,5 @@
 import mueblesBase.*
-
+import mapaObjetos.*
 import wollok.game.*
 
 object caja { 
@@ -32,12 +32,25 @@ class MuebleSeparador inherits Mueble(image = "separador_recepcion.png"){
   override method usarse(chef){}
 } 
 
-class Mostrador inherits Mueble(image = "mueble_entrega.png") {
+class Mostrador inherits MuebleParaCocinar(image = "mueble_entrega.png") {
+  const ubicacion = restaurante1
   
-  override method usarse(chef){
-    //hacer 
+
+  override method accionDeRecibir() {
+    self.validarAccionRecibir()
+    super()
+    self.avisarACliente()
   }
 
+  method validarAccionRecibir() {
+    if(not ubicacion.llegoCliente()) {
+      self.error("Aun no llego un cliente")
+    }
+  }
+
+  method avisarACliente() {
+    ubicacion.cliente().recibirPedido(contenido)
+  }
 }
 
 class MesaDeco inherits Mueble(image = "mesa_deco.png") {}

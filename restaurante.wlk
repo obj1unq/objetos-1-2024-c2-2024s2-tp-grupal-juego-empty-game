@@ -26,6 +26,15 @@ class Restaurante {
     method hayMuebleAqui(position){
       return self.hayObjetoDeListaAqui(muebles, position)
     }
+
+
+    method cliente() {
+      return clientes.head()
+    }
+
+    method llegoCliente() {
+      return not clientes.isEmpty()
+    }
   
 //probar:
     method hayClienteAqui(position) { //cambiarlo por "hayFila()" tal vez

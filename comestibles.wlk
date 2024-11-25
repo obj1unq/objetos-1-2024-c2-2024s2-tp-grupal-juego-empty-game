@@ -237,11 +237,43 @@ class Hongo inherits Ingrediente( image = "hongo_inicial.png", imgProcesadoFinal
     }
 }
 
-object ingredienteMasa {}
-object ingredienteQueso {}
-object ingredienteTomate {} 
-object ingredienteSalsa{}
-object ingredienteAceituna {}
-object ingredienteHuevo {}
-object ingredienteAtun {}
-object ingredienteHongo {}
+object ingredienteMasa {
+    override method toString() {
+        return "Masa"
+    }
+}
+object ingredienteQueso {
+    override method toString() {
+        return "Queso"
+    }
+}
+object ingredienteTomate {
+    override method toString() {
+        return "Tomate"
+    }
+} 
+object ingredienteSalsa{
+    override method toString() {
+        return "Salsa"
+    }
+}
+object ingredienteAceituna {
+    override method toString() {
+        return "Aceituna"
+    }
+}
+object ingredienteHuevo {
+    override method toString() {
+        return "Huevo"
+    }
+}
+object ingredienteAtun {
+    override method toString() {
+        return "Atun"
+    }
+}
+object ingredienteHongo {
+    override method toString() {
+        return "Hongo"
+    }
+}

@@ -1,5 +1,6 @@
 import mapaObjetos.*
 import mapa.*
+import adminClientes.*
 
 
 import wollok.game.*
@@ -31,6 +32,8 @@ program wollocook {
 
     //muebles en recepcion
     imagenes.mueblesRes()
+
+    adminCliente.crearCliente()
 
     game.start()
 }

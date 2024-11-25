@@ -76,6 +76,7 @@ object personaje {
 	/// ARMA    
     method equiparArma(armaNueva){
 		self.validarEquiparArma()
+		game.sound("anadirCosa.mp3").play()
     	bolsa.add(armaNueva) // mete el arma en la bolsa (atrás)
     }
     
@@ -119,6 +120,7 @@ object personaje {
 	method mover(direccion) {
 		self.validarMover(direccion)
 		position = direccion.siguiente(position)
+		game.sound("paso.mp3").play()
 		dungeon.accionEnemigos()
 	}   
 
@@ -167,6 +169,7 @@ object personaje {
 
 	method realizarAtaqueComun() {
 		enemigoCombatiendo.recibirDanho(self.armaActual().danho()) 
+		self.armaActual().sonidoDelArma()
 		self.armaActual().realizarActualizacionDeArmas()
         esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
 		barraEstadoPeleas.image("barraPersonajeAtaqueComun.png")
@@ -174,6 +177,9 @@ object personaje {
 	}
 
 	method recibirDanho(cantidad) {
+		if(cantidad < salud) { //si NO se muere (porque, al morir, ya hace otro sonido distinto)
+			game.sound("ouch.mp3").play() // esta cn el primer ocuh pq el otro no lo toma.
+		}
 		salud = (salud - cantidad).max(0)
 	}
 
@@ -192,6 +198,7 @@ object personaje {
 
 	method agregarPocion() {
 		self.validarAgregarPocion() // valida si ya tiene 3 en el inventario y no la agarra.
+		game.sound("anadirCosa.mp3").play()
 		cantPociones += 1 
 	}
 
@@ -213,6 +220,7 @@ object personaje {
 	}
 
 	method usarPocionSalud() {
+		game.sound("pocionSalud.mp3").play()
 		self.aumentarSalud(150)
 		cantPociones -= 1
 		esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
@@ -251,6 +259,7 @@ object personaje {
 		game.schedule(800, {self.frame(0)})
 		game.schedule(805, {self.animacion(animacionEstatica)})
 		game.schedule(800, {self.realizarHabilidadEspecial()})
+		game.sound("habilidadEspecialPersonaje.mp3").play() //sonido que nos avisa de que se uso la habilidad especial.
 		game.schedule(810, {combate.cambiarTurnoA(enemigoCombatiendo)})   //como ya terminó el turno del pj, se cambia el turno al enemigo
 	}
 
@@ -263,6 +272,7 @@ object personaje {
 	method realizarHabilidadEspecial() {
 		self.armaActual().ejecutarHabilidadEspecial()
 		self.armaActual().realizarActualizacionDeArmas()
+		self.armaActual().sonidoDelArmaEspecial()
         esTurno = false //Indica que ya pasó turno. Sirve para que no pueda atacar al enemigo cuando no es su turno
 		barraEstadoPeleas.image("barraPersonajeHabilidadEspecial" + self.armaActual().imagenHabilidadEspecialParaBarra() + ".png")
 	}
@@ -273,6 +283,7 @@ object personaje {
 
 	method morir() {
 		self.perderVida() // pierde una vida
+		game.sound("muertepj.mp3").play()
 		self.revivirOFinalizarPartida() // revisa si el pj está muerto (no tiene más vidas) o no y actua en consecuencia
 	}
 
@@ -285,6 +296,8 @@ object personaje {
 	  if (cantVidas <= 0) {
     	self.frame(0)
 		self.animacion(animacionMuerte)
+		game.schedule(900, {game.sound("perdio2.wav").play()})
+		game.schedule(600, {dungeon.detenerMusicaAmbiente()}) //parece q el método stop (tmb pause) tarda en ejecutarse. hay que darle tiempo
 		game.schedule(1000, {dungeon.limpiarTablero()})
 		game.schedule(1005, {gestorDeFondo.image("fondoFin1.png")})
 		game.schedule(1050, {game.stop()})

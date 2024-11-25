@@ -10,6 +10,23 @@ object dungeon {
 
     const property enemigos = []
     const property objetosNoTraspasables = []
+    var property ambiente = game.sound("ambiente.mp3") //var porque ¿la vamos a ir cambiando con los niveles?
+
+    method comenzarMusicaAmbiente() {
+        ambiente.play()
+    }
+
+    method detenerMusicaAmbiente() {
+        ambiente.stop()
+    }
+
+    method comenzarLoopMusicaAmbiente() {
+        ambiente.shouldLoop(true)
+    }
+
+     method detenerLoopMusicaAmbiente() { //por ahora no se usa. lo cree por el tema de la musica ambiente que no paraba al perder.
+        ambiente.shouldLoop(false)
+    }
 
     method registrarEnemigo(enemigo) {
         enemigos.add(enemigo)

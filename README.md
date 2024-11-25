@@ -2,10 +2,9 @@
 
 ## Equipo de desarrollo
 
-- Felipe Isusi
 - Natanson Sofía
-- Belotto, Pablo
-- Enzo Gomez
+- Felipe Isusi
+
 
 ## Capturas
 

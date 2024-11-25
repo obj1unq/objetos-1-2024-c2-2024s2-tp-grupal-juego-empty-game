@@ -80,6 +80,7 @@ class Cliente inherits Persona(position = game.at(88,20)){
     }
 
     method reaccionBuena() {
+      game.removeTickEvent(self)
       self.pagarPedido()
       game.schedule(1000, {adminCliente.retirarCliente(self)})
     }
@@ -150,6 +151,7 @@ class ClienteQuisquilloso inherits Cliente(nivelDePaciencia = 50000, image = "cl
   }
   
   override method reaccionMala(){
+    game.removeTickEvent(self)
     emocion = enojado
     self.robar()
     game.schedule(1000, {adminCliente.retirarCliente(self)})

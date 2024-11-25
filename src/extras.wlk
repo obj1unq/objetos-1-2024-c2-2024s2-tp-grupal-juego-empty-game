@@ -27,6 +27,10 @@ object dungeon {
         enemigos.forEach( {e => enemigos.remove(e) } )
     }
 
+    method removerObjetosNoTraspasables() {
+        objetosNoTraspasables.forEach( {o => objetosNoTraspasables.remove(o) } )
+    }
+
     method accionEnemigos() {
         enemigos.forEach({enemigo => enemigo.reaccionarAMovimiento()})
     }
@@ -89,6 +93,7 @@ object dungeon {
 
     method pasarNivel(){
         self.removerEnemigos()  //sin esto la lista de enemigos de la dungeon tiene enemigos dentro que se cargar invisibles si Quedan despues de pasar de nivel
+        self.removerObjetosNoTraspasables() //este sí va!! si no, los objetos quedan intraspasables para los siguientes lvls
         nivelActual.pasarNivel()
         nivelActual = niveles.get(nivelNum) //si se resuelve con postcálculo, se evita esto
     }

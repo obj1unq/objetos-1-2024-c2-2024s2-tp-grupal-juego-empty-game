@@ -50,7 +50,7 @@ class Nivel {
 
         game.height(self.tablero().size())
         game.width(self.tablero().get(0).size())
-        
+
         game.allVisuals().forEach( { visual => game.removeVisual(visual)})
 
         console.println("Limpiado")

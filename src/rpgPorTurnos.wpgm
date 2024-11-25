@@ -40,7 +40,5 @@ program rpgPorTurnos {
 	game.onTick(200, "animacion", {dungeon.animacionEnemigos()})
 	game.onTick(200, "animacion", {personaje.cambiarAnimacion()})
 
-
-
 	game.start()
 }

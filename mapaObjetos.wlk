@@ -22,10 +22,10 @@ caja,sep1,mostrador,sep2,sep3,sep4,sep5,sep6,sep7,sep8,sep9,sep10
 
 ])
 
+//NO USAR POSICIONES DECIMALES!!
+
 //chef principal:
 const remy = new Chef( name = "Remy", position = game.at(9,48), image = "Remy_down.png", ubicacion = restaurante1) 
-
-//NO USAR DECIMALES PARA POSICIONAR COSAS
 
 //tomates factory  game.at(6, 63)
 //masas factory game.at(22,63)
@@ -50,9 +50,9 @@ const mesada6 = new Mesada(position = game.at(75,44))
 
 const sep1 = new MuebleSeparador(position = game.at(116, 25)) 
 const sep2 = new MuebleSeparador(position = game.at(106,25))
-//caja 96, 25
+const sep3 = new MuebleSeparador(position = game.at(96,25))
 const mostrador = new Mostrador(position = game.at(86,25)) 
-const sep3 = new MuebleSeparador(position = game.at(76,25))
+//caja 76,25
 const sep4 = new MuebleSeparador(position = game.at(66,25))
 const sep5 = new MuebleSeparador(position = game.at(56,25))
 const sep6 = new MuebleSeparador(position = game.at(46,25))

@@ -12,7 +12,7 @@ object adminWinCon {
     }
 
     method perder() {
-        if(caja.plata() <= caja.objetivo()) {
+        if(cajaFondos.plata() <= cajaFondos.objetivo()) {
             game.addVisual(youLose)
             game.schedule(3000, {game.stop()})
         }

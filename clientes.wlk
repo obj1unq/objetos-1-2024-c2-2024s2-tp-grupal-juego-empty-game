@@ -9,7 +9,7 @@ import wollok.game.*
 class Cliente inherits Persona(position = game.at(88,20)){ 
     var pedidoQueEspero = []
     var emocion = neutral 
-    var nivelDePaciencia = null 
+    var nivelDePaciencia = null
     var property manos = bandejaVacia
 
     method emocion() {
@@ -37,7 +37,6 @@ class Cliente inherits Persona(position = game.at(88,20)){
 
     method anunciarPedido() { 
       game.say(self, self.pedidoAString())
-      //self.text()
     }
     
     method pedidoAString() { 

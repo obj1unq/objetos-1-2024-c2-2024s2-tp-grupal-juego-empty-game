@@ -41,6 +41,18 @@ class Restaurante {
     method mostrador() {
       return game.at(88,20)
     }
+
+    method personaFrenteAMostrador() {
+      return game.getObjectsIn(self.mostrador())
+    }
+
+    method addCliente(cliente) {
+      clientes.add(cliente)
+    }
+
+    method quitarCliente(cliente) {
+      clientes.remove(cliente)
+    }
   
 }
 

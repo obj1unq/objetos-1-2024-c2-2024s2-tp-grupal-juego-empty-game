@@ -6,7 +6,6 @@ import wollok.game.*
 
 object adminCliente {
     const factories = #{factoryNormal, factoryPaciente, factoryQuisquilloso}
-    var hayCliente = false 
     var ubicacion = restaurante1
 
     method ubicacion(_ubicacion) {
@@ -14,23 +13,24 @@ object adminCliente {
     }
 
     method crearCliente() {
+       
         const nuevoCliente = self.clienteRandom()
         
-        ubicacion.clientes().add(nuevoCliente)
+        ubicacion.addCliente(nuevoCliente)
         game.addVisual(nuevoCliente)
         nuevoCliente.hacerPedido()
+        
+        
     }
 
     method retirarCliente(cliente) {
         game.removeTickEvent(cliente)
-        cliente.mover(abajo)
         game.schedule(500, {self.eliminar(cliente)})
     }
 
     method eliminar(cliente) {
-        ubicacion.clientes().remove(cliente)
+        ubicacion.quitarCliente(cliente)
         game.removeVisual(cliente)
-        hayCliente = false
         game.schedule(1500, {self.crearCliente()})
     }
     

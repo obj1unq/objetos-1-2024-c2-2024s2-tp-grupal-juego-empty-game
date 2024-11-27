@@ -2,11 +2,12 @@ import mueblesBase.*
 import mapaObjetos.*
 import wollok.game.*
 import personaBase.*
+import adminDeVictoria.*
 
 object caja { 
   const property image = "caja.png"
   const property position = game.at(76, 25)
-  var property objetivo = 5000
+  var property objetivo = 3100
 
   var plata = 0
 
@@ -16,21 +17,25 @@ object caja {
 
   method recibir(_plata){
     plata += _plata
-    self.decirPlata()
+    self.considerarVictoria()
+  }
+
+  method considerarVictoria() {
+    if(plata >= objetivo) {
+      adminWinCon.ganar()
+    }
   }
 
   method gastar(_plata){
     plata -= _plata
-    self.decirPlata()
   }
 
-  method decirPlata(){ 
-    game.say(self, plata)
+  method cuantoFalta() {
+    return (objetivo - plata).max(0).toString()
   }
 
   method recibirTip(tip){
     self.recibir(tip)
-    self.decirPlata()
   }
 
 }

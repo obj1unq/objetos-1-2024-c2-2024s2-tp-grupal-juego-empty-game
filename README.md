@@ -20,6 +20,7 @@ TECLAS:
 - W : procesar ingredientes
 - E : preguntar pedido
 - R : cambiar modo de correr a caminar/ caminar a correr
+- T : indica cuanto dinero falta para ganar
 
 
 ## Otros

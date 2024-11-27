@@ -26,7 +26,8 @@ class Cliente inherits Persona(position = game.at(88,20)){
     }
 
     method anunciarPedido() { 
-      game.say(self, self.pedidoAString())
+      //game.say(self, self.pedidoAString())
+      self.text()
     }
     
     method text(){

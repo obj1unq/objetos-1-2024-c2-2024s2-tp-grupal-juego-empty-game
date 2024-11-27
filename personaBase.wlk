@@ -13,7 +13,8 @@ class Persona {
 
     method mover(direccion) {
       orientacion = direccion
-      orientacion.moverse(self, velocidad)
+	orientacion.moverse(self)
+      //orientacion.moverse(self, velocidad)
 	}
 
     method dondeApunta() { 

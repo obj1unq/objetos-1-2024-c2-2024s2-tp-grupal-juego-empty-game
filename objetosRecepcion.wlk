@@ -6,6 +6,7 @@ import personaBase.*
 object caja { 
   const property image = "caja.png"
   const property position = game.at(76, 25)
+  var property objetivo = 5000
 
   var plata = 0
 
@@ -58,7 +59,7 @@ class Mostrador inherits MuebleParaCocinar(image = "mueble_entrega.png") {
   }
 
   method avisarACliente() {
-    ubicacion.cliente().recibirPedido(contenido)
+    ubicacion.clienteActual().recibirPedido(contenido)
     contenido = bandejaVacia
   }
 }

@@ -5,8 +5,6 @@ import adminClientes.*
 
 import wollok.game.*
 
-//se necesitan comentarios sobre los onTick y Schedules, no los entiendo
-
 
 class Cliente inherits Persona(position = game.at(88,20)){ 
     var pedidoQueEspero = []
@@ -38,18 +36,10 @@ class Cliente inherits Persona(position = game.at(88,20)){
     }
 
     method anunciarPedido() { 
-      //game.say(self, self.pedidoAString())
-      self.text()
+      game.say(self, self.pedidoAString())
+      //self.text()
     }
     
-    method text(){
-      return self.pedidoAString()
-    }
-
-    method textColor(){
-      return "#000000"
-    }
-
     method pedidoAString() { 
       return "Quiero una pizza con " + self.pedidoQueEspero().join(", ") + ", por favor!"
     }
@@ -145,7 +135,7 @@ class ClienteNormal inherits Cliente(nivelDePaciencia = 90000, image = "cliente_
   }
 
     method valorTip(){
-    return 0.randomUpTo(disponibilidadParaTip)
+    return 5.randomUpTo(disponibilidadParaTip)
   }
   
   override method reaccionMala(){

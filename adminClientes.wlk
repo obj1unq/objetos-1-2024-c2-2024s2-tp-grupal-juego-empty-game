@@ -4,8 +4,6 @@ import mapaObjetos.*
 
 import wollok.game.*
 
-//se necesitan comentarios sobre los onTick y Schedules, no los entiendo
-
 object adminCliente {
     const factories = #{factoryNormal, factoryPaciente, factoryQuisquilloso}
     var hayCliente = false 
@@ -17,11 +15,10 @@ object adminCliente {
 
     method crearCliente() {
         const nuevoCliente = self.clienteRandom()
+        
         ubicacion.clientes().add(nuevoCliente)
         game.addVisual(nuevoCliente)
-        
         nuevoCliente.hacerPedido()
-        
     }
 
     method retirarCliente(cliente) {

@@ -64,3 +64,34 @@ const sep10 = new MuebleSeparador(position = game.at(6,25))
 //decoracion:
 const deco1 = new MesaDeco(position = game.at(22,12))
 const deco2 = new MesaDeco(position = game.at(49,12))
+
+/*Interfaz
+const cartel1 = new Cartel(position = game.at(0,0))
+const cartel2 = new Cartel(position = game.at(0,6))
+const texto1 = new Text(position = game.at(7,2), textoAMostrar = caja.plata().toString() + "$")
+const texto2 = new Text(position = game.at(7,8), textoAMostrar = caja.objetivo().toString() + "$")
+const texto3 = new Text(position = game.at(3,11), textoAMostrar = "Objetivo:")
+const texto4 = new Text(position = game.at(6,5), textoAMostrar = "Total Acumulado:")
+
+class Cartel {
+  const property position = null
+  const property image = "cartel.png"
+
+}
+
+class Text {
+    const objetoFuente = caja
+    const property position = null
+    var textoAMostrar = null //caja.plata().toString() + "$"
+
+    method text() {
+        return textoAMostrar
+    }
+
+    method textColor(){
+      return "FF000FFF"
+    }
+
+}
+
+//class TextObjetivo inherits Text() {}*/

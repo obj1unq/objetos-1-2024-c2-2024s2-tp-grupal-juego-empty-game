@@ -30,7 +30,7 @@ class Restaurante {
     }
 
 
-    method cliente() {
+    method clienteActual() {
       return clientes.head()
     }
 

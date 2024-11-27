@@ -37,10 +37,6 @@ class Persona {
       return 5
     }
 
-    method decirPosicion() {
-      game.say(self, position.toString())
-    }
-
 }
 
 object bandejaVacia {

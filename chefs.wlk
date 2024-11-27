@@ -28,7 +28,7 @@ class Chef inherits Persona {
     }
 
     method soltar(){
-      bandeja = bandejaVacia //la bandeja representa el no tener nada
+      bandeja = bandejaVacia 
     }
 
     method recibir(ingrediente) {
@@ -40,6 +40,10 @@ class Chef inherits Persona {
      const mueble = ubicacion.muebleAqui(self.dondeApunta())
 
      mueble.procesarIngredientes()
+    }
+
+    method preguntarPedido() {
+      ubicacion.clienteActual().anunciarPedido()
     }
     
 }

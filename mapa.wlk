@@ -27,7 +27,7 @@ object teclas{
     keyboard.right().onPressDo({remy.mover(derecha)})
     keyboard.left().onPressDo({remy.mover(izquierda)})
     keyboard.r().onPressDo({remy.cambiarModo()}) //correr/caminar
-    keyboard.p().onPressDo({remy.decirPosicion()})
+    keyboard.e().onPressDo({remy.preguntarPedido()})
     }
 
     //LAS INTERACCIONES SI ANDAN SOLO QUE UNICO DETALLITO QUE SE PODRÍA CAMBIAR DESPUÉS SI PUEDO ES QUE EL MUEBLE SE TRABAJE CON UN AREA MÁS QUE CON UNA POSICION ESPECIICA PORQUE TENES QUE DARLE CLICK EN UN LUGAR MEDIO ESPECIFICO A LOS OBJETOS PARA INTERACTUAR
@@ -87,6 +87,12 @@ object imagenes {
         game.addVisual(sep10)
         game.addVisual(deco1)
         game.addVisual(deco2)
+        /*game.addVisual(cartel1)
+        game.addVisual(cartel2)
+        game.addVisual(texto1)
+        game.addVisual(texto2)
+        game.addVisual(texto3)
+        game.addVisual(texto4)*/
     }
 
 }

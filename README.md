@@ -18,6 +18,7 @@ TECLAS:
 - ←/↑/→/↓ : moverse
 - Q : interactuar con los objetos
 - W : procesar ingredientes
+- E : preguntar pedido
 - R : cambiar modo de correr a caminar/ caminar a correr
 
 

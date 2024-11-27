@@ -59,7 +59,7 @@ class Cliente inherits Persona(position = game.at(88,20)){
       game.removeTickEvent(self)  
       manos = pizza
       game.removeVisual(manos)
-      manos.ocultarIngredientes()
+      manos.eliminarConIngredientes()
       game.schedule(1000, {self.reaccionarAPedido()})
     }
 

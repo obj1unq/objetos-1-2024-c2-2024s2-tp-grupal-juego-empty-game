@@ -48,12 +48,14 @@ class Horno inherits MuebleParaCocinar(image = "hornoParaPizza.png") {
 
   override method accionDeRecibir(){
     game.removeVisual(contenido)
+    contenido.ocultarIngredientes()
     self.cocinar()
   }
 
   override method dar(chef){
     game.removeTickEvent("cocinarContenido")
     game.addVisual(contenido)
+    contenido.mostrarIngredientes()
     super(chef)
   }
 
@@ -66,7 +68,7 @@ class Horno inherits MuebleParaCocinar(image = "hornoParaPizza.png") {
 class Tacho inherits Mueble(image = "tacho.png") {
 
   override method usarse(chef){
-     game.removeVisual(chef.bandeja())
+     //game.removeVisual(chef.bandeja())
      chef.bandeja().eliminarConIngredientes()
      chef.soltar()
   }

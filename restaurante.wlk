@@ -4,6 +4,8 @@ import factoryIngredientes.*
 import objetosParaTests.*
 import clientes.*
 
+import wollok.game.*
+
 
 class Restaurante {
 

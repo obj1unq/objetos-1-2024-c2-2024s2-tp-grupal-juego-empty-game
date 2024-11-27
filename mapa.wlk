@@ -26,6 +26,7 @@ object teclas{
     keyboard.down().onPressDo({remy.mover(abajo)})
     keyboard.right().onPressDo({remy.mover(derecha)})
     keyboard.left().onPressDo({remy.mover(izquierda)})
+    keyboard.r().onPressDo({remy.cambiarModo()}) //correr/caminar
     }
 
     //LAS INTERACCIONES SI ANDAN SOLO QUE UNICO DETALLITO QUE SE PODRÍA CAMBIAR DESPUÉS SI PUEDO ES QUE EL MUEBLE SE TRABAJE CON UN AREA MÁS QUE CON UNA POSICION ESPECIICA PORQUE TENES QUE DARLE CLICK EN UN LUGAR MEDIO ESPECIFICO A LOS OBJETOS PARA INTERACTUAR

@@ -9,10 +9,11 @@ class Persona {
     var property image = "Remy_down.png"  //por default
     const property ubicacion = restaurante1
     const name = "Remy"  //por default
+    var velocidad = 1 
 
     method mover(direccion) {
       orientacion = direccion
-      orientacion.moverse(self)
+      orientacion.moverse(self, velocidad)
 	}
 
     method dondeApunta() { 
@@ -21,6 +22,11 @@ class Persona {
 
     method name(){
       return name
+    }
+
+    method cambiarModo(){ //corre -> camina / camina -> corre
+      velocidad =
+      if(velocidad == 1) 4 else 1
     }
 
 }
@@ -33,4 +39,6 @@ object bandejaVacia {
   method integraIngredintes(){ 
     return false
   }
+
+  method precio(){ return 0 }
 }

@@ -35,6 +35,10 @@ class Restaurante {
     method llegoCliente() {
       return not clientes.isEmpty()
     }
+
+    method mostrador() {
+      return game.at(88,20)
+    }
   
 }
 

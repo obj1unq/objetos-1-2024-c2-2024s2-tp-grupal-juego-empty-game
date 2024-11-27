@@ -8,6 +8,11 @@ object caja {
   const property position = game.at(76, 25)
 
   var plata = 0
+
+  method plata() {
+    return plata
+  }
+
   method recibir(_plata){
     plata += _plata
     self.decirPlata()
@@ -34,8 +39,11 @@ class MuebleSeparador inherits Mueble(image = "separador_recepcion.png"){
 } 
 
 class Mostrador inherits MuebleParaCocinar(image = "mueble_entrega.png") {
-  const ubicacion = restaurante1
+  var ubicacion = restaurante1
   
+  method ubicacion(_ubicacion) {
+    ubicacion = _ubicacion
+  }
 
   override method accionDeRecibir() {
     self.validarAccionRecibir()

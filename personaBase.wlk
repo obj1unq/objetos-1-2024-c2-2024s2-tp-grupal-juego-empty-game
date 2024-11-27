@@ -7,10 +7,13 @@ class Persona {
     var property orientacion = abajo //en donde está mirando, property para los tests
     var property position = game.at(0,0) 
     var property image = "Remy_down.png"  //por default
-    const property ubicacion = restaurante1
+    var ubicacion = restaurante1
     const name = "Remy"  //por default
     var velocidad = 1 
-    
+
+    method ubicacion() {
+      return ubicacion
+    }
 
     method mover(direccion) {
       orientacion = direccion
